@@ -96,7 +96,6 @@ public class testFastMap
     @Before
     public void setUp()
     {
-        mDevice.getCurrentActivityName()
         // Initialize UiDevice instance
         //mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
 
