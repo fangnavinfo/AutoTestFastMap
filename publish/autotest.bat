@@ -1,0 +1,1 @@
+bat\autotest.bat | mtee report.txt
