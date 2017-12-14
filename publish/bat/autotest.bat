@@ -8,7 +8,7 @@ set PackageName=%PackageName:~8,-1%
 %ADBCMD% shell am force-stop %PackageName%
 %ADBCMD% uninstall %PackageName%
 %ADBCMD% shell rm -rf /sdcard/FastMap*
-%ADBCMD% install ../../apk/FastMap3.0HD-release.apk
+%ADBCMD% install ../apk/FastMap3.0HD-release.apk
 
 set downmeta=true
 set downnds=true
