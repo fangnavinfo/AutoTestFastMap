@@ -51,32 +51,10 @@ public class testFastMap
 
         mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
 
-        String rslt = mDevice.executeShellCommand("pm list packages");
-        String[] array  = rslt.split("\n");
+        packageName = getPackageName();
 
-        for (int i=0; i<array.length; i++)
-        {
-            if (array[i].contains("com.fastmap.hd."))
-            {
-                packageName = array[i].substring(8);
-                break;
-            }
-        }
+        clearCollect();
 
-
-
-/*        mDevice.pressHome();
-
-        //删除采集数据
-        Log.i("AndroidUiTool2", mDevice.executeShellCommand("rm -rf /sdcard/FastMap18Spring/Data/Collect/3655/coremap.sqlite"));
-        Log.i("AndroidUiTool2", mDevice.executeShellCommand("rm -rf /sdcard/FastMap18Spring/Data/Collect/3655/coremap.shm"));
-        Log.i("AndroidUiTool2", mDevice.executeShellCommand("rm -rf /sdcard/FastMap18Spring/Data/Collect/3655/coremap.wal"));
-        Thread.sleep(5000);
-
-        //启动FastMap
-        mDevice.findObject(By.desc("FastMap-18春")).click();
-        Thread.sleep(5000);
-*/
         waitAppStart();
 
         loginProcess();
@@ -449,6 +427,49 @@ public class testFastMap
         Click("btn_fm_confirm");
 
         ExitGridManager();
+    }
+
+    private static String getPackageName() throws Exception
+    {
+        String rslt = mDevice.executeShellCommand("pm list packages");
+        String[] array  = rslt.split("\n");
+
+        for (int i=0; i<array.length; i++)
+        {
+            if (array[i].contains("package:com.fastmap.hd"))
+            {
+                String name = array[i].substring("package:".length());
+                return name;
+            }
+        }
+
+        throw new Exception("fastmap not install!");
+    }
+
+    private static void clearCollect() throws IOException
+    {
+        String rslt = mDevice.executeShellCommand("ls /sdcard/");
+        String[] array  = rslt.split("\n");
+
+        String dirName = "";
+        for (int i=0; i<array.length; i++)
+        {
+            if (array[i].contains("FastMap"))
+            {
+                dirName = array[i];
+            }
+        }
+
+        if (dirName.isEmpty())
+        {
+            return;
+        }
+
+        dirName = "/sdcard/" + dirName +"/Data/Collect/3655/";
+
+        mDevice.executeShellCommand("rm -rf " + dirName + "coremap.sqlite");
+        mDevice.executeShellCommand("rm -rf " + dirName + "oremap.shm");
+        mDevice.executeShellCommand("rm -rf " + dirName + "coremap.wal");
     }
 
     private static void  waitAppStart() throws InterruptedException {
