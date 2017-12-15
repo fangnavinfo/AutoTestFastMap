@@ -13,3 +13,4 @@ tools目录		用于放置使用的工具程序，包括adb和mtee
 
 
 4、注意：autotest和autotest_no_install运行时都会清除已有的采集数据。而且autotest将会删除重建整个FastMap3.0目录
+
