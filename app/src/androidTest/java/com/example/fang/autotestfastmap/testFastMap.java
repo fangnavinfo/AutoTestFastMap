@@ -101,7 +101,7 @@ public class testFastMap
     }
 
     @Test
-    public void test001_add_poi() throws InterruptedException
+    public void test00101_poi_add() throws InterruptedException
     {
         Click(newPOIPoint, 6000);
 
@@ -149,7 +149,7 @@ public class testFastMap
     }
 
     @Test
-    public void test002_add_tips_point_TrafficLight() throws InterruptedException
+    public void test00201_tips_point_TrafficLight_add() throws InterruptedException
     {
         mDevice.drag(700, 823, 1024, 823, 10);
         Thread.sleep(1000);
@@ -169,7 +169,7 @@ public class testFastMap
     }
 
     @Test
-    public void test003_add_tips_line_DrawRoad() throws InterruptedException
+    public void test00301_tips_line_DrawRoad_add() throws InterruptedException
     {
         mDevice.drag(700, 823, 1024, 823, 10);
         Thread.sleep(1000);
@@ -199,7 +199,7 @@ public class testFastMap
     }
 
     @Test
-    public void test004_add_tips_releation_TrackLimit()
+    public void test00401_tips_releation_TrackLimit_add()
     {
         Click(newDrawRoard);
         Click(newDrawTrackLimit);
@@ -223,7 +223,7 @@ public class testFastMap
     }
 
     @Test
-    public void test005_add_QCTask() throws InterruptedException
+    public void test00501_QCTask_add() throws InterruptedException
     {
         GotoIndoorTools();
 
@@ -246,7 +246,7 @@ public class testFastMap
     }
 
     @Test
-    public void test006_Precise_Pas() throws InterruptedException
+    public void test00601_Precise_Pas_add() throws InterruptedException
     {
         mDevice.drag(700, 823, 1024, 823, 10);
         Thread.sleep(1000);
@@ -269,7 +269,7 @@ public class testFastMap
     }
 
     @Test
-    public void test007_add_info_Point() throws InterruptedException
+    public void test00701_info_Point_add() throws InterruptedException
     {
         mDevice.drag(700, 823, 1024, 823, 10);
         Thread.sleep(1000);
@@ -301,7 +301,7 @@ public class testFastMap
     }
 
     @Test
-    public void test008_add_info_Line() throws InterruptedException
+    public void test00801_info_Line_add() throws InterruptedException
     {
         mDevice.drag(700, 823, 1024, 823, 10);
         Thread.sleep(1000);
@@ -337,7 +337,7 @@ public class testFastMap
     }
 
     @Test
-    public void test009_add_info_Frame() throws InterruptedException
+    public void test00901_info_Frame_add() throws InterruptedException
     {
         mDevice.drag(700, 823, 1024, 823, 10);
         Thread.sleep(1000);
@@ -473,18 +473,12 @@ public class testFastMap
     }
 
     private static void  waitAppStart() throws InterruptedException {
-        int waitCount = 0;
-        while (mDevice.findObject(By.res(packageName, "login_btn")) == null)
-        {
-            if (waitCount == 10)
-            {
-                fail("fast map not start!");
-            }
-            Thread.sleep(1000);
-            waitCount++;
-            continue;
-        }
 
+        UiObject2 object = mDevice.wait(Until.findObject(By.res(packageName, "login_btn")), 10*1000);
+        if (object == null)
+        {
+            fail("fast map not start!");
+        }
     }
 
     private static void loginProcess()
@@ -495,7 +489,11 @@ public class testFastMap
 
         Click("login_btn");
 
-
+        UiObject2 object = mDevice.wait(Until.findObject(By.res(packageName, "head_icon")), 20*1000);
+        if (object == null)
+        {
+            fail("user login failed!");
+        }
     }
 
     private static void waitDownLoadMetal() throws Exception {
