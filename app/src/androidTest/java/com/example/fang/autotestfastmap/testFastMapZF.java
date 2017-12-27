@@ -11,6 +11,11 @@ import android.support.test.uiautomator.UiObjectNotFoundException;
 import android.support.test.uiautomator.UiScrollable;
 import android.support.test.uiautomator.UiSelector;
 import android.support.test.uiautomator.Until;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import junit.framework.Assert;
 
@@ -122,11 +127,99 @@ public class testFastMapZF extends testFastMapBase
         // 上报情报
         addReport();
         // 同步情报
-        synchronize();
+        synchronize("rb_info_update");
         // 采纳情报
         accept();
         // 检查情报fid
         checkFid();
+
+    }
+
+    // 删除标记
+    @Test
+    public void test00104_tips_delete_check()  throws InterruptedException, UiObjectNotFoundException {
+
+        //添加红绿灯
+        Click(trafficlightButton,500);
+        Click(new Point(1852,482),500);
+        Click("head_icon",500); //点击主界面左上角头像
+        Click("fmcard_tv_user_data",1000); //点击我的数据
+        UiObject2 listViewObj = mDevice.findObject(By.clazz(ListView.class));
+        UiObject2 child = listViewObj.findObject(By.clazz(RelativeLayout.class));
+        child.click();
+        Thread.sleep(500);
+        infoRowkey = mDevice.findObject(By.res(packageName, "et_title")).getText();
+        mDevice.pressBack();
+        Thread.sleep(500);
+        Click("btn_fm_confirm", 500);
+
+        //确认数据
+        Click("fmcard_tv_sync_photos", 1000);
+        Click("tv_my_data", 1000);
+        Click("tv_indoor_my_data_snap_list_item_work_status", 1000);
+        mDevice.pressBack();
+        Thread.sleep(500);
+        mDevice.pressBack();
+        Thread.sleep(500);
+        mDevice.pressBack();
+        Thread.sleep(500);
+
+        //同步数据
+        synchronize("rb_tips_update");
+        Click("btn_fm_confirm", 500);
+        mDevice.pressBack();
+        Thread.sleep(500);
+        mDevice.pressBack();
+        Thread.sleep(500);
+
+        //删除红绿灯
+        Click(deleteButton,500);
+        Click(new Point(710,820),500);
+
+        listViewObj = mDevice.findObject(By.clazz(ListView.class));
+        child = listViewObj.findObject(By.clazz(LinearLayout.class));
+        UiObject2 child2 = child.findObject(By.clazz(RelativeLayout.class));
+        UiObject2 delete = child2.findObject(By.clazz(Button.class));
+        delete.click();
+
+        mDevice.pressBack();
+        Thread.sleep(500);
+        Click(deleteButton,500);
+
+        //确认数据
+        Click("head_icon", 1000);
+        Click("fmcard_tv_sync_photos", 1000);
+        Click("tv_my_data", 1000);
+        Click("tv_indoor_my_data_snap_list_item_work_status", 1000);
+        mDevice.pressBack();
+        Thread.sleep(500);
+        mDevice.pressBack();
+        Thread.sleep(500);
+        mDevice.pressBack();
+        Thread.sleep(500);
+
+        //同步数据
+        synchronize("rb_tips_update");
+
+        //确认
+        Click("btn_fm_confirm", 500);
+        mDevice.pressBack();
+        Thread.sleep(500);
+        Click("fmcard_tv_user_data",1000); //点击我的数据
+        listViewObj = mDevice.findObject(By.clazz(ListView.class));
+        child = listViewObj.findObject(By.clazz(RelativeLayout.class));
+        child.click();
+        Thread.sleep(1000);
+        String rowkey = mDevice.findObject(By.res(packageName, "et_title")).getText();
+
+        mDevice.pressBack();
+        Thread.sleep(500);
+        Click("btn_fm_confirm", 500);
+        mDevice.pressBack();
+        Thread.sleep(500);
+
+
+        assertEquals(infoRowkey, rowkey);
 
     }
 
@@ -174,13 +267,13 @@ public class testFastMapZF extends testFastMapBase
     }
 
     // 同步情报
-    public void synchronize() throws InterruptedException {
+    public void synchronize(String syncType) throws InterruptedException {
 
         Click("head_icon", 1000);
         Click("fmcard_tv_grid_manager", 1000); //Grid管理
-        Click(new Point(900,500));
+        Click(new Point(mDevice.getDisplayWidth()/2,mDevice.getDisplayHeight()/2));
         Click("grid_project_button", 1000);
-        Click("rb_info_update", 1000); //情报数据
+        Click(syncType, 1000); //情报数据
         Click("synchronous_button", 1000); //同步
         Click("btn_fm_confirm", 1000);
         Click("btn_fm_confirm", 1000);
@@ -302,4 +395,7 @@ public class testFastMapZF extends testFastMapBase
 
     private static String globalId = "";
     private static String infoFid = "0010071128WT200493";
+    private static Point deleteButton = new Point(1085, 1435);
+    private static Point trafficlightButton = new Point(365, 1435);
+    private static String infoRowkey = "";
 }
