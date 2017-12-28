@@ -173,8 +173,19 @@ public class testFastMapZF extends testFastMapBase
         Thread.sleep(500);
 
         //删除红绿灯
+        Click("head_icon",500); //点击主界面左上角头像
+        Click("fmcard_tv_user_data",1000); //点击我的数据
+        listViewObj = mDevice.findObject(By.clazz(ListView.class));
+        child = listViewObj.findObject(By.clazz(RelativeLayout.class));
+        child.click();
+        Thread.sleep(500);
+        mDevice.pressBack();
+        Thread.sleep(500);
+        Click("btn_fm_confirm", 500);
+        mDevice.pressBack();
+        Thread.sleep(500);
         Click(deleteButton,500);
-        Click(new Point(710,820),500);
+        Click(GetCenter(),500);
 
         listViewObj = mDevice.findObject(By.clazz(ListView.class));
         child = listViewObj.findObject(By.clazz(LinearLayout.class));
