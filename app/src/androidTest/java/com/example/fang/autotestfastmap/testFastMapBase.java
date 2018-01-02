@@ -124,7 +124,7 @@ public class testFastMapBase
         mDevice.executeShellCommand("rm -rf " + dirName + "coremap.wal");
     }
 
-    protected static void  ReStartApp() throws InterruptedException, IOException
+    public static void  ReStartApp() throws InterruptedException, IOException
     {
         mDevice.executeShellCommand("am force-stop " + packageName);
 
@@ -140,7 +140,7 @@ public class testFastMapBase
         }
     }
 
-    protected static void loginProcess()
+    public static void loginProcess()
     {
         //登录
         PutinEditor("login_account_et", "zhanglingling03655");
@@ -539,7 +539,7 @@ public class testFastMapBase
 
     protected void CheckSyncInfoResult() throws UiObjectNotFoundException
     {
-        UiObject2 btnObject = mDevice.wait(Until.findObject(By.clazz("android.widget.Button").enabled(true)), 30*1000);
+        UiObject2 btnObject = mDevice.wait(Until.findObject(By.clazz("android.widget.Button").enabled(true)), 120*1000);
 
         UiScrollable objscoll = new UiScrollable(new UiSelector().className("android.widget.ScrollView"));
         UiObject Object = objscoll.getChildByInstance(new UiSelector().className("android.widget.TextView"), 1);
@@ -573,13 +573,55 @@ public class testFastMapBase
         infoGateType = 0;
     }
 
+    protected void AssertIndoorCheck(String type, String level, String rule, String error, String severity) throws UiObjectNotFoundException
+    {
+        GotoIndoorTools();
+        Click("btn_check");
+        Click("progress_btn_positive");
+
+        UiScrollable objscoll = new UiScrollable(new UiSelector().className("android.widget.ListView"));
+        Assert.assertNotNull(objscoll);
+
+        objscoll.setMaxSearchSwipes(3);
+
+        objscoll.getChildByText(new UiSelector().className("android.widget.TextView"), rule);
+        
+        for (int i=0; i<objscoll.getChildCount(); i++)
+        {
+            UiObject subOject =objscoll.getChild(new UiSelector().index(i));
+            String strr = subOject.getClassName();
+            if (!subOject.getClassName().equals("android.widget.LinearLayout"))
+            {
+                continue;
+            }
+
+            UiObject txtObj = subOject.getChild(new UiSelector().className("android.widget.TextView").instance(3));
+            if (txtObj.getText().equals(rule))
+            {
+                txtObj = subOject.getChild(new UiSelector().className("android.widget.TextView").instance(1));
+                Assert.assertEquals(type, txtObj.getText());
+                txtObj = subOject.getChild(new UiSelector().className("android.widget.TextView").instance(2));
+                Assert.assertEquals(level, txtObj.getText());
+                txtObj = subOject.getChild(new UiSelector().className("android.widget.TextView").instance(3));
+                Assert.assertEquals(rule, txtObj.getText());
+                txtObj = subOject.getChild(new UiSelector().className("android.widget.TextView").instance(4));
+                Assert.assertEquals(error, txtObj.getText());
+
+                txtObj = subOject.getChild(new UiSelector().className("android.widget.TextView").instance(5));
+                Assert.assertEquals(severity, txtObj.getText());
+                break;
+            }
+
+        }
+    }
+
     protected static UiDevice mDevice;
     protected static String packageName = "com.fastmap.hd";
 
+    protected static Point MultPoint1 = new Point(100, 1120);
     protected static Point MultPoint2 = new Point(100, 1260);
     protected static Point beijingMap = new Point(636,460);
     protected static Point MultPoint3 = new Point(720,1430);
-
 
     protected static EnumLayer eCurrLayer = EnumLayer.Layer_Main;
 
@@ -596,4 +638,6 @@ public class testFastMapBase
     protected static Point newPas = new Point(235,1240);
     protected static Point newElecEye = new Point(720,1150);
     protected static Point newRoadNameSign = new Point(366, 1240);
+    protected static Point newDirectBoard = new Point(220, 850);
+    protected static SqliteTools m_Sqlit = new SqliteTools();
 }

@@ -1,5 +1,8 @@
 package com.example.fang.autotestfastmap;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.Environment;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.Direction;
@@ -11,6 +14,7 @@ import android.support.test.uiautomator.UiObjectNotFoundException;
 import android.support.test.uiautomator.UiScrollable;
 import android.support.test.uiautomator.UiSelector;
 import android.support.test.uiautomator.Until;
+import android.util.Log;
 
 import junit.framework.Assert;
 
@@ -22,6 +26,8 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
@@ -42,6 +48,19 @@ public class testFastMapFS extends testFastMapBase
     @BeforeClass
     public static void setClassUp() throws Exception
     {
+
+//        String dbPath =Environment.getExternalStorageDirectory().getPath() + "/FastMap18Summer/Data/Collect/3655/coremap.sqlite";
+//
+//        SQLiteDatabase db=SQLiteDatabase.openDatabase(dbPath, null, SQLiteDatabase.OPEN_READONLY, null);
+//        Cursor cursor = db.rawQuery("select * from edit_tips", null);
+//
+//        while (cursor.moveToNext())
+//        {
+//            String str2 = cursor.getString(0);
+//        }
+//
+//        db.close();
+
         testFastMapBase.setClassUp();
     }
 
@@ -58,7 +77,7 @@ public class testFastMapFS extends testFastMapBase
     @After
     public  void setAfter()
     {
-        super.setAfter();
+        //super.setAfter();
     }
 
     @Test
@@ -85,6 +104,10 @@ public class testFastMapFS extends testFastMapBase
         assertNotNull(Until.findObject(By.desc("测试ＰＯＩ")));
 
         ExitMyData();
+
+        String strUid;
+        //m_Sqlit.CheckTipsIcons(strUid, "");
+        //m_Sqlit.GetTipsDisplayText(rowkey);
     }
 
     @Test
@@ -108,7 +131,7 @@ public class testFastMapFS extends testFastMapBase
     }
 
     @Test
-    public void test00301_tips_line_DrawRoad_add() throws InterruptedException
+    public void test00301_tips_line_DrawRoad_add() throws Exception
     {
         mDevice.drag(700, 823, 1024, 823, 10);
         Thread.sleep(1000);
@@ -132,9 +155,21 @@ public class testFastMapFS extends testFastMapBase
 
         UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
         assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
-        assertNotNull(Until.findObject(By.desc("测线")));
+
+        UiObject2 obj = mDevice.wait(Until.findObject(By.textContains("测线")),500);
+        assertNotNull(obj);
+
+        obj.click();
+
+        String rowkey = mDevice.wait(Until.findObject(By.res(packageName, "et_title")), 500).getText();
+        rowkey = rowkey.substring("rowkey：".length());
+
+        Click("cancel_button");
 
         ExitMyData();
+
+        m_Sqlit.RefreshData();
+        assertEquals(m_Sqlit.GetTipsDisplayText(rowkey), " 1 车道 | K1");
     }
 
     @Test
@@ -525,6 +560,51 @@ public class testFastMapFS extends testFastMapBase
         }
     }
 
+//    @Test
+//    public void test01301_IndoorCheck_FM_1401_6_1() throws UiObjectNotFoundException
+//    {
+//        //关联在7级非上下分离link上(当前道路级别为K1高速)
+//        mDevice.drag(700, 823, 1024, 823, 10);
+//
+//        Click(MultPoint2);
+//        Click(newDrawRoardReal);
+//
+//        Click(new Point(1000, 1000));
+//
+//        Click(new Point(1000, 500));
+//
+//        Click(new Point(500, 1000));
+//
+//        Click("card_high_speed");
+//        Click("lane_num_1");
+//        Click("save_button");
+//        tipsNum++;
+//
+//        Click(MultPoint1);
+//        Click(newDirectBoard);
+//        Click(new Point(1000, 500));
+//        Click("save_button");
+//        tipsNum++;
+//
+//        AssertIndoorCheck("方向看板", "中", "FM-1401-6-1", "道路种别为7级的上下分离和6级及以上的普通道路上不采集方向看板，高速道路不需采集方向看板", "");
+//    }
+
+
+    @Test
+    public void test01302_IndoorCheck_FM_1401_7_1() throws UiObjectNotFoundException
+    {
+        //方向看板Tips，必须至少添加一张照片
+        mDevice.drag(700, 823, 1024, 823, 10);
+
+        Click(MultPoint1);
+        Click(newDirectBoard);
+        Click(new Point(1000, 500));
+        Click("save_button");
+        tipsNum++;
+
+        AssertIndoorCheck("方向看板", "高", "FM-1401-7-1", "方向看板，必须添加现场照片", "");
+    }
+
     @Test
     public void test1000_SyncData() throws InterruptedException, UiObjectNotFoundException
     {
@@ -549,4 +629,5 @@ public class testFastMapFS extends testFastMapBase
 
         ExitGridManager();
     }
+
 }
