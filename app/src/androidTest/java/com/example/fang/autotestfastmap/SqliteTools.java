@@ -23,7 +23,7 @@ public class SqliteTools {
     }
 
 
-    //注意因为sqlite使用了wal缓存机制，所以每次对数据库做增删改操作后，需要调用此函数刷新数据到coremap.sqlite3中，才能从coremap.sqlite3获取对应数据
+    //娉ㄦ剰鍥犱负sqlite浣跨敤浜唚al缂撳瓨鏈哄埗锛屾墍浠ユ瘡娆″鏁版嵁搴撳仛澧炲垹鏀规搷浣滃悗锛岄渶瑕佽皟鐢ㄦ鍑芥暟鍒锋柊鏁版嵁鍒癱oremap.sqlite3涓紝鎵嶈兘浠巆oremap.sqlite3鑾峰彇瀵瑰簲鏁版嵁
     public void RefreshData() throws Exception
     {
         testFastMapBase.ReStartApp();
