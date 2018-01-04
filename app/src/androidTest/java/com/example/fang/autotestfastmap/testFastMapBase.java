@@ -296,10 +296,10 @@ public class testFastMapBase
         {
             int waitCount =0;
             UiObject2 btnBack2 =  mDevice.findObject(By.res(packageName, strViewId));
-            while (btnBack2 == null)
+            while (btnBack2 == null || !btnBack2.isEnabled())
             {
                 btnBack2 = mDevice.findObject(By.res(packageName, strViewId));
-                if (waitCount == 3)
+                if (waitCount == 5)
                 {
                     break;
                 }
@@ -596,35 +596,49 @@ public class testFastMapBase
 
         objscoll.setMaxSearchSwipes(3);
 
-        objscoll.getChildByText(new UiSelector().className("android.widget.TextView"), rule);
+        UiObject object = objscoll.getChildByText(new UiSelector().className("android.widget.TextView"), rule);
 
-        for (int i=0; i<objscoll.getChildCount(); i++)
-        {
-            UiObject subOject =objscoll.getChild(new UiSelector().index(i));
-            String strr = subOject.getClassName();
-            if (!subOject.getClassName().equals("android.widget.LinearLayout"))
-            {
-                continue;
-            }
+        Assert.assertEquals(object.getText(), rule);
 
-            UiObject txtObj = subOject.getChild(new UiSelector().className("android.widget.TextView").instance(3));
-            if (txtObj.getText().equals(rule))
-            {
-                txtObj = subOject.getChild(new UiSelector().className("android.widget.TextView").instance(1));
-                Assert.assertEquals(type, txtObj.getText());
-                txtObj = subOject.getChild(new UiSelector().className("android.widget.TextView").instance(2));
-                Assert.assertEquals(level, txtObj.getText());
-                txtObj = subOject.getChild(new UiSelector().className("android.widget.TextView").instance(3));
-                Assert.assertEquals(rule, txtObj.getText());
-                txtObj = subOject.getChild(new UiSelector().className("android.widget.TextView").instance(4));
-                Assert.assertEquals(error, txtObj.getText());
-
-                txtObj = subOject.getChild(new UiSelector().className("android.widget.TextView").instance(5));
-                Assert.assertEquals(severity, txtObj.getText());
-                break;
-            }
-
-        }
+//
+//        boolean isChecked = false;
+//        for (int i=0; i<objscoll.getChildCount(); i++)
+//        {
+//            UiObject subOject =objscoll.getChild(new UiSelector().index(i));
+//            String strr = subOject.getClassName();
+//            if (!subOject.getClassName().equals("android.widget.LinearLayout"))
+//            {
+//                continue;
+//            }
+//
+//                UiObject txtObj = subOject.getChild(new UiSelector().className("android.widget.TextView").instance(3));
+//
+//                String real = txtObj.getText();
+//                if (real.equals(rule))
+//                {
+//                    txtObj = subOject.getChild(new UiSelector().className("android.widget.TextView").instance(1));
+//                    Assert.assertEquals(type, txtObj.getText());
+//                    txtObj = subOject.getChild(new UiSelector().className("android.widget.TextView").instance(2));
+//                    Assert.assertEquals(level, txtObj.getText());
+//                    txtObj = subOject.getChild(new UiSelector().className("android.widget.TextView").instance(3));
+//                    Assert.assertEquals(rule, txtObj.getText());
+//                    txtObj = subOject.getChild(new UiSelector().className("android.widget.TextView").instance(4));
+//                    Assert.assertEquals(error, txtObj.getText());
+//
+//                    txtObj = subOject.getChild(new UiSelector().className("android.widget.TextView").instance(5));
+//                    Assert.assertEquals(severity, txtObj.getText());
+//
+//                    isChecked = true;
+//
+//                    break;
+//                }
+//
+//        }
+//
+//        if (!isChecked)
+//        {
+//            throw new UiObjectNotFoundException("can not find rule:" + rule);
+//        }
 
         Click("iv_indoor_check_back");
         ExitIndoorTools();
@@ -644,7 +658,6 @@ public class testFastMapBase
             return;
         }
 
-
         UiScrollable objscoll = new UiScrollable(new UiSelector().className("android.widget.ListView"));
         Assert.assertNotNull(objscoll);
 
@@ -662,7 +675,11 @@ public class testFastMapBase
         }
         catch (UiObjectNotFoundException e)
         {
-            Click("iv_indoor_check_back");
+            UiObject2 btnObject = mDevice.wait(Until.findObject(By.res(packageName, "iv_indoor_check_back")), 500);
+            if (btnObject != null)
+            {
+                Click("iv_indoor_check_back");
+            }
         }
 
 
@@ -673,6 +690,12 @@ public class testFastMapBase
     //按照坐标绘制测线
     protected void DrawRoad(Point[] pointArray)
     {
+        DrawRoad(pointArray, "card_high_speed");
+    }
+
+    //按照坐标绘制测线
+    protected void DrawRoad(Point[] pointArray, String type)
+    {
         Click(MultPoint2);
         Click(newDrawRoardReal);
 
@@ -681,8 +704,13 @@ public class testFastMapBase
             Click(p);
         }
 
-        Click("card_high_speed");
-        Click("lane_num_1");
+        Click(type);
+
+        if (!type.equals("card_nine_rd") && !type.equals("card_pedestrian_rd") && !type.equals("card_people_crossing") && !type.equals("card_ferry"))
+        {
+            Click("lane_num_1");
+        }
+
         Click("save_button");
         tipsNum++;
     }
@@ -700,27 +728,114 @@ public class testFastMapBase
     }
 
     //在我的数据中删除对应名字的tip
-    protected void DeleteTipInMyData(String name)
+    protected void DeleteTipInMyData(String... names)
     {
         GotoMyData("rb_condition_tips");
 
-        UiObject2 object =mDevice.wait(Until.findObject(By.text(name)), 3000);
-        object.click();
+        for (String name : names)
+        {
+            UiObject2 object = mDevice.wait(Until.findObject(By.text(name)), 3000);
+            object.click();
 
-        Click("delete_button");
-        Click("btn_fm_confirm");
-        tipsNum--;
+            Click("delete_button");
+            Click("btn_fm_confirm");
+            tipsNum--;
+        }
+
+        ExitMyData();
     }
 
+    //增加POI
+    protected void AddPoi(String type, String name)
+    {
+        Click(newPOIPoint, 6000);
+
+        Click("take_pic_imgbtn");
+        Click("task_pic_back_img");
+
+        PutinEditor("fm_et_name", name);
+
+        Click("tv_assort_type");
+
+        PutinEditor("et_kind_search", type);
+        Click("top_name_txtinfo");
+
+        Click("save_button");
+        poiNum++;
+    }
+
+    //增加收费站tip
+    protected void AddTollStation(Point point)
+    {
+        Click(MultPoint4);
+        Click(newTollStation);
+
+        Click(point);
+
+        UiObject2 object = mDevice.wait(Until.findObject(By.text("领卡")), 500);
+        object.click();
+
+        Click("save_button");
+        tipsNum++;
+    }
+
+    //获取10个点位的真实距离。
+    protected double GetDistance100Pixel()
+    {
+        Click("btn_distance_measure");
+        Click(new Point(1000, 1000));
+        Click(new Point(1000, 1000+100));
+
+        UiObject2 editName = mDevice.wait(Until.findObject(By.res(packageName, "tv_distance_measure_value")), 500);
+        String value = editName.getText();
+        double ivalue = Double.parseDouble(value);
+        mDevice.pressBack();
+
+        return ivalue;
+    }
+
+    //增加电子眼
+    protected void AddElecEye(Point point) throws UiObjectNotFoundException
+    {
+        Click(MultPoint4);
+        Click(newElecEye);
+        Click(point);
+
+        Click("tv_electronic_eye_type_more");
+
+        Click("electronic_eye_overspeed");
+
+        UiScrollable objscoll = new UiScrollable(new UiSelector().className("android.widget.ScrollView"));
+
+        UiObject Object = objscoll.getChildByText(new UiSelector().className("android.widget.TextView"), "40");
+        Object.click();
+
+        Click("save_button");
+        tipsNum++;
+    }
+
+    //增加区域属性
+    protected void AddRegional(Point point, String type)
+    {
+        Click(MultPoint6);
+        Click(newRegional);
+        Click(point);
+        Click(type);
+        Click("save_button");
+
+        tipsNum++;
+    }
 
     protected static UiDevice mDevice;
     protected static String packageName = "com.fastmap.hd";
 
+    protected static Point MultPoint0 = new Point(100, 1010);
     protected static Point MultPoint1 = new Point(100, 1120);
     protected static Point MultPoint2 = new Point(100, 1260);
     protected static Point beijingMap = new Point(636, 460);
-    protected static Point MultPoint3 = new Point(720, 1430);
-    protected static Point MultPoint4 = new Point(840, 1430);
+    protected static Point MultPoint4 = new Point(720, 1430);
+    protected static Point MultPoint5 = new Point(840, 1430);
+    protected static Point MultPoint6 = new Point(1300, 1430);
 
     protected static EnumLayer eCurrLayer = EnumLayer.Layer_Main;
 
@@ -733,13 +848,16 @@ public class testFastMapBase
     protected static Point newPOIPoint = new Point((152-36)/2+36, (834-718)/2+718);
     protected static Point newTrafficLight = new Point(370, 1440);
     protected static Point newDrawRoardReal = new Point(230, 990);
-    protected static Point newDrawTrackLimit = new Point(340, 860);
-    protected static Point newPas = new Point(235,1240);
+    protected static Point newDrawTrackLimit = new Point(356, 976);
+    protected static Point newPas = new Point(353,1038);
     protected static Point newElecEye = new Point(720,1150);
     protected static Point newRoadNameSign = new Point(366, 1240);
     protected static Point newDirectBoard = new Point(220, 730);
     protected static Point newLandNum = new Point(840, 1030);
     protected static Point newStartEnd = new Point(1670, 1450);
+    protected static Point newRamp = new Point(1450, 1140);
+    protected static Point newTollStation = new Point(584, 1130);
+    protected static Point newRegional = new Point(1200, 1140);
 
     protected static SqliteTools m_Sqlit = new SqliteTools();
 }
