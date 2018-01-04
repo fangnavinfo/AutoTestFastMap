@@ -24,11 +24,16 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runner.Description;
+import org.junit.runner.Result;
+import org.junit.runner.notification.Failure;
+import org.junit.runner.notification.RunListener;
 import org.junit.runners.MethodSorters;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import static junit.framework.Assert.fail;
@@ -45,6 +50,7 @@ import static org.junit.Assert.assertThat;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class testFastMapFS extends testFastMapBase
 {
+
     @BeforeClass
     public static void setClassUp() throws Exception
     {
@@ -75,9 +81,10 @@ public class testFastMapFS extends testFastMapBase
     }
 
     @After
-    public  void setAfter()
+    public  void setAfter() throws IOException, InterruptedException
     {
-        //super.setAfter();
+
+        super.setAfter();
     }
 
     @Test
@@ -560,38 +567,8 @@ public class testFastMapFS extends testFastMapBase
         }
     }
 
-//    @Test
-//    public void test01301_IndoorCheck_FM_1401_6_1() throws UiObjectNotFoundException
-//    {
-//        //关联在7级非上下分离link上(当前道路级别为K1高速)
-//        mDevice.drag(700, 823, 1024, 823, 10);
-//
-//        Click(MultPoint2);
-//        Click(newDrawRoardReal);
-//
-//        Click(new Point(1000, 1000));
-//
-//        Click(new Point(1000, 500));
-//
-//        Click(new Point(500, 1000));
-//
-//        Click("card_high_speed");
-//        Click("lane_num_1");
-//        Click("save_button");
-//        tipsNum++;
-//
-//        Click(MultPoint1);
-//        Click(newDirectBoard);
-//        Click(new Point(1000, 500));
-//        Click("save_button");
-//        tipsNum++;
-//
-//        AssertIndoorCheck("方向看板", "中", "FM-1401-6-1", "道路种别为7级的上下分离和6级及以上的普通道路上不采集方向看板，高速道路不需采集方向看板", "");
-//    }
-
-
     @Test
-    public void test01302_IndoorCheck_FM_1401_7_1() throws UiObjectNotFoundException
+    public void test01301_IndoorCheck_FM_1401_7_1() throws UiObjectNotFoundException
     {
         //方向看板Tips，必须至少添加一张照片
         mDevice.drag(700, 823, 1024, 823, 10);
@@ -603,7 +580,288 @@ public class testFastMapFS extends testFastMapBase
         tipsNum++;
 
         AssertIndoorCheck("方向看板", "高", "FM-1401-7-1", "方向看板，必须添加现场照片", "");
+
+        GotoMyData("rb_condition_tips");
+
+        UiObject2 object =mDevice.wait(Until.findObject(By.text("方向看板")), 3000);
+        object.click();
+        Click("camera_button");
+        Click("take_pic_imgbtn");
+        mDevice.pressBack();
+        Click("save_button");
+
+        ExitMyData();
+
+        AssertIndoorCheckNull("FM-1401-7-1");
+
+        GotoMyData("rb_condition_tips");
+
+        object =mDevice.wait(Until.findObject(By.text("方向看板")), 3000);
+        object.click();
+        Click("delete_button");
+        Click("btn_fm_confirm");
+        tipsNum--;
+
+        ExitMyData();
+
+        AssertIndoorCheckNull("FM-1401-7-1");
     }
+
+
+
+    @Test
+    public void test01302_IndoorCheck_FM_1401_6_1() throws UiObjectNotFoundException
+    {
+        //方向看板关联在前道路级别为K1、K2、K8~K13
+
+        String[] lineTypeArray = {"card_high_speed", "card_city_high_speed",
+                                  "card_other_rd", "card_nine_rd", "card_pedestrian_rd", "card_people_crossing", "card_ferry"};
+
+        for (String type : lineTypeArray)
+        {
+            mDevice.drag(700, 823, 1024, 823, 10);
+
+
+            Click(MultPoint2);
+            Click(newDrawRoardReal);
+
+            Click(new Point(1000, 1000));
+
+            Click(new Point(1000, 500));
+
+            Click(new Point(500, 1000));
+
+            Click(type);
+            Click("lane_num_1");
+            Click("save_button");
+            tipsNum++;
+
+            Click(MultPoint1);
+            Click(newDirectBoard);
+            Click(new Point(1000, 500));
+            Click("save_button");
+            tipsNum++;
+
+            AssertIndoorCheck("方向看板", "中", "FM-1401-6-1", "采集方向看板应该采集在7级上下分离或6级及以上的普通道路（3,4,6）上", "");
+
+            GotoMyData("rb_condition_tips");
+
+            UiObject2 object =mDevice.wait(Until.findObject(By.text("方向看板")), 3000);
+            object.click();
+
+            Click("delete_button");
+            Click("btn_fm_confirm");
+            tipsNum--;
+
+            ExitMyData();
+
+            AssertIndoorCheckNull("FM-1401-6-1");
+        }
+    }
+
+    @Test
+    public void test01303_IndoorCheck_FM_1401_6_1() throws UiObjectNotFoundException
+    {
+        //方向看板关联在前道路级别为K7上下分离
+        mDevice.drag(700, 823, 1024, 823, 10);
+
+        Click(MultPoint2);
+        Click(newDrawRoardReal);
+
+        Click(new Point(1000, 1000));
+
+        Click(new Point(1000, 500));
+
+        Click(new Point(500, 1000));
+
+        Click("card_township_village_rd");
+        Click("lane_num_1");
+        Click("save_button");
+        tipsNum++;
+
+        Click(newStartEnd);
+        Click(new Point(1000, 500));
+        Click(newStartEnd);
+        Click(new Point(500, 1000));
+        Click("up_low_separation_bt");
+        Click("save_button");
+        tipsNum++;
+
+        Click(MultPoint1);
+        Click(newDirectBoard);
+        Click(new Point(1000, 500));
+        Click("save_button");
+        tipsNum++;
+
+        AssertIndoorCheck("方向看板", "中", "FM-1401-6-1", "采集方向看板应该采集在7级上下分离或6级及以上的普通道路（3,4,6）上", "");
+
+        GotoMyData("rb_condition_tips");
+
+        UiObject2 object =mDevice.wait(Until.findObject(By.text("方向看板")), 3000);
+        object.click();
+
+        Click("delete_button");
+        Click("btn_fm_confirm");
+        tipsNum--;
+
+        ExitMyData();
+
+        AssertIndoorCheckNull("FM-1401-6-1");
+    }
+
+    @Test
+    public void test01304_IndoorCheck_FM_1401_6_1() throws UiObjectNotFoundException
+    {
+        //方向看板关联在前道路级别为K7没有上下分离
+        mDevice.drag(700, 823, 1024, 823, 10);
+
+        Click(MultPoint2);
+        Click(newDrawRoardReal);
+
+        Click(new Point(1000, 1000));
+
+        Click(new Point(1000, 500));
+
+        Click(new Point(500, 1000));
+
+        Click("card_township_village_rd");
+        Click("lane_num_1");
+        Click("save_button");
+        tipsNum++;
+
+        Click(MultPoint1);
+        Click(newDirectBoard);
+        Click(new Point(1000, 500));
+        Click("save_button");
+        tipsNum++;
+
+        AssertIndoorCheckNull("FM-1401-6-1");
+
+        GotoMyData("rb_condition_tips");
+
+        UiObject2 object =mDevice.wait(Until.findObject(By.text("方向看板")), 3000);
+        object.click();
+
+        Click("delete_button");
+        Click("btn_fm_confirm");
+        tipsNum--;
+
+        ExitMyData();
+    }
+
+    @Test
+    public void test01305_IndoorCheck_FM_1401_6_1() throws UiObjectNotFoundException
+    {
+        //方向看板关联在前道路级别为K3、4、6
+        String[] lineTypeArray = {"card_national_rd", "card_provincial_rd", "card_county_rd"};
+
+        for (String type : lineTypeArray)
+        {
+            mDevice.drag(700, 823, 1024, 823, 10);
+
+            Click(MultPoint2);
+            Click(newDrawRoardReal);
+
+            Click(new Point(1000, 1000));
+
+            Click(new Point(1000, 500));
+
+            Click(new Point(500, 1000));
+
+            Click(type);
+            Click("lane_num_1");
+            Click("save_button");
+            tipsNum++;
+
+            Click(MultPoint1);
+            Click(newDirectBoard);
+            Click(new Point(1000, 500));
+            Click("save_button");
+            tipsNum++;
+
+            AssertIndoorCheckNull("FM-1401-6-1");
+
+            GotoMyData("rb_condition_tips");
+
+            UiObject2 object = mDevice.wait(Until.findObject(By.text("方向看板")), 3000);
+            object.click();
+
+            Click("delete_button");
+            Click("btn_fm_confirm");
+            tipsNum--;
+
+            ExitMyData();
+        }
+    }
+
+
+    @Test
+    public void test01306_IndoorCheck_FM_2001_6_1() throws UiObjectNotFoundException
+    {
+        //新增测线（t_sync=0）本身的车道数<>0时，测线上有车道数Tips时，报log
+        mDevice.drag(700, 823, 1024, 823, 10);
+
+        Point[] arrayPoint = {new Point(1000, 1000), new Point(1000, 500), new Point(500, 1000)};
+        DrawRoad(arrayPoint);
+
+        Click(MultPoint4);
+        Click(newLandNum);
+        Click(new Point(1000, 500));
+        Click("lane_num_1");
+
+        tipsNum++;
+
+        AssertIndoorCheck("测线", "中", "FM-2001-6-1", "测线车道数记录在属性中，请删除关联测线的车道数Tips", "不能忽略");
+
+        GotoMyData("rb_condition_tips");
+
+        UiObject2 object =mDevice.wait(Until.findObject(By.text("车道数")), 3000);
+        object.click();
+
+        Click("delete_button");
+        Click("btn_fm_confirm");
+        tipsNum--;
+
+        ExitMyData();
+
+        AssertIndoorCheckNull("FM-2001-6-1");
+    }
+
+//    @Test
+//    public void test01307_IndoorCheck_FM_1054_5_1() throws UiObjectNotFoundException
+//    {
+//        //跨越桥的几何长度要小于800m时，报log
+//        mDevice.drag(700, 823, 1024, 823, 10);
+//
+//        int MAX_LEN = 790;
+//
+//        int Distance = GetDistance10Pixel();
+//
+//        Point[] arrayPoint = {new Point(1000, 1000),
+//                              new Point(1000, 1000-(MAX_LEN/Distance)*10/2),
+//                              new Point(1000-(MAX_LEN/Distance)*10/2, 1000)};
+//        DrawRoad(arrayPoint);
+//
+//        SetStartEndPoint(arrayPoint[0], arrayPoint[2], "overpass_bt");
+//
+//        AssertIndoorCheck("OverPass", "道路形状及相关检查", "FM-2001-6-1", "跨越桥长度小于800米，不需要采集！", "可以忽略");
+//
+//        DeleteTipInMyData("Underpass");
+//
+//        //跨越桥的几何长度大于800m时，不报log
+//        mDevice.drag(700, 823, 1024, 823, 10);
+//
+//        MAX_LEN = 810;
+//
+//        Point[] arrayPoint2 = {new Point(1000, 1000),
+//                new Point(1000, 1000-(MAX_LEN/Distance)*10/2),
+//                new Point(1000-(MAX_LEN/Distance)*10/2, 1000)};
+//        DrawRoad(arrayPoint2);
+//
+//        SetStartEndPoint(arrayPoint2[0], arrayPoint2[2], "overpass_bt");
+//
+//        AssertIndoorCheckNull("FM-2001-6-1");
+//    }
 
     @Test
     public void test1000_SyncData() throws InterruptedException, UiObjectNotFoundException

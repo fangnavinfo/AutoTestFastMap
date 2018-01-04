@@ -30,6 +30,7 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import static junit.framework.Assert.fail;
@@ -668,6 +669,49 @@ public class testFastMapBase
         ExitIndoorTools();
 
     }
+
+    //按照坐标绘制测线
+    protected void DrawRoad(Point[] pointArray)
+    {
+        Click(MultPoint2);
+        Click(newDrawRoardReal);
+
+        for(Point p : pointArray)
+        {
+            Click(p);
+        }
+
+        Click("card_high_speed");
+        Click("lane_num_1");
+        Click("save_button");
+        tipsNum++;
+    }
+
+    //设置起终点类型
+    protected void SetStartEndPoint(Point start, Point end, String type)
+    {
+        Click(newStartEnd);
+        Click(start);
+        Click(newStartEnd);
+        Click(end);
+        Click(type);
+        Click("save_button");
+        tipsNum++;
+    }
+
+    //在我的数据中删除对应名字的tip
+    protected void DeleteTipInMyData(String name)
+    {
+        GotoMyData("rb_condition_tips");
+
+        UiObject2 object =mDevice.wait(Until.findObject(By.text(name)), 3000);
+        object.click();
+
+        Click("delete_button");
+        Click("btn_fm_confirm");
+        tipsNum--;
+    }
+
 
     protected static UiDevice mDevice;
     protected static String packageName = "com.fastmap.hd";
