@@ -1,8 +1,12 @@
 package com.example.fang.autotestfastmap;
 
+import android.app.Instrumentation;
 import android.content.Context;
 import android.content.Intent;
 import android.support.test.InstrumentationRegistry;
+import android.support.test.annotation.Beta;
+import android.support.test.espresso.core.deps.guava.eventbus.AllowConcurrentEvents;
+import android.support.test.filters.FlakyTest;
 import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.Direction;
 import android.support.test.uiautomator.UiCollection;
@@ -21,6 +25,7 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
@@ -63,21 +68,27 @@ public class testFastMapBase
 
     }
 
-    protected  void setAfter()
-    {
-        switch (eCurrLayer)
+    protected  void setAfter() throws IOException, InterruptedException {
+        try
         {
-            case Layer_MyData:
-                ExitMyData();
-                break;
-            case Layer_IndoorTools:
-                ExitIndoorTools();
-                break;
-            case Layer_GridManager:
-                //ExitGridManager();
-                break;
-            default:
-                break;
+            switch (eCurrLayer) {
+                case Layer_MyData:
+                    ExitMyData();
+                    break;
+                case Layer_IndoorTools:
+                    ExitIndoorTools();
+                    break;
+                case Layer_GridManager:
+                    //ExitGridManager();
+                    break;
+                default:
+                    break;
+            }
+        }
+        catch (RuntimeException e)
+        {
+            ReStartApp();
+            loginProcess();
         }
     }
 
@@ -148,7 +159,7 @@ public class testFastMapBase
 
         Click("login_btn");
 
-        UiObject2 object = mDevice.wait(Until.findObject(By.res(packageName, "head_icon")), 20*1000);
+        UiObject2 object = mDevice.wait(Until.findObject(By.res(packageName, "head_icon")), 30*1000);
         if (object == null)
         {
             fail("user login failed!");
@@ -287,7 +298,7 @@ public class testFastMapBase
             while (btnBack2 == null)
             {
                 btnBack2 = mDevice.findObject(By.res(packageName, strViewId));
-                if (waitCount == 30)
+                if (waitCount == 3)
                 {
                     break;
                 }
@@ -298,7 +309,7 @@ public class testFastMapBase
 
             if (btnBack2 == null)
             {
-                fail("can not find ctrl:" + strViewId);
+                throw new RuntimeException("can not find ctrl:" + strViewId);
             }
 
             btnBack2.click();
@@ -585,7 +596,7 @@ public class testFastMapBase
         objscoll.setMaxSearchSwipes(3);
 
         objscoll.getChildByText(new UiSelector().className("android.widget.TextView"), rule);
-        
+
         for (int i=0; i<objscoll.getChildCount(); i++)
         {
             UiObject subOject =objscoll.getChild(new UiSelector().index(i));
@@ -613,6 +624,49 @@ public class testFastMapBase
             }
 
         }
+
+        Click("iv_indoor_check_back");
+        ExitIndoorTools();
+    }
+
+    protected void AssertIndoorCheckNull(String rule)
+    {
+        GotoIndoorTools();
+        Click("btn_check");
+
+        try
+        {
+            Click("progress_btn_positive");
+        }
+        catch (RuntimeException e)
+        {
+            return;
+        }
+
+
+        UiScrollable objscoll = new UiScrollable(new UiSelector().className("android.widget.ListView"));
+        Assert.assertNotNull(objscoll);
+
+        objscoll.setMaxSearchSwipes(3);
+
+        try
+        {
+            UiObject subOject = objscoll.getChildByText(new UiSelector().className("android.widget.TextView"), rule);
+            if (subOject != null)
+            {
+                Click("iv_indoor_check_back");
+
+                Assert.fail(rule + " exit!");
+            }
+        }
+        catch (UiObjectNotFoundException e)
+        {
+            Click("iv_indoor_check_back");
+        }
+
+
+        ExitIndoorTools();
+
     }
 
     protected static UiDevice mDevice;
@@ -620,8 +674,9 @@ public class testFastMapBase
 
     protected static Point MultPoint1 = new Point(100, 1120);
     protected static Point MultPoint2 = new Point(100, 1260);
-    protected static Point beijingMap = new Point(636,460);
-    protected static Point MultPoint3 = new Point(720,1430);
+    protected static Point beijingMap = new Point(636, 460);
+    protected static Point MultPoint3 = new Point(720, 1430);
+    protected static Point MultPoint4 = new Point(840, 1430);
 
     protected static EnumLayer eCurrLayer = EnumLayer.Layer_Main;
 
@@ -633,11 +688,14 @@ public class testFastMapBase
 
     protected static Point newPOIPoint = new Point((152-36)/2+36, (834-718)/2+718);
     protected static Point newTrafficLight = new Point(370, 1440);
-    protected static Point newDrawRoardReal = new Point(220, 1000);
-    protected static Point newDrawTrackLimit = new Point(340, 990);
+    protected static Point newDrawRoardReal = new Point(230, 990);
+    protected static Point newDrawTrackLimit = new Point(340, 860);
     protected static Point newPas = new Point(235,1240);
     protected static Point newElecEye = new Point(720,1150);
     protected static Point newRoadNameSign = new Point(366, 1240);
-    protected static Point newDirectBoard = new Point(220, 850);
+    protected static Point newDirectBoard = new Point(220, 730);
+    protected static Point newLandNum = new Point(840, 1030);
+    protected static Point newStartEnd = new Point(1670, 1450);
+
     protected static SqliteTools m_Sqlit = new SqliteTools();
 }

@@ -61,8 +61,8 @@ public class testFastMapZF extends testFastMapBase
     }
 
     @After
-    public  void setAfter()
-    {
+    public  void setAfter() throws IOException, InterruptedException {
+
         super.setAfter();
     }
 
