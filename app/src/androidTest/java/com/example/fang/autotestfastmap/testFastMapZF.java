@@ -195,7 +195,7 @@ public class testFastMapZF extends testFastMapBase
 
         mDevice.pressBack();
         Thread.sleep(500);
-        Click(deleteButton,500);
+        //Click(deleteButton,500);
 
         //确认数据
         Click("head_icon", 1000);
