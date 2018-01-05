@@ -239,10 +239,10 @@ public class testFastMapZF extends testFastMapBase
     @Test
     public void test_FM_1207_6_2_check() throws UiObjectNotFoundException, InterruptedException {
 
-        getPosion(1000,807);
+        getPosion(1000,807, "111102657234");
 
         //增加POI
-        Click(newPOIPoint, 6000);  //点击新增POI
+        Click(newPOIPoint, 5000);  //点击新增POI
 
         Click("take_pic_imgbtn"); //点击拍照
         Click("task_pic_back_img"); //点击返回
@@ -254,19 +254,19 @@ public class testFastMapZF extends testFastMapBase
         mDevice.findObject(By.text("中餐馆")).click();
 
 
-        Thread.sleep(3000);
+        Thread.sleep(1000);
         Click("edt_contactItem_telNum");
         Thread.sleep(1000);
         PutinEditor("edt_contactItem_telNum", "19012345678"); //输入19开头电话号码，这行代码在我这儿运行会直接挂掉，你确认下
         Thread.sleep(1000);
 
-        Click("save_button");
+        Click("save_button",1000);
 
         //增加匝道
-        Click(new Point(1330, 1435));
-        Click(new Point(1455, 1150));
+        Click(new Point(845, 1435));
+        Click(new Point(975, 1150));
 
-        Click(new Point(1025, 810));
+        Click(new Point(1025, 815));
         Click("btn_ramp");
         Click("save_button");
 
@@ -276,7 +276,7 @@ public class testFastMapZF extends testFastMapBase
     // FM-1208-2-1
     @Test
     public void test_FM_1208_2_1_check() throws UiObjectNotFoundException, InterruptedException {
-        getPosion(1000,807);
+        getPosion(1000,807, "111102657234");
 
 
         //增加道路方向：单向
@@ -289,7 +289,7 @@ public class testFastMapZF extends testFastMapBase
 
         //增加停车场出入口link
         Click(new Point(845, 1435));
-        Click(new Point(975, 1155));
+        Click(new Point(715, 1265));
 
         Click(new Point(745, 815));
         Click("save_button");
@@ -299,9 +299,9 @@ public class testFastMapZF extends testFastMapBase
 
     // FM-1301-6-4
     @Test
-    public void test_FM_1301_6_4_check() throws UiObjectNotFoundException, InterruptedException {
+    public void test_FM_1301_6_4_1check() throws UiObjectNotFoundException, InterruptedException {
 
-        getPosion(1000,807);
+        getPosion(1000,807, "111102657234");
 
         //增加车信
         Click(new Point(1980, 1135));
@@ -321,7 +321,7 @@ public class testFastMapZF extends testFastMapBase
     @Test
     public void test_FM_1301_6_4_2check() throws UiObjectNotFoundException, InterruptedException {
 
-        getPosion(0,0);
+        getPosion(0,0, "111102657234");
 
         // 测线
         Point[] arrayPoint = {new Point(1100, 480), new Point(1370, 480)};
@@ -335,11 +335,19 @@ public class testFastMapZF extends testFastMapBase
         //保存
         Click("save_button", 500);
 
-
-
         Click("head_icon"); //点击主界面左上角头像
         Click("fmcard_tv_user_data"); //点击我的数据
+        mDevice.wait(Until.findObject(By.text("车信")), 500).click();
 
+        Click("ck_move_point_or_line", 500);
+
+        mDevice.drag(1273, 800, 1273, 950, 10);
+
+        //保存
+        Click("save_button", 500);
+
+        mDevice.pressBack();
+        mDevice.pressBack();
 
         AssertIndoorCheck("车信", "低", "FM-1301-6-4", "有附加车信，是否车道变化点采集遗漏", "忽略");
 
@@ -347,10 +355,8 @@ public class testFastMapZF extends testFastMapBase
 
     // FM-1305-6-1
     @Test
-    public void test_FM_1305_6_1_check() throws UiObjectNotFoundException, InterruptedException {
-        getPosion(1000,807);
-
-
+    public void test_FM_1305_6_1_1check() throws UiObjectNotFoundException, InterruptedException {
+        getPosion(1000,807, "111102657234");
 
         //交限
         Click(new Point(95, 1250));
@@ -366,11 +372,36 @@ public class testFastMapZF extends testFastMapBase
         AssertIndoorCheck("禁止驶入", "中", "FM-1305-6-1", "禁止驶入与单行线重复", "");
     }
 
-    public void getPosion(int endX, int endY) throws InterruptedException {
+    // FM-1305-6-1
+    @Test
+    public void test_FM_1305_6_1_2check() throws UiObjectNotFoundException, InterruptedException {
+        getPosion(0,0, "111102657234");
+
+        //搜索交限并移动
+        Click("head_icon"); //点击主界面左上角头像
+        Click("fmcard_tv_user_data"); //点击我的数据
+        mDevice.wait(Until.findObject(By.text("禁止驶入")), 500).click();
+
+        Click("ck_move_point_or_line", 500);
+        Click("btn_control_left_layout");
+
+        mDevice.drag(1273, 800, 1273, 950, 10);
+
+        //保存
+        Click("save_button", 500);
+
+        mDevice.pressBack();
+        mDevice.pressBack();
+
+        AssertIndoorCheck("禁止驶入", "中", "FM-1305-6-1", "禁止驶入与单行线重复", "");
+    }
+
+    public void searchObject(String key, String type) throws InterruptedException {
+        //默认搜索tips
         mDevice.findObject(By.res(packageName, "img_search")).click();
         Thread.sleep(1000);
 
-        mDevice.findObject(By.res(packageName, "edt_search_tips_input")).setText("111102657234");
+        mDevice.findObject(By.res(packageName, "edt_search_tips_input")).setText(key);
         Thread.sleep(500);
         mDevice.findObject(By.res(packageName, "tv_search_tips_btn")).click();
         Thread.sleep(2000);
@@ -378,6 +409,10 @@ public class testFastMapZF extends testFastMapBase
         UiScrollable objscoll = new UiScrollable(new UiSelector().className("android.widget.ListView"));
 
         mDevice.findObject(By.res(packageName, "tv_my_data_snap_list_item_name")).click();
+    }
+
+    public void getPosion(int endX, int endY, String key) throws InterruptedException {
+        searchObject(key,"TIPS");
 
         mDevice.pressBack();
         mDevice.pressBack();
@@ -562,6 +597,8 @@ public class testFastMapZF extends testFastMapBase
     }
 
     private static String globalId = "";
+    private static String globalLine = "";
+    private static String globalStop = "";
     private static String infoFid = "0010071128WT200493";
     private static Point deleteButton = new Point(1085, 1435);
     private static Point trafficlightButton = new Point(365, 1435);
