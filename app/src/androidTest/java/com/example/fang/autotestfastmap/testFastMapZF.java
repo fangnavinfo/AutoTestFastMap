@@ -263,8 +263,8 @@ public class testFastMapZF extends testFastMapBase
         Click("save_button",1000);
 
         //增加匝道
-        Click(new Point(845, 1435));
-        Click(new Point(975, 1150));
+        Click(new Point(1325, 1435));
+        Click(new Point(1450, 1150));
 
         Click(new Point(1025, 815));
         Click("btn_ramp");
@@ -291,7 +291,7 @@ public class testFastMapZF extends testFastMapBase
         Click(new Point(845, 1435));
         Click(new Point(715, 1265));
 
-        Click(new Point(745, 815));
+        Click(new Point(965, 1150));
         Click("save_button");
 
         AssertIndoorCheck("停车场出入口link", "中", "FM-1208-2-1", "单方向道路未进行停车场出入口LINK连接", "");
