@@ -129,7 +129,7 @@ public class testFastMapBase
             return;
         }
 
-        dirName = "/sdcard/" + dirName +"/Data/Collect/3655/";
+        dirName = "/sdcard/" + dirName +"/Data/Collect/21/";
 
         mDevice.executeShellCommand("rm -rf " + dirName + "coremap.sqlite");
         mDevice.executeShellCommand("rm -rf " + dirName + "oremap.shm");
@@ -154,9 +154,15 @@ public class testFastMapBase
 
     public static void loginProcess()
     {
+        Click("login_tv_service_address");
+        UiObject2 Object = mDevice.wait(Until.findObject(By.text("开发->http://fs-road.navinfo.com/dev/trunk")), 500);
+        Object.click();
+
+        Click("btn_fm_confirm");
+
         //登录
-        PutinEditor("login_account_et", "zhanglingling03655");
-        PutinEditor("login_pswd_et", "036550");
+        PutinEditor("login_account_et", "collector");
+        PutinEditor("login_pswd_et", "123456");
 
         Click("login_btn");
 
@@ -585,6 +591,17 @@ public class testFastMapBase
         infoGateType = 0;
     }
 
+    protected void CheckTool(UiObject2 textObj)
+    {
+        String className = textObj.getClassName();
+        String text = textObj.getText();
+        List<UiObject2> objList = textObj.getChildren();
+        for (UiObject2 obj : objList)
+        {
+            CheckTool(obj);
+        }
+    }
+
     protected void AssertIndoorCheck(String type, String level, String rule, String error, String severity) throws UiObjectNotFoundException
     {
         GotoIndoorTools();
@@ -600,44 +617,38 @@ public class testFastMapBase
 
         Assert.assertEquals(object.getText(), rule);
 
-//
-//        boolean isChecked = false;
-//        for (int i=0; i<objscoll.getChildCount(); i++)
+//        List<UiObject2> resultList = mDevice.wait(Until.findObject(By.clazz("android.widget.ListView")), 500).getChildren();
+//        int i = resultList.size();
+//        for (UiObject2 obj : resultList)
 //        {
-//            UiObject subOject =objscoll.getChild(new UiSelector().index(i));
-//            String strr = subOject.getClassName();
-//            if (!subOject.getClassName().equals("android.widget.LinearLayout"))
+//            if (!obj.getClassName().equals("android.widget.LinearLayout"))
 //            {
 //                continue;
 //            }
 //
-//                UiObject txtObj = subOject.getChild(new UiSelector().className("android.widget.TextView").instance(3));
+//            if (obj.findObject(By.text(rule)) == null)
+//            {
+//                continue;
+//            }
 //
-//                String real = txtObj.getText();
-//                if (real.equals(rule))
-//                {
-//                    txtObj = subOject.getChild(new UiSelector().className("android.widget.TextView").instance(1));
-//                    Assert.assertEquals(type, txtObj.getText());
-//                    txtObj = subOject.getChild(new UiSelector().className("android.widget.TextView").instance(2));
-//                    Assert.assertEquals(level, txtObj.getText());
-//                    txtObj = subOject.getChild(new UiSelector().className("android.widget.TextView").instance(3));
-//                    Assert.assertEquals(rule, txtObj.getText());
-//                    txtObj = subOject.getChild(new UiSelector().className("android.widget.TextView").instance(4));
-//                    Assert.assertEquals(error, txtObj.getText());
+//            UiObject2 objType = obj.findObject(By.res(packageName, "tv_indoor_check_snap_item_type"));
+//            Assert.assertEquals(type, objType.getText());
 //
-//                    txtObj = subOject.getChild(new UiSelector().className("android.widget.TextView").instance(5));
-//                    Assert.assertEquals(severity, txtObj.getText());
+//            UiObject2 objlevel = obj.findObject(By.res(packageName, "tv_indoor_check_snap_item_error_level"));
+//            Assert.assertEquals(level, objlevel.getText());
 //
-//                    isChecked = true;
+//            UiObject2 objError = obj.findObject(By.res(packageName, "tv_indoor_check_snap_item_error_info"));
+//            Assert.assertEquals(error, objError.getText());
 //
-//                    break;
-//                }
 //
-//        }
-//
-//        if (!isChecked)
-//        {
-//            throw new UiObjectNotFoundException("can not find rule:" + rule);
+////            UiObject2 ObjSerious = obj.findObject(By.res(packageName, "tv_indoor_check_snap_item_serious"));
+////            if (severity.isEmpty() && ObjSerious.getText() == null)
+////            {
+////            }
+////            else
+////            {
+////                Assert.assertEquals(severity, ObjSerious.getText());
+////            }
 //        }
 
         Click("iv_indoor_check_back");
@@ -655,6 +666,7 @@ public class testFastMapBase
         }
         catch (RuntimeException e)
         {
+            ExitIndoorTools();
             return;
         }
 
