@@ -234,6 +234,163 @@ public class testFastMapZF extends testFastMapBase
 
     }
 
+
+    // FM-1207-6-2
+    @Test
+    public void test_FM_1207_6_2_check() throws UiObjectNotFoundException, InterruptedException {
+
+        getPosion(1000,807);
+
+        //增加POI
+        Click(newPOIPoint, 6000);  //点击新增POI
+
+        Click("take_pic_imgbtn"); //点击拍照
+        Click("task_pic_back_img"); //点击返回
+
+        PutinEditor("fm_et_name", "测试ＰＯＩ001"); //输入POI名称
+
+        Click("tv_assort_type",1000);//点击选择分类
+
+        mDevice.findObject(By.text("中餐馆")).click();
+
+
+        Thread.sleep(3000);
+        Click("edt_contactItem_telNum");
+        Thread.sleep(1000);
+        PutinEditor("edt_contactItem_telNum", "19012345678"); //输入19开头电话号码，这行代码在我这儿运行会直接挂掉，你确认下
+        Thread.sleep(1000);
+
+        Click("save_button");
+
+        //增加匝道
+        Click(new Point(1330, 1435));
+        Click(new Point(1455, 1150));
+
+        Click(new Point(1025, 810));
+        Click("btn_ramp");
+        Click("save_button");
+
+        AssertIndoorCheck("匝道", "低", "FM-1207-6-2", "匝道属性道路连接了POI", "忽略");
+    }
+
+    // FM-1208-2-1
+    @Test
+    public void test_FM_1208_2_1_check() throws UiObjectNotFoundException, InterruptedException {
+        getPosion(1000,807);
+
+
+        //增加道路方向：单向
+        Click(new Point(845, 1435));
+        Click(new Point(975, 1010));
+        //测线中点
+        Click(new Point(1025, 805));
+        //保存
+        Click("save_button", 500);
+
+        //增加停车场出入口link
+        Click(new Point(845, 1435));
+        Click(new Point(975, 1155));
+
+        Click(new Point(745, 815));
+        Click("save_button");
+
+        AssertIndoorCheck("停车场出入口link", "中", "FM-1208-2-1", "单方向道路未进行停车场出入口LINK连接", "");
+    }
+
+    // FM-1301-6-4
+    @Test
+    public void test_FM_1301_6_4_check() throws UiObjectNotFoundException, InterruptedException {
+
+        getPosion(1000,807);
+
+        //增加车信
+        Click(new Point(1980, 1135));
+        Click(new Point(1027, 800));
+
+        Click("rb_select_one_g_a_f",500);
+        Click(new Point(1210, 600),500);
+
+        //保存
+        Click("save_button", 500);
+
+        AssertIndoorCheck("车信", "低", "FM-1301-6-4", "有附加车信，是否车道变化点采集遗漏", "忽略");
+
+    }
+
+    // FM-1301-6-4
+    @Test
+    public void test_FM_1301_6_4_2check() throws UiObjectNotFoundException, InterruptedException {
+
+        getPosion(0,0);
+
+        // 测线
+        Point[] arrayPoint = {new Point(1100, 480), new Point(1370, 480)};
+        DrawRoad(arrayPoint);
+
+        //增加道路方向：单向
+        Click(new Point(845, 1435));
+        Click(new Point(975, 1010));
+        //测线中点
+        Click(new Point(1200, 480));
+        //保存
+        Click("save_button", 500);
+
+
+
+        Click("head_icon"); //点击主界面左上角头像
+        Click("fmcard_tv_user_data"); //点击我的数据
+
+
+        AssertIndoorCheck("车信", "低", "FM-1301-6-4", "有附加车信，是否车道变化点采集遗漏", "忽略");
+
+    }
+
+    // FM-1305-6-1
+    @Test
+    public void test_FM_1305_6_1_check() throws UiObjectNotFoundException, InterruptedException {
+        getPosion(1000,807);
+
+
+
+        //交限
+        Click(new Point(95, 1250));
+        Click(new Point(230, 1220));
+
+        Click(new Point(1025, 800));
+
+        Click("traffic_forbidden_no_pull_into",500);
+
+        //保存
+        Click("save_button", 500);
+
+        AssertIndoorCheck("禁止驶入", "中", "FM-1305-6-1", "禁止驶入与单行线重复", "");
+    }
+
+    public void getPosion(int endX, int endY) throws InterruptedException {
+        mDevice.findObject(By.res(packageName, "img_search")).click();
+        Thread.sleep(1000);
+
+        mDevice.findObject(By.res(packageName, "edt_search_tips_input")).setText("111102657234");
+        Thread.sleep(500);
+        mDevice.findObject(By.res(packageName, "tv_search_tips_btn")).click();
+        Thread.sleep(2000);
+
+        UiScrollable objscoll = new UiScrollable(new UiSelector().className("android.widget.ListView"));
+
+        mDevice.findObject(By.res(packageName, "tv_my_data_snap_list_item_name")).click();
+
+        mDevice.pressBack();
+        mDevice.pressBack();
+
+        if(endX == 0 && endY == 0) {
+
+        }else {
+            mDevice.drag(1273, 615, endX, endY, 10);
+        }
+
+
+    }
+
     // 上报情报
     public void addReport() throws InterruptedException, UiObjectNotFoundException
     {
