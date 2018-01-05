@@ -360,7 +360,7 @@ public class testFastMapZF extends testFastMapBase
 
         //交限
         Click(new Point(95, 1250));
-        Click(new Point(230, 1220));
+        Click(new Point(1975, 1255));
 
         Click(new Point(1025, 800));
 
