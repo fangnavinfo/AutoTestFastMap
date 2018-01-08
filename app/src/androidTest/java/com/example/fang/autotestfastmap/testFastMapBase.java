@@ -48,8 +48,10 @@ import static org.junit.Assert.assertThat;
 public class testFastMapBase
 {
 
-    protected  static void setClassUp() throws Exception
+    protected  static void setClassUp(String userName, String passWord) throws Exception
     {
+        testFastMapBase.userName = userName;
+        testFastMapBase.passWord = passWord;
 
         Init();
 
@@ -91,15 +93,6 @@ public class testFastMapBase
             ReStartApp();
             loginProcess();
         }
-    }
-
-    protected static void SetUserInfo(String username, String password, String userdir)
-    {
-        testFastMapBase.username = username;
-        testFastMapBase.password = password;
-        testFastMapBase.userdir = userdir;
-    }
-
     protected static String getPackageName() throws Exception
     {
         String rslt = mDevice.executeShellCommand("pm list packages");
@@ -136,7 +129,13 @@ public class testFastMapBase
             return;
         }
 
-        dirName = "/sdcard/" + dirName +"/Data/Collect/21/";
+        if(userName.equals("collector")) {
+            dirName = "/sdcard/" + dirName + "/Data/Collect/21/";
+        }if(userName.equals("collector1")) {
+            dirName = "/sdcard/" + dirName + "/Data/Collect/23/";
+        }if(userName.equals("collector2")) {
+            dirName = "/sdcard/" + dirName + "/Data/Collect/24/";
+        }
 
         mDevice.executeShellCommand("rm -rf " + dirName + "coremap.sqlite");
         mDevice.executeShellCommand("rm -rf " + dirName + "oremap.shm");
@@ -161,18 +160,15 @@ public class testFastMapBase
 
     public static void loginProcess()
     {
-        if (mDevice.wait(Until.findObject(By.textContains("http://fs-road.navinfo.com/dev/trunk")), 500) == null)
-        {
-            Click("login_tv_service_address");
-            UiObject2 Object = mDevice.wait(Until.findObject(By.text("开发->http://fs-road.navinfo.com/dev/trunk")), 500);
-            Object.click();
+        Click("login_tv_service_address");
+        UiObject2 Object = mDevice.wait(Until.findObject(By.text("开发->http://fs-road.navinfo.com/dev/trunk")), 500);
+        Object.click();
 
-            Click("btn_fm_confirm");
-        }
+        Click("btn_fm_confirm");
 
         //登录
-        PutinEditor("login_account_et", username);
-        PutinEditor("login_pswd_et", password);
+        PutinEditor("login_account_et", userName);
+        PutinEditor("login_pswd_et", passWord);
 
         Click("login_btn");
 
@@ -848,10 +844,6 @@ public class testFastMapBase
         tipsNum++;
     }
 
-    protected static String username;
-    protected static String password;
-    protected static String userdir;
-
     protected static UiDevice mDevice;
     protected static String packageName = "com.fastmap.hd";
 
@@ -886,5 +878,6 @@ public class testFastMapBase
     protected static Point newRegional = new Point(1200, 1140);
 
     protected static SqliteTools m_Sqlit = new SqliteTools();
-
+    private static String userName = "";
+    private static String passWord = "";
 }
