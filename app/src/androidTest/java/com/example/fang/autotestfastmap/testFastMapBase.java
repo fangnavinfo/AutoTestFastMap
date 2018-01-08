@@ -72,8 +72,7 @@ public class testFastMapBase
     }
 
     protected  void setAfter() throws IOException, InterruptedException {
-        try
-        {
+        try {
             switch (eCurrLayer) {
                 case Layer_MyData:
                     ExitMyData();
@@ -87,12 +86,11 @@ public class testFastMapBase
                 default:
                     break;
             }
-        }
-        catch (RuntimeException e)
-        {
+        } catch (RuntimeException e) {
             ReStartApp();
             loginProcess();
         }
+    }
     protected static String getPackageName() throws Exception
     {
         String rslt = mDevice.executeShellCommand("pm list packages");
