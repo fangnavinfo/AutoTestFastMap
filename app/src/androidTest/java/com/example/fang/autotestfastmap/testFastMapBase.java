@@ -48,8 +48,10 @@ import static org.junit.Assert.assertThat;
 public class testFastMapBase
 {
 
-    protected  static void setClassUp() throws Exception
+    protected  static void setClassUp(String userName, String passWord) throws Exception
     {
+        testFastMapBase.userName = userName;
+        testFastMapBase.passWord = passWord;
 
         Init();
 
@@ -129,7 +131,13 @@ public class testFastMapBase
             return;
         }
 
-        dirName = "/sdcard/" + dirName +"/Data/Collect/21/";
+        if(userName.equals("collector")) {
+            dirName = "/sdcard/" + dirName + "/Data/Collect/21/";
+        }if(userName.equals("collector1")) {
+            dirName = "/sdcard/" + dirName + "/Data/Collect/23/";
+        }if(userName.equals("collector2")) {
+            dirName = "/sdcard/" + dirName + "/Data/Collect/24/";
+        }
 
         mDevice.executeShellCommand("rm -rf " + dirName + "coremap.sqlite");
         mDevice.executeShellCommand("rm -rf " + dirName + "oremap.shm");
@@ -161,8 +169,8 @@ public class testFastMapBase
         Click("btn_fm_confirm");
 
         //登录
-        PutinEditor("login_account_et", "collector");
-        PutinEditor("login_pswd_et", "123456");
+        PutinEditor("login_account_et", userName);
+        PutinEditor("login_pswd_et", passWord);
 
         Click("login_btn");
 
@@ -872,4 +880,6 @@ public class testFastMapBase
     protected static Point newRegional = new Point(1200, 1140);
 
     protected static SqliteTools m_Sqlit = new SqliteTools();
+    private static String userName = "";
+    private static String passWord = "";
 }

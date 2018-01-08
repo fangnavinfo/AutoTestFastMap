@@ -31,7 +31,7 @@ public class testFastMapYL extends testFastMapBase
     @BeforeClass
     public static void setClassUp() throws Exception
     {
-        testFastMapBase.setClassUp();
+        testFastMapBase.setClassUp("collector1","123456");
     }
 
     @AfterClass

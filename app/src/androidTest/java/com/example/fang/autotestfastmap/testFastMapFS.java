@@ -67,7 +67,7 @@ public class testFastMapFS extends testFastMapBase
 //
 //        db.close();
 
-        testFastMapBase.setClassUp();
+        testFastMapBase.setClassUp("collector","123456");
     }
 
     @AfterClass

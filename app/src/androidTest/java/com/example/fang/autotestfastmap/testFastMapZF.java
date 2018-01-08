@@ -47,7 +47,7 @@ public class testFastMapZF extends testFastMapBase
     @BeforeClass
     public static void setClassUp() throws Exception
     {
-        testFastMapBase.setClassUp();
+        testFastMapBase.setClassUp("collector2","123456");
     }
 
     @AfterClass
@@ -359,7 +359,6 @@ public class testFastMapZF extends testFastMapBase
         getPosion(1000,807, "111102657234");
 
         //交限
-        Click(new Point(95, 1250));
         Click(new Point(1975, 1255));
 
         Click(new Point(1025, 800));
