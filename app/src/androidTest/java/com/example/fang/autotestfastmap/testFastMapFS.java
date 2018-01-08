@@ -1,20 +1,12 @@
 package com.example.fang.autotestfastmap;
 
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.os.Environment;
-import android.support.test.InstrumentationRegistry;
 import android.support.test.uiautomator.By;
-import android.support.test.uiautomator.Direction;
-import android.support.test.uiautomator.UiCollection;
-import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.UiObject;
 import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.UiObjectNotFoundException;
 import android.support.test.uiautomator.UiScrollable;
 import android.support.test.uiautomator.UiSelector;
 import android.support.test.uiautomator.Until;
-import android.util.Log;
 
 import junit.framework.Assert;
 
@@ -24,17 +16,9 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
-import org.junit.runner.Description;
-import org.junit.runner.Result;
-import org.junit.runner.notification.Failure;
-import org.junit.runner.notification.RunListener;
 import org.junit.runners.MethodSorters;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import static junit.framework.Assert.fail;
 import static org.hamcrest.core.IsNull.notNullValue;
@@ -67,7 +51,7 @@ public class testFastMapFS extends testFastMapBase
 //
 //        db.close();
 
-        testFastMapBase.setClassUp();
+//        testFastMapBase.setClassUp();
     }
 
     @AfterClass
@@ -76,15 +60,15 @@ public class testFastMapFS extends testFastMapBase
     }
 
     @Before
-    public void setUp()
+    public void setUp() throws Exception
     {
+        super.setClassUp();
     }
 
     @After
     public  void setAfter() throws IOException, InterruptedException
     {
 
-        super.setAfter();
     }
 
     @Test
@@ -175,8 +159,8 @@ public class testFastMapFS extends testFastMapBase
 
         ExitMyData();
 
-        m_Sqlit.RefreshData();
-        assertEquals(m_Sqlit.GetTipsDisplayText(rowkey), " 1 车道 | K1");
+        //m_Sqlit.RefreshData();
+        //assertEquals(m_Sqlit.GetTipsDisplayText(rowkey), " 1 车道 | K1");
     }
 
     @Test
@@ -232,7 +216,7 @@ public class testFastMapFS extends testFastMapBase
         mDevice.drag(700, 823, 1024, 823, 10);
         Thread.sleep(1000);
 
-        Click(MultPoint2);
+        Click(MultPoint0);
         Click(newPas);
 
         PutinEditor("fm_et_name_pas", "测试ＰＡＳ");
@@ -373,7 +357,7 @@ public class testFastMapFS extends testFastMapBase
             mDevice.drag(700, 823, 1024, 823, 10);
             Thread.sleep(1000);
 
-            Click(MultPoint3);
+            Click(MultPoint4);
             Click(newElecEye);
             Click(GetCenter());
 
@@ -420,7 +404,7 @@ public class testFastMapFS extends testFastMapBase
             mDevice.drag(700, 823, 1024, 823, 10);
             Thread.sleep(1000);
 
-            Click(MultPoint3);
+            Click(MultPoint4);
             Click(newElecEye);
             Click(GetCenter());
 
@@ -469,7 +453,7 @@ public class testFastMapFS extends testFastMapBase
             mDevice.drag(700, 823, 1024, 823, 10);
             Thread.sleep(1000);
 
-            Click(MultPoint3);
+            Click(MultPoint4);
             Click(newElecEye);
             Click(GetCenter());
 
@@ -537,7 +521,7 @@ public class testFastMapFS extends testFastMapBase
             mDevice.drag(700, 823, 1024, 823, 10);
             Thread.sleep(1000);
 
-            Click(MultPoint3);
+            Click(MultPoint4);
             Click(newElecEye);
             Click(GetCenter());
 
@@ -565,6 +549,31 @@ public class testFastMapFS extends testFastMapBase
 
             ExitMyData();
         }
+    }
+
+    @Test
+    public void test01301_data_check() throws UiObjectNotFoundException, InterruptedException
+    {
+        //左侧车道必须大于或等于右侧车道的限速值域（数组从小到大顺序）
+        mDevice.drag(700, 823, 1024, 823, 10);
+        Thread.sleep(1000);
+        //创建限速车道从左到右分别为90,110，110
+        Click(new Point(969, 1447), 1000);
+        Click(new Point(mDevice.getDisplayWidth()/2-250, mDevice.getDisplayHeight()/2-250));
+        Click("card_speed_limit_type_driveway",100);//选择车道限速
+        mDevice.drag(77, 632, 225, 643, 10);
+        mDevice.drag(77, 632, 225, 643, 10);
+        Click(new Point(79,552),1000);
+        Click("speed_limit_number_90", 1000);
+        Click("speed_limit_number_110", 1000);
+        Click("speed_limit_number_110", 1000);
+        Click(new Point(75,475),1000);//点限速必选一个
+        Click("save_button", 1000);
+        Thread.sleep(3000);
+        tipsNum++;
+
+        //室内整理工具检查，车道限速
+        AssertIndoorCheck("车道限速","中","FM-1113-2-2","左侧车道限速小于右侧车道限速","");
     }
 
     @Test
@@ -614,27 +623,14 @@ public class testFastMapFS extends testFastMapBase
     {
         //方向看板关联在前道路级别为K1、K2、K8~K13
 
-        String[] lineTypeArray = {"card_high_speed", "card_city_high_speed",
-                                  "card_other_rd", "card_nine_rd", "card_pedestrian_rd", "card_people_crossing", "card_ferry"};
+        String[] lineTypeArray = {"card_nine_rd", "card_pedestrian_rd", "card_people_crossing", "card_ferry"};
 
         for (String type : lineTypeArray)
         {
             mDevice.drag(700, 823, 1024, 823, 10);
 
-
-            Click(MultPoint2);
-            Click(newDrawRoardReal);
-
-            Click(new Point(1000, 1000));
-
-            Click(new Point(1000, 500));
-
-            Click(new Point(500, 1000));
-
-            Click(type);
-            Click("lane_num_1");
-            Click("save_button");
-            tipsNum++;
+            Point[] arrayPoint = {new Point(1000, 1000), new Point(1000, 500), new Point(500, 1000)};
+            DrawRoad(arrayPoint, type);
 
             Click(MultPoint1);
             Click(newDirectBoard);
@@ -642,7 +638,7 @@ public class testFastMapFS extends testFastMapBase
             Click("save_button");
             tipsNum++;
 
-            AssertIndoorCheck("方向看板", "中", "FM-1401-6-1", "采集方向看板应该采集在7级上下分离或6级及以上的普通道路（3,4,6）上", "");
+            AssertIndoorCheck("方向看板", "中", "FM-1401-6-1", "采集方向看板应该采集在7级上下分离或6级及以上的普通道路（3、4、6）上", "");
 
             GotoMyData("rb_condition_tips");
 
@@ -656,97 +652,9 @@ public class testFastMapFS extends testFastMapBase
             ExitMyData();
 
             AssertIndoorCheckNull("FM-1401-6-1");
+
+            DeleteTipInMyData("测线");
         }
-    }
-
-    @Test
-    public void test01303_IndoorCheck_FM_1401_6_1() throws UiObjectNotFoundException
-    {
-        //方向看板关联在前道路级别为K7上下分离
-        mDevice.drag(700, 823, 1024, 823, 10);
-
-        Click(MultPoint2);
-        Click(newDrawRoardReal);
-
-        Click(new Point(1000, 1000));
-
-        Click(new Point(1000, 500));
-
-        Click(new Point(500, 1000));
-
-        Click("card_township_village_rd");
-        Click("lane_num_1");
-        Click("save_button");
-        tipsNum++;
-
-        Click(newStartEnd);
-        Click(new Point(1000, 500));
-        Click(newStartEnd);
-        Click(new Point(500, 1000));
-        Click("up_low_separation_bt");
-        Click("save_button");
-        tipsNum++;
-
-        Click(MultPoint1);
-        Click(newDirectBoard);
-        Click(new Point(1000, 500));
-        Click("save_button");
-        tipsNum++;
-
-        AssertIndoorCheck("方向看板", "中", "FM-1401-6-1", "采集方向看板应该采集在7级上下分离或6级及以上的普通道路（3,4,6）上", "");
-
-        GotoMyData("rb_condition_tips");
-
-        UiObject2 object =mDevice.wait(Until.findObject(By.text("方向看板")), 3000);
-        object.click();
-
-        Click("delete_button");
-        Click("btn_fm_confirm");
-        tipsNum--;
-
-        ExitMyData();
-
-        AssertIndoorCheckNull("FM-1401-6-1");
-    }
-
-    @Test
-    public void test01304_IndoorCheck_FM_1401_6_1() throws UiObjectNotFoundException
-    {
-        //方向看板关联在前道路级别为K7没有上下分离
-        mDevice.drag(700, 823, 1024, 823, 10);
-
-        Click(MultPoint2);
-        Click(newDrawRoardReal);
-
-        Click(new Point(1000, 1000));
-
-        Click(new Point(1000, 500));
-
-        Click(new Point(500, 1000));
-
-        Click("card_township_village_rd");
-        Click("lane_num_1");
-        Click("save_button");
-        tipsNum++;
-
-        Click(MultPoint1);
-        Click(newDirectBoard);
-        Click(new Point(1000, 500));
-        Click("save_button");
-        tipsNum++;
-
-        AssertIndoorCheckNull("FM-1401-6-1");
-
-        GotoMyData("rb_condition_tips");
-
-        UiObject2 object =mDevice.wait(Until.findObject(By.text("方向看板")), 3000);
-        object.click();
-
-        Click("delete_button");
-        Click("btn_fm_confirm");
-        tipsNum--;
-
-        ExitMyData();
     }
 
     @Test
@@ -759,19 +667,8 @@ public class testFastMapFS extends testFastMapBase
         {
             mDevice.drag(700, 823, 1024, 823, 10);
 
-            Click(MultPoint2);
-            Click(newDrawRoardReal);
-
-            Click(new Point(1000, 1000));
-
-            Click(new Point(1000, 500));
-
-            Click(new Point(500, 1000));
-
-            Click(type);
-            Click("lane_num_1");
-            Click("save_button");
-            tipsNum++;
+            Point[] arrayPoint = {new Point(1000, 1000), new Point(1000, 500), new Point(500, 1000)};
+            DrawRoad(arrayPoint, type);
 
             Click(MultPoint1);
             Click(newDirectBoard);
@@ -781,16 +678,7 @@ public class testFastMapFS extends testFastMapBase
 
             AssertIndoorCheckNull("FM-1401-6-1");
 
-            GotoMyData("rb_condition_tips");
-
-            UiObject2 object = mDevice.wait(Until.findObject(By.text("方向看板")), 3000);
-            object.click();
-
-            Click("delete_button");
-            Click("btn_fm_confirm");
-            tipsNum--;
-
-            ExitMyData();
+            DeleteTipInMyData("方向看板", "测线");
         }
     }
 
@@ -804,64 +692,246 @@ public class testFastMapFS extends testFastMapBase
         Point[] arrayPoint = {new Point(1000, 1000), new Point(1000, 500), new Point(500, 1000)};
         DrawRoad(arrayPoint);
 
-        Click(MultPoint4);
+        Click(MultPoint5);
         Click(newLandNum);
         Click(new Point(1000, 500));
         Click("lane_num_1");
 
         tipsNum++;
 
-        AssertIndoorCheck("测线", "中", "FM-2001-6-1", "测线车道数记录在属性中，请删除关联测线的车道数Tips", "不能忽略");
+        AssertIndoorCheck("测线", "中", "FM-2001-6-1", "测线车道数记录在属性中，请删除关联测线的车道数Tips", "");
 
-        GotoMyData("rb_condition_tips");
-
-        UiObject2 object =mDevice.wait(Until.findObject(By.text("车道数")), 3000);
-        object.click();
-
-        Click("delete_button");
-        Click("btn_fm_confirm");
-        tipsNum--;
-
-        ExitMyData();
+        DeleteTipInMyData("车道数", "测线");
 
         AssertIndoorCheckNull("FM-2001-6-1");
     }
 
-//    @Test
-//    public void test01307_IndoorCheck_FM_1054_5_1() throws UiObjectNotFoundException
-//    {
-//        //跨越桥的几何长度要小于800m时，报log
-//        mDevice.drag(700, 823, 1024, 823, 10);
-//
-//        int MAX_LEN = 790;
-//
-//        int Distance = GetDistance10Pixel();
-//
-//        Point[] arrayPoint = {new Point(1000, 1000),
-//                              new Point(1000, 1000-(MAX_LEN/Distance)*10/2),
-//                              new Point(1000-(MAX_LEN/Distance)*10/2, 1000)};
-//        DrawRoad(arrayPoint);
-//
-//        SetStartEndPoint(arrayPoint[0], arrayPoint[2], "overpass_bt");
-//
-//        AssertIndoorCheck("OverPass", "道路形状及相关检查", "FM-2001-6-1", "跨越桥长度小于800米，不需要采集！", "可以忽略");
-//
-//        DeleteTipInMyData("Underpass");
-//
-//        //跨越桥的几何长度大于800m时，不报log
-//        mDevice.drag(700, 823, 1024, 823, 10);
-//
-//        MAX_LEN = 810;
-//
-//        Point[] arrayPoint2 = {new Point(1000, 1000),
-//                new Point(1000, 1000-(MAX_LEN/Distance)*10/2),
-//                new Point(1000-(MAX_LEN/Distance)*10/2, 1000)};
-//        DrawRoad(arrayPoint2);
-//
-//        SetStartEndPoint(arrayPoint2[0], arrayPoint2[2], "overpass_bt");
-//
-//        AssertIndoorCheckNull("FM-2001-6-1");
-//    }
+    @Test
+    public void test01307_IndoorCheck_FM_1504_5_1() throws UiObjectNotFoundException
+    {
+        //跨越桥的几何长度要小于800m时，报log
+        mDevice.drag(700, 823, 1024, 823, 10);
+
+        int MAX_LEN = 790;
+
+        double Distance = GetDistance100Pixel();
+
+        Point[] arrayPoint = {new Point(1300, 1300),
+                              new Point(1300, (int)(1300-(MAX_LEN/Distance)*100/2)),
+                              new Point((int)(1300-(MAX_LEN/Distance)*100/2), (int)(1300-(MAX_LEN/Distance)*100/2))};
+        DrawRoad(arrayPoint);
+
+        SetStartEndPoint(arrayPoint[0], arrayPoint[2], "overpass_bt");
+
+        AssertIndoorCheck("OverPass", "低", "FM-1504-5-1", "跨越桥长度小于800米，不需要采集！", "可以忽略");
+
+        DeleteTipInMyData("Overpass");
+
+        //跨越桥的几何长度大于800m时，不报log
+        mDevice.drag(700, 823, 1024, 823, 10);
+
+        MAX_LEN = 810;
+
+        Point[] arrayPoint2 = {new Point(1300, 1300),
+                new Point(1300, (int)(1300-(MAX_LEN/Distance)*100/2)),
+                new Point((int)(1300-(MAX_LEN/Distance)*100/2), (int)(1300-(MAX_LEN/Distance)*100/2))};
+        DrawRoad(arrayPoint2);
+
+        SetStartEndPoint(arrayPoint2[0], arrayPoint2[2], "overpass_bt");
+
+        AssertIndoorCheckNull("FM-1504-5-1");
+
+        DeleteTipInMyData("Overpass", "测线");
+    }
+
+    @Test
+    public void test01308_IndoorCheck_FM_1505_5_1() throws UiObjectNotFoundException
+    {
+        //穿越地道的几何长度要小于800m时, 报log
+        mDevice.drag(700, 823, 1024, 823, 10);
+
+        int MAX_LEN = 790;
+
+        double Distance = GetDistance100Pixel();
+
+        Point[] arrayPoint = {new Point(1300, 1300),
+                new Point(1300, (int)(1300-(MAX_LEN/Distance)*100/2)),
+                new Point((int)(1300-(MAX_LEN/Distance)*100/2), (int)(1300-(MAX_LEN/Distance)*100/2))};
+        DrawRoad(arrayPoint);
+
+        SetStartEndPoint(arrayPoint[0], arrayPoint[2], "under_pass_bt");
+
+        AssertIndoorCheck("Underpass", "低", "FM-1505-5-1", "穿越地道长度小于800米，不需要采集！", "可以忽略");
+
+        DeleteTipInMyData("Underpass");
+
+        //跨越桥的几何长度大于800m时，不报log
+        mDevice.drag(700, 823, 1024, 823, 10);
+
+        MAX_LEN = 810;
+
+        Point[] arrayPoint2 = {new Point(1300, 1300),
+                new Point(1300, (int)(1300-(MAX_LEN/Distance)*100/2)),
+                new Point((int)(1300-(MAX_LEN/Distance)*100/2), (int)(1300-(MAX_LEN/Distance)*100/2))};
+        DrawRoad(arrayPoint2);
+
+        SetStartEndPoint(arrayPoint2[0], arrayPoint2[2], "under_pass_bt");
+
+        AssertIndoorCheckNull("FM-1505-5-1");
+
+        DeleteTipInMyData("Underpass", "测线", "测线");
+    }
+
+    @Test
+    public void test01309_IndoorCheck_FM_1509_6_1() throws UiObjectNotFoundException
+    {
+        //跨线立交桥与匝道互斥
+        mDevice.drag(700, 823, 1024, 823, 10);
+
+        Point[] arrayPoint = {new Point(1000, 1000), new Point(1000, 500), new Point(500, 1000)};
+        DrawRoad(arrayPoint);
+
+        SetStartEndPoint(arrayPoint[0], arrayPoint[2], "cross_line_overpass_bt");
+
+        Click(MultPoint6);
+        Click(newRamp);
+        Click(arrayPoint[1]);
+        Click("btn_ramp");
+        Click("save_button");
+
+        AssertIndoorCheck("中", "跨线立交桥", "FM-1509-6-1", "跨线立交桥与桥、匝道、隧道属性不能共存", "不能忽略");
+
+        DeleteTipInMyData("匝道");
+
+        AssertIndoorCheckNull("FM-1059-6-1");
+
+        DeleteTipInMyData("跨线立交桥", "测线");
+    }
+
+    @Test
+    public void test01310_IndoorCheck_FM_1509_6_1() throws UiObjectNotFoundException
+    {
+        //跨线立交桥与桥互斥
+        mDevice.drag(700, 823, 1024, 823, 10);
+
+        Point[] arrayPoint = {new Point(1000, 1000), new Point(1000, 500), new Point(500, 500)};
+        DrawRoad(arrayPoint);
+
+        SetStartEndPoint(arrayPoint[0], arrayPoint[1], "cross_line_overpass_bt");
+        SetStartEndPoint(arrayPoint[0], arrayPoint[1], "bridge_bt");
+
+        AssertIndoorCheck("中", "跨线立交桥", "FM-1509-6-1", "跨线立交桥与桥、匝道、隧道属性不能共存", "不能忽略");
+
+        DeleteTipInMyData("固定桥", "跨线立交桥", "测线");
+
+        mDevice.drag(700, 823, 1024, 823, 10);
+        Point[] arrayPoint2 = {new Point(1000, 1000), new Point(1000, 500), new Point(500, 500)};
+        DrawRoad(arrayPoint);
+
+        SetStartEndPoint(arrayPoint[0], arrayPoint[1], "cross_line_overpass_bt");
+        SetStartEndPoint(new Point(arrayPoint2[1].x-100, arrayPoint2[1].y), arrayPoint2[2], "bridge_bt");
+
+        AssertIndoorCheckNull("FM-1509-6-1");
+
+        DeleteTipInMyData("固定桥", "跨线立交桥", "测线");
+    }
+
+    @Test
+    public void test01311_IndoorCheck_FM_1509_6_1() throws UiObjectNotFoundException
+    {
+        //跨线立交桥与隧道互斥
+        mDevice.drag(700, 823, 1024, 823, 10);
+
+        Point[] arrayPoint = {new Point(1000, 1000), new Point(1000, 500), new Point(500, 500)};
+        DrawRoad(arrayPoint);
+
+        SetStartEndPoint(arrayPoint[0], arrayPoint[1], "cross_line_overpass_bt");
+        SetStartEndPoint(arrayPoint[0], arrayPoint[1], "tunnel_bt");
+
+        AssertIndoorCheck("中", "跨线立交桥", "FM-1509-6-1", "跨线立交桥与桥、匝道、隧道属性不能共存", "不能忽略");
+
+        DeleteTipInMyData("隧道", "跨线立交桥", "测线");
+
+        mDevice.drag(700, 823, 1024, 823, 10);
+        DrawRoad(arrayPoint);
+
+        SetStartEndPoint(arrayPoint[0], arrayPoint[1], "cross_line_overpass_bt");
+        SetStartEndPoint(new Point(arrayPoint[1].x-100, arrayPoint[1].y), arrayPoint[2], "tunnel_bt");
+
+        AssertIndoorCheckNull("FM-1509-6-1");
+
+        DeleteTipInMyData("隧道", "跨线立交桥", "测线");
+    }
+
+
+    @Test
+    public void test01314_IndoorCheck_FM_1109_6_7() throws UiObjectNotFoundException
+    {
+        //10级、11级、13级测线采集摄像头
+        mDevice.drag(700, 823, 1024, 823, 10);
+
+        String[] lineTypeArray = {"card_pedestrian_rd", "card_people_crossing", "card_ferry"};
+
+        for(String type : lineTypeArray)
+        {
+            mDevice.drag(700, 823, 1024, 823, 10);
+
+            Point[] arrayPoint = {new Point(1000, 1000), new Point(1000, 500), new Point(500, 500)};
+            DrawRoad(arrayPoint, type);
+
+            AddElecEye(arrayPoint[0]);
+
+            AssertIndoorCheck("中", "电子眼", "FM-1109-6-7", "10级、人渡、轮渡、具有区域内道路属性的8级路不采集摄像头", "不能忽略");
+
+            DeleteTipInMyData("电子眼", "测线");
+
+            AssertIndoorCheckNull("FM-1109-6-7");
+        }
+
+    }
+
+    @Test
+    public void test01315_IndoorCheck_FM_1109_6_7() throws UiObjectNotFoundException
+    {
+        //8级区域内测线采集摄像头
+        mDevice.drag(700, 823, 1024, 823, 10);
+
+        Point[] arrayPoint = {new Point(1000, 1000), new Point(1000, 500), new Point(500, 500)};
+        DrawRoad(arrayPoint, "card_other_rd");
+
+        AddRegional(arrayPoint[0], "card_intra_regional_road");
+        AddElecEye(arrayPoint[0]);
+
+        AssertIndoorCheck("中", "电子眼", "FM-1109-6-7", "10级、人渡、轮渡、具有区域内道路属性的8级路不采集摄像头", "不能忽略");
+
+        DeleteTipInMyData("电子眼");
+
+        AssertIndoorCheckNull("FM-1109-6-7");
+    }
+
+    @Test
+    public void test01316_IndoorCheck_FM_1109_6_7() throws UiObjectNotFoundException
+    {
+        //其他正常情况采集摄像头
+        mDevice.drag(700, 823, 1024, 823, 10);
+
+        String[] lineTypeArray = {"card_high_speed", "card_city_high_speed", "card_national_rd", "card_provincial_rd",
+                "card_county_rd", "card_other_rd", "card_township_village_rd",};
+
+        for(String type : lineTypeArray)
+        {
+            mDevice.drag(700, 823, 1024, 823, 10);
+
+            Point[] arrayPoint = {new Point(1000, 1000), new Point(1000, 500), new Point(500, 500)};
+            DrawRoad(arrayPoint, type);
+
+            AddElecEye(arrayPoint[0]);
+
+            AssertIndoorCheckNull("FM-1109-6-7");
+
+            DeleteTipInMyData("电子眼", "测线");
+        }
+    }
 
     @Test
     public void test1000_SyncData() throws InterruptedException, UiObjectNotFoundException

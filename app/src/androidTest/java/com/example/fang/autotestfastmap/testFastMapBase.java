@@ -93,6 +93,13 @@ public class testFastMapBase
         }
     }
 
+    protected static void SetUserInfo(String username, String password, String userdir)
+    {
+        testFastMapBase.username = username;
+        testFastMapBase.password = password;
+        testFastMapBase.userdir = userdir;
+    }
+
     protected static String getPackageName() throws Exception
     {
         String rslt = mDevice.executeShellCommand("pm list packages");
@@ -154,15 +161,18 @@ public class testFastMapBase
 
     public static void loginProcess()
     {
-        Click("login_tv_service_address");
-        UiObject2 Object = mDevice.wait(Until.findObject(By.text("开发->http://fs-road.navinfo.com/dev/trunk")), 500);
-        Object.click();
+        if (mDevice.wait(Until.findObject(By.textContains("http://fs-road.navinfo.com/dev/trunk")), 500) == null)
+        {
+            Click("login_tv_service_address");
+            UiObject2 Object = mDevice.wait(Until.findObject(By.text("开发->http://fs-road.navinfo.com/dev/trunk")), 500);
+            Object.click();
 
-        Click("btn_fm_confirm");
+            Click("btn_fm_confirm");
+        }
 
         //登录
-        PutinEditor("login_account_et", "collector");
-        PutinEditor("login_pswd_et", "123456");
+        PutinEditor("login_account_et", username);
+        PutinEditor("login_pswd_et", password);
 
         Click("login_btn");
 
@@ -838,6 +848,10 @@ public class testFastMapBase
         tipsNum++;
     }
 
+    protected static String username;
+    protected static String password;
+    protected static String userdir;
+
     protected static UiDevice mDevice;
     protected static String packageName = "com.fastmap.hd";
 
@@ -872,4 +886,5 @@ public class testFastMapBase
     protected static Point newRegional = new Point(1200, 1140);
 
     protected static SqliteTools m_Sqlit = new SqliteTools();
+
 }
