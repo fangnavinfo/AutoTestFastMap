@@ -50,14 +50,19 @@ public class testFastMapBase
 
     protected  static void setClassUp(String userName, String passWord) throws Exception
     {
+
         testFastMapBase.userName = userName;
         testFastMapBase.passWord = passWord;
 
-        Init();
-
         mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
-
         packageName = getPackageName();
+
+        userPath = GetUserPath();
+        m_Sqlit = new SqliteTools(userPath);
+
+        FastMapUI.initialize(mDevice, packageName);
+
+        Init();
 
         clearCollect();
 
@@ -110,34 +115,9 @@ public class testFastMapBase
 
     protected static void clearCollect() throws IOException
     {
-        String rslt = mDevice.executeShellCommand("ls /sdcard/");
-        String[] array  = rslt.split("\n");
-
-        String dirName = "";
-        for (int i=0; i<array.length; i++)
-        {
-            if (array[i].contains("FastMap"))
-            {
-                dirName = array[i];
-            }
-        }
-
-        if (dirName.isEmpty())
-        {
-            return;
-        }
-
-        if(userName.equals("collector")) {
-            dirName = "/sdcard/" + dirName + "/Data/Collect/21/";
-        }if(userName.equals("collector1")) {
-            dirName = "/sdcard/" + dirName + "/Data/Collect/23/";
-        }if(userName.equals("collector2")) {
-            dirName = "/sdcard/" + dirName + "/Data/Collect/24/";
-        }
-
-        mDevice.executeShellCommand("rm -rf " + dirName + "coremap.sqlite");
-        mDevice.executeShellCommand("rm -rf " + dirName + "oremap.shm");
-        mDevice.executeShellCommand("rm -rf " + dirName + "coremap.wal");
+        mDevice.executeShellCommand("rm -rf " + userPath + "coremap.sqlite");
+        mDevice.executeShellCommand("rm -rf " + userPath + "oremap.shm");
+        mDevice.executeShellCommand("rm -rf " + userPath + "coremap.wal");
     }
 
     public static void  ReStartApp() throws InterruptedException, IOException
@@ -595,17 +575,6 @@ public class testFastMapBase
         infoGateType = 0;
     }
 
-    protected void CheckTool(UiObject2 textObj)
-    {
-        String className = textObj.getClassName();
-        String text = textObj.getText();
-        List<UiObject2> objList = textObj.getChildren();
-        for (UiObject2 obj : objList)
-        {
-            CheckTool(obj);
-        }
-    }
-
     protected void AssertIndoorCheck(String type, String level, String rule, String error, String severity) throws UiObjectNotFoundException
     {
         GotoIndoorTools();
@@ -842,6 +811,40 @@ public class testFastMapBase
         tipsNum++;
     }
 
+    private static  String GetUserPath() throws IOException
+    {
+        String rslt = mDevice.executeShellCommand("ls /sdcard/");
+        String[] array  = rslt.split("\n");
+
+        String dirName = "";
+        for (int i=0; i<array.length; i++)
+        {
+            if (array[i].contains("FastMap"))
+            {
+                dirName = array[i];
+            }
+        }
+
+        if (dirName.isEmpty())
+        {
+            return "";
+        }
+
+        if(userName.equals("collector"))
+        {
+            return "/sdcard/" + dirName + "/Data/Collect/21/";
+        }
+        if(userName.equals("collector1"))
+        {
+            return "/sdcard/" + dirName + "/Data/Collect/23/";
+        }
+        if(userName.equals("collector2"))
+        {
+            return "/sdcard/" + dirName + "/Data/Collect/24/";
+        }
+        return "";
+    }
+
     protected static UiDevice mDevice;
     protected static String packageName = "com.fastmap.hd";
 
@@ -875,7 +878,9 @@ public class testFastMapBase
     protected static Point newTollStation = new Point(584, 1130);
     protected static Point newRegional = new Point(1200, 1140);
 
-    protected static SqliteTools m_Sqlit = new SqliteTools();
+    private static String userPath = "";
+    private static SqliteTools m_Sqlit = null;
+
     private static String userName = "";
     private static String passWord = "";
 }

@@ -33,6 +33,7 @@ import org.junit.runners.MethodSorters;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.channels.Selector;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -90,9 +91,10 @@ public class testFastMapFS extends testFastMapBase
     }
 
     @Test
-    public void test00101_poi_add() throws InterruptedException, UiObjectNotFoundException
+    public void test00101_poi_add() throws Exception
     {
-        Click(newPOIPoint, 6000);
+
+        FastMapUI.pressBtnMainBoard(TipsDeepDictionary.POI_ADD_9001);
 
         Click("take_pic_imgbtn");
         Click("task_pic_back_img");
@@ -120,12 +122,14 @@ public class testFastMapFS extends testFastMapBase
     }
 
     @Test
-    public void test00201_tips_point_TrafficLight_add() throws InterruptedException
+    public void test00201_tips_point_TrafficLight_add() throws Exception
     {
         mDevice.drag(700, 823, 1024, 823, 10);
         Thread.sleep(1000);
 
-        Click(newTrafficLight);
+        FastMapUI.pressBtnMainBoard(TipsDeepDictionary.TRAFFIC_LIGHT);
+        Thread.sleep(1000);
+
         Click(GetCenter());
         tipsNum++;
 
@@ -145,8 +149,7 @@ public class testFastMapFS extends testFastMapBase
         mDevice.drag(700, 823, 1024, 823, 10);
         Thread.sleep(1000);
 
-        Click(MultPoint2);
-        Click(newDrawRoardReal);
+        FastMapUI.pressBtnMainBoard(TipsDeepDictionary.TYPE_TEST_LINE_10002);
 
         Click(new Point(1000, 1000));
 
@@ -177,15 +180,15 @@ public class testFastMapFS extends testFastMapBase
 
         ExitMyData();
 
-        m_Sqlit.RefreshData();
-        assertEquals(m_Sqlit.GetTipsDisplayText(rowkey), " 1 车道 | K1");
+//        m_Sqlit.RefreshData();
+//        assertEquals(m_Sqlit.GetTipsDisplayText(rowkey), " 1 车道 | K1");
     }
 
     @Test
-    public void test00401_tips_releation_TrackLimit_add()
+    public void test00401_tips_releation_TrackLimit_add() throws Exception
     {
-        Click(MultPoint2);
-        Click(newDrawTrackLimit);
+        FastMapUI.pressBtnMainBoard(TipsDeepDictionary.TRUCK_TRAFFIC_FORBIDDEN);
+        Thread.sleep(1000);
 
         Click(new Point(1000, 1000));
 
@@ -206,7 +209,7 @@ public class testFastMapFS extends testFastMapBase
     }
 
     @Test
-    public void test00501_QCTask_add() throws InterruptedException
+    public void test00501_QCTask_add() throws Exception
     {
         GotoIndoorTools();
 
@@ -215,7 +218,8 @@ public class testFastMapFS extends testFastMapBase
         mDevice.drag(700, 823, 1024, 823, 10);
         Thread.sleep(1000);
 
-        Click(newTrafficLight);
+        FastMapUI.pressBtnMainBoard(TipsDeepDictionary.TRAFFIC_LIGHT);
+        Thread.sleep(1000);
         Click(GetCenter());
         tipsNum++;
 
@@ -229,13 +233,12 @@ public class testFastMapFS extends testFastMapBase
     }
 
     @Test
-    public void test00601_Precise_Pas_add() throws InterruptedException
+    public void test00601_Precise_Pas_add() throws Exception
     {
         mDevice.drag(700, 823, 1024, 823, 10);
         Thread.sleep(1000);
 
-        Click(MultPoint2);
-        Click(newPas);
+        FastMapUI.pressBtnMainBoard(TipsDeepDictionary.PAS_ADD_9004);
 
         PutinEditor("fm_et_name_pas", "测试ＰＡＳ");
         PutinEditor("fm_et_address_pas", "101");
@@ -915,7 +918,12 @@ public class testFastMapFS extends testFastMapBase
         mDevice.drag(700, 823, 1024, 823, 10);
 
         Point[] arrayPoint = {new Point(1000, 1000), new Point(1000, 500), new Point(500, 500)};
+
         DrawRoad(arrayPoint, "card_other_rd");
+
+        //FastMapUI.Mydata.DeleteTips("电子眼");
+
+
 
         AddRegional(arrayPoint[0], "card_intra_regional_road");
         AddElecEye(arrayPoint[0]);
@@ -976,4 +984,5 @@ public class testFastMapFS extends testFastMapBase
         ExitGridManager();
     }
 
+    static FastMapUI mFastMapUI = new FastMapUI();
 }
