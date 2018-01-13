@@ -69,12 +69,13 @@ public class testFastMapZF extends testFastMapBase
 
     // POI 联系方式去除手机号不能以19开头的限制
     @Test
-    public void test00102_poi_telnum_check() throws InterruptedException, UiObjectNotFoundException
-    {
+    public void test00102_poi_telnum_check() throws Exception {
         mDevice.drag(700, 823, 1024, 823, 10);
         Thread.sleep(1000);
 
-        Click(newPOIPoint, 6000);  //点击新增POI
+        //点击新增POI
+        FastMapUI.pressBtnMainBoard(TipsDeepDictionary.POI_ADD_9001);
+        Thread.sleep(500);
 
         Click("take_pic_imgbtn"); //点击拍照
         Click("task_pic_back_img"); //点击返回
@@ -137,10 +138,11 @@ public class testFastMapZF extends testFastMapBase
 
     // 删除标记
     @Test
-    public void test00104_tips_delete_check()  throws InterruptedException, UiObjectNotFoundException {
+    public void test00104_tips_delete_check() throws Exception {
 
         //添加红绿灯
-        Click(trafficlightButton,500);
+        FastMapUI.pressBtnMainBoard(TipsDeepDictionary.TRAFFIC_LIGHT);
+        Thread.sleep(500);
         Click(new Point(1852,482),500);
         Click("head_icon",500); //点击主界面左上角头像
         Click("fmcard_tv_user_data",1000); //点击我的数据
@@ -184,8 +186,10 @@ public class testFastMapZF extends testFastMapBase
         Click("btn_fm_confirm", 500);
         mDevice.pressBack();
         Thread.sleep(500);
-        Click(deleteButton,500);
-        Click(GetCenter(),500);
+        //删除
+        FastMapUI.pressBtnMainBoard(TipsDeepDictionary.DELETE_ROAD_MARKER);
+        Thread.sleep(500);
+        Click(GetCenter(),1000);
 
         listViewObj = mDevice.findObject(By.clazz(ListView.class));
         child = listViewObj.findObject(By.clazz(LinearLayout.class));
@@ -237,12 +241,13 @@ public class testFastMapZF extends testFastMapBase
 
     // FM-1207-6-2
     @Test
-    public void test_FM_1207_6_2_check() throws UiObjectNotFoundException, InterruptedException {
+    public void test_FM_1207_6_2_check() throws Exception {
 
         getPosion(1000,807, "111102657234");
 
         //增加POI
-        Click(newPOIPoint, 5000);  //点击新增POI
+        FastMapUI.pressBtnMainBoard(TipsDeepDictionary.POI_ADD_9001);  //点击新增POI
+        Thread.sleep(500);
 
         Click("take_pic_imgbtn"); //点击拍照
         Click("task_pic_back_img"); //点击返回
@@ -263,8 +268,8 @@ public class testFastMapZF extends testFastMapBase
         Click("save_button",1000);
 
         //增加匝道
-        Click(new Point(845, 1435));
-        Click(new Point(975, 1150));
+        FastMapUI.pressBtnMainBoard(TipsDeepDictionary.RAMP);
+        Thread.sleep(500);
 
         Click(new Point(1025, 815));
         Click("btn_ramp");
@@ -275,21 +280,21 @@ public class testFastMapZF extends testFastMapBase
 
     // FM-1208-2-1
     @Test
-    public void test_FM_1208_2_1_check() throws UiObjectNotFoundException, InterruptedException {
+    public void test_FM_1208_2_1_check() throws Exception {
         getPosion(1000,807, "111102657234");
 
 
         //增加道路方向：单向
-        Click(new Point(845, 1435));
-        Click(new Point(975, 1010));
+        FastMapUI.pressBtnMainBoard(TipsDeepDictionary.ROAD_DIRECTION);
+        Thread.sleep(500);
         //测线中点
         Click(new Point(1025, 805));
         //保存
         Click("save_button", 500);
 
         //增加停车场出入口link
-        Click(new Point(845, 1435));
-        Click(new Point(715, 1265));
+        FastMapUI.pressBtnMainBoard(TipsDeepDictionary.PARK_ENTRANCE_LINK);
+        Thread.sleep(500);
 
         Click(new Point(745, 815));
         Click("save_button");
@@ -299,19 +304,21 @@ public class testFastMapZF extends testFastMapBase
 
     // FM-1301-6-4
     @Test
-    public void test_FM_1301_6_4_1check() throws UiObjectNotFoundException, InterruptedException {
+    public void test_FM_1301_6_4_1check() throws Exception {
 
         getPosion(1000,807, "111102657234");
 
         //增加车信
-        Click(new Point(1980, 1135));
+        FastMapUI.pressBtnMainBoard(TipsDeepDictionary.LANE_INFO);
+        Thread.sleep(500);
         Click(new Point(1027, 800));
+        Thread.sleep(500);
 
-        Click("rb_select_one_g_a_f",500);
-        Click(new Point(1210, 600),500);
+        Click("rb_select_one_g_a_f",1000);
+        Click(new Point(1210, 600),1000);
 
         //保存
-        Click("save_button", 500);
+        Click("save_button", 1000);
 
         AssertIndoorCheck("车信", "低", "FM-1301-6-4", "有附加车信，是否车道变化点采集遗漏", "忽略");
 
@@ -319,7 +326,7 @@ public class testFastMapZF extends testFastMapBase
 
     // FM-1301-6-4
     @Test
-    public void test_FM_1301_6_4_2check() throws UiObjectNotFoundException, InterruptedException {
+    public void test_FM_1301_6_4_2check() throws Exception {
 
         getPosion(0,0, "111102657234");
 
@@ -328,8 +335,8 @@ public class testFastMapZF extends testFastMapBase
         DrawRoad(arrayPoint);
 
         //增加道路方向：单向
-        Click(new Point(845, 1435));
-        Click(new Point(975, 1010));
+        FastMapUI.pressBtnMainBoard(TipsDeepDictionary.ROAD_DIRECTION);
+        Thread.sleep(500);
         //测线中点
         Click(new Point(1200, 480));
         //保存
@@ -355,11 +362,12 @@ public class testFastMapZF extends testFastMapBase
 
     // FM-1305-6-1
     @Test
-    public void test_FM_1305_6_1_1check() throws UiObjectNotFoundException, InterruptedException {
+    public void test_FM_1305_6_1_1check() throws Exception {
         getPosion(1000,807, "111102657234");
 
         //交限
-        Click(new Point(1975, 1255));
+        FastMapUI.pressBtnMainBoard(TipsDeepDictionary.TRAFFIC_FORBIDDEN);
+        Thread.sleep(500);
 
         Click(new Point(1025, 800));
 
@@ -401,7 +409,7 @@ public class testFastMapZF extends testFastMapBase
         Thread.sleep(1000);
 
         mDevice.findObject(By.res(packageName, "edt_search_tips_input")).setText(key);
-        Thread.sleep(500);
+        Thread.sleep(1000);
         mDevice.findObject(By.res(packageName, "tv_search_tips_btn")).click();
         Thread.sleep(2000);
 
@@ -414,14 +422,16 @@ public class testFastMapZF extends testFastMapBase
         searchObject(key,"TIPS");
 
         mDevice.pressBack();
+        Thread.sleep(1000);
         mDevice.pressBack();
+        Thread.sleep(1000);
 
         if(endX == 0 && endY == 0) {
 
         }else {
             mDevice.drag(1273, 615, endX, endY, 10);
         }
-
+        Thread.sleep(1000);
 
     }
 
@@ -499,7 +509,7 @@ public class testFastMapZF extends testFastMapBase
             }
             finally
             {
-                if (count == 150)
+                if (count == 1500)
                 {
                     break;
                 }
@@ -596,10 +606,6 @@ public class testFastMapZF extends testFastMapBase
     }
 
     private static String globalId = "";
-    private static String globalLine = "";
-    private static String globalStop = "";
     private static String infoFid = "0010071128WT200493";
-    private static Point deleteButton = new Point(1085, 1435);
-    private static Point trafficlightButton = new Point(365, 1435);
     private static String infoRowkey = "";
 }
