@@ -701,11 +701,11 @@ public class testFastMapBase
     }
 
     //设置起终点类型
-    protected void SetStartEndPoint(Point start, Point end, String type)
+    protected void SetStartEndPoint(Point start, Point end, String type) throws Exception
     {
-        Click(newStartEnd);
+        FastMapUI.pressBtnMainBoard(TipsDeepDictionary.StartEndPoint);
         Click(start);
-        Click(newStartEnd);
+        FastMapUI.pressBtnMainBoard(TipsDeepDictionary.StartEndPoint);
         Click(end);
         Click(type);
         Click("save_button");

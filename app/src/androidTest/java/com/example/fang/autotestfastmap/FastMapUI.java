@@ -44,7 +44,6 @@ public class FastMapUI
 
     public static void pressBtnMainBoard(String type) throws Exception
     {
-
         int[] keyboardInfo = GetObjectIndex(type);
 
         UiObject2 obj2 = mDevice.wait(Until.findObject(By.res(packageName, "free_drag_view")), 500);
@@ -54,6 +53,7 @@ public class FastMapUI
 
         if (keyboardInfo[1] == -1)
         {
+            Thread.sleep(1000);
             return;
         }
 
@@ -64,7 +64,7 @@ public class FastMapUI
         lst = gridobj.findObjects(By.clazz("android.widget.ImageView"));
         lst.get(keyboardInfo[1]).click();
 
-        mDevice.waitForWindowUpdate(packageName, 1000);
+        Thread.sleep(1000);
     }
 
     protected static void CheckTool(UiObject2 textObj)
@@ -80,6 +80,14 @@ public class FastMapUI
 
     private static int[] GetObjectIndex(String type)
     {
+        if (type.equals(TipsDeepDictionary.StartEndPoint))
+        {
+            UiObject2 obj2 = mDevice.wait(Until.findObject(By.res(packageName, "free_drag_view")), 500);
+            List<UiObject2> lst = obj2.findObjects(By.clazz("android.widget.FrameLayout").clickable(true));
+
+            return new int[]{lst.size()-1, -1};
+        }
+
         ArrayList<ArrayList<String>> currLocation = arrayLocation;
         if (mDevice.wait(Until.findObject(By.res(packageName, "btn_indoor_data_check_open")), 500) != null)
         {

@@ -525,4 +525,9 @@ public class TipsDeepDictionary
      * 复合虚拟连接
      */
     public final static String MULTI_VIRTUAL = "2204";
+
+    /**
+     * 起点终点
+     */
+    public final static String StartEndPoint = "StartEndPoint";
 }
