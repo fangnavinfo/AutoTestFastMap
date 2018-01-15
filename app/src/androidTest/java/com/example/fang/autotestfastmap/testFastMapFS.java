@@ -128,7 +128,6 @@ public class testFastMapFS extends testFastMapBase
         Thread.sleep(1000);
 
         FastMapUI.pressBtnMainBoard(TipsDeepDictionary.TRAFFIC_LIGHT);
-        Thread.sleep(1000);
 
         Click(GetCenter());
         tipsNum++;
@@ -188,7 +187,6 @@ public class testFastMapFS extends testFastMapBase
     public void test00401_tips_releation_TrackLimit_add() throws Exception
     {
         FastMapUI.pressBtnMainBoard(TipsDeepDictionary.TRUCK_TRAFFIC_FORBIDDEN);
-        Thread.sleep(1000);
 
         Click(new Point(1000, 1000));
 
@@ -219,7 +217,6 @@ public class testFastMapFS extends testFastMapBase
         Thread.sleep(1000);
 
         FastMapUI.pressBtnMainBoard(TipsDeepDictionary.TRAFFIC_LIGHT);
-        Thread.sleep(1000);
         Click(GetCenter());
         tipsNum++;
 
@@ -362,7 +359,7 @@ public class testFastMapFS extends testFastMapBase
     }
 
     @Test
-    public  void test01201_tips_Eyes_SpeedType_Add_Modify_Del() throws InterruptedException, UiObjectNotFoundException
+    public  void test01201_tips_Eyes_SpeedType_Add_Modify_Del() throws Exception
     {
         String SpeedEyes[] = {"electronic_eye_overspeed",
                 "electronic_eye_ultra_low_speed",
@@ -378,8 +375,7 @@ public class testFastMapFS extends testFastMapBase
             mDevice.drag(700, 823, 1024, 823, 10);
             Thread.sleep(1000);
 
-            Click(MultPoint4);
-            Click(newElecEye);
+            FastMapUI.pressBtnMainBoard(TipsDeepDictionary.POINT_ELECTRONIC_EYE);
             Click(GetCenter());
 
             Click("tv_electronic_eye_type_more");
@@ -414,7 +410,7 @@ public class testFastMapFS extends testFastMapBase
     }
 
     @Test
-    public void test01202_tips_Eyes_TimeType_Add_Modify_Del() throws InterruptedException, UiObjectNotFoundException
+    public void test01202_tips_Eyes_TimeType_Add_Modify_Del() throws Exception
     {
 
         String TimeEyes[]  = {"electronic_eye_bus_lane",
@@ -425,8 +421,7 @@ public class testFastMapFS extends testFastMapBase
             mDevice.drag(700, 823, 1024, 823, 10);
             Thread.sleep(1000);
 
-            Click(MultPoint4);
-            Click(newElecEye);
+            FastMapUI.pressBtnMainBoard(TipsDeepDictionary.POINT_ELECTRONIC_EYE);
             Click(GetCenter());
 
             Click("tv_electronic_eye_type_more");
@@ -463,7 +458,7 @@ public class testFastMapFS extends testFastMapBase
     }
 
     @Test
-    public void test01203_tips_Eyes_CarType_Add_Modify_Del() throws InterruptedException, UiObjectNotFoundException
+    public void test01203_tips_Eyes_CarType_Add_Modify_Del() throws Exception
     {
 
         String CarTypeEyes[] = {"electronic_eye_traffic_controls",
@@ -474,8 +469,7 @@ public class testFastMapFS extends testFastMapBase
             mDevice.drag(700, 823, 1024, 823, 10);
             Thread.sleep(1000);
 
-            Click(MultPoint4);
-            Click(newElecEye);
+            FastMapUI.pressBtnMainBoard(TipsDeepDictionary.POINT_ELECTRONIC_EYE);
             Click(GetCenter());
 
             Click("tv_electronic_eye_type_more");
@@ -515,7 +509,7 @@ public class testFastMapFS extends testFastMapBase
     }
 
     @Test
-    public void test01204_tips_Eyes_CommonType_Add_Modify_Del()throws InterruptedException, UiObjectNotFoundException
+    public void test01204_tips_Eyes_CommonType_Add_Modify_Del() throws Exception
     {
         String CommonEyes[] = {"electronic_eye_not_vehicle_lane",
                 "electronic_eye_no_turning_around",
@@ -542,8 +536,7 @@ public class testFastMapFS extends testFastMapBase
             mDevice.drag(700, 823, 1024, 823, 10);
             Thread.sleep(1000);
 
-            Click(MultPoint4);
-            Click(newElecEye);
+            FastMapUI.pressBtnMainBoard(TipsDeepDictionary.POINT_ELECTRONIC_EYE);
             Click(GetCenter());
 
             Click("tv_electronic_eye_type_more");
@@ -573,38 +566,13 @@ public class testFastMapFS extends testFastMapBase
     }
 
     @Test
-    public void test01301_data_check() throws UiObjectNotFoundException, InterruptedException
-    {
-        //左侧车道必须大于或等于右侧车道的限速值域（数组从小到大顺序）
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
-        //创建限速车道从左到右分别为90,110，110
-        Click(new Point(969, 1447), 1000);
-        Click(new Point(mDevice.getDisplayWidth()/2-250, mDevice.getDisplayHeight()/2-250));
-        Click("card_speed_limit_type_driveway",100);//选择车道限速
-        mDevice.drag(77, 632, 225, 643, 10);
-        mDevice.drag(77, 632, 225, 643, 10);
-        Click(new Point(79,552),1000);
-        Click("speed_limit_number_90", 1000);
-        Click("speed_limit_number_110", 1000);
-        Click("speed_limit_number_110", 1000);
-        Click(new Point(75,475),1000);//点限速必选一个
-        Click("save_button", 1000);
-        Thread.sleep(3000);
-        tipsNum++;
-
-        //室内整理工具检查，车道限速
-        AssertIndoorCheck("车道限速","中","FM-1113-2-2","左侧车道限速小于右侧车道限速","");
-    }
-
-    @Test
-    public void test01301_IndoorCheck_FM_1401_7_1() throws UiObjectNotFoundException
+    public void test01301_IndoorCheck_FM_1401_7_1() throws Exception
     {
         //方向看板Tips，必须至少添加一张照片
         mDevice.drag(700, 823, 1024, 823, 10);
 
-        Click(MultPoint1);
-        Click(newDirectBoard);
+        FastMapUI.pressBtnMainBoard(TipsDeepDictionary.DIRECTION_BOARD);
+
         Click(new Point(1000, 500));
         Click("save_button");
         tipsNum++;
@@ -640,7 +608,7 @@ public class testFastMapFS extends testFastMapBase
 
 
     @Test
-    public void test01302_IndoorCheck_FM_1401_6_1() throws UiObjectNotFoundException
+    public void test01302_IndoorCheck_FM_1401_6_1() throws Exception
     {
         //方向看板关联在前道路级别为K1、K2、K8~K13
 
@@ -653,8 +621,8 @@ public class testFastMapFS extends testFastMapBase
             Point[] arrayPoint = {new Point(1000, 1000), new Point(1000, 500), new Point(500, 1000)};
             DrawRoad(arrayPoint, type);
 
-            Click(MultPoint1);
-            Click(newDirectBoard);
+            FastMapUI.pressBtnMainBoard(TipsDeepDictionary.DIRECTION_BOARD);
+
             Click(new Point(1000, 500));
             Click("save_button");
             tipsNum++;
@@ -679,7 +647,7 @@ public class testFastMapFS extends testFastMapBase
     }
 
     @Test
-    public void test01305_IndoorCheck_FM_1401_6_1() throws UiObjectNotFoundException
+    public void test01305_IndoorCheck_FM_1401_6_1() throws Exception
     {
         //方向看板关联在前道路级别为K3、4、6
         String[] lineTypeArray = {"card_national_rd", "card_provincial_rd", "card_county_rd"};
@@ -691,8 +659,8 @@ public class testFastMapFS extends testFastMapBase
             Point[] arrayPoint = {new Point(1000, 1000), new Point(1000, 500), new Point(500, 1000)};
             DrawRoad(arrayPoint, type);
 
-            Click(MultPoint1);
-            Click(newDirectBoard);
+            FastMapUI.pressBtnMainBoard(TipsDeepDictionary.DIRECTION_BOARD);
+
             Click(new Point(1000, 500));
             Click("save_button");
             tipsNum++;
@@ -705,7 +673,7 @@ public class testFastMapFS extends testFastMapBase
 
 
     @Test
-    public void test01306_IndoorCheck_FM_2001_6_1() throws UiObjectNotFoundException
+    public void test01306_IndoorCheck_FM_2001_6_1() throws Exception
     {
         //新增测线（t_sync=0）本身的车道数<>0时，测线上有车道数Tips时，报log
         mDevice.drag(700, 823, 1024, 823, 10);
@@ -713,8 +681,8 @@ public class testFastMapFS extends testFastMapBase
         Point[] arrayPoint = {new Point(1000, 1000), new Point(1000, 500), new Point(500, 1000)};
         DrawRoad(arrayPoint);
 
-        Click(MultPoint5);
-        Click(newLandNum);
+        FastMapUI.pressBtnMainBoard(TipsDeepDictionary.LANE_NUMBER);
+
         Click(new Point(1000, 500));
         Click("lane_num_1");
 
@@ -728,7 +696,7 @@ public class testFastMapFS extends testFastMapBase
     }
 
     @Test
-    public void test01307_IndoorCheck_FM_1504_5_1() throws UiObjectNotFoundException
+    public void test01307_IndoorCheck_FM_1504_5_1() throws Exception
     {
         //跨越桥的几何长度要小于800m时，报log
         mDevice.drag(700, 823, 1024, 823, 10);
@@ -766,7 +734,7 @@ public class testFastMapFS extends testFastMapBase
     }
 
     @Test
-    public void test01308_IndoorCheck_FM_1505_5_1() throws UiObjectNotFoundException
+    public void test01308_IndoorCheck_FM_1505_5_1() throws Exception
     {
         //穿越地道的几何长度要小于800m时, 报log
         mDevice.drag(700, 823, 1024, 823, 10);
@@ -804,7 +772,7 @@ public class testFastMapFS extends testFastMapBase
     }
 
     @Test
-    public void test01309_IndoorCheck_FM_1509_6_1() throws UiObjectNotFoundException
+    public void test01309_IndoorCheck_FM_1509_6_1() throws Exception
     {
         //跨线立交桥与匝道互斥
         mDevice.drag(700, 823, 1024, 823, 10);
@@ -830,7 +798,7 @@ public class testFastMapFS extends testFastMapBase
     }
 
     @Test
-    public void test01310_IndoorCheck_FM_1509_6_1() throws UiObjectNotFoundException
+    public void test01310_IndoorCheck_FM_1509_6_1() throws Exception
     {
         //跨线立交桥与桥互斥
         mDevice.drag(700, 823, 1024, 823, 10);
@@ -858,7 +826,7 @@ public class testFastMapFS extends testFastMapBase
     }
 
     @Test
-    public void test01311_IndoorCheck_FM_1509_6_1() throws UiObjectNotFoundException
+    public void test01311_IndoorCheck_FM_1509_6_1() throws Exception
     {
         //跨线立交桥与隧道互斥
         mDevice.drag(700, 823, 1024, 823, 10);
@@ -886,7 +854,7 @@ public class testFastMapFS extends testFastMapBase
 
 
     @Test
-    public void test01314_IndoorCheck_FM_1109_6_7() throws UiObjectNotFoundException
+    public void test01314_IndoorCheck_FM_1109_6_7() throws Exception
     {
         //10级、11级、13级测线采集摄像头
         mDevice.drag(700, 823, 1024, 823, 10);
@@ -912,7 +880,7 @@ public class testFastMapFS extends testFastMapBase
     }
 
     @Test
-    public void test01315_IndoorCheck_FM_1109_6_7() throws UiObjectNotFoundException
+    public void test01315_IndoorCheck_FM_1109_6_7() throws Exception
     {
         //8级区域内测线采集摄像头
         mDevice.drag(700, 823, 1024, 823, 10);
@@ -936,7 +904,7 @@ public class testFastMapFS extends testFastMapBase
     }
 
     @Test
-    public void test01316_IndoorCheck_FM_1109_6_7() throws UiObjectNotFoundException
+    public void test01316_IndoorCheck_FM_1109_6_7() throws Exception
     {
         //其他正常情况采集摄像头
         mDevice.drag(700, 823, 1024, 823, 10);
@@ -983,6 +951,4 @@ public class testFastMapFS extends testFastMapBase
 
         ExitGridManager();
     }
-
-    static FastMapUI mFastMapUI = new FastMapUI();
 }

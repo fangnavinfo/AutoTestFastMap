@@ -673,16 +673,15 @@ public class testFastMapBase
     }
 
     //按照坐标绘制测线
-    protected void DrawRoad(Point[] pointArray)
+    protected void DrawRoad(Point[] pointArray) throws Exception
     {
         DrawRoad(pointArray, "card_high_speed");
     }
 
     //按照坐标绘制测线
-    protected void DrawRoad(Point[] pointArray, String type)
+    protected void DrawRoad(Point[] pointArray, String type) throws Exception
     {
-        Click(MultPoint2);
-        Click(newDrawRoardReal);
+        FastMapUI.pressBtnMainBoard(TipsDeepDictionary.TYPE_TEST_LINE_10002);
 
         for(Point p : pointArray)
         {
@@ -728,40 +727,6 @@ public class testFastMapBase
         }
 
         ExitMyData();
-    }
-
-    //增加POI
-    protected void AddPoi(String type, String name)
-    {
-        Click(newPOIPoint, 6000);
-
-        Click("take_pic_imgbtn");
-        Click("task_pic_back_img");
-
-        PutinEditor("fm_et_name", name);
-
-        Click("tv_assort_type");
-
-        PutinEditor("et_kind_search", type);
-        Click("top_name_txtinfo");
-
-        Click("save_button");
-        poiNum++;
-    }
-
-    //增加收费站tip
-    protected void AddTollStation(Point point)
-    {
-        Click(MultPoint4);
-        Click(newTollStation);
-
-        Click(point);
-
-        UiObject2 object = mDevice.wait(Until.findObject(By.text("领卡")), 500);
-        object.click();
-
-        Click("save_button");
-        tipsNum++;
     }
 
     //获取10个点位的真实距离。
