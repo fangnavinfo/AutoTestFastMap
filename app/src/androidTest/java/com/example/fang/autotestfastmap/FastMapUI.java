@@ -63,6 +63,8 @@ public class FastMapUI
 
         lst = gridobj.findObjects(By.clazz("android.widget.ImageView"));
         lst.get(keyboardInfo[1]).click();
+
+        mDevice.waitForWindowUpdate(packageName, 1000);
     }
 
     protected static void CheckTool(UiObject2 textObj)
