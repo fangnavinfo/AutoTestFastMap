@@ -57,18 +57,13 @@ public class testFastMapZF extends testFastMapBase
 
     @Before
     public void setUp() throws Exception {
-        if(isHmWorking) {
-            this.setClassUp("zhanglingling03655", "036550", true);
-        }else {
-            this.setClassUp("collector2", "123456");
-        }
+        this.setClassUp("collector2", "123456");
     }
 
     @After
     public  void setAfter() throws IOException, InterruptedException {
 
         super.setAfter();
-        isHmWorking = false;
     }
 
 
@@ -620,5 +615,4 @@ public class testFastMapZF extends testFastMapBase
     private static String globalId = "";
     private static String infoFid = "0010071128WT200493";
     private static String infoRowkey = "";
-    private static boolean isHmWorking = false;
 }

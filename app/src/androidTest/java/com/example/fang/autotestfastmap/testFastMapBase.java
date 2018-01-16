@@ -57,7 +57,12 @@ public class testFastMapBase
         mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         packageName = getPackageName();
 
-        userPath = GetUserPath();
+        if(isHmWorking.length > 0 && isHmWorking[0] == true) {
+            userPath = GetUserPathHM();
+        }else {
+            userPath = GetUserPath();
+        }
+
         m_Sqlit = new SqliteTools(userPath);
 
         FastMapUI.initialize(mDevice, packageName);
@@ -141,8 +146,12 @@ public class testFastMapBase
     }
 
     // 选择非港澳服务
-    public static void chooseServer()
-    {
+    public static void chooseServer() throws InterruptedException {
+        UiObject2 hm = mDevice.findObject(By.res(packageName, "chk_work_area_type"));
+        if(hm.isChecked()) {
+            hm.click();
+            Thread.sleep(1000);
+        }
         Click("login_tv_service_address");
         UiObject2 Object = mDevice.wait(Until.findObject(By.text("开发->http://fs-road.navinfo.com/dev/trunk")), 500);
         Object.click();
@@ -150,9 +159,12 @@ public class testFastMapBase
         Click("btn_fm_confirm");
     }
     // 选择港澳服务
-    public static void chooseHmServer()
-    {
-        Click("chk_work_area_type");
+    public static void chooseHmServer() throws InterruptedException {
+        UiObject2 hm = mDevice.findObject(By.res(packageName, "chk_work_area_type"));
+        if(!hm.isChecked()) {
+            hm.click();
+            Thread.sleep(1000);
+        }
         Click("login_tv_service_address");
         UiObject2 Object = mDevice.wait(Until.findObject(By.text("港澳->http://192.168.4.130:9700")), 500);
         Object.click();
@@ -161,8 +173,7 @@ public class testFastMapBase
     }
 
     //非港澳作业登录
-    public static void loginProcess()
-    {
+    public static void loginProcess() throws InterruptedException {
         chooseServer();
 
         //登录
@@ -179,8 +190,7 @@ public class testFastMapBase
     }
 
     //港澳作业登录
-    public static void loginHmProcess()
-    {
+    public static void loginHmProcess() throws InterruptedException {
         chooseHmServer();
 
         //登录
@@ -815,6 +825,44 @@ public class testFastMapBase
         tipsNum++;
     }
 
+    private static  String GetUserPathHM() throws IOException
+    {
+        String rslt = mDevice.executeShellCommand("ls /sdcard/");
+        String[] array  = rslt.split("\n");
+
+        String dirName = "";
+        for (int i=0; i<array.length; i++)
+        {
+            if (array[i].contains("FastMap"))
+            {
+                dirName = array[i];
+            }
+        }
+
+        if (dirName.isEmpty())
+        {
+            return "";
+        }
+
+        if(userName.equals("collector"))
+        {
+            return "/sdcard/" + dirName + "/Data/Collect/21_HM/";
+        }
+        if(userName.equals("collector1"))
+        {
+            return "/sdcard/" + dirName + "/Data/Collect/23_HM/";
+        }
+        if(userName.equals("collector2"))
+        {
+            return "/sdcard/" + dirName + "/Data/Collect/24_HM/";
+        }
+        if(userName.equals("zhanglingling03655"))
+        {
+            return "/sdcard/" + dirName + "/Data/Collect/3655_HM/";
+        }
+        return "";
+    }
+
     private static  String GetUserPath() throws IOException
     {
         String rslt = mDevice.executeShellCommand("ls /sdcard/");
@@ -845,6 +893,10 @@ public class testFastMapBase
         if(userName.equals("collector2"))
         {
             return "/sdcard/" + dirName + "/Data/Collect/24/";
+        }
+        if(userName.equals("zhanglingling03655"))
+        {
+            return "/sdcard/" + dirName + "/Data/Collect/3655/";
         }
         return "";
     }
