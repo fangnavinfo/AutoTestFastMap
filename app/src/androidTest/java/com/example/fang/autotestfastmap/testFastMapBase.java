@@ -48,7 +48,7 @@ import static org.junit.Assert.assertThat;
 public class testFastMapBase
 {
 
-    protected  static void setClassUp(String userName, String passWord) throws Exception
+    protected  static void setClassUp(String userName, String passWord, boolean... isHmWorking) throws Exception
     {
 
         testFastMapBase.userName = userName;
@@ -68,7 +68,11 @@ public class testFastMapBase
 
         ReStartApp();
 
-        loginProcess();
+        if(isHmWorking.length > 0 && isHmWorking[0] == true) {
+            loginHmProcess();
+        }else {
+            loginProcess();
+        }
 
     //        waitDownLoadMetal();
     //
@@ -136,13 +140,48 @@ public class testFastMapBase
         }
     }
 
-    public static void loginProcess()
+    // 选择非港澳服务
+    public static void chooseServer()
     {
         Click("login_tv_service_address");
         UiObject2 Object = mDevice.wait(Until.findObject(By.text("开发->http://fs-road.navinfo.com/dev/trunk")), 500);
         Object.click();
 
         Click("btn_fm_confirm");
+    }
+    // 选择港澳服务
+    public static void chooseHmServer()
+    {
+        Click("chk_work_area_type");
+        Click("login_tv_service_address");
+        UiObject2 Object = mDevice.wait(Until.findObject(By.text("港澳->http://192.168.4.130:9700")), 500);
+        Object.click();
+
+        Click("btn_fm_confirm");
+    }
+
+    //非港澳作业登录
+    public static void loginProcess()
+    {
+        chooseServer();
+
+        //登录
+        PutinEditor("login_account_et", userName);
+        PutinEditor("login_pswd_et", passWord);
+
+        Click("login_btn");
+
+        UiObject2 object = mDevice.wait(Until.findObject(By.res(packageName, "head_icon")), 30*1000);
+        if (object == null)
+        {
+            fail("user login failed!");
+        }
+    }
+
+    //港澳作业登录
+    public static void loginHmProcess()
+    {
+        chooseHmServer();
 
         //登录
         PutinEditor("login_account_et", userName);

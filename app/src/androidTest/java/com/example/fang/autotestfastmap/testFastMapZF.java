@@ -47,7 +47,7 @@ public class testFastMapZF extends testFastMapBase
     @BeforeClass
     public static void setClassUp() throws Exception
     {
-        testFastMapBase.setClassUp("collector2","123456");
+        //testFastMapBase.setClassUp("collector2","123456");
     }
 
     @AfterClass
@@ -56,14 +56,19 @@ public class testFastMapZF extends testFastMapBase
     }
 
     @Before
-    public void setUp()
-    {
+    public void setUp() throws Exception {
+        if(isHmWorking) {
+            this.setClassUp("zhanglingling03655", "036550", true);
+        }else {
+            this.setClassUp("collector2", "123456");
+        }
     }
 
     @After
     public  void setAfter() throws IOException, InterruptedException {
 
         super.setAfter();
+        isHmWorking = false;
     }
 
 
@@ -243,7 +248,7 @@ public class testFastMapZF extends testFastMapBase
     @Test
     public void test_FM_1207_6_2_check() throws Exception {
 
-        getPosion(1000,807, "111102657234");
+        mDevice.drag(700, 650, 1024, 768, 10);
 
         //增加POI
         FastMapUI.pressBtnMainBoard(TipsDeepDictionary.POI_ADD_9001);  //点击新增POI
@@ -271,7 +276,7 @@ public class testFastMapZF extends testFastMapBase
         FastMapUI.pressBtnMainBoard(TipsDeepDictionary.RAMP);
         Thread.sleep(500);
 
-        Click(new Point(1025, 815));
+        Click(new Point(1025, 800));
         Click("btn_ramp");
         Click("save_button");
 
@@ -281,14 +286,13 @@ public class testFastMapZF extends testFastMapBase
     // FM-1208-2-1
     @Test
     public void test_FM_1208_2_1_check() throws Exception {
-        getPosion(1000,807, "111102657234");
-
+        mDevice.drag(700, 650, 1024, 768, 10);
 
         //增加道路方向：单向
         FastMapUI.pressBtnMainBoard(TipsDeepDictionary.ROAD_DIRECTION);
         Thread.sleep(500);
         //测线中点
-        Click(new Point(1025, 805));
+        Click(new Point(1024, 790));
         //保存
         Click("save_button", 500);
 
@@ -296,7 +300,7 @@ public class testFastMapZF extends testFastMapBase
         FastMapUI.pressBtnMainBoard(TipsDeepDictionary.PARK_ENTRANCE_LINK);
         Thread.sleep(500);
 
-        Click(new Point(745, 815));
+        Click(new Point(730, 800));
         Click("save_button");
 
         AssertIndoorCheck("停车场出入口link", "中", "FM-1208-2-1", "单方向道路未进行停车场出入口LINK连接", "");
@@ -306,12 +310,12 @@ public class testFastMapZF extends testFastMapBase
     @Test
     public void test_FM_1301_6_4_1check() throws Exception {
 
-        getPosion(1000,807, "111102657234");
+        mDevice.drag(700, 650, 1024, 768, 10);
 
         //增加车信
         FastMapUI.pressBtnMainBoard(TipsDeepDictionary.LANE_INFO);
         Thread.sleep(500);
-        Click(new Point(1027, 800));
+        Click(new Point(1040, 800));
         Thread.sleep(500);
 
         Click("rb_select_one_g_a_f",1000);
@@ -328,33 +332,29 @@ public class testFastMapZF extends testFastMapBase
     @Test
     public void test_FM_1301_6_4_2check() throws Exception {
 
-        getPosion(0,0, "111102657234");
-
         // 测线
-        Point[] arrayPoint = {new Point(1100, 480), new Point(1370, 480)};
+        Point[] arrayPoint = {new Point(1250, 530), new Point(1250, 700)};
         DrawRoad(arrayPoint);
 
         //增加道路方向：单向
         FastMapUI.pressBtnMainBoard(TipsDeepDictionary.ROAD_DIRECTION);
         Thread.sleep(500);
         //测线中点
-        Click(new Point(1200, 480));
+        Click(new Point(1250, 600));
         //保存
         Click("save_button", 500);
 
-        Click("head_icon"); //点击主界面左上角头像
-        Click("fmcard_tv_user_data"); //点击我的数据
-        mDevice.wait(Until.findObject(By.text("车信")), 500).click();
+        //增加车信
+        FastMapUI.pressBtnMainBoard(TipsDeepDictionary.LANE_INFO);
+        Thread.sleep(500);
+        Click(new Point(720, 800));
+        Thread.sleep(500);
 
-        Click("ck_move_point_or_line", 500);
-
-        mDevice.drag(1273, 800, 1273, 950, 10);
+        Click("rb_select_one_g_a_f",1000);
+        Click(new Point(1210, 600),1000);
 
         //保存
-        Click("save_button", 500);
-
-        mDevice.pressBack();
-        mDevice.pressBack();
+        Click("save_button", 1000);
 
         AssertIndoorCheck("车信", "低", "FM-1301-6-4", "有附加车信，是否车道变化点采集遗漏", "忽略");
 
@@ -363,13 +363,21 @@ public class testFastMapZF extends testFastMapBase
     // FM-1305-6-1
     @Test
     public void test_FM_1305_6_1_1check() throws Exception {
-        getPosion(1000,807, "111102657234");
+        mDevice.drag(700, 650, 1024, 768, 10);
+
+        //增加道路方向：单向
+        FastMapUI.pressBtnMainBoard(TipsDeepDictionary.ROAD_DIRECTION);
+        Thread.sleep(500);
+        //测线中点
+        Click(new Point(1024, 790));
+        //保存
+        Click("save_button", 500);
 
         //交限
         FastMapUI.pressBtnMainBoard(TipsDeepDictionary.TRAFFIC_FORBIDDEN);
         Thread.sleep(500);
 
-        Click(new Point(1025, 800));
+        Click(new Point(725, 800));
 
         Click("traffic_forbidden_no_pull_into",500);
 
@@ -381,24 +389,28 @@ public class testFastMapZF extends testFastMapBase
 
     // FM-1305-6-1
     @Test
-    public void test_FM_1305_6_1_2check() throws UiObjectNotFoundException, InterruptedException {
-        getPosion(0,0, "111102657234");
+    public void test_FM_1305_6_1_2check() throws Exception {
+        // 测线
+        Point[] arrayPoint = {new Point(1250, 530), new Point(1250, 700)};
+        DrawRoad(arrayPoint);
 
-        //搜索交限并移动
-        Click("head_icon"); //点击主界面左上角头像
-        Click("fmcard_tv_user_data"); //点击我的数据
-        mDevice.wait(Until.findObject(By.text("禁止驶入")), 500).click();
-
-        Click("ck_move_point_or_line", 500);
-        Click("btn_control_left_layout");
-
-        mDevice.drag(1273, 800, 1273, 950, 10);
-
+        //增加道路方向：单向
+        FastMapUI.pressBtnMainBoard(TipsDeepDictionary.ROAD_DIRECTION);
+        Thread.sleep(500);
+        //测线中点
+        Click(new Point(1250, 600));
         //保存
         Click("save_button", 500);
 
-        mDevice.pressBack();
-        mDevice.pressBack();
+        //交限
+        FastMapUI.pressBtnMainBoard(TipsDeepDictionary.TRAFFIC_FORBIDDEN);
+        Thread.sleep(500);
+
+        Click(new Point(725, 800));
+
+        Click("traffic_forbidden_no_pull_into",500);
+        //保存
+        Click("save_button", 500);
 
         AssertIndoorCheck("禁止驶入", "中", "FM-1305-6-1", "禁止驶入与单行线重复", "");
     }
@@ -608,4 +620,5 @@ public class testFastMapZF extends testFastMapBase
     private static String globalId = "";
     private static String infoFid = "0010071128WT200493";
     private static String infoRowkey = "";
+    private static boolean isHmWorking = false;
 }
