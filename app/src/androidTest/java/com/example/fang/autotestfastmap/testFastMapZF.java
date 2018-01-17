@@ -238,6 +238,65 @@ public class testFastMapZF extends testFastMapBase
 
     }
 
+    // POI 错误列表增加父子关系、同一关系错误类型
+    @Test
+    public void test00105_poi_error_check() throws Exception {
+        mDevice.drag(0, 768, 2048, 768, 10);
+        Thread.sleep(500);
+        mDevice.drag(0, 768, 1900, 768, 10);
+
+        //点击新增大厦POI
+        FastMapUI.pressBtnMainBoard(TipsDeepDictionary.POI_ADD_9001);
+        Thread.sleep(500);
+
+        Click("take_pic_imgbtn"); //点击拍照
+        Click("task_pic_back_img"); //点击返回
+
+        PutinEditor("fm_et_name", "大厦TEST"); //输入POI名称
+
+        Click("tv_assort_type",1000);//点击选择分类
+
+        PutinEditor("et_kind_search", "200103");
+        Click("top_name_txtinfo",2000);
+
+        Click("save_button"); //点击保存
+        poiNum++;
+
+        mDevice.drag(0, 768, 250, 768, 10);
+
+
+        //点击新增中餐馆子POI
+        FastMapUI.pressBtnMainBoard(TipsDeepDictionary.POI_ADD_9001);
+        Thread.sleep(500);
+
+        Click("take_pic_imgbtn"); //点击拍照
+        Click("task_pic_back_img"); //点击返回
+
+        PutinEditor("fm_et_name", "中餐馆TEST"); //输入POI名称
+
+        Click("tv_assort_type",1000);//点击选择分类
+
+        PutinEditor("et_kind_search", "110101");
+        Click("top_name_txtinfo",2000);
+
+        Click("tv_poi_father",1000);//点击父子关系
+        UiObject2 Object = mDevice.wait(Until.findObject(By.text("大厦/写字楼")), 1000);
+        Object.click();
+
+        Click("save_button"); //点击保存
+        poiNum++;
+
+        //同步POI数据
+        mDevice.drag(0, 768, 600, 768, 10);
+        synchronize("rb_poi_update");
+
+        //检查错误列表
+        Click("head_icon", 1000);
+        Click("fmcard_tv_error_seem", 1000);
+        Object = mDevice.wait(Until.findObject(By.text("Poi")), 1000);
+        Object.click();
+
+    }
 
     // FM-1207-6-2
     @Test
