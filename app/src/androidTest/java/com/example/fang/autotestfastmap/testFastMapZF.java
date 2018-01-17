@@ -240,7 +240,7 @@ public class testFastMapZF extends testFastMapBase
 
     // POI 错误列表增加父子关系、同一关系错误类型
     @Test
-    public void test00105_poi_error_check() throws Exception {
+    public void test00105_poi_father_error_check() throws Exception {
         mDevice.drag(0, 768, 2048, 768, 10);
         Thread.sleep(500);
         mDevice.drag(0, 768, 1900, 768, 10);
@@ -281,6 +281,82 @@ public class testFastMapZF extends testFastMapBase
 
         Click("tv_poi_father",1000);//点击父子关系
         UiObject2 Object = mDevice.wait(Until.findObject(By.text("大厦/写字楼")), 1000);
+        Object.click();
+
+        Click("save_button"); //点击保存
+        poiNum++;
+
+        //同步POI数据
+        mDevice.drag(0, 768, 600, 768, 10);
+        synchronize("rb_poi_update");
+
+        //检查错误列表
+        Click("head_icon", 1000);
+        Click("fmcard_tv_error_seem", 1000);
+        Object = mDevice.wait(Until.findObject(By.text("Poi")), 1000);
+        Object.click();
+
+    }
+
+    // POI 错误列表增加父子关系、同一关系错误类型
+    @Test
+    public void test00106_poi_same_error_check() throws Exception {
+
+        //同步TIPS数据
+        synchronize("rb_tips_update");
+
+        // 放大并找到grid分界
+        Click("iv_zoom_in");
+        Thread.sleep(500);
+        getPosion(0,0,"11130159503");
+
+        Thread.sleep(500);
+        mDevice.drag(1, 790, 1030, 590, 50);
+        Thread.sleep(500);
+
+
+
+        //点击政府机关POI
+        FastMapUI.pressBtnMainBoard(TipsDeepDictionary.POI_ADD_9001);
+        Thread.sleep(500);
+
+        Click("take_pic_imgbtn"); //点击拍照
+        Click("task_pic_back_img"); //点击返回
+
+        PutinEditor("fm_et_name", "政府机关TEST"); //输入POI名称
+
+        Click("tv_assort_type",1000);//点击选择分类
+
+        PutinEditor("et_kind_search", "190106");
+        Click("top_name_txtinfo",2000);
+
+        Click("save_button"); //点击保存
+        poiNum++;
+
+        getPosion(0,0,"11130159503");
+
+        Thread.sleep(500);
+        mDevice.drag(1, 790, 1050, 590, 50);
+        Thread.sleep(500);
+
+
+        //点击新增银行POI
+        FastMapUI.pressBtnMainBoard(TipsDeepDictionary.POI_ADD_9001);
+        Thread.sleep(500);
+        Click("fmdialog_tv_ignore_add",2000);
+
+        Click("take_pic_imgbtn"); //点击拍照
+        Click("task_pic_back_img"); //点击返回
+
+        PutinEditor("fm_et_name", "银行TEST"); //输入POI名称
+
+        Click("tv_assort_type",1000);//点击选择分类
+
+        PutinEditor("et_kind_search", "150101");
+        Click("top_name_txtinfo",2000);
+
+        Click("tv_poi_same_one",1000);//点击同一关系
+        UiObject2 Object = mDevice.wait(Until.findObject(By.text("区级政府机关(广州市）")), 1000);
         Object.click();
 
         Click("save_button"); //点击保存
@@ -482,6 +558,7 @@ public class testFastMapZF extends testFastMapBase
         UiScrollable objscoll = new UiScrollable(new UiSelector().className("android.widget.ListView"));
 
         mDevice.findObject(By.res(packageName, "tv_my_data_snap_list_item_name")).click();
+        Thread.sleep(1000);
     }
 
     public void getPosion(int endX, int endY, String key) throws InterruptedException {
@@ -489,6 +566,11 @@ public class testFastMapZF extends testFastMapBase
 
         mDevice.pressBack();
         Thread.sleep(1000);
+        UiObject2 object = mDevice.wait(Until.findObject(By.text("舍弃")), 1000);
+        if(null != object) {
+            object.click();
+        }
+        Thread.sleep(500);
         mDevice.pressBack();
         Thread.sleep(1000);
 
