@@ -268,6 +268,9 @@ public class testFastMapZF extends testFastMapBase
 
         PutinEditor("fm_et_name", "中餐馆TEST1"); //输入POI名称
 
+        UiObject2 txtFid =  mDevice.findObject(By.res(packageName, "tv_poi_fid_hd"));
+        infoFid = txtFid.getText();
+
         Click("tv_assort_type",1000);//点击选择分类
 
         PutinEditor("et_kind_search", "110101");
@@ -283,14 +286,31 @@ public class testFastMapZF extends testFastMapBase
         poiNum++;
 
         //同步POI数据
-        mDevice.drag(0, 768, 600, 768, 10);
+        mDevice.drag(600, 768, 0, 768, 10);
         synchronize("rb_poi_update");
 
+        //检查错误列表
         //检查错误列表
         Click("head_icon", 1000);
         Click("fmcard_tv_error_seem", 1000);
         Object = mDevice.wait(Until.findObject(By.text("Poi")), 1000);
         Object.click();
+        Object = mDevice.wait(Until.findObject(By.text("查看详情")), 1000);
+        if(null == Object) {
+            fail("no POI error list");
+        }else {
+            Object.click();
+            Thread.sleep(500);
+            UiObject2 errMessage =  mDevice.findObject(By.res(packageName, "tv_content"));
+            String txtErrMessage = errMessage.getText();
+            Thread.sleep(500);
+            Click("btn_fm_cancel", 1000);
+            mDevice.pressBack();
+            Thread.sleep(500);
+            mDevice.pressBack();
+            Thread.sleep(500);
+            assertEquals(txtErrMessage, "子(" + infoFid + ")不存在");
+        }
 
     }
 
@@ -304,10 +324,17 @@ public class testFastMapZF extends testFastMapBase
         // 放大并找到grid分界
         Click("iv_zoom_in");
         Thread.sleep(500);
+        Click("iv_zoom_in");
+        Thread.sleep(500);
+        Click("iv_zoom_in");
+        Thread.sleep(500);
+
         getPosion(0,0,"11130159503");
 
         Thread.sleep(500);
-        mDevice.drag(1, 790, 1035, 590, 50);
+        mDevice.drag(1, 790, 2048, 490, 100);
+        Thread.sleep(500);
+        mDevice.drag(1, 790, 1075, 790, 100);
         Thread.sleep(500);
 
         //点击政府机关POI
@@ -333,7 +360,9 @@ public class testFastMapZF extends testFastMapBase
         getPosion(0,0,"11130159503");
 
         Thread.sleep(500);
-        mDevice.drag(1, 790, 1045, 590, 50);
+        mDevice.drag(1, 790, 2048, 490, 100);
+        Thread.sleep(500);
+        mDevice.drag(1, 790, 1140, 790, 100);
         Thread.sleep(500);
 
 
@@ -375,7 +404,14 @@ public class testFastMapZF extends testFastMapBase
             Object.click();
             Thread.sleep(500);
             UiObject2 errMessage =  mDevice.findObject(By.res(packageName, "tv_content"));
-            assertEquals(errMessage.getText(), "同一poi(" + infoFid + ")在库中不存在");
+            String txtErrMessage = errMessage.getText();
+            Thread.sleep(500);
+            Click("btn_fm_cancel", 1000);
+            mDevice.pressBack();
+            Thread.sleep(500);
+            mDevice.pressBack();
+            Thread.sleep(500);
+            assertEquals(txtErrMessage, "同一poi(" + infoFid + ")在库中不存在");
         }
     }
 
