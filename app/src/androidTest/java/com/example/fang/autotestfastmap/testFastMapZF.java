@@ -77,7 +77,7 @@ public class testFastMapZF extends testFastMapBase
         FastMapUI.pressBtnMainBoard(TipsDeepDictionary.POI_ADD_9001);
         Thread.sleep(500);
 
-        Click("take_pic_imgbtn"); //点击拍照
+        Click("take_pic_imgbtn",2000); //点击拍照
         Click("task_pic_back_img"); //点击返回
 
         PutinEditor("fm_et_name", "测试ＰＯＩ２"); //输入POI名称
@@ -168,11 +168,6 @@ public class testFastMapZF extends testFastMapBase
 
         //同步数据
         synchronize("rb_tips_update");
-        Click("btn_fm_confirm", 500);
-        mDevice.pressBack();
-        Thread.sleep(500);
-        mDevice.pressBack();
-        Thread.sleep(500);
 
         //删除红绿灯
         Click("head_icon",500); //点击主界面左上角头像
@@ -217,9 +212,7 @@ public class testFastMapZF extends testFastMapBase
         synchronize("rb_tips_update");
 
         //确认
-        Click("btn_fm_confirm", 500);
-        mDevice.pressBack();
-        Thread.sleep(500);
+        Click("head_icon", 1000);
         Click("fmcard_tv_user_data",1000); //点击我的数据
         listViewObj = mDevice.findObject(By.clazz(ListView.class));
         child = listViewObj.findObject(By.clazz(RelativeLayout.class));
@@ -249,14 +242,15 @@ public class testFastMapZF extends testFastMapBase
         FastMapUI.pressBtnMainBoard(TipsDeepDictionary.POI_ADD_9001);
         Thread.sleep(500);
 
-        Click("take_pic_imgbtn"); //点击拍照
+        Click("take_pic_imgbtn",2000); //点击拍照
         Click("task_pic_back_img"); //点击返回
 
-        PutinEditor("fm_et_name", "大厦TEST"); //输入POI名称
+        PutinEditor("fm_et_name", "大厦TEST1"); //输入POI名称
 
         Click("tv_assort_type",1000);//点击选择分类
 
         PutinEditor("et_kind_search", "200103");
+        Thread.sleep(1000);
         Click("top_name_txtinfo",2000);
 
         Click("save_button"); //点击保存
@@ -269,19 +263,21 @@ public class testFastMapZF extends testFastMapBase
         FastMapUI.pressBtnMainBoard(TipsDeepDictionary.POI_ADD_9001);
         Thread.sleep(500);
 
-        Click("take_pic_imgbtn"); //点击拍照
+        Click("take_pic_imgbtn",2000); //点击拍照
         Click("task_pic_back_img"); //点击返回
 
-        PutinEditor("fm_et_name", "中餐馆TEST"); //输入POI名称
+        PutinEditor("fm_et_name", "中餐馆TEST1"); //输入POI名称
 
         Click("tv_assort_type",1000);//点击选择分类
 
         PutinEditor("et_kind_search", "110101");
+        Thread.sleep(1000);
         Click("top_name_txtinfo",2000);
 
         Click("tv_poi_father",1000);//点击父子关系
         UiObject2 Object = mDevice.wait(Until.findObject(By.text("大厦/写字楼")), 1000);
         Object.click();
+        Thread.sleep(1000);
 
         Click("save_button"); //点击保存
         poiNum++;
@@ -311,19 +307,20 @@ public class testFastMapZF extends testFastMapBase
         getPosion(0,0,"11130159503");
 
         Thread.sleep(500);
-        mDevice.drag(1, 790, 1030, 590, 50);
+        mDevice.drag(1, 790, 1035, 590, 50);
         Thread.sleep(500);
-
-
 
         //点击政府机关POI
         FastMapUI.pressBtnMainBoard(TipsDeepDictionary.POI_ADD_9001);
         Thread.sleep(500);
 
-        Click("take_pic_imgbtn"); //点击拍照
+        Click("take_pic_imgbtn",2000); //点击拍照
         Click("task_pic_back_img"); //点击返回
 
         PutinEditor("fm_et_name", "政府机关TEST"); //输入POI名称
+
+        UiObject2 txtFid =  mDevice.findObject(By.res(packageName, "tv_poi_fid_hd"));
+        infoFid = txtFid.getText();
 
         Click("tv_assort_type",1000);//点击选择分类
 
@@ -336,7 +333,7 @@ public class testFastMapZF extends testFastMapBase
         getPosion(0,0,"11130159503");
 
         Thread.sleep(500);
-        mDevice.drag(1, 790, 1050, 590, 50);
+        mDevice.drag(1, 790, 1045, 590, 50);
         Thread.sleep(500);
 
 
@@ -345,7 +342,7 @@ public class testFastMapZF extends testFastMapBase
         Thread.sleep(500);
         Click("fmdialog_tv_ignore_add",2000);
 
-        Click("take_pic_imgbtn"); //点击拍照
+        Click("take_pic_imgbtn",2000); //点击拍照
         Click("task_pic_back_img"); //点击返回
 
         PutinEditor("fm_et_name", "银行TEST"); //输入POI名称
@@ -371,7 +368,15 @@ public class testFastMapZF extends testFastMapBase
         Click("fmcard_tv_error_seem", 1000);
         Object = mDevice.wait(Until.findObject(By.text("Poi")), 1000);
         Object.click();
-
+        Object = mDevice.wait(Until.findObject(By.text("查看详情")), 1000);
+        if(null == Object) {
+            fail("no POI error list");
+        }else {
+            Object.click();
+            Thread.sleep(500);
+            UiObject2 errMessage =  mDevice.findObject(By.res(packageName, "tv_content"));
+            assertEquals(errMessage.getText(), "同一poi(" + infoFid + ")在库中不存在");
+        }
     }
 
     // FM-1207-6-2
@@ -384,7 +389,7 @@ public class testFastMapZF extends testFastMapBase
         FastMapUI.pressBtnMainBoard(TipsDeepDictionary.POI_ADD_9001);  //点击新增POI
         Thread.sleep(500);
 
-        Click("take_pic_imgbtn"); //点击拍照
+        Click("take_pic_imgbtn",2000); //点击拍照
         Click("task_pic_back_img"); //点击返回
 
         PutinEditor("fm_et_name", "测试ＰＯＩ001"); //输入POI名称
@@ -667,8 +672,16 @@ public class testFastMapZF extends testFastMapBase
             }
         }
         Click("grid_sync_btn_positive");
+        Thread.sleep(1000);
+        UiObject2 object = mDevice.findObject(By.res(packageName, "btn_fm_confirm"));
+        if(null != object) {
+            object.click();
+        }
+        Thread.sleep(500);
         mDevice.pressBack();
+        Thread.sleep(500);
         mDevice.pressBack();
+        Thread.sleep(1000);
     }
 
     // 采纳情报
@@ -754,6 +767,6 @@ public class testFastMapZF extends testFastMapBase
     }
 
     private static String globalId = "";
-    private static String infoFid = "0010071128WT200493";
+    private static String infoFid = "fid:00002420180118145219";
     private static String infoRowkey = "";
 }
