@@ -1,9 +1,10 @@
 package com.example.fang.autotestfastmap;
 
 import android.support.test.uiautomator.By;
-import android.support.test.uiautomator.Configurator;
 import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.UiObjectNotFoundException;
+import android.support.test.uiautomator.UiScrollable;
+import android.support.test.uiautomator.UiSelector;
 import android.support.test.uiautomator.Until;
 
 import org.junit.After;
@@ -31,7 +32,7 @@ public class testFastMapYL extends testFastMapBase
     @BeforeClass
     public static void setClassUp() throws Exception
     {
-        testFastMapBase.setClassUp("collector1","123456");
+        testFastMapBase.setClassUp("collector1","123456");//"collector1","123456"
     }
 
     @AfterClass
@@ -51,8 +52,9 @@ public class testFastMapYL extends testFastMapBase
     }
 
 
+
     @Test
-    public void test00102_poi_add() throws InterruptedException
+    public void test00202_poi_add() throws InterruptedException
     {
         //产品全貌开关关，新增POI点
         mDevice.drag(700, 823, 1024, 823, 10);
@@ -97,8 +99,9 @@ public class testFastMapYL extends testFastMapBase
         ExitMyData();
     }
 
+
     @Test
-    public void test00103_poi_add() throws InterruptedException
+    public void test00203_poi_add() throws InterruptedException
     {
         //产品全貌开关关闭,新增POI
         mDevice.drag(700, 823, 1024, 823, 10);
@@ -150,7 +153,7 @@ public class testFastMapYL extends testFastMapBase
     }
 
     @Test
-    public void test00104_poi_add() throws InterruptedException
+    public void test00204_poi_add() throws InterruptedException
     {
         //产品全貌开关关，查看上次设置
         mDevice.drag(700, 823, 1024, 823, 10);
@@ -163,7 +166,7 @@ public class testFastMapYL extends testFastMapBase
     }
 
     @Test
-    public void test00105_poi_add() throws InterruptedException
+    public void test00205_poi_add() throws InterruptedException
     {
         //产品全貌开关开，新增POI
         mDevice.drag(700, 823, 1024, 823, 10);
@@ -213,7 +216,7 @@ public class testFastMapYL extends testFastMapBase
     }
 
     @Test
-    public void test00106_poi_add() throws InterruptedException
+    public void test00206_poi_add() throws InterruptedException
     {
         //产品全貌开关开
         mDevice.drag(700, 823, 1024, 823, 10);
@@ -269,7 +272,7 @@ public class testFastMapYL extends testFastMapBase
     }
 
     @Test
-    public void test00107_poi_add() throws InterruptedException
+    public void test00207_poi_add() throws InterruptedException
     {
         //产品全貌开关开，点击新增POI查看设置
         mDevice.drag(700, 823, 1024, 823, 10);
@@ -279,6 +282,60 @@ public class testFastMapYL extends testFastMapBase
         Click("task_pic_back_img");//标签“产品全貌”，分辨率为“高”
         Click("cancel_button");
         SetConfInfo();//关闭产品全貌开关
+    }
+    /*
+            @Test
+            public void test00208_poi_add() throws UiObjectNotFoundException, InterruptedException
+            {
+                //POI 紧急停车站
+                mDevice.drag(700, 823, 1024, 823, 10);
+                Thread.sleep(1000);
+
+                //SetConfInfo();//默认就是关
+                Click(newPOIPoint, 6000);
+                Click("task_pic_back_img");
+                Click("tv_assort_type", 3000);
+                Thread.sleep(3000);
+                UiScrollable listScrollable = new UiScrollable(new UiSelector().scrollable(true));
+                listScrollable.scrollDescriptionIntoView("交通运输、仓储");
+                mDevice.findObject(By.text("交通运输、仓储")).click();
+                mDevice.findObject(By.text("道路附属设施")).click();
+                mDevice.drag(1242,1250,1208,332,10);
+                mDevice.findObject(By.text("紧急停车带")).click();
+
+                Click("save_button");
+                poiNum++;
+
+                //我的数据
+                GotoMyData("rb_condition_poi");
+                assertEditorEqual("tv_my_data_count_2", Integer.toString(poiNum));
+                assertNotNull(Until.findObject(By.desc("紧急停车带")));
+                ExitMyData();
+            }
+    */
+    @Test
+    public void test00209_poi_add() throws UiObjectNotFoundException, InterruptedException
+    {
+        //POI 彩票投注站
+        mDevice.drag(700, 823, 1024, 823, 10);
+        Thread.sleep(1000);
+
+        //SetConfInfo();//默认就是关
+        Click(newPOIPoint, 6000);
+        Click("task_pic_back_img");
+        Click("tv_assort_type", 3000);
+        Thread.sleep(3000);
+        mDevice.findObject(By.text("运动、休闲")).click();
+        mDevice.findObject(By.text("休闲娱乐")).click();
+        mDevice.findObject(By.text("彩票投注站")).click();
+        Click("save_button");
+        poiNum++;
+
+        //我的数据
+        GotoMyData("rb_condition_poi");
+        assertEditorEqual("tv_my_data_count_2", Integer.toString(poiNum));
+        assertNotNull(Until.findObject(By.desc("彩票销售店")));
+        ExitMyData();
     }
 
     @Test
@@ -461,15 +518,15 @@ public class testFastMapYL extends testFastMapBase
     }
 
     @Test
-    public void test01002_info_roadnamesign_add() throws InterruptedException
-    {
+    public void test01002_info_roadnamesign_add() throws InterruptedException, UiObjectNotFoundException {
         //在室内整理工具中查看我的数据中
         Click("head_icon");
         Click("fmcard_tv_sync_photos");
         Click("tv_my_data");
         Thread.sleep(1000);
         //查看道路名称标牌信息，进入属性编辑页
-        mDevice.findObject(By.text("道路名标牌")).click();
+        //滚动条查找
+        scrollClickObject("道路名标牌");
         Thread.sleep(1000);
         mDevice.findObject(By.text("道路名标牌")).click();
         Click("save_button");//保存按键ID
@@ -483,15 +540,15 @@ public class testFastMapYL extends testFastMapBase
     }
 
     @Test
-    public void test01003_info_roadnamesign_add() throws InterruptedException
-    {
+    public void test01003_info_roadnamesign_add() throws InterruptedException, UiObjectNotFoundException {
         //室内整理工具 我的数据
         Click("head_icon");
         Click("fmcard_tv_sync_photos");
         Click("tv_my_data");
 
         //道路名称标牌
-        mDevice.findObject(By.text("道路名标牌")).click();
+        //滚动条查找
+        scrollClickObject("道路名标牌");
         Thread.sleep(1000);
         mDevice.findObject(By.text("道路名标牌")).click();
 
@@ -513,15 +570,15 @@ public class testFastMapYL extends testFastMapBase
     }
 
     @Test
-    public void test01004_info_roadnamesign_add() throws InterruptedException
-    {
+    public void test01004_info_roadnamesign_add() throws InterruptedException, UiObjectNotFoundException {
         //室内整理工具 我的数据
         Click("head_icon");
         Click("fmcard_tv_sync_photos");
         Click("tv_my_data");
 
         //属性编辑页,道路名称标牌
-        mDevice.findObject(By.text("道路名标牌")).click();
+        //滚动条查找
+        scrollClickObject("道路名标牌");
         Thread.sleep(1000);
         mDevice.findObject(By.text("道路名标牌")).click();
         //编辑端点标牌
@@ -539,12 +596,13 @@ public class testFastMapYL extends testFastMapBase
     }
 
     @Test
-    public void test01005_info_roadnamesign_delete() throws InterruptedException
-    {
+    public void test01005_info_roadnamesign_delete() throws InterruptedException, UiObjectNotFoundException {
         //我的数据
         Click("head_icon");
         Click("fmcard_tv_user_data");
+
         mDevice.findObject(By.text("道路名标牌")).click();
+        //mDevice.findObject(By.text("道路名标牌"));
         Thread.sleep(1000);
 
         //删除道路标牌名
@@ -582,13 +640,12 @@ public class testFastMapYL extends testFastMapBase
     }
 
     @Test
-    public void test01007_info_roadnamesign_add() throws InterruptedException
-    {
+    public void test01007_info_roadnamesign_add() throws InterruptedException, UiObjectNotFoundException {
         //我的数据
         Click("head_icon");
         Click("fmcard_tv_user_data");
         //获取道路名标牌点位
-        mDevice.findObject(By.text("道路名标牌")).click();
+        scrollClickObject("道路名标牌");
         Thread.sleep(1000);
         Click("cancel_button");
         Click("iv_my_data_back");
@@ -616,7 +673,7 @@ public class testFastMapYL extends testFastMapBase
         Click(MultPoint2);
         Click(newRoadNameSign);
         Click(GetCenter());
-        Click("task_pic_back_img");
+        Click("task_pic_back_img");//问题
         PutinEditor("card_road_name_sign_name_edit","新道路标牌名新道路标牌名新道路标牌名新道路标牌名新道路标牌名新道路标牌名新道路标牌名新道路标牌名新道路标牌名");
         Click("save_button");//保存按键ID
 
@@ -641,7 +698,7 @@ public class testFastMapYL extends testFastMapBase
         Click(MultPoint2);
         Click(newRoadNameSign);
         Click(GetCenter());
-        Click("task_pic_back_img");
+        Click("task_pic_back_img");//问题
         PutinEditor("card_road_name_sign_name_edit","qwe");//标牌名称编辑框ID
         Click("card_road_name_sign_radio_yes");//端点标牌是的ID
         Click("save_button");//保存按键ID
@@ -667,7 +724,7 @@ public class testFastMapYL extends testFastMapBase
         Click(MultPoint2);
         Click(newRoadNameSign);
         Click(GetCenter());
-        Click("task_pic_back_img");
+        Click("task_pic_back_img");//问题
         PutinEditor("card_road_name_sign_radio_yes","");//标牌名称编辑框ID
 
         Click("camera_button");//拍照ID
@@ -696,7 +753,7 @@ public class testFastMapYL extends testFastMapBase
         Click(MultPoint2);
         Click(newRoadNameSign);
         Click(GetCenter());
-        Click("task_pic_back_img");
+        Click("task_pic_back_img");//问题
         PutinEditor("card_road_name_sign_radio_yes","wer");//标牌名称编辑框ID
 
         Click("camera_button");//拍照ID
@@ -725,12 +782,394 @@ public class testFastMapYL extends testFastMapBase
         Click(MultPoint2);
         Click(newRoadNameSign);
         Click(GetCenter());
-        Click("task_pic_back_img");
+        Click("task_pic_back_img");//问题
         PutinEditor("card_road_name_sign_radio_yes","qwe");
         Click("card_road_name_sign_radio_yes");//端点标牌是的ID
         Click("cancel_button");
 
     }
+
+    @Test
+    public void test01041_data_check() throws UiObjectNotFoundException, InterruptedException
+    {
+        //左侧车道必须大于或等于右侧车道的限速值域（数组从小到大顺序）
+        mDevice.drag(700, 823, 1024, 823, 10);
+        Thread.sleep(1000);
+        //创建限速车道从左到右分别为90,110，110
+        Click(newLimitSpeed, 1000);
+        Click(new Point(mDevice.getDisplayWidth()/2-250, mDevice.getDisplayHeight()/2-250));
+        Click("card_speed_limit_type_driveway",100);//选择车道限速
+        mDevice.drag(77, 632, 225, 643, 10);
+        mDevice.drag(77, 632, 225, 643, 10);
+        Click(new Point(79,552),1000);
+        Click("speed_limit_number_90", 1000);
+        Click("speed_limit_number_110", 1000);
+        Click("speed_limit_number_110", 1000);
+        Click(new Point(75,475),1000);//点限速必选一个
+        Click("save_button", 1000);
+        Thread.sleep(3000);
+        tipsNum++;
+
+        //室内整理工具检查，车道限速
+        AssertIndoorCheck("车道限速","中","FM-1113-2-2","左侧车道限速小于右侧车道限速","");//问题
+    }
+
+    @Test
+    public void test01042_data_check() throws UiObjectNotFoundException, InterruptedException
+    {
+        //大门tips关联在测线K13上
+        mDevice.drag(700, 823, 424, 823, 10);
+        Thread.sleep(1000);
+
+        //手绘测线 类型为K13
+        Click(newLeftFive);//手绘测线
+        Click(new Point(231,975));
+        Click("card_ferry",1000);//13 轮渡
+        Click(new Point(mDevice.getDisplayWidth()/2-30, mDevice.getDisplayHeight()/2-30));
+        Click(new Point(mDevice.getDisplayWidth()/2+80, mDevice.getDisplayHeight()/2+80));
+        Click("save_button");
+        tipsNum++;//测线
+
+        Click(newHorFour);
+        Click(newDoor);//选择大门
+        Click(GetCenter());
+        Click("gate_type_eg");//EG大门
+        Click("checkBox_single_dir_gate");//单方向大门
+        Click("save_button");
+        tipsNum++;
+
+        AssertIndoorCheck("大门","中","FM-1104-6-3","航线上不能采集大门",""); //问题
+    }
+
+    @Test
+    public void test01043_data_check() throws UiObjectNotFoundException, InterruptedException
+    {
+        //大门tips关联在测线11上
+        mDevice.drag(700, 823, 1224, 823, 10);
+        Thread.sleep(1000);
+
+        //手绘测线 类型为K11
+        Click(newLeftFive);//手绘测线
+        Click(new Point(231,975));
+        Click("card_pedestrian_rd",1000);//11 人渡
+        Click(new Point(mDevice.getDisplayWidth()/2-30, mDevice.getDisplayHeight()/2-30));
+        Click(new Point(mDevice.getDisplayWidth()/2+80, mDevice.getDisplayHeight()/2+80));
+        Click("save_button");
+        tipsNum++;
+
+        Click(newHorFour, 3000);
+        Click(newDoor,3000);//选择大门
+        Click(GetCenter());
+        Click("gate_type_eg",1000);//EG大门
+        Click("checkBox_single_dir_gate");//单方向大门
+        Click("save_button", 1000);
+        tipsNum++;
+
+        AssertIndoorCheck("大门","中","FM-1104-6-3","航线上不能采集大门","");//问题
+    }
+
+    @Test
+    public void test01044_data_check() throws UiObjectNotFoundException, InterruptedException
+    {
+        //EG门与障碍物不能同时出现
+        mDevice.drag(700, 823, 1424, 823, 10);
+        Thread.sleep(1000);
+
+        //单向路 北清路 592305
+        SearchRoadFromLink("592305");
+
+        //大门关联到这个link上
+        Click(newHorFour, 3000);
+        Click(newDoor,3000);//选择大门
+        Click(new Point(mDevice.getDisplayWidth()/2, mDevice.getDisplayHeight()/2+50));
+        Click("gate_type_eg",1000);//EG大门
+        Click("checkBox_single_dir_gate");//单方向大门
+        Click("save_button", 1000);
+        tipsNum++;
+
+        //单向路 北清路 592305
+        SearchRoadFromLink("592305");
+
+        //障碍物关联到这个测线上
+        Click(new Point(1974,897),1000);
+        Click(new Point(1734,359),1000);
+        Click(GetCenter());
+        Click("save_button");
+        tipsNum++;
+
+        AssertIndoorCheck("大门","中","FM-1104-6-4","EG门与障碍物不能同时出现","不能忽视");
+    }
+
+    @Test
+    public void test01045_data_check() throws UiObjectNotFoundException, InterruptedException
+    {
+        //门的方向应与道路通行方向一致,双向门在单车道上
+        mDevice.drag(700, 823, 1024, 823, 10);
+        Thread.sleep(1000);
+
+        //搜索linkid为592176的单向车道
+        SearchRoadFromLink("592176");
+        //创建双向门
+        Click(newHorFour, 3000);
+        Click(newDoor,3000);//选择大门
+        Click(GetCenter());
+        Click("gate_type_pg",1000);//PG大门
+        Click("save_button", 1000);
+        tipsNum++;
+
+        AssertIndoorCheck("大门","中","FM-1104-6-5","门的方向应与道路通行方向一致","不能忽视");
+    }
+
+    @Test
+    public void test01046_data_check() throws UiObjectNotFoundException, InterruptedException
+    {
+        //门的方向应与道路通行方向一致,单向门在双向车道上
+        mDevice.drag(700, 823, 1024, 823, 10);
+        Thread.sleep(1000);
+
+        //linkid 41774976
+        SearchRoadFromLink("41774976");
+
+        Click(newHorFour, 3000);
+        Click(newDoor,3000);//选择大门
+        Click(GetCenter());
+        Click("gate_type_eg",1000);//EG大门
+        Click("checkBox_single_dir_gate");//单方向大门
+        Click("save_button", 1000);
+        tipsNum++;
+
+        AssertIndoorCheck("大门","中","FM-1104-6-5","门的方向应与道路通行方向一致","不能忽视");
+    }
+
+    @Test
+    public void test01047_data_check() throws UiObjectNotFoundException, InterruptedException
+    {
+        //门的方向应与道路通行方向一致,单向门在单向车道上，但是门道方向相反
+        mDevice.drag(700, 823, 1024, 823, 10);
+        Thread.sleep(1000);
+
+        //linkid 32092464
+        SearchRoadFromLink("32092464");
+
+        Click(newHorFour, 3000);
+        Click(newDoor,3000);//选择大门
+        Click(new Point(mDevice.getDisplayWidth()/2, mDevice.getDisplayHeight()/2-60));
+        Click("gate_type_kg",1000);//KG大门
+        Click("checkBox_single_dir_gate");//单方向大门
+        Click("save_button", 1000);
+        tipsNum++;
+
+        SearchRoadFromLink("32092464");
+        Click(new Point(mDevice.getDisplayWidth()/2, mDevice.getDisplayHeight()/2-60));
+        Click("card_road_direction_swap");
+        Click("save_button",1000);
+
+        AssertIndoorCheck("大门","中","FM-1104-6-5","门的方向应与道路通行方向一致","不能忽视");
+    }
+    @Test
+    public void test01048_data_check() throws UiObjectNotFoundException, InterruptedException
+    {
+        //10级路上不能有EG
+        mDevice.drag(700, 823, 1024, 823, 10);
+        Thread.sleep(1000);
+
+        //
+        SearchRoadFromLink("691986");
+
+        Click(newHorFour, 3000);
+        Click(newDoor,3000);//选择大门
+        Click(GetCenter());
+        Click("gate_type_eg",1000);//EG大门
+        Click("checkBox_single_dir_gate");//单方向大门
+        Click("save_button", 1000);
+        tipsNum++;
+
+        AssertIndoorCheck("大门","中","FM-1104-6-6","10级路上不能有车行门","不能忽视");
+    }
+
+    @Test
+    public void test01049_data_check() throws UiObjectNotFoundException, InterruptedException
+    {
+        //10级路上不能有PG
+        mDevice.drag(700, 823, 1024, 823, 10);
+        Thread.sleep(1000);
+
+        //
+        SearchRoadFromLink("691994");
+
+
+        Click(newHorFour, 3000);
+        Click(newDoor,3000);//选择大门
+        Click(GetCenter());
+        Click("gate_type_pg",1000);//PG大门
+        Click("checkBox_single_dir_gate");//单方向大门
+        Click("save_button", 1000);
+        tipsNum++;
+
+        AssertIndoorCheck("大门","中","FM-1104-6-6","10级路上不能有车行门","不能忽视");
+    }
+    @Test
+    public void test01050_data_check() throws UiObjectNotFoundException, InterruptedException
+    {
+        //10级路上不能有KG
+        mDevice.drag(700, 823, 1024, 823, 10);
+        Thread.sleep(1000);
+
+        //绘制K10类型手绘测线
+        SearchRoadFromLink("691987");
+
+        Click(newHorFour, 3000);
+        Click(newDoor,3000);//选择大门
+        Click(GetCenter());
+        Click("gate_type_kg",1000);//KG大门
+        Click("checkBox_single_dir_gate");//单方向大门
+        Click("save_button", 1000);
+        tipsNum++;
+
+        AssertIndoorCheck("大门","中","FM-1104-6-6","10级路上不能有车行门","不能忽视");
+    }
+
+    @Test
+    public void test01052_data_check() throws UiObjectNotFoundException, InterruptedException
+    {
+        //车道信息与车道数不一致，可能车道变化点采集遗漏
+        mDevice.drag(700, 823, 1024, 823, 10);
+        Thread.sleep(1000);
+
+        //搜索单车道linkID为590729的道路
+        SearchRoadFromLink("590729");
+        //创建四车道车信
+        Click(newCarInfo, 3000);
+        Click(GetCenter());
+        Click("rb_select_one_d");
+        Click("rb_select_one_b");
+        Click("rb_select_one_a");
+        Click("rb_select_one_c");
+        Click("save_button", 1000);
+        tipsNum++;
+
+        AssertIndoorCheck("车信","中","FM-1301-6-3","车道信息与车道数不一致，可能车道变化点采集遗漏","不能忽视");
+    }
+
+    @Test
+    public void test01053_data_check() throws UiObjectNotFoundException, InterruptedException
+    {
+        //PG关联的link上有勾选了人行门的POI
+        mDevice.drag(700, 823, 1024, 823, 10);
+        Thread.sleep(1000);
+
+        SearchRoadFromLink("691994");//  592176
+
+        Click(newPOIPoint, 6000);
+        Click(GetCenter());
+        Click("take_pic_imgbtn", 3000);
+        Click("task_pic_back_img");
+        PutinEditor("fm_et_name", "测试ＰＯＩ");
+        Click("tv_assort_type", 3000);
+        Thread.sleep(3000);
+        List<UiObject2> objList = mDevice.wait(Until.findObjects(By.res(packageName, "top_name_txtinfo")), 500);
+
+        UiObject2 objectRest = null;
+        for (UiObject2 object : objList)
+        {
+            if(object.getText().equals("中餐馆"))
+            {
+                objectRest = object;
+            }
+        }
+
+        objectRest.click();
+        //拖拽实现"人行门"的显示
+        // mDevice.drag(1902,1212,1902,520,10);
+        //方法一
+        //UiScrollable listScrollable = new UiScrollable(new UiSelector().scrollable(true));
+        //listScrollable.setMaxSearchSwipes(10);
+        //listScrollable.scrollTextIntoView("人行门");
+
+        //方法二
+        //UiScrollable listScrollable = new UiScrollable(new UiSelector().scrollable(true));
+        //listScrollable.flingToEnd(2);
+
+        //方法三
+        UiScrollable listScrollable = new UiScrollable(new UiSelector().scrollable(true));
+        listScrollable.scrollDescriptionIntoView("人行门");
+
+        mDevice.findObject(By.text("人行门")).click();
+        Click("save_button");
+        poiNum++;
+
+        AssertIndoorCheck("大门","中","FM-1104-6-7","","");
+    }
+
+    @Test
+    public void test01054_data_check() throws UiObjectNotFoundException, InterruptedException
+    {
+        //KG关联的link上有勾选了人行门的POI
+        mDevice.drag(700, 823, 1024, 823, 10);
+        Thread.sleep(1000);
+
+        SearchRoadFromLink("691987");//  32092464
+
+        Click(newPOIPoint, 6000);
+        Click( new Point(mDevice.getDisplayWidth()/2, mDevice.getDisplayHeight()/2-80));
+        Click("take_pic_imgbtn", 3000);
+        Click("task_pic_back_img");
+        PutinEditor("fm_et_name", "测试ＰＯＩ");
+        Click("tv_assort_type", 3000);
+        Thread.sleep(3000);
+        List<UiObject2> objList = mDevice.wait(Until.findObjects(By.res(packageName, "top_name_txtinfo")), 500);
+
+        UiObject2 objectRest = null;
+        for (UiObject2 object : objList)
+        {
+            if(object.getText().equals("中餐馆"))
+            {
+                objectRest = object;
+            }
+        }
+
+        objectRest.click();
+        //mDevice.drag(1902,1212,1902,520,10);
+        UiScrollable listScrollable = new UiScrollable(new UiSelector().scrollable(true));
+        listScrollable.flingToEnd(2);
+        mDevice.findObject(By.text("人行门")).click();
+        Click("save_button");
+        poiNum++;
+
+        AssertIndoorCheck("大门","中","FM-1104-6-7","","不能忽视");
+    }
+
+    @Test
+    public void test01055_data_check() throws UiObjectNotFoundException, InterruptedException
+    {
+        //测线与隧道tips相交时，需要制作立交
+        mDevice.drag(700, 823, 1024, 823, 10);
+        Thread.sleep(1000);
+
+        SearchRoadFromLink("32092464");
+        //在此link上创建隧道
+        Click(new Point(1690,1440));
+        Click(GetCenter());
+        Click(new Point(1690,1440));
+        Click(new Point(1655,342));//隧道位置
+        Click(new Point(mDevice.getDisplayWidth()/2-30, mDevice.getDisplayHeight()/2-30));
+        Click("save_button");
+        tipsNum++;
+
+        //绘制测线与含有隧道的link相交
+        Click(newLeftFive);
+        Click(newDrawRoardReal);
+        Click("card_high_speed");
+        Click("lane_num_1");
+        Click(new Point(mDevice.getDisplayWidth()/2, mDevice.getDisplayHeight()/2-80));
+        Click(new Point(mDevice.getDisplayWidth()/2, mDevice.getDisplayHeight()/2+80));
+        Click("save_button");
+        tipsNum++;
+
+        AssertIndoorCheck("测线","中","FM-2001-5-9","新测线与隧道属性道路相交，需要制作立交","不能忽视");
+    }
+
+
 
 
     @Test
@@ -740,9 +1179,9 @@ public class testFastMapYL extends testFastMapBase
         mDevice.drag(700, 823, 1024, 823, 10);
         Thread.sleep(1000);
 
-        Click(new Point(1960,1150));//车信控件ID
+        Click(newCarInfo);//车信控件ID
         Click(GetCenter());
-        Click("rb_select_one_a");//单车道任一控件ID
+        Click("rb_select_one_a");//单车道任一控件ID //问题
         Click("ll_bg_select_more");//“更多”控件ID
         Click("rb_select_six_r");
 
@@ -758,15 +1197,15 @@ public class testFastMapYL extends testFastMapBase
 
         ExitMyData();
     }
-
+    /*
     @Test
     public void test01102_tips_CarInfo_add() throws InterruptedException
     {
         //问题
         //我的数据，Tips下点击车信，进入编辑模式，删除
-        Click(new Point(1960,1150));//车信控件ID
+        Click(newCarInfo);//车信控件ID
         Click(GetCenter());
-        Click("rb_select_one_a");//单车道任一控件ID
+        Click("rb_select_one_a");//单车道任一控件ID //问题
         Click("ll_bg_select_more");//“更多”控件ID
         Click("rb_select_six_r");
 
@@ -782,16 +1221,16 @@ public class testFastMapYL extends testFastMapBase
 
         ExitMyData();
     }
-    //
+*/
     @Test
     public void test01103_tips_CarInfo_add() throws InterruptedException {
         //新增单箭头 r 斜左、
         mDevice.drag(700, 823, 1024, 823, 10);
         Thread.sleep(1000);
 
-        Click(new Point(1960,1150));//车信控件ID
+        Click(newCarInfo);//车信控件ID
         Click(GetCenter());
-        Click("ll_bg_select_more");//“更多”控件ID
+        Click("ll_bg_select_more");//“更多”控件ID  问题
         Click("rb_select_six_r");
 
         Click("save_button");
@@ -805,9 +1244,7 @@ public class testFastMapYL extends testFastMapBase
         assertNotNull(Until.findObject(By.desc("车信")));
 
         ExitMyData();
-
     }
-
 
     @Test
     public void test01104_tips_CarInfo_add() throws InterruptedException {
@@ -815,9 +1252,9 @@ public class testFastMapYL extends testFastMapBase
         mDevice.drag(700, 823, 1024, 823, 10);
         Thread.sleep(1000);
 
-        Click(new Point(1960,1150));//车信控件ID
+        Click(newCarInfo);//车信控件ID
         Click(GetCenter());
-        Click("ll_bg_select_more");//“更多”控件ID
+        Click("ll_bg_select_more");//“更多”控件ID //问题
         Click("rb_select_six_s");//斜右单车道控件ID
 
         Click("save_button");
@@ -839,9 +1276,9 @@ public class testFastMapYL extends testFastMapBase
         mDevice.drag(700, 823, 1024, 823, 10);
         Thread.sleep(1000);
 
-        Click(new Point(1960,1150));//车信控件ID
+        Click(newCarInfo);//车信控件ID
         Click(GetCenter());
-        Click("ll_bg_select_more");//“更多”控件ID
+        Click("ll_bg_select_more");//“更多”控件ID //问题
         Click("rb_select_six_t");//直斜左控件ID
 
         Click("save_button");
@@ -856,15 +1293,16 @@ public class testFastMapYL extends testFastMapBase
 
         ExitMyData();
     }
+
     @Test
     public void test01106_tips_CarInfo_add() throws InterruptedException {
         //新增单箭头 x 直斜右
         mDevice.drag(700, 823, 1024, 823, 10);
         Thread.sleep(1000);
 
-        Click(new Point(1960,1150));//车信控件ID
+        Click(newCarInfo);//车信控件ID
         Click(GetCenter());
-        Click("ll_bg_select_more");//“更多”控件ID
+        Click("ll_bg_select_more");//“更多”控件ID //问题
         Click("rb_select_six_x");
 
         Click("save_button");
@@ -879,13 +1317,14 @@ public class testFastMapYL extends testFastMapBase
 
         ExitMyData();
     }
+
     @Test
     public void test01107_tips_CarInfo_add() throws InterruptedException {
         //新增单箭头 u 左斜左、
         mDevice.drag(700, 823, 1024, 823, 10);
         Thread.sleep(1000);
 
-        Click(new Point(1960,1150));//车信控件ID
+        Click(newCarInfo);//车信控件ID
         Click(GetCenter());
         Click("ll_bg_select_more");//“更多”控件ID
         Click("rb_select_seven_u");
@@ -902,13 +1341,14 @@ public class testFastMapYL extends testFastMapBase
 
         ExitMyData();
     }
+
     @Test
     public void test01108_tips_CarInfo_add() throws InterruptedException {
         //新增单箭头 z 右斜右、
         mDevice.drag(700, 823, 1024, 823, 10);
         Thread.sleep(1000);
 
-        Click(new Point(1960,1150));//车信控件ID
+        Click(newCarInfo);//车信控件ID
         Click(GetCenter());
         Click("ll_bg_select_more");//“更多”控件ID
         Click("rb_select_seven_z");
@@ -925,13 +1365,14 @@ public class testFastMapYL extends testFastMapBase
 
         ExitMyData();
     }
+
     @Test
     public void test01109_tips_CarInfo_add() throws InterruptedException {
         //新增单箭头 w 调斜左、
         mDevice.drag(700, 823, 1024, 823, 10);
         Thread.sleep(1000);
 
-        Click(new Point(1960,1150));//车信控件ID
+        Click(newCarInfo);//车信控件ID
         Click(GetCenter());
         Click("ll_bg_select_more");//“更多”控件ID
         Click("rb_select_seven_w");
@@ -948,13 +1389,14 @@ public class testFastMapYL extends testFastMapBase
 
         ExitMyData();
     }
+
     @Test
     public void test01110_tips_CarInfo_add() throws InterruptedException {
         //新增单箭头 0 调斜右
         mDevice.drag(700, 823, 1024, 823, 10);
         Thread.sleep(1000);
 
-        Click(new Point(1960,1150));//车信控件ID
+        Click(newCarInfo);//车信控件ID
         Click(GetCenter());
         Click("ll_bg_select_more");//“更多”控件ID
         Click("rb_select_seven_0");
@@ -972,13 +1414,14 @@ public class testFastMapYL extends testFastMapBase
         ExitMyData();
 
     }
+
     @Test
     public void test01111_tips_CarInfo_add() throws InterruptedException {
         //新增单箭头 y 左斜右、
         mDevice.drag(700, 823, 1024, 823, 10);
         Thread.sleep(1000);
 
-        Click(new Point(1960,1150));//车信控件ID
+        Click(newCarInfo);//车信控件ID
         Click(GetCenter());
         Click("ll_bg_select_more");//“更多”控件ID
         Click("rb_select_eight_y");
@@ -995,13 +1438,14 @@ public class testFastMapYL extends testFastMapBase
 
         ExitMyData();
     }
+
     @Test
     public void test01112_tips_CarInfo_add() throws InterruptedException {
         //新增单箭头 v 右斜左、
         mDevice.drag(700, 823, 1024, 823, 10);
         Thread.sleep(1000);
 
-        Click(new Point(1960,1150));//车信控件ID
+        Click(newCarInfo);//车信控件ID
         Click(GetCenter());
         Click("ll_bg_select_more");//“更多”控件ID
         Click("rb_select_eight_v");
@@ -1017,15 +1461,15 @@ public class testFastMapYL extends testFastMapBase
         assertNotNull(Until.findObject(By.desc("车信")));
 
         ExitMyData();
-
     }
+
     @Test
     public void test01113_tips_CarInfo_add() throws InterruptedException {
         //新增单箭头 2 直左斜左、
         mDevice.drag(700, 823, 1024, 823, 10);
         Thread.sleep(1000);
 
-        Click(new Point(1960,1150));//车信控件ID
+        Click(newCarInfo);//车信控件ID
         Click(GetCenter());
         Click("ll_bg_select_more");//“更多”控件ID
         Click("rb_select_eight_2");
@@ -1042,13 +1486,14 @@ public class testFastMapYL extends testFastMapBase
 
         ExitMyData();
     }
+
     @Test
     public void test01114_tips_CarInfo_add() throws InterruptedException {
         //新增单箭头 5 直右斜右
         mDevice.drag(700, 823, 1024, 823, 10);
         Thread.sleep(1000);
 
-        Click(new Point(1960,1150));//车信控件ID
+        Click(newCarInfo);//车信控件ID
         Click(GetCenter());
         Click("ll_bg_select_more");//“更多”控件ID
         Click("rb_select_eight_5");
@@ -1065,13 +1510,14 @@ public class testFastMapYL extends testFastMapBase
 
         ExitMyData();
     }
+
     @Test
     public void test01115_tips_CarInfo_add() throws InterruptedException {
         //新增单箭头 3 直左斜右、
         mDevice.drag(700, 823, 1024, 823, 10);
         Thread.sleep(1000);
 
-        Click(new Point(1960,1150));//车信控件ID
+        Click(newCarInfo);//车信控件ID
         Click(GetCenter());
         Click("ll_bg_select_more");//“更多”控件ID
         Click("rb_select_eight_3");
@@ -1095,7 +1541,7 @@ public class testFastMapYL extends testFastMapBase
         mDevice.drag(700, 823, 1024, 823, 10);
         Thread.sleep(1000);
 
-        Click(new Point(1960,1150));//车信控件ID
+        Click(newCarInfo);//车信控件ID
         Click(GetCenter());
         Click("ll_bg_select_more");//“更多”控件ID
         Click("rb_select_eight_4");
@@ -1119,7 +1565,7 @@ public class testFastMapYL extends testFastMapBase
         mDevice.drag(700, 823, 1024, 823, 10);
         Thread.sleep(1000);
 
-        Click(new Point(1960,1150));//车信控件ID
+        Click(newCarInfo);//车信控件ID
         Click(GetCenter());
         Click("ll_bg_select_more");//“更多”控件ID
         Click("rb_select_eight_1");
@@ -1144,7 +1590,7 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(1000);
 
 
-        Click(new Point(1960,1150));//车信控件ID
+        Click(newCarInfo);//车信控件ID
         Click(GetCenter());
         Click("rb_select_one_a");//单车道任一控件ID
         Click("ll_bg_select_more");//“更多”控件ID
@@ -1165,7 +1611,6 @@ public class testFastMapYL extends testFastMapBase
         Click("rb_select_eight_4");//直左斜右控件ID
         Click("rb_select_eight_1");//直右斜左控件ID
 
-
         Click("save_button");
         tipsNum++;
 
@@ -1180,18 +1625,18 @@ public class testFastMapYL extends testFastMapBase
     }
 
     ///////////////待完善////////////
- /*
+
     @Test
     public void test01119_tips_CarInfo_add() throws InterruptedException {
         //新增单箭头 s 斜右、
         mDevice.drag(700, 823, 1024, 823, 10);
         Thread.sleep(1000);
 
-        Click("");//单车道任一控件ID
+        Click(newCarInfo);//单车道任一控件ID
         Click(GetCenter());
-        Click("");//单车道任一控件ID
+        Click("rb_select_one_a");//单车道任一控件ID
         Click("ll_bg_select_more");//“更多”控件ID
-        Click("");//斜右单车道控件ID
+        Click("rb_select_six_r");//斜右单车道控件ID
 
         Click("save_button");
         tipsNum++;
@@ -1204,19 +1649,19 @@ public class testFastMapYL extends testFastMapBase
         assertNotNull(Until.findObject(By.desc("车信")));
 
         ExitMyData();
-
     }
+
     @Test
     public void test01120_tips_CarInfo_add() throws InterruptedException {
         //新增单箭头 t 直斜左、
         mDevice.drag(700, 823, 1024, 823, 10);
         Thread.sleep(1000);
 
-        Click("");//车信控件ID
+        Click(newCarInfo);//车信控件ID
         Click(GetCenter());
-        Click("");//单车道任一控件ID
-        Click("");//“更多”控件ID
-        Click("");//直斜左控件ID
+        Click("rb_select_one_a");//单车道任一控件ID
+        Click("ll_bg_select_more");//“更多”控件ID
+        Click("rb_select_six_s");//直斜左控件ID
 
         Click("save_button");
         tipsNum++;
@@ -1236,11 +1681,11 @@ public class testFastMapYL extends testFastMapBase
         mDevice.drag(700, 823, 1024, 823, 10);
         Thread.sleep(1000);
 
-        Click("");//车信控件ID
+        Click(newCarInfo);//车信控件ID
         Click(GetCenter());
-        Click("");//单车道任一控件ID
-        Click("");//“更多”控件ID
-        Click("");
+        Click("rb_select_one_a");//单车道任一控件ID
+        Click("ll_bg_select_more");//“更多”控件ID
+        Click("rb_select_six_t");
 
         Click("save_button");
         tipsNum++;
@@ -1260,11 +1705,11 @@ public class testFastMapYL extends testFastMapBase
         mDevice.drag(700, 823, 1024, 823, 10);
         Thread.sleep(1000);
 
-        Click("");//车信控件ID
+        Click(newCarInfo);//车信控件ID
         Click(GetCenter());
-        Click("");//单车道任一控件ID
-        Click("");//“更多”控件ID
-        Click("");
+        Click("rb_select_one_a");//单车道任一控件ID
+        Click("ll_bg_select_more");//“更多”控件ID
+        Click("rb_select_six_x");
 
         Click("save_button");
         tipsNum++;
@@ -1284,11 +1729,11 @@ public class testFastMapYL extends testFastMapBase
         mDevice.drag(700, 823, 1024, 823, 10);
         Thread.sleep(1000);
 
-        Click("");//车信控件ID
+        Click(newCarInfo);//车信控件ID
         Click(GetCenter());
-        Click("");//单车道任一控件ID
-        Click("");//“更多”控件ID
-        Click("");
+        Click("rb_select_one_a");//单车道任一控件ID
+        Click("ll_bg_select_more");//“更多”控件ID
+        Click("rb_select_seven_u");
 
         Click("save_button");
         tipsNum++;
@@ -1308,11 +1753,11 @@ public class testFastMapYL extends testFastMapBase
         mDevice.drag(700, 823, 1024, 823, 10);
         Thread.sleep(1000);
 
-        Click("");//车信控件ID
+        Click(newCarInfo);//车信控件ID
         Click(GetCenter());
-        Click("");//单车道任一控件ID
-        Click("");//“更多”控件ID
-        Click("");
+        Click("rb_select_one_a");//单车道任一控件ID
+        Click("ll_bg_select_more");//“更多”控件ID
+        Click("rb_select_seven_z");
 
         Click("save_button");
         tipsNum++;
@@ -1332,11 +1777,11 @@ public class testFastMapYL extends testFastMapBase
         mDevice.drag(700, 823, 1024, 823, 10);
         Thread.sleep(1000);
 
-        Click("");//车信控件ID
+        Click(newCarInfo);//车信控件ID
         Click(GetCenter());
-        Click("");//单车道任一控件ID
-        Click("");//“更多”控件ID
-        Click("");
+        Click("rb_select_one_a");//单车道任一控件ID
+        Click("ll_bg_select_more");//“更多”控件ID
+        Click("rb_select_seven_w");
 
         Click("save_button");
         tipsNum++;
@@ -1356,11 +1801,11 @@ public class testFastMapYL extends testFastMapBase
         mDevice.drag(700, 823, 1024, 823, 10);
         Thread.sleep(1000);
 
-        Click("");//车信控件ID
+        Click(newCarInfo);//车信控件ID
         Click(GetCenter());
-        Click("");//单车道任一控件ID
-        Click("");//“更多”控件ID
-        Click("");
+        Click("rb_select_one_a");//单车道任一控件ID
+        Click("ll_bg_select_more");//“更多”控件ID
+        Click("rb_select_seven_0");
 
         Click("save_button");
         tipsNum++;
@@ -1380,11 +1825,11 @@ public class testFastMapYL extends testFastMapBase
         mDevice.drag(700, 823, 1024, 823, 10);
         Thread.sleep(1000);
 
-        Click("");//车信控件ID
+        Click(newCarInfo);//车信控件ID
         Click(GetCenter());
-        Click("");//单车道任一控件ID
-        Click("");//“更多”控件ID
-        Click("");
+        Click("rb_select_one_a");//单车道任一控件ID
+        Click("ll_bg_select_more");//“更多”控件ID
+        Click("rb_select_eight_y");
 
         Click("save_button");
         tipsNum++;
@@ -1405,11 +1850,11 @@ public class testFastMapYL extends testFastMapBase
         mDevice.drag(700, 823, 1024, 823, 10);
         Thread.sleep(1000);
 
-        Click("");//车信控件ID
+        Click(newCarInfo);//车信控件ID
         Click(GetCenter());
-        Click("");//单车道任一控件ID
-        Click("");//“更多”控件ID
-        Click("");
+        Click("rb_select_one_a");//单车道任一控件ID
+        Click("ll_bg_select_more");//“更多”控件ID
+        Click("rb_select_eight_v");
 
         Click("save_button");
         tipsNum++;
@@ -1429,11 +1874,11 @@ public class testFastMapYL extends testFastMapBase
         mDevice.drag(700, 823, 1024, 823, 10);
         Thread.sleep(1000);
 
-        Click("");//车信控件ID
+        Click(newCarInfo);//车信控件ID
         Click(GetCenter());
-        Click("");//单车道任一控件ID
-        Click("");//“更多”控件ID
-        Click("");
+        Click("rb_select_one_a");//单车道任一控件ID
+        Click("ll_bg_select_more");//“更多”控件ID
+        Click("rb_select_eight_2");
 
         Click("save_button");
         tipsNum++;
@@ -1453,11 +1898,11 @@ public class testFastMapYL extends testFastMapBase
         mDevice.drag(700, 823, 1024, 823, 10);
         Thread.sleep(1000);
 
-        Click("");//车信控件ID
+        Click(newCarInfo);//车信控件ID
         Click(GetCenter());
-        Click("");//单车道任一控件ID
-        Click("");//“更多”控件ID
-        Click("");
+        Click("rb_select_one_a");//单车道任一控件ID
+        Click("ll_bg_select_more");//“更多”控件ID
+        Click("rb_select_eight_5");
 
         Click("save_button");
         tipsNum++;
@@ -1478,11 +1923,11 @@ public class testFastMapYL extends testFastMapBase
         mDevice.drag(700, 823, 1024, 823, 10);
         Thread.sleep(1000);
 
-        Click("");//单车道任一控件ID
+        Click(newCarInfo);//单车道任一控件ID
         Click(GetCenter());
-        Click("");//单车道任一控件ID
-        Click("");//更多
-        Click("");
+        Click("rb_select_one_a");//单车道任一控件ID
+        Click("ll_bg_select_more");//更多
+        Click("rb_select_eight_3");
 
         Click("save_button");
         tipsNum++;
@@ -1503,11 +1948,11 @@ public class testFastMapYL extends testFastMapBase
         mDevice.drag(700, 823, 1024, 823, 10);
         Thread.sleep(1000);
 
-        Click("");//车信控件ID
+        Click(newCarInfo);//车信控件ID
         Click(GetCenter());
-        Click("");//单车道任一控件ID
-        Click("");//“更多”控件ID
-        Click("");
+        Click("rb_select_one_a");//单车道任一控件ID
+        Click("ll_bg_select_more");//“更多”控件ID
+        Click("rb_select_eight_4");
 
         Click("save_button");
         tipsNum++;
@@ -1521,6 +1966,31 @@ public class testFastMapYL extends testFastMapBase
 
         ExitMyData();
     }
+    @Test
+    public void test01178_tips_CarInfo_add() throws InterruptedException {
+        //新增单箭头 1 斜左斜右
+        mDevice.drag(700, 823, 1024, 823, 10);
+        Thread.sleep(1000);
+
+        Click(newCarInfo);//车信控件ID
+        Click(GetCenter());
+        Click("rb_select_one_a");//单车道任一控件ID
+        Click("ll_bg_select_more");//“更多”控件ID
+        Click("rb_select_eight_1");
+
+        Click("save_button");
+        tipsNum++;
+
+        String strType = "rb_condition_tips";
+        GotoMyData(strType);
+
+        UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
+        assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
+        assertNotNull(Until.findObject(By.desc("车信")));
+
+        ExitMyData();
+    }
+
     //
     @Test
     public void test01133_tips_CarInfo_add() throws InterruptedException {
@@ -1528,11 +1998,11 @@ public class testFastMapYL extends testFastMapBase
         mDevice.drag(700, 823, 1024, 823, 10);
         Thread.sleep(1000);
 
-        Click("");//车信控件ID
+        Click(newCarInfo);//车信控件ID
         Click(GetCenter());
-        Click("");//“更多”控件ID
-        Click("");
-        Click("");//单车道任一控件ID
+        Click("ll_bg_select_more");//“更多”控件ID
+        Click("rb_select_six_r");
+        Click("rb_select_one_a");//单车道任一控件ID
 
         Click("save_button");
         tipsNum++;
@@ -1553,11 +2023,11 @@ public class testFastMapYL extends testFastMapBase
         mDevice.drag(700, 823, 1024, 823, 10);
         Thread.sleep(1000);
 
-        Click("");//单车道任一控件ID
+        Click(newCarInfo);//单车道任一控件ID
         Click(GetCenter());
-        Click("");//“更多”控件ID
-        Click("");//斜右单车道控件ID
-        Click("");//单车道任一控件ID
+        Click("ll_bg_select_more");//“更多”控件ID
+        Click("rb_select_six_s");//斜右单车道控件ID
+        Click("rb_select_one_a");//单车道任一控件ID
 
         Click("save_button");
         tipsNum++;
@@ -1578,11 +2048,11 @@ public class testFastMapYL extends testFastMapBase
         mDevice.drag(700, 823, 1024, 823, 10);
         Thread.sleep(1000);
 
-        Click("");//车信控件ID
+        Click(newCarInfo);//车信控件ID
         Click(GetCenter());
-        Click("");//“更多”控件ID
-        Click("");//直斜左控件ID
-        Click("");//单车道任一控件ID
+        Click("ll_bg_select_more");//“更多”控件ID
+        Click("rb_select_six_t");//直斜左控件ID
+        Click("rb_select_one_a");//单车道任一控件ID
         Click("save_button");
         tipsNum++;
 
@@ -1601,11 +2071,11 @@ public class testFastMapYL extends testFastMapBase
         mDevice.drag(700, 823, 1024, 823, 10);
         Thread.sleep(1000);
 
-        Click("");//车信控件ID
+        Click(newCarInfo);//车信控件ID
         Click(GetCenter());
-        Click("");//“更多”控件ID
-        Click("");
-        Click("");//单车道任一控件ID
+        Click("ll_bg_select_more");//“更多”控件ID
+        Click("rb_select_six_x");
+        Click("rb_select_one_a");//单车道任一控件ID
 
         Click("save_button");
         tipsNum++;
@@ -1625,11 +2095,11 @@ public class testFastMapYL extends testFastMapBase
         mDevice.drag(700, 823, 1024, 823, 10);
         Thread.sleep(1000);
 
-        Click("");//车信控件ID
+        Click(newCarInfo);//车信控件ID
         Click(GetCenter());
-        Click("");//“更多”控件ID
-        Click("");
-        Click("");//单车道任一控件ID
+        Click("ll_bg_select_more");//“更多”控件ID
+        Click("rb_select_seven_u");
+        Click("rb_select_one_a");//单车道任一控件ID
         Click("save_button");
         tipsNum++;
 
@@ -1648,11 +2118,11 @@ public class testFastMapYL extends testFastMapBase
         mDevice.drag(700, 823, 1024, 823, 10);
         Thread.sleep(1000);
 
-        Click("");//车信控件ID
+        Click(newCarInfo);//车信控件ID
         Click(GetCenter());
-        Click("");//“更多”控件ID
-        Click("");
-        Click("");//单车道任一控件ID
+        Click("ll_bg_select_more");//“更多”控件ID
+        Click("rb_select_seven_z");
+        Click("rb_select_one_a");//单车道任一控件ID
         Click("save_button");
         tipsNum++;
 
@@ -1671,11 +2141,11 @@ public class testFastMapYL extends testFastMapBase
         mDevice.drag(700, 823, 1024, 823, 10);
         Thread.sleep(1000);
 
-        Click("");//车信控件ID
+        Click(newCarInfo);//车信控件ID
         Click(GetCenter());
-        Click("");//“更多”控件ID
-        Click("");
-        Click("");//单车道任一控件ID
+        Click("ll_bg_select_more");//“更多”控件ID
+        Click("rb_select_seven_w");
+        Click("rb_select_one_a");//单车道任一控件ID
         Click("save_button");
         tipsNum++;
 
@@ -1694,11 +2164,11 @@ public class testFastMapYL extends testFastMapBase
         mDevice.drag(700, 823, 1024, 823, 10);
         Thread.sleep(1000);
 
-        Click("");//车信控件ID
+        Click(newCarInfo);//车信控件ID
         Click(GetCenter());
-        Click("");//“更多”控件ID
-        Click("");
-        Click("");//单车道任一控件ID
+        Click("ll_bg_select_more");//“更多”控件ID
+        Click("rb_select_seven_0");
+        Click("rb_select_one_a");//单车道任一控件ID
         Click("save_button");
         tipsNum++;
 
@@ -1717,11 +2187,11 @@ public class testFastMapYL extends testFastMapBase
         mDevice.drag(700, 823, 1024, 823, 10);
         Thread.sleep(1000);
 
-        Click("");//车信控件ID
+        Click(newCarInfo);//车信控件ID
         Click(GetCenter());
-        Click("");//“更多”控件ID
-        Click("");
-        Click("");//单车道任一控件ID
+        Click("ll_bg_select_more");//“更多”控件ID
+        Click("rb_select_eight_y");
+        Click("rb_select_one_a");//单车道任一控件ID
         Click("save_button");
         tipsNum++;
 
@@ -1740,11 +2210,11 @@ public class testFastMapYL extends testFastMapBase
         mDevice.drag(700, 823, 1024, 823, 10);
         Thread.sleep(1000);
 
-        Click("");//车信控件ID
+        Click(newCarInfo);//车信控件ID
         Click(GetCenter());
-        Click("");//“更多”控件ID
-        Click("");
-        Click("");//单车道任一控件ID
+        Click("ll_bg_select_more");//“更多”控件ID
+        Click("rb_select_eight_v");
+        Click("rb_select_one_a");//单车道任一控件ID
         Click("save_button");
         tipsNum++;
 
@@ -1764,11 +2234,11 @@ public class testFastMapYL extends testFastMapBase
         mDevice.drag(700, 823, 1024, 823, 10);
         Thread.sleep(1000);
 
-        Click("");//车信控件ID
+        Click(newCarInfo);//车信控件ID
         Click(GetCenter());
-        Click("");//“更多”控件ID
-        Click("");
-        Click("");//单车道任一控件ID
+        Click("ll_bg_select_more");//“更多”控件ID
+        Click("rb_select_eight_2");
+        Click("rb_select_one_a");//单车道任一控件ID
 
         Click("save_button");
         tipsNum++;
@@ -1788,11 +2258,11 @@ public class testFastMapYL extends testFastMapBase
         mDevice.drag(700, 823, 1024, 823, 10);
         Thread.sleep(1000);
 
-        Click("");//车信控件ID
+        Click(newCarInfo);//车信控件ID
         Click(GetCenter());
-        Click("");//“更多”控件ID
-        Click("");
-        Click("");//单车道任一控件ID
+        Click("ll_bg_select_more");//“更多”控件ID
+        Click("rb_select_eight_5");
+        Click("rb_select_one_a");//单车道任一控件ID
 
         Click("save_button");
         tipsNum++;
@@ -1812,11 +2282,11 @@ public class testFastMapYL extends testFastMapBase
         mDevice.drag(700, 823, 1024, 823, 10);
         Thread.sleep(1000);
 
-        Click("");//车信控件ID
+        Click(newCarInfo);//车信控件ID
         Click(GetCenter());
-        Click("");//“更多”控件ID
-        Click("");
-        Click("");//单车道任一控件ID
+        Click("ll_bg_select_more");//“更多”控件ID
+        Click("rb_select_eight_3");
+        Click("rb_select_one_a");//单车道任一控件ID
 
         Click("save_button");
         tipsNum++;
@@ -1837,12 +2307,12 @@ public class testFastMapYL extends testFastMapBase
         mDevice.drag(700, 823, 1024, 823, 10);
         Thread.sleep(1000);
 
-        Click("");//单车道任一控件ID
+        Click(newCarInfo);//单车道任一控件ID
         Click(GetCenter());
 
-        Click("");//更多
-        Click("");
-        Click("");//单车道任一控件ID
+        Click("ll_bg_select_more");//更多
+        Click("rb_select_eight_4");
+        Click("rb_select_one_a");//单车道任一控件ID
 
         Click("save_button");
         tipsNum++;
@@ -1863,11 +2333,11 @@ public class testFastMapYL extends testFastMapBase
         mDevice.drag(700, 823, 1024, 823, 10);
         Thread.sleep(1000);
 
-        Click("");//车信控件ID
+        Click(newCarInfo);//车信控件ID
         Click(GetCenter());
-        Click("");//“更多”控件ID
-        Click("");
-        Click("");//单车道任一控件ID
+        Click("ll_bg_select_more");//“更多”控件ID
+        Click("rb_select_eight_1");
+        Click("rb_select_one_a");//单车道任一控件ID
 
         Click("save_button");
         tipsNum++;
@@ -1881,8 +2351,8 @@ public class testFastMapYL extends testFastMapBase
 
         ExitMyData();
     }
-*/
-///////////待完善////////////////
+
+
     @Test
     public void test01148_tips_CarInfo_close() throws InterruptedException {
         //新增单箭头 1 斜左
@@ -2422,33 +2892,32 @@ public class testFastMapYL extends testFastMapBase
 
         ExitMyData();
     }
-    ///////////////////////////////////////////////
-  /* @Test
-        public void test01171_tips_CarInfo_add() throws InterruptedException {
-            //新增单箭头 y 左斜右、
-            mDevice.drag(700, 823, 1024, 823, 10);
-            Thread.sleep(1000);
 
-            Click(new Point(1960,1150));//车信控件ID
-            Click(GetCenter());
-            Click("ll_bg_select_more");//“更多”控件ID
-            Click("rb_select_eight_y");
-            Click("iv_dri");//附加上方控件ID
-            Click("");
-            Click("save_button");//保存控件ID
-            tipsNum++;
+    @Test
+    public void test01171_tips_CarInfo_add() throws InterruptedException {
+        //新增单箭头 y 左斜右、
+        mDevice.drag(700, 823, 1024, 823, 10);
+        Thread.sleep(1000);
 
-            String strType = "rb_condition_tips";
-            GotoMyData(strType);
+        Click(new Point(1960,1150));//车信控件ID
+        Click(GetCenter());
+        Click("ll_bg_select_more");//“更多”控件ID
+        Click("rb_select_seven_0");
+        Click("iv_dri");//附加上方控件ID
+        Click("rb_select_eight_y");
+        Click("save_button");//保存控件ID
+        tipsNum++;
 
-            UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
-            assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
-            assertNotNull(Until.findObject(By.desc("车信")));
+        String strType = "rb_condition_tips";
+        GotoMyData(strType);
 
-            ExitMyData();
-        }
-        */
-////////////////////////////////////////
+        UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
+        assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
+        assertNotNull(Until.findObject(By.desc("车信")));
+
+        ExitMyData();
+    }
+
     @Test
     public void test01172_tips_CarInfo_add() throws InterruptedException {
         //新增单箭头 v 右斜左、
@@ -2800,6 +3269,7 @@ public class testFastMapYL extends testFastMapBase
         ExitMyData();
     }
 
+
     @Test
     public void test01209_tips_add_Click() throws InterruptedException {
         //单击手动设置点位信息，新增高速入口模式图
@@ -2833,9 +3303,9 @@ public class testFastMapYL extends testFastMapBase
         //OpenGPS();
         Click(newHorFive);
         Click(newSA);//单击SA
-        Click(GetCenter());
+        mDevice.click(1731,214);
 
-        Click("save_button");
+        Click("save_button");//问题
         tipsNum++;
 
         String strType = "rb_condition_tips";
@@ -2857,9 +3327,9 @@ public class testFastMapYL extends testFastMapBase
         //OpenGPS();
         Click(newHorFive);
         Click(newPA);//单击PA
-        Click(GetCenter());
+        mDevice.click(1354,247);
 
-        Click("save_button");
+        Click("save_button"); //问题
         tipsNum++;
 
         String strType = "rb_condition_tips";
@@ -3019,31 +3489,31 @@ public class testFastMapYL extends testFastMapBase
         ExitMyData();
     }
 
-    /*    @Test
-        public void test01218_tips_add_Click() throws InterruptedException {
-            //单击手动设置点位信息，新增3D模式图
-            mDevice.drag(700, 823, 1024, 823, 10);
-            Thread.sleep(1000);
+    @Test
+    public void test01218_tips_add_Click() throws InterruptedException {
+        //单击手动设置点位信息，新增3D模式图
+        mDevice.drag(700, 823, 1024, 823, 10);
+        Thread.sleep(1000);
 
-            //OpenGPS();
-            Click(newLeftFour);
-            Click(new3D);//单击3D模式图
-            Click(GetCenter());
-            Click("");//点击3D模式图
+        //OpenGPS();
+        Click(newLeftFour);
+        Click(new3D);//单击3D模式图
+        Click(GetCenter());
+        Click("three_d_mode_0010000");//点击3D模式图
 
-            Click("save_button");
-            tipsNum++;
+        Click("save_button");
+        tipsNum++;
 
-            String strType = "rb_condition_tips";
-            GotoMyData(strType);
+        String strType = "rb_condition_tips";
+        GotoMyData(strType);
 
-            UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
-            assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
-            assertNotNull(Until.findObject(By.desc("3D")));
+        UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
+        assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
+        assertNotNull(Until.findObject(By.desc("3D")));
 
-            ExitMyData();
-        }
-*/
+        ExitMyData();
+    }
+
     @Test
     public void test01219_tips_add_Click() throws InterruptedException {
         //单击手动设置点位信息，新增提左提右
@@ -3116,581 +3586,635 @@ public class testFastMapYL extends testFastMapBase
 
         ExitMyData();
     }
-    /*/////////////OK///////////////////
+    /*
+    @Test
+    public void test01222_tips_add_Click() throws InterruptedException {
+        //单击手动设置点位信息，新增GPS打点
+        mDevice.drag(700, 823, 1024, 823, 10);
+        Thread.sleep(1000);
+
+        //OpenGPS();
+        Click(newGPSPos);//单击GPS打点
+        Click(GetCenter());
+
+        tipsNum++;
+
+        String strType = "rb_condition_tips";
+        GotoMyData(strType);
+
+        UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
+        assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
+        assertNotNull(Until.findObject(By.desc("GPS打点")));
+
+        ExitMyData();
+    }//界面没GPS打点
+*/
+    @Test
+    public void test01223_tips_add_DoubleClick() throws InterruptedException {
+        //设置点位信息，新增限速
+        mDevice.drag(700, 823, 1024, 823, 10);
+        Thread.sleep(1000);
+
+        //OpenGPS();
+        //DoubleClick(newLimitSpeed);//限速Tips
+        mDevice.click(newLimitSpeed.x,newLimitSpeed.y);
+        Thread.sleep(100);
+        mDevice.click(newLimitSpeed.x,newLimitSpeed.y);
+        //Click(GetCenter());
+        Click("speed_limit_type_point");//点击点限速
+        Click("et_speed_limit_number");//最高限速值
+        Click("speed_limit_number_40");//40
+        Click("et_speed_limit_number_min");//最低限速值
+        Click("speed_limit_number_30");//30
+        Click("save_button");
+        tipsNum++;
+
+        String strType = "rb_condition_tips";
+        GotoMyData(strType);
+
+        UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
+        assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
+        assertNotNull(Until.findObject(By.desc("点限速")));
+
+        ExitMyData();
+    }
+
+    @Test
+    public void test01224_tips_add_DoubleClick() throws InterruptedException {
+        //设置点位信息，新增红绿灯
+        mDevice.drag(700, 823, 1024, 823, 10);
+        Thread.sleep(1000);
+
+        //OpenGPS();
+        //DoubleClick(newTrafficLight);//红绿灯
+
+        mDevice.click(newTrafficLight.x,newTrafficLight.y);
+        Thread.sleep(100);
+        mDevice.click(newTrafficLight.x,newTrafficLight.y);
+
+        tipsNum++;
+
+        String strType = "rb_condition_tips";
+        GotoMyData(strType);
+
+        UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
+        assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
+        assertNotNull(Until.findObject(By.desc("红绿灯")));
+
+        ExitMyData();
+    }
+
+    @Test
+    public void test01225_tips_add_DoubleClick() throws InterruptedException {
+        //设置点位信息，新增危险信息
+        mDevice.drag(700, 823, 1024, 823, 10);
+        Thread.sleep(1000);
+
+        //OpenGPS();
+        Click(newHorFour);
+        //DoubleClick(newDangerInfo);//危险信息
+        mDevice.click(newDangerInfo.x,newDangerInfo.y);
+        Thread.sleep(100);
+        mDevice.click(newDangerInfo.x,newDangerInfo.y);
+        Click("dangerous_information_icon_a1");//点击警示信息
+        Click("save_button");
+        tipsNum++;
+
+        String strType = "rb_condition_tips";
+        GotoMyData(strType);
+
+        UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
+        assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
+        assertNotNull(Until.findObject(By.desc("危险信息")));
+
+        ExitMyData();
+    }
+
+    @Test
+    public void test01226_tips_add_DoubleClick() throws InterruptedException,UiObjectNotFoundException {
+        //设置点位信息，新增收费站
+        mDevice.drag(700, 823, 1024, 823, 10);
+        Thread.sleep(1000);
+
+        //OpenGPS();
+        Click(newHorFour);
+        //DoubleClick(newTollStation);
+        mDevice.click(newTollStation.x,newTollStation.y);
+        Thread.sleep(100);
+        mDevice.click(newTollStation.x,newTollStation.y);
+
+        mDevice.findObject(By.text("领卡")).click();
+        //方法一
+        //UiObject2 object1=new UiObject2(new UiSelector().text("领卡"));
+        //object1.click();
+        //方法二
+        //UiScrollable objscoll = new UiScrollable(new UiSelector().className("android.widget.ListView"));
+        //UiObject Object = objscoll.getChildByText(new UiSelector().className("android.widget.TextView"), "测试上报情报６");
+        //Object.click();
+
+        Click("save_button");
+        tipsNum++;
+
+        String strType = "rb_condition_tips";
+        GotoMyData(strType);
+
+        UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
+        assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
+        assertNotNull(Until.findObject(By.desc("收费站")));
+
+        ExitMyData();
+    }
+
+    @Test
+    public void test01227_tips_add_DoubleClick() throws InterruptedException {
+        //设置点位信息，新增电子眼
+        mDevice.drag(700, 823, 1024, 823, 10);
+        Thread.sleep(1000);
+
+        //OpenGPS();
+        Click(newHorFour);
+        //DoubleClick(newEleEye);//电子眼
+        mDevice.click(newEleEye.x,newEleEye.y);
+        Thread.sleep(100);
+        mDevice.click(newEleEye.x,newEleEye.y);
+
+        Click("save_button");
+        tipsNum++;
+
+        String strType = "rb_condition_tips";
+        GotoMyData(strType);
+
+        UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
+        assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
+        assertNotNull(Until.findObject(By.desc("电子眼")));
+
+        ExitMyData();
+    }
+
+    @Test
+    public void test01228_tips_add_DoubleClick() throws InterruptedException {
+        //设置点位信息，新增卡车限制
+        mDevice.drag(700, 823, 1024, 823, 10);
+        Thread.sleep(1000);
+
+        //OpenGPS();
+        Click(newHorFour);
+        //DoubleClick(newTruckLimit);//卡车限制
+        mDevice.click(newTruckLimit.x,newTruckLimit.y);
+        Thread.sleep(100);
+        mDevice.click(newTruckLimit.x,newTruckLimit.y);
+
+        Click("camera_button");//拍照ID
+        Click("take_pic_imgbtn", 3000);//拍摄按键ID
+        Click("task_pic_back_img");//返回键ID
+        Click("save_button");
+        tipsNum++;
+
+        String strType = "rb_condition_tips";
+        GotoMyData(strType);
+
+        UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
+        assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
+        assertNotNull(Until.findObject(By.desc("卡车限制")));//可能需要垂直滚动才能看到
+
+        ExitMyData();
+    }
+
+    @Test
+    public void test01229_tips_add_DoubleClick() throws InterruptedException {
+        //设置点位信息，新增车道变化点
+        mDevice.drag(700, 823, 1024, 823, 10);
+        Thread.sleep(1000);
+
+        //OpenGPS();
+        //DoubleClick(newCarRoadChangePos);//车道变化点
+        mDevice.click(newCarRoadChangePos.x,newCarRoadChangePos.y);
+        Thread.sleep(100);
+        mDevice.click(newCarRoadChangePos.x,newCarRoadChangePos.y);
+
+        Click("et_entry_lane_num");//进入车道数
+        Click("lane_number_tow");//2
+        Click("et_back_lane_num");//退出车道数
+        Click("lane_number_one");//1
+        Click("save_button");
+        tipsNum++;
+
+        String strType = "rb_condition_tips";
+        GotoMyData(strType);
+
+        UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
+        assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
+        assertNotNull(Until.findObject(By.desc("车道变化点")));
+
+        ExitMyData();
+    }
+
+    @Test
+    public void test01230_tips_add_DoubleClick() throws InterruptedException {
+        //设置点位信息，新增普通路口模式图
+        mDevice.drag(700, 823, 1024, 823, 10);
+        Thread.sleep(1000);
+
+        //OpenGPS();
+        Click(newLeftFour);//点击方向看板
+        //DoubleClick(newNormalRoadEnterPic);//点击普通路口模式图
+        mDevice.click(newNormalRoadEnterPic.x,newNormalRoadEnterPic.y);
+        Thread.sleep(100);
+        mDevice.click(newNormalRoadEnterPic.x,newNormalRoadEnterPic.y);
+
+        //方法一
+        //UiObject object = new UiObject(new UiSelector().text("73100000"));
+        //object.click();
+        mDevice.findObject(By.text("73100000")).click();
+        Click("save_button");
+        tipsNum++;
+
+        String strType = "rb_condition_tips";
+        GotoMyData(strType);
+
+        UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
+        assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
+        assertNotNull(Until.findObject(By.desc("普通路口模式图")));
+
+        ExitMyData();
+    }
+
+    @Test
+    public void test01231_tips_add_DoubleClick() throws InterruptedException {
+        //设置点位信息，新增高速入口模式图
+        mDevice.drag(700, 823, 1024, 823, 10);
+        Thread.sleep(1000);
+
+        //OpenGPS();
+        Click(newLeftFour);//点击方向看板
+        //DoubleClick(newHighSpeedEnterPic);//高速入口模式图
+        mDevice.click(newHighSpeedEnterPic.x,newHighSpeedEnterPic.y);
+        Thread.sleep(100);
+        mDevice.click(newHighSpeedEnterPic.x,newHighSpeedEnterPic.y);
+
+        Click("save_button");
+        tipsNum++;
+
+        String strType = "rb_condition_tips";
+        GotoMyData(strType);
+
+        UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
+        assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
+        assertNotNull(Until.findObject(By.desc("高速入口模式图")));
+
+        ExitMyData();
+    }
+    /*
+                    @Test
+                    public void test01232_tips_add_DoubleClick() throws InterruptedException {
+                        //设置点位信息，新增SA
+                        mDevice.drag(700, 823, 1024, 823, 10);
+                        Thread.sleep(1000);
+
+                        //OpenGPS();
+                        Click(newHorFive);
+                        //DoubleClick(newSA);//SA
+                        mDevice.click(newSA.x,newSA.y);
+                        Thread.sleep(100);
+                        mDevice.click(newSA.x,newSA.y);
+
+                        Click("save_button");
+                        tipsNum++;
+
+                        String strType = "rb_condition_tips";
+                        GotoMyData(strType);
+
+                        UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
+                        assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
+                        assertNotNull(Until.findObject(By.desc("SA")));
+
+                        ExitMyData();
+                    }
+
+                    @Test
+                    public void test01233_tips_add_DoubleClick() throws InterruptedException {
+                        //设置点位信息，新增PA
+                        mDevice.drag(700, 823, 1024, 823, 10);
+                        Thread.sleep(1000);
+
+                        //OpenGPS();
+                        Click(newHorFive);
+                        //DoubleClick(newPA);//PA
+                        mDevice.click(newPA.x,newPA.y);
+                        Thread.sleep(100);
+                        mDevice.click(newPA.x,newPA.y);
+
+                        Click("save_button");
+                        tipsNum++;
+
+                        String strType = "rb_condition_tips";
+                        GotoMyData(strType);
+                        UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
+                        assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
+                        assertNotNull(Until.findObject(By.desc("PA")));
+
+                        ExitMyData();
+                    }
+    */
+    @Test
+    public void test01234_tips_add_DoubleClick() throws InterruptedException {
+        //设置点位信息，新增匝道
+        mDevice.drag(700, 823, 1024, 823, 10);
+        Thread.sleep(1000);
+
+        //OpenGPS();
+        Click(newHorFive);
+        //DoubleClick(newRingRoad);//匝道
+        mDevice.click(newRingRoad.x,newRingRoad.y);
+        Thread.sleep(100);
+        mDevice.click(newRingRoad.x,newRingRoad.y);
+
+        Click("btn_ramp");//点击匝道
+
+        Click("save_button");
+        tipsNum++;
+
+        String strType = "rb_condition_tips";
+        GotoMyData(strType);
+
+        UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
+        assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
+        assertNotNull(Until.findObject(By.desc("匝道")));
+
+        ExitMyData();
+    }
+
+    @Test
+    public void test01235_tips_add_DoubleClick() throws InterruptedException {
+        //设置点位信息，新增车信
+        mDevice.drag(700, 823, 1024, 823, 10);
+        Thread.sleep(1000);
+
+        //OpenGPS();
+        //DoubleClick(newCarInfo);//车信
+        mDevice.click(newCarInfo.x,newCarInfo.y);
+        Thread.sleep(100);
+        mDevice.click(newCarInfo.x,newCarInfo.y);
+
+        Click("rb_select_one_d");//
+
+        Click("save_button");
+        tipsNum++;
+
+        String strType = "rb_condition_tips";
+        GotoMyData(strType);
+
+        UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
+        assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
+        assertNotNull(Until.findObject(By.desc("车信")));
+
+        ExitMyData();
+    }
+
+    @Test
+    public void test01236_tips_add_DoubleClick() throws InterruptedException {
+        //设置点位信息，新增交限
+        mDevice.drag(700, 823, 1024, 823, 10);
+        Thread.sleep(1000);
+
+        //OpenGPS();
+        Click(newLeftFive);
+        //DoubleClick(newTrafficLimit);//交限
+        mDevice.click(newTrafficLimit.x,newTrafficLimit.y);
+        Thread.sleep(100);
+        mDevice.click(newTrafficLimit.x,newTrafficLimit.y);
+
+        Click("traffic_forbidden_icon_a1");
+
+        Click("save_button");
+        tipsNum++;
+
+        String strType = "rb_condition_tips";
+        GotoMyData(strType);
+
+        UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
+        assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
+        assertNotNull(Until.findObject(By.desc("交限")));
+
+        ExitMyData();
+    }
+
+    @Test
+    public void test01237_tips_add_DoubleClick() throws InterruptedException {
+        //设置点位信息，新增卡车交限
+        mDevice.drag(700, 823, 1024, 823, 10);
+        Thread.sleep(1000);
+
+        //OpenGPS();
+        Click(newLeftFive);
+        //DoubleClick(newTruckTrafficLimit);//卡车交限
+        mDevice.click(newTruckTrafficLimit.x,newTruckTrafficLimit.y);
+        Thread.sleep(100);
+        mDevice.click(newTruckTrafficLimit.x,newTruckTrafficLimit.y);
+
+        Thread.sleep(2000);
+        Click("traffic_forbidden_icon_a8");
+
+        Click("save_button");
+        tipsNum++;
+
+        String strType = "rb_condition_tips";
+        GotoMyData(strType);
+
+        UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
+        assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
+        assertNotNull(Until.findObject(By.desc("卡车交限")));
+
+        ExitMyData();
+    }
+
+    @Test
+    public void test01238_tips_add_DoubleClick() throws InterruptedException {
+        //设置点位信息，新增方向看板
+        mDevice.drag(700, 823, 1024, 823, 10);
+        Thread.sleep(1000);
+
+        //OpenGPS();
+        Click(newLeftFour);
+        //DoubleClick(newDirectShow);//方向看板
+        mDevice.click(newDirectShow.x,newDirectShow.y);
+        Thread.sleep(100);
+        mDevice.click(newDirectShow.x,newDirectShow.y);
+
+        Click("save_button");
+        tipsNum++;
+
+        String strType = "rb_condition_tips";
+        GotoMyData(strType);
+
+        UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
+        assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
+        assertNotNull(Until.findObject(By.desc("方向看板")));
+
+        ExitMyData();
+    }
+
+    @Test
+    public void test01239_tips_add_DoubleClick() throws InterruptedException {
+        //设置点位信息，新增Real Sign
+        mDevice.drag(700, 823, 1024, 823, 10);
+        Thread.sleep(1000);
+
+        //OpenGPS();
+        Click(newLeftFour);
+        //DoubleClick(newRealSign);//Real Sign
+        mDevice.click(newRealSign.x,newRealSign.y);
+        Thread.sleep(100);
+        mDevice.click(newRealSign.x,newRealSign.y);
+
+        Click("save_button");
+        tipsNum++;
+
+        String strType = "rb_condition_tips";
+        GotoMyData(strType);
+
+        UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
+        assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
+        assertNotNull(Until.findObject(By.desc("Real Sign")));
+
+        ExitMyData();
+    }
+
+    @Test
+    public void test01240_tips_add_DoubleClick() throws InterruptedException {
+        //设置点位信息，新增3D模式图
+        mDevice.drag(700, 823, 1024, 823, 10);
+        Thread.sleep(1000);
+
+        //OpenGPS();
+        Click(newLeftFour);
+        //DoubleClick(new3D);//3D模式图
+        mDevice.click(new3D.x,new3D.y);
+        Thread.sleep(100);
+        mDevice.click(new3D.x,new3D.y);
+
+        Click("three_d_mode_0010000");//点击3D模式图
+
+        Click("save_button");
+        tipsNum++;
+
+        String strType = "rb_condition_tips";
+        GotoMyData(strType);
+
+        UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
+        assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
+        assertNotNull(Until.findObject(By.desc("3D")));
+
+        ExitMyData();
+    }
+
+    @Test
+    public void test01241_tips_add_DoubleClick() throws InterruptedException {
+        //设置点位信息，新增提左提右
+        mDevice.drag(700, 823, 1024, 823, 10);
+        Thread.sleep(1000);
+
+        //OpenGPS();
+        Click(newLeftFour);
+        //DoubleClick(newLeftRight);//提左提右
+        mDevice.click(newLeftRight.x,newLeftRight.y);
+        Thread.sleep(100);
+        mDevice.click(newLeftRight.x,newLeftRight.y);
+
+        mDevice.findObject(By.text("80000800")).click();
+
+        tipsNum++;
+
+        String strType = "rb_condition_tips";
+        GotoMyData(strType);
+
+        UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
+        assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
+        assertNotNull(Until.findObject(By.desc("提左提右")));
+
+        ExitMyData();
+    }
+
+    @Test
+    public void test01242_tips_add_DoubleClick() throws InterruptedException {
+        //设置点位信息，新增一般道路方面
+        mDevice.drag(700, 823, 1024, 823, 10);
+        Thread.sleep(1000);
+
+        //OpenGPS();
+        Click(newLeftFour);
+        //DoubleClick(newNormalRoad);//一般道路方面
+        mDevice.click(newNormalRoad.x,newNormalRoad.y);
+        Thread.sleep(100);
+        mDevice.click(newNormalRoad.x,newNormalRoad.y);
+
+        Click("save_button");
+        tipsNum++;
+
+        String strType = "rb_condition_tips";
+        GotoMyData(strType);
+
+        UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
+        assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
+        assertNotNull(Until.findObject(By.desc("点限速")));
+
+        ExitMyData();
+    }
+
+    @Test
+    public void test01243_tips_add_DoubleClick() throws InterruptedException {
+        //设置点位信息，新增高速分歧
+        mDevice.drag(700, 823, 1024, 823, 10);
+        Thread.sleep(1000);
+
+        //OpenGPS();
+        Click(newLeftFour);
+        //DoubleClick(newHighSpeedDiff);//高速分歧
+        mDevice.click(newHighSpeedDiff.x,newHighSpeedDiff.y);
+        Thread.sleep(100);
+        mDevice.click(newHighSpeedDiff.x,newHighSpeedDiff.y);
+
+        Click("save_button");
+        tipsNum++;
+
+        String strType = "rb_condition_tips";
+        GotoMyData(strType);
+
+        UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
+        assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
+        assertNotNull(Until.findObject(By.desc("高速分歧")));
+
+        ExitMyData();
+    }
+/*
+    @Test
+    public void test01244_tips_add_DoubleClick() throws InterruptedException {
+        //设置点位信息，新增GPS打点
+        //无双击打点的功能  无网络的时候选点  有网的时候点击实现打点功能
+        mDevice.drag(700, 823, 1024, 823, 10);
+        Thread.sleep(1000);
+
+        //OpenGPS();
+        //GPS打点
+        Click(newGPSPos);
+        Thread.sleep(3000);
+        tipsNum++;
+
+        String strType = "rb_condition_tips";
+        GotoMyData(strType);
+
+        UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
+        assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
+        assertNotNull(Until.findObject(By.desc("GPS打点")));
+
+        ExitMyData();
+    }*/
+ /*
+
+    //////////删除Tips/////////////
+
             @Test
-            public void test01222_tips_add_Click() throws InterruptedException {
-                //单击手动设置点位信息，新增GPS打点
-                mDevice.drag(700, 823, 1024, 823, 10);
-                Thread.sleep(1000);
-
-                //OpenGPS();
-                Click(newGPSPos);//单击GPS打点
-                Click(GetCenter());
-
-                tipsNum++;
-
-                String strType = "rb_condition_tips";
-                GotoMyData(strType);
-
-                UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
-                assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
-                assertNotNull(Until.findObject(By.desc("GPS打点")));
-
-                ExitMyData();
-            }
-           //////////////////双击_GPS定位////////////////////////
-            @Test
-            public void test01223_tips_add_DoubleClick() throws InterruptedException {
-                //设置点位信息，新增限速
-                mDevice.drag(700, 823, 1024, 823, 10);
-                Thread.sleep(1000);
-
-                //OpenGPS();
-                DoubleClick(newLimitSpeed);//限速Tips
-                //Click(GetCenter());
-                Click("speed_limit_type_point");//点击点限速
-                Click("et_speed_limit_number");//最高限速值
-                Click("speed_limit_number_40");//40
-                Click("et_speed_limit_number_min");//最低限速值
-                Click("speed_limit_number_30");//30
-                Click("save_button");
-                tipsNum++;
-
-                String strType = "rb_condition_tips";
-                GotoMyData(strType);
-
-                UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
-                assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
-                assertNotNull(Until.findObject(By.desc("点限速")));
-
-                ExitMyData();
-            }
-
-            @Test
-            public void test01224_tips_add_DoubleClick() throws InterruptedException {
-                //设置点位信息，新增红绿灯
-                mDevice.drag(700, 823, 1024, 823, 10);
-                Thread.sleep(1000);
-
-                //OpenGPS();
-                DoubleClick(newTrafficLight);//红绿灯
-                //Click(GetCenter());
-
-                tipsNum++;
-
-                String strType = "rb_condition_tips";
-                GotoMyData(strType);
-
-                UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
-                assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
-                assertNotNull(Until.findObject(By.desc("红绿灯")));
-
-                ExitMyData();
-            }
-
-            @Test
-            public void test01225_tips_add_DoubleClick() throws InterruptedException {
-                //设置点位信息，新增危险信息
-                mDevice.drag(700, 823, 1024, 823, 10);
-                Thread.sleep(1000);
-
-                //OpenGPS();
-                Click(newHorFour);
-                DoubleClick(newDangerInfo);//危险信息
-                //Click(GetCenter());
-                Click("dangerous_information_icon_a1");//点击警示信息
-                Click("save_button");
-                tipsNum++;
-
-                String strType = "rb_condition_tips";
-                GotoMyData(strType);
-
-                UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
-                assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
-                assertNotNull(Until.findObject(By.desc("危险信息")));
-
-                ExitMyData();
-            }
-
-            @Test
-            public void test01226_tips_add_DoubleClick() throws InterruptedException,UiObjectNotFoundException {
-                //设置点位信息，新增收费站
-                mDevice.drag(700, 823, 1024, 823, 10);
-                Thread.sleep(1000);
-
-                //OpenGPS();
-                Click(newHorFour);
-                DoubleClick(newTollStation);
-                //Click(GetCenter());
-
-                mDevice.findObject(By.text("领卡")).click();
-                //方法一
-                //UiObject2 object1=new UiObject2(new UiSelector().text("领卡"));
-                //object1.click();
-                //方法二
-                //UiScrollable objscoll = new UiScrollable(new UiSelector().className("android.widget.ListView"));
-                //UiObject Object = objscoll.getChildByText(new UiSelector().className("android.widget.TextView"), "测试上报情报６");
-                //Object.click();
-
-                Click("save_button");
-                tipsNum++;
-
-                String strType = "rb_condition_tips";
-                GotoMyData(strType);
-
-                UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
-                assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
-                assertNotNull(Until.findObject(By.desc("收费站")));
-
-                ExitMyData();
-            }
-
-            @Test
-            public void test01227_tips_add_DoubleClick() throws InterruptedException {
-                //设置点位信息，新增电子眼
-                mDevice.drag(700, 823, 1024, 823, 10);
-                Thread.sleep(1000);
-
-                //OpenGPS();
-                Click(newHorFour);
-                DoubleClick(newEleEye);//电子眼
-                //Click(GetCenter());
-
-                Click("save_button");
-                tipsNum++;
-
-                String strType = "rb_condition_tips";
-                GotoMyData(strType);
-
-                UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
-                assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
-                assertNotNull(Until.findObject(By.desc("电子眼")));
-
-                ExitMyData();
-            }
-
-            @Test
-            public void test01228_tips_add_DoubleClick() throws InterruptedException {
-                //设置点位信息，新增卡车限制
-                mDevice.drag(700, 823, 1024, 823, 10);
-                Thread.sleep(1000);
-
-                //OpenGPS();
-                Click(newHorFour);
-                DoubleClick(newTruckLimit);//卡车限制
-                //Click(GetCenter());
-                Click("camera_button");//拍照ID
-                Click("take_pic_imgbtn", 3000);//拍摄按键ID
-                Click("task_pic_back_img");//返回键ID
-                Click("save_button");
-                tipsNum++;
-
-                String strType = "rb_condition_tips";
-                GotoMyData(strType);
-
-                UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
-                assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
-                assertNotNull(Until.findObject(By.desc("卡车限制")));//可能需要垂直滚动才能看到
-
-                ExitMyData();
-            }
-
-            @Test
-            public void test01229_tips_add_DoubleClick() throws InterruptedException {
-                //设置点位信息，新增车道变化点
-                mDevice.drag(700, 823, 1024, 823, 10);
-                Thread.sleep(1000);
-
-                //OpenGPS();
-                DoubleClick(newCarRoadChange);//车道变化点
-                //Click(GetCenter());
-                Click("et_entry_lane_num");//进入车道数
-                Click("lane_number_tow");//2
-                Click("et_back_lane_num");//退出车道数
-                Click("lane_number_one");//1
-                Click("save_button");
-                tipsNum++;
-
-                String strType = "rb_condition_tips";
-                GotoMyData(strType);
-
-                UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
-                assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
-                assertNotNull(Until.findObject(By.desc("车道变化点")));
-
-                ExitMyData();
-            }
-
-            @Test
-            public void test01230_tips_add_DoubleClick() throws InterruptedException {
-                //设置点位信息，新增普通路口模式图
-                mDevice.drag(700, 823, 1024, 823, 10);
-                Thread.sleep(1000);
-
-                //OpenGPS();
-                Click(newLeftFour);//点击方向看板
-                DoubleClick(newNormalRoadEnterPic);//点击普通路口模式图
-                //Click(GetCenter());
-
-                //方法一
-                //UiObject object = new UiObject(new UiSelector().text("73100000"));
-                //object.click();
-                mDevice.findObject(By.text("73100000")).click();
-                Click("save_button");
-                tipsNum++;
-
-                String strType = "rb_condition_tips";
-                GotoMyData(strType);
-
-                UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
-                assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
-                assertNotNull(Until.findObject(By.desc("普通路口模式图")));
-
-                ExitMyData();
-            }
-
-            @Test
-            public void test01231_tips_add_DoubleClick() throws InterruptedException {
-                //设置点位信息，新增高速入口模式图
-                mDevice.drag(700, 823, 1024, 823, 10);
-                Thread.sleep(1000);
-
-                //OpenGPS();
-                Click(newLeftFour);//点击方向看板
-                DoubleClick(newHighSpeedEnterPic);//高速入口模式图
-                //Click(GetCenter());
-
-                Click("save_button");
-                tipsNum++;
-
-                String strType = "rb_condition_tips";
-                GotoMyData(strType);
-
-                UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
-                assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
-                assertNotNull(Until.findObject(By.desc("高速入口模式图")));
-
-                ExitMyData();
-            }
-
-            @Test
-            public void test01232_tips_add_DoubleClick() throws InterruptedException {
-                //设置点位信息，新增SA
-                mDevice.drag(700, 823, 1024, 823, 10);
-                Thread.sleep(1000);
-
-                //OpenGPS();
-                Click(newHorFive);
-                DoubleClick(newSA);//SA
-                //Click(GetCenter());
-
-                Click("save_button");
-                tipsNum++;
-
-                String strType = "rb_condition_tips";
-                GotoMyData(strType);
-
-                UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
-                assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
-                assertNotNull(Until.findObject(By.desc("SA")));
-
-                ExitMyData();
-            }
-
-            @Test
-            public void test01233_tips_add_DoubleClick() throws InterruptedException {
-                //设置点位信息，新增PA
-                mDevice.drag(700, 823, 1024, 823, 10);
-                Thread.sleep(1000);
-
-                //OpenGPS();
-                Click(newHorFive);
-                DoubleClick(newPA);//PA
-                //Click(GetCenter());
-
-                Click("save_button");
-                tipsNum++;
-
-                String strType = "rb_condition_tips";
-                GotoMyData(strType);
-
-                UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
-                assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
-                assertNotNull(Until.findObject(By.desc("PA")));
-
-                ExitMyData();
-            }
-
-            @Test
-            public void test01234_tips_add_DoubleClick() throws InterruptedException {
-                //设置点位信息，新增匝道
-                mDevice.drag(700, 823, 1024, 823, 10);
-                Thread.sleep(1000);
-
-                //OpenGPS();
-                Click(newHorFive);
-                DoubleClick(newRingRoad);//匝道
-                //Click(GetCenter());
-                Click("btn_ramp");//点击匝道
-
-                Click("save_button");
-                tipsNum++;
-
-                String strType = "rb_condition_tips";
-                GotoMyData(strType);
-
-                UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
-                assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
-                assertNotNull(Until.findObject(By.desc("匝道")));
-
-                ExitMyData();
-            }
-
-            @Test
-            public void test01235_tips_add_DoubleClick() throws InterruptedException {
-                //设置点位信息，新增车信
-                mDevice.drag(700, 823, 1024, 823, 10);
-                Thread.sleep(1000);
-
-                //OpenGPS();
-                DoubleClick(newCarInfo);//车信
-                //Click(GetCenter());
-                Click("rb_select_one_d");//
-
-                Click("save_button");
-                tipsNum++;
-
-                String strType = "rb_condition_tips";
-                GotoMyData(strType);
-
-                UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
-                assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
-                assertNotNull(Until.findObject(By.desc("车信")));
-
-                ExitMyData();
-            }
-
-            @Test
-            public void test01236_tips_add_DoubleClick() throws InterruptedException {
-                //设置点位信息，新增交限
-                mDevice.drag(700, 823, 1024, 823, 10);
-                Thread.sleep(1000);
-
-                //OpenGPS();
-                DoubleClick(newTrafficLimit);//交限
-                //Click(GetCenter());
-                Click("traffic_forbidden_icon_a1");
-
-                Click("save_button");
-                tipsNum++;
-
-                String strType = "rb_condition_tips";
-                GotoMyData(strType);
-
-                UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
-                assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
-                assertNotNull(Until.findObject(By.desc("交限")));
-
-                ExitMyData();
-            }
-
-            @Test
-            public void test01237_tips_add_DoubleClick() throws InterruptedException {
-                //设置点位信息，新增卡车交限
-                mDevice.drag(700, 823, 1024, 823, 10);
-                Thread.sleep(1000);
-
-                //OpenGPS();
-                Click(new Point(94,1263));
-                DoubleClick(newTruckTrafficLimit);//卡车交限
-                //Click(GetCenter());
-                Click("traffic_forbidden_icon_c1");
-
-                Click("save_button");
-                tipsNum++;
-
-                String strType = "rb_condition_tips";
-                GotoMyData(strType);
-
-                UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
-                assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
-                assertNotNull(Until.findObject(By.desc("卡车交限")));
-
-                ExitMyData();
-            }
-
-            @Test
-            public void test01238_tips_add_DoubleClick() throws InterruptedException {
-                //设置点位信息，新增方向看板
-                mDevice.drag(700, 823, 1024, 823, 10);
-                Thread.sleep(1000);
-
-                //OpenGPS();
-                Click(newLeftFour);
-                DoubleClick(newDirectShow);//方向看板
-                //Click(GetCenter());
-
-                Click("save_button");
-                tipsNum++;
-
-                String strType = "rb_condition_tips";
-                GotoMyData(strType);
-
-                UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
-                assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
-                assertNotNull(Until.findObject(By.desc("方向看板")));
-
-                ExitMyData();
-            }
-
-            @Test
-            public void test01239_tips_add_DoubleClick() throws InterruptedException {
-                //设置点位信息，新增Real Sign
-                mDevice.drag(700, 823, 1024, 823, 10);
-                Thread.sleep(1000);
-
-                //OpenGPS();
-                Click(newLeftFour);
-                DoubleClick(newRealSign);//Real Sign
-                //Click(new Point(355,745));//双击Real Sign
-                //Click(GetCenter());
-
-                Click("save_button");
-                tipsNum++;
-
-                String strType = "rb_condition_tips";
-                GotoMyData(strType);
-
-                UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
-                assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
-                assertNotNull(Until.findObject(By.desc("Real Sign")));
-
-                ExitMyData();
-            }
-
-            @Test
-            public void test01240_tips_add_DoubleClick() throws InterruptedException {
-                //设置点位信息，新增3D模式图
-                mDevice.drag(700, 823, 1024, 823, 10);
-                Thread.sleep(1000);
-
-                //OpenGPS();
-                Click(newLeftFour);
-                DoubleClick(new3D);//3D模式图
-                //Click(GetCenter());
-                Click("");//点击3D模式图
-
-                Click("save_button");
-                tipsNum++;
-
-                String strType = "rb_condition_tips";
-                GotoMyData(strType);
-
-                UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
-                assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
-                assertNotNull(Until.findObject(By.desc("3D")));
-
-                ExitMyData();
-            }
-
-            @Test
-            public void test01241_tips_add_DoubleClick() throws InterruptedException {
-                //设置点位信息，新增提左提右
-                mDevice.drag(700, 823, 1024, 823, 10);
-                Thread.sleep(1000);
-
-                //OpenGPS();
-                Click(newLeftFour);
-                DoubleClick(newLeftRight);//提左提右
-                //Click(new Point(222,864));//双击提左提右
-                //Click(GetCenter());
-                mDevice.findObject(By.text("80000800")).click();
-
-                tipsNum++;
-
-                String strType = "rb_condition_tips";
-                GotoMyData(strType);
-
-                UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
-                assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
-                assertNotNull(Until.findObject(By.desc("提左提右")));
-
-                ExitMyData();
-            }
-
-            @Test
-            public void test01242_tips_add_DoubleClick() throws InterruptedException {
-                //设置点位信息，新增一般道路方面
-                mDevice.drag(700, 823, 1024, 823, 10);
-                Thread.sleep(1000);
-
-                //OpenGPS();
-                Click(newLeftFour);
-                DoubleClick(newNormalRoad);//一般道路方面
-                //Click(GetCenter());
-
-                Click("save_button");
-                tipsNum++;
-
-                String strType = "rb_condition_tips";
-                GotoMyData(strType);
-
-                UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
-                assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
-                assertNotNull(Until.findObject(By.desc("点限速")));
-
-                ExitMyData();
-            }
-
-            @Test
-            public void test012243_tips_add_DoubleClick() throws InterruptedException {
-                //设置点位信息，新增高速分歧
-                mDevice.drag(700, 823, 1024, 823, 10);
-                Thread.sleep(1000);
-
-                //OpenGPS();
-                Click(newLeftFour);
-                DoubleClick(newHighSpeedDiff);//高速分歧
-                //Click(GetCenter());
-
-                Click("save_button");
-                tipsNum++;
-
-                String strType = "rb_condition_tips";
-                GotoMyData(strType);
-
-                UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
-                assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
-                assertNotNull(Until.findObject(By.desc("高速分歧")));
-
-                ExitMyData();
-            }
-
-            @Test
-            public void test01244_tips_add_DoubleClick() throws InterruptedException {
-                //设置点位信息，新增GPS打点
-                mDevice.drag(700, 823, 1024, 823, 10);
-                Thread.sleep(1000);
-
-                //OpenGPS();
-                DoubleClick(newGPSPos);//GPS打点
-                //Click(GetCenter());
-
-                tipsNum++;
-
-                String strType = "rb_condition_tips";
-                GotoMyData(strType);
-
-                UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
-                assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
-                assertNotNull(Until.findObject(By.desc("GPS打点")));
-
-                ExitMyData();
-            }
-
-            //////////删除Tips/////////////
-            @Test
-            public void test01245_tips_add_DoubleClick() throws InterruptedException {
+            public void test01245_tips_delete_Click() throws InterruptedException {
                 //设置点位信息，新增删除标记
                 mDevice.drag(700, 823, 1024, 823, 10);
                 Thread.sleep(1000);
@@ -3716,813 +4240,307 @@ public class testFastMapYL extends testFastMapBase
                 mDevice.drag(700, 823, 1024, 823, 10);
                 Thread.sleep(1000);
 
-                DoubleClick(newDelete);//删除标记，单击只删除一个
-                Click(GetCenter());
-                Click(new Point(663,679));
-                Click(new Point(1473,879));
-                Click(new Point(955,973));
-                Click(new Point(1082,1438));
+                //DoubleClick(newDelete);//删除标记，删除多个
+                mDevice.click(newDelete.x,newDelete.y);
+                Thread.sleep(100);
+                mDevice.click(newDelete.x,newDelete.y);
 
+                Click(new Point(279,516),3000);
+                tipsNum++;
+                Thread.sleep(300);
+                Click(new Point(1087,213),3000);
+                tipsNum++;
+                Thread.sleep(300);
+                Click(new Point(955,973),3000);
                 tipsNum++;
 
+                Thread.sleep(3000);
+                Click(newDelete);
+
                 String strType = "rb_condition_tips";
-                GotoMyData(strType);
+                GotoMyData(strType); //问题
 
                 UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
                 assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
-                assertNotNull(Until.findObject(By.desc("GPS打点")));
+                assertNotNull(Until.findObject(By.desc("形状删除")));
 
                 ExitMyData();
             }
-
-    ///////////OK////////////*/
-
-    @Test
-    public void test01301_data_check() throws UiObjectNotFoundException, InterruptedException
-    {
-        //左侧车道必须大于或等于右侧车道的限速值域（数组从小到大顺序）
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
-        //创建限速车道从左到右分别为90,110，110
-        Click(newLimitSpeed, 1000);
-        Click(new Point(mDevice.getDisplayWidth()/2-250, mDevice.getDisplayHeight()/2-250));
-        Click("card_speed_limit_type_driveway",100);//选择车道限速
-        mDevice.drag(77, 632, 225, 643, 10);
-        mDevice.drag(77, 632, 225, 643, 10);
-        Click(new Point(79,552),1000);
-        Click("speed_limit_number_90", 1000);
-        Click("speed_limit_number_110", 1000);
-        Click("speed_limit_number_110", 1000);
-        Click(new Point(75,475),1000);//点限速必选一个
-        Click("save_button", 1000);
-        Thread.sleep(3000);
-        tipsNum++;
-
-        //室内整理工具检查，车道限速
-        AssertIndoorCheck("车道限速","中","FM-1113-2-2","左侧车道限速小于右侧车道限速","");
-    }
-
-    @Test
-    public void test01302_data_check() throws UiObjectNotFoundException, InterruptedException
-    {
-        //大门tips关联在测线K13上
-        mDevice.drag(700, 823, 424, 823, 10);
-        Thread.sleep(1000);
-
-        //手绘测线 类型为K13
-        Click(newLeftFive);//手绘测线
-        Click(new Point(231,975));
-        Click("card_ferry",1000);//13 轮渡
-        Click(new Point(mDevice.getDisplayWidth()/2-30, mDevice.getDisplayHeight()/2-30));
-        Click(new Point(mDevice.getDisplayWidth()/2+80, mDevice.getDisplayHeight()/2+80));
-        Click("save_button");
-        tipsNum++;
-
-        Click(newHorFour);
-        Click(newDoor);//选择大门
-        Click(GetCenter());
-        Click("gate_type_eg");//EG大门
-        Click("checkBox_single_dir_gate");//单方向大门
-        Click("save_button");
-        tipsNum++;
-
-        AssertIndoorCheck("大门","中","FM-1104-6-3","航线上不能采集大门","");
-    }
-
-    @Test
-    public void test01303_data_check() throws UiObjectNotFoundException, InterruptedException
-    {
-        //大门tips关联在测线11上
-        mDevice.drag(700, 823, 1224, 823, 10);
-        Thread.sleep(1000);
-
-        //手绘测线 类型为K11
-        Click(newLeftFive);//手绘测线
-        Click(new Point(231,975));
-        Click("card_pedestrian_rd",1000);//11 人渡
-        Click(new Point(mDevice.getDisplayWidth()/2-30, mDevice.getDisplayHeight()/2-30));
-        Click(new Point(mDevice.getDisplayWidth()/2+80, mDevice.getDisplayHeight()/2+80));
-        Click("save_button");
-        tipsNum++;
-
-        Click(newHorFour, 3000);
-        Click(newDoor,3000);//选择大门
-        Click(GetCenter());
-        Click("gate_type_eg",1000);//EG大门
-        Click("checkBox_single_dir_gate");//单方向大门
-        Click("save_button", 1000);
-        tipsNum++;
-
-        AssertIndoorCheck("大门","中","FM-1104-6-3","航线上不能采集大门","不能忽视");
-    }
-    ///////////注释开始//////////////
-    @Test
-    public void test01304_data_check() throws UiObjectNotFoundException, InterruptedException
-    {
-        //EG门与障碍物不能同时出现
-        mDevice.drag(700, 823, 1424, 823, 10);
-        Thread.sleep(1000);
-
-        //单向路 北清路 592305
-        SearchRoadFromLink("592305");
-
-        //大门关联到这个link上
-        Click(newHorFour, 3000);
-        Click(newDoor,3000);//选择大门
-        Click(new Point(mDevice.getDisplayWidth()/2, mDevice.getDisplayHeight()/2+50));
-        Click("gate_type_eg",1000);//EG大门
-        Click("checkBox_single_dir_gate");//单方向大门
-        Click("save_button", 1000);
-        tipsNum++;
-
-        //单向路 北清路 592305
-        SearchRoadFromLink("592305");
-
-        //障碍物关联到这个测线上
-        Click(new Point(1974,897),1000);
-        Click(new Point(1734,359),1000);
-        Click(GetCenter());
-        tipsNum++;
-
-        AssertIndoorCheck("大门","中","FM-1104-6-4","EG门与障碍物不能同时出现","不能忽视");
-    }
-
-    @Test
-    public void test01305_data_check() throws UiObjectNotFoundException, InterruptedException
-    {
-        //门的方向应与道路通行方向一致,双向门在单车道上
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
-
-        //搜索linkid为592176的单向车道
-        SearchRoadFromLink("592176");
-        //创建双向门
-        Click(newHorFour, 3000);
-        Click(newDoor,3000);//选择大门
-        Click(GetCenter());
-        Click("gate_type_pg",1000);//PG大门
-        Click("save_button", 1000);
-        tipsNum++;
-
-        AssertIndoorCheck("大门","中","FM-1104-6-5","门的方向应与道路通行方向一致","不能忽视");
-    }
-
-    @Test
-    public void test01306_data_check() throws UiObjectNotFoundException, InterruptedException
-    {
-        //门的方向应与道路通行方向一致,单向门在双向车道上
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
-
-        //linkid 41774976
-        SearchRoadFromLink("41774976");
-
-        Click(newHorFour, 3000);
-        Click(newDoor,3000);//选择大门
-        Click(GetCenter());
-        Click("gate_type_eg",1000);//EG大门
-        Click("checkBox_single_dir_gate");//单方向大门
-        Click("save_button", 1000);
-        tipsNum++;
-
-        AssertIndoorCheck("大门","中","FM-1104-6-5","门的方向应与道路通行方向一致","不能忽视");
-    }
-
-    @Test
-    public void test01307_data_check() throws UiObjectNotFoundException, InterruptedException
-    {
-        //门的方向应与道路通行方向一致,单向门在单向车道上，但是门道方向相反
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
-
-        //linkid 32092464
-        SearchRoadFromLink("32092464");
-
-        Click(newHorFour, 3000);
-        Click(newDoor,3000);//选择大门
-        Click(new Point(mDevice.getDisplayWidth()/2, mDevice.getDisplayHeight()/2-60));
-        Click("gate_type_kg",1000);//KG大门
-        Click("checkBox_single_dir_gate");//单方向大门
-        Click("save_button", 1000);
-        tipsNum++;
-
-        SearchRoadFromLink("32092464");
-        Click(new Point(mDevice.getDisplayWidth()/2, mDevice.getDisplayHeight()/2-60));
-        Click("card_road_direction_swap");
-        Click("save_button",1000);
-
-
-        AssertIndoorCheck("大门","中","FM-1104-6-5","门的方向应与道路通行方向一致","不能忽视");
-    }
-    @Test
-    public void test01308_data_check() throws UiObjectNotFoundException, InterruptedException
-    {
-        //10级路上不能有EG
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
-
-        //
-        SearchRoadFromLink("691986");
-
-        Click(newHorFour, 3000);
-        Click(newDoor,3000);//选择大门
-        Click(GetCenter());
-        Click("gate_type_eg",1000);//EG大门
-        Click("checkBox_single_dir_gate");//单方向大门
-        Click("save_button", 1000);
-        AssertIndoorCheck("大门","中","FM-1104-6-6","10级路上不能有车行门","不能忽视");
-    }
-
-    @Test
-    public void test01309_data_check() throws UiObjectNotFoundException, InterruptedException
-    {
-        //10级路上不能有PG
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
-
-        //
-        SearchRoadFromLink("691994");
-
-
-        Click(newHorFour, 3000);
-        Click(newDoor,3000);//选择大门
-        Click(GetCenter());
-        Click("gate_type_pg",1000);//PG大门
-        Click("checkBox_single_dir_gate");//单方向大门
-        Click("save_button", 1000);
-        tipsNum++;
-
-        AssertIndoorCheck("大门","中","FM-1104-6-6","10级路上不能有车行门","不能忽视");
-    }
-    @Test
-    public void test01310_data_check() throws UiObjectNotFoundException, InterruptedException
-    {
-        //10级路上不能有KG
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
-
-        //绘制K10类型手绘测线
-        SearchRoadFromLink("691987");
-
-        Click(newHorFour, 3000);
-        Click(newDoor,3000);//选择大门
-        Click(GetCenter());
-        Click("gate_type_kg",1000);//KG大门
-        Click("checkBox_single_dir_gate");//单方向大门
-        Click("save_button", 1000);
-        tipsNum++;
-
-        AssertIndoorCheck("大门","中","FM-1104-6-6","10级路上不能有车行门","不能忽视");
-    }
-
-    @Test
-    public void test01312_data_check() throws UiObjectNotFoundException, InterruptedException
-    {
-        //车道信息与车道数不一致，可能车道变化点采集遗漏
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
-
-        //搜索单车道linkID为590729的道路
-        SearchRoadFromLink("590729");
-        //创建四车道车信
-        Click(newCarInfo, 3000);
-        Click(GetCenter());
-        Click("rb_select_one_d");
-        Click("rb_select_one_b");
-        Click("rb_select_one_a");
-        Click("rb_select_one_c");
-        Click("save_button", 1000);
-        tipsNum++;
-
-        AssertIndoorCheck("车信","中","FM-1301-6-3","车道信息与车道数不一致，可能车道变化点采集遗漏","不能忽视");
-    }
-
-    @Test
-    public void test01313_data_check() throws UiObjectNotFoundException, InterruptedException
-    {
-        //PG关联的link上有勾选了人行门的POI
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
-
-        SearchRoadFromLink("592176");
-
-        Click(newPOIPoint, 6000);
-        Click(GetCenter());
-        Click("take_pic_imgbtn", 3000);
-        Click("task_pic_back_img");
-        PutinEditor("fm_et_name", "测试ＰＯＩ");
-        Click("tv_assort_type", 3000);
-        Thread.sleep(3000);
-        List<UiObject2> objList = mDevice.wait(Until.findObjects(By.res(packageName, "top_name_txtinfo")), 500);
-
-        if (objList == null)
-        {
-            fail("can not find ctrl: top_name_txtinfo");
-        }
-
-        UiObject2 objectRest = null;
-        for (UiObject2 object : objList)
-        {
-            if(object.getText().equals("中餐馆"))
-            {
-                objectRest = object;
-            }
-        }
-
-        if (objectRest == null)
-        {
-            fail("can not find ctrl: 中餐馆");
-        }
-        objectRest.click();
-        mDevice.drag(1902,1212,1902,520,10);
-        mDevice.findObject(By.text("人行门")).click();
-        Click("save_button");
-        poiNum++;
-
-        AssertIndoorCheck("大门","中","FM-1104-6-7","","不能忽视");
-    }
-
-    @Test
-    public void test01314_data_check() throws UiObjectNotFoundException, InterruptedException
-    {
-        //PG关联的link上有勾选了人行门的POI
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
-
-        SearchRoadFromLink("32092464");
-
-        Click(newPOIPoint, 6000);
-        Click( new Point(mDevice.getDisplayWidth()/2, mDevice.getDisplayHeight()/2-80));
-        Click("take_pic_imgbtn", 3000);
-        Click("task_pic_back_img");
-        PutinEditor("fm_et_name", "测试ＰＯＩ");
-        Click("tv_assort_type", 3000);
-        Thread.sleep(3000);
-        List<UiObject2> objList = mDevice.wait(Until.findObjects(By.res(packageName, "top_name_txtinfo")), 500);
-
-        if (objList == null)
-        {
-            fail("can not find ctrl: top_name_txtinfo");
-        }
-
-        UiObject2 objectRest = null;
-        for (UiObject2 object : objList)
-        {
-            if(object.getText().equals("中餐馆"))
-            {
-                objectRest = object;
-            }
-        }
-
-        if (objectRest == null)
-        {
-            fail("can not find ctrl: 中餐馆");
-        }
-        objectRest.click();
-        mDevice.drag(1902,1212,1902,520,10);
-        mDevice.findObject(By.text("人行门")).click();
-        Click("save_button");
-        poiNum++;
-
-        AssertIndoorCheck("大门","中","FM-1104-6-7","","不能忽视");
-    }
-
-    @Test
-    public void test01315_data_check() throws UiObjectNotFoundException, InterruptedException
-    {
-        //测线与隧道tips相交时，需要制作立交
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
-
-        SearchRoadFromLink("32092464");
-        //在此link上创建隧道
-        Click(new Point(1690,1440));
-        Click(GetCenter());
-        Click(new Point(1690,1440));
-        Click(new Point(1655,342));//隧道位置
-        Click(new Point(mDevice.getDisplayWidth()/2-30, mDevice.getDisplayHeight()/2-30));
-        Click("save_button");
-        tipsNum++;
-
-        //绘制测线与含有隧道的link相交
-        Click(newLeftFive);
-        Click(newDrawRoardReal);
-        Click("card_high_speed");
-        Click("lane_num_1");
-        Click(new Point(mDevice.getDisplayWidth()/2, mDevice.getDisplayHeight()/2-80));
-        Click(new Point(mDevice.getDisplayWidth()/2, mDevice.getDisplayHeight()/2+80));
-        Click("save_button");
-        tipsNum++;
-
-        AssertIndoorCheck("测线","中","FM-2001-5-9","新测线与隧道属性道路相交，需要制作立交","不能忽视");
-    }
-    /////////////注释末///////////////
-    /*@Test
-    public void test01316_data_check() throws UiObjectNotFoundException, InterruptedException
-    {
-        //EG门与障碍物不能同时出现
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
-
-        //创建单测线
-        Click(newLeftFive);
-        Click(newDrawRoardReal);
-        Click("card_high_speed");
-        Click("lane_num_1");
-        Click(new Point(mDevice.getDisplayWidth()/2-100, mDevice.getDisplayHeight()/2));
-        Click(new Point(mDevice.getDisplayWidth()/2+100, mDevice.getDisplayHeight()/2));
-        Click("save_button");
-        tipsNum++;
-
-        //大门关联到这个link上
-        Click(newHorFour, 3000);
-        Click(newDoor,3000);//选择大门
-        Click(new Point(mDevice.getDisplayWidth()/2-100, mDevice.getDisplayHeight()/2));
-        Click("gate_type_eg",1000);//EG大门
-        Click("checkBox_single_dir_gate");//单方向大门
-        Click("save_button", 1000);
-        tipsNum++;
-
-        //障碍物关联到这个测线上
-        Click(new Point(1974,897),1000);
-        Click(new Point(1734,359),1000);
-        Click(new Point(mDevice.getDisplayWidth()/2-300, mDevice.getDisplayHeight()/2+40));
-        tipsNum++;
-
-        AssertIndoorCheck("大门","中","FM-1104-6-4","EG门与障碍物不能同时出现","不能忽视");
-    }
-
-    @Test
-    public void test01317_data_check() throws UiObjectNotFoundException, InterruptedException
-    {
-        //门的方向应与道路通行方向一致,双向门在单车道上
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
-
-        //创建单测线
-        Click(newLeftFive);
-        Click(newDrawRoardReal);
-        Click("card_high_speed");
-        Click("lane_num_1");
-        Click(new Point(600,1000));
-        Click(new Point(600,600));
-        Click("save_button");
-        tipsNum++;
-
-        //创建双向门
-        Click(newHorFour, 3000);
-        Click(newDoor,3000);//选择大门
-        Click(new Point(600,1000));
-        Click("gate_type_pg",1000);//PG大门
-        Click("save_button", 1000);
-        tipsNum++;
-
-        AssertIndoorCheck("大门","中","FM-1104-6-5","门的方向应与道路通行方向一致","不能忽视");
-    }
-
-    @Test
-    public void test01318_data_check() throws UiObjectNotFoundException, InterruptedException
-    {
-
-        //门的方向应与道路通行方向一致,单向门在双向车道上
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
-
-        //创建双道测线(默认是双向的)
-        Click(newLeftFive);
-        Click(newDrawRoardReal);
-        Click("card_high_speed");
-        Click("lane_num_2");
-        Click(new Point(400,1000));
-        Click(new Point(400,400));
-        Click("save_button");
-        tipsNum++;
-
-        Click(newHorFour, 3000);
-        Click(newDoor,3000);//选择大门
-        Click(new Point(400,1000));
-        Click("gate_type_eg",1000);//EG大门
-        Click("checkBox_single_dir_gate");//单方向大门
-        Click("save_button", 1000);
-        tipsNum++;
-
-        AssertIndoorCheck("大门","中","FM-1104-6-5","门的方向应与道路通行方向一致","不能忽视");
-    }
-
-    @Test
-    public void test01319_data_check() throws UiObjectNotFoundException, InterruptedException
-    {
-        //门的方向应与道路通行方向一致,单向门在单向车道上，但是门道方向相反
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
-
-        //创建单向测线
-        Click(newLeftFive);
-        Click(newDrawRoardReal);
-        Click("card_high_speed");
-        Click("lane_num_1");
-        Click(new Point(mDevice.getDisplayWidth()/2, mDevice.getDisplayHeight()/2-100));
-        Click(new Point(mDevice.getDisplayWidth()/2+200, mDevice.getDisplayHeight()/2-100));
-        Click("save_button");
-        tipsNum++;
-
-        //创建单向KG门
-        Click(newHorFour, 3000);
-        Click(newDoor,3000);//选择大门
-        Click(new Point(mDevice.getDisplayWidth()/2, mDevice.getDisplayHeight()/2-100));
-        Click("gate_type_kg",1000);//KG大门
-        Click("checkBox_single_dir_gate");//单方向大门
-        Click("save_button", 1000);
-        tipsNum++;
-
-        //调整箭头方向
-        Click(new Point(mDevice.getDisplayWidth()/2-320, mDevice.getDisplayHeight()/2+30));
-        mDevice.findObject(By.text("大门")).click();
-        Click("card_road_direction_swap");
-        Click("save_button",1000);
-        Click("tv_tips_cancel" );
-
-        AssertIndoorCheck("大门","中","FM-1104-6-5","门的方向应与道路通行方向一致","不能忽视");
-    }
-    @Test
-    public void test01320_data_check() throws UiObjectNotFoundException, InterruptedException
-    {
-        //10级路上不能有EG
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
-
-        //创建10级测线
-        Click(newLeftFive);
-        Click(newDrawRoardReal);
-        Click("card_pedestrian_rd");
-        Click(new Point(1400,1200));
-        Click(new Point(1400,900));
-        Click("save_button");
-        tipsNum++;
-
-        //创建单向EG门
-        Click(newHorFour, 3000);
-        Click(newDoor,3000);//选择大门
-        Click(new Point(1400,1200));
-        Click("gate_type_eg",1000);//EG大门
-        Click("checkBox_single_dir_gate");//单方向大门
-        Click("save_button", 1000);
-
-        AssertIndoorCheck("大门","中","FM-1104-6-6","10级路上不能有车行门","不能忽视");
-    }
-
-    @Test
-    public void test01321_data_check() throws UiObjectNotFoundException, InterruptedException
-    {
-        //10级路上不能有PG
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
-
-        //创建10级测线道路
-        Click(newLeftFive);
-        Click(newDrawRoardReal);
-        Click("card_pedestrian_rd");
-        Click(new Point(1000,1200));
-        Click(new Point(900,900));
-        Click("save_button");
-        tipsNum++;
-
-        //创建单向PG门
-        Click(newHorFour, 3000);
-        Click(newDoor,3000);//选择大门
-        Click(new Point(1000,1200));
-        Click("gate_type_pg",1000);//PG大门
-        Click("checkBox_single_dir_gate");//单方向大门
-        Click("save_button", 1000);
-        tipsNum++;
-
-        AssertIndoorCheck("大门","中","FM-1104-6-6","10级路上不能有车行门","不能忽视");
-    }
-    @Test
-    public void test01322_data_check() throws UiObjectNotFoundException, InterruptedException
-    {
-        //10级路上不能有KG
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
-
-        //创建10级测线道路
-        Click(newLeftFive);
-        Click(newDrawRoardReal);
-        Click("card_pedestrian_rd");
-        Click(new Point(1100,1200));
-        Click(new Point(1100,1000));
-        Click("save_button");
-        tipsNum++;
-
-        //创建单向KG门
-        Click(newHorFour, 3000);
-        Click(newDoor,3000);//选择大门
-        Click(new Point(1100,1200));
-        Click("gate_type_kg",1000);//KG大门
-        Click("checkBox_single_dir_gate");//单方向大门
-        Click("save_button", 1000);
-        tipsNum++;
-
-        AssertIndoorCheck("大门","中","FM-1104-6-6","10级路上不能有车行门","不能忽视");
-    }
-
-    @Test
-    public void test01323_data_check() throws UiObjectNotFoundException, InterruptedException
-    {
-        //车道信息与车道数不一致，可能车道变化点采集遗漏
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
-
-        //创建单向测线
-        Click(newLeftFive);
-        Click(newDrawRoardReal);
-        Click("card_high_speed");
-        Click("lane_num_1");
-        Click(new Point(900,500));
-        Click(new Point(500,900));
-        Click("save_button");
-        tipsNum++;
-
-        //创建四车道车信
-        Click(newCarInfo, 3000);
-        Click(new Point(900,500));
-        Click("rb_select_one_d");
-        Click("rb_select_one_b");
-        Click("rb_select_one_a");
-        Click("rb_select_one_c");
-        Click("save_button", 1000);
-        tipsNum++;
-
-        AssertIndoorCheck("车信","中","FM-1301-6-3","车道信息与车道数不一致，可能车道变化点采集遗漏","不能忽视");
-    }
-
-    @Test
-    public void test01324_data_check() throws UiObjectNotFoundException, InterruptedException
-    {
-        //PG关联的link上有勾选了人行门的POI
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
-
-        //创建单向测线
-        Click(newLeftFive);
-        Click(newDrawRoardReal);
-        Click("card_high_speed");
-        Click("lane_num_1");
-        Click(new Point(mDevice.getDisplayWidth()/2, mDevice.getDisplayHeight()/2-300));
-        Click(new Point(mDevice.getDisplayWidth()/2+200, mDevice.getDisplayHeight()/2-300));
-        Click("save_button");
-        tipsNum++;
-
-        Thread.sleep(1000);
-        //创建含有人行门的POI
-        mDevice.drag(mDevice.getDisplayWidth()/2,mDevice.getDisplayHeight()/2,mDevice.getDisplayWidth()/2,mDevice.getDisplayHeight()/2+350,10);
-        Click(newPOIPoint, 6000);
-        Click(new Point(mDevice.getDisplayWidth()/2+20, mDevice.getDisplayHeight()/2));
-        Click("take_pic_imgbtn", 3000);
-        Click("task_pic_back_img");
-        PutinEditor("fm_et_name", "测试ＰＯＩ");
-        Click("tv_assort_type", 3000);
-        Thread.sleep(3000);
-        List<UiObject2> objList = mDevice.wait(Until.findObjects(By.res(packageName, "top_name_txtinfo")), 500);
-
-        if (objList == null)
-        {
-            fail("can not find ctrl: top_name_txtinfo");
-        }
-
-        UiObject2 objectRest = null;
-        for (UiObject2 object : objList)
-        {
-            if(object.getText().equals("中餐馆"))
-            {
-                objectRest = object;
-            }
-        }
-
-        if (objectRest == null)
-        {
-            fail("can not find ctrl: 中餐馆");
-        }
-        objectRest.click();
-        mDevice.drag(1902,1212,1902,520,10);
-        mDevice.findObject(By.text("人行门")).click();
-        Click("save_button");
-        poiNum++;
-
-        //关联PG门
-        Click(newHorFour, 3000);
-        Click(newDoor,3000);//选择大门
-        Click(GetCenter());
-        Click("gate_type_pg",1000);//PG大门
-        Click("checkBox_single_dir_gate");//单方向大门
-        Click("save_button", 1000);
-
-        AssertIndoorCheck("大门","中","FM-1104-6-7","大门tips车辆类型与POI大门属性不一致","不能忽视");
-    }
-
-    @Test
-    public void test01325_data_check() throws UiObjectNotFoundException, InterruptedException
-    {
-        //KG关联的link上有勾选了人行门的POI
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
-
-        //创建单向测线
-        Click(newLeftFive);
-        Click(newDrawRoardReal);
-        Click("card_high_speed");
-        Click("lane_num_1");
-        Click(new Point(mDevice.getDisplayWidth()/2, mDevice.getDisplayHeight()/2-400));
-        Click(new Point(mDevice.getDisplayWidth()/2+200, mDevice.getDisplayHeight()/2-400));
-        Click("save_button");
-        tipsNum++;
-
-        Thread.sleep(1000);
-        mDevice.drag(mDevice.getDisplayWidth()/2,mDevice.getDisplayHeight()/2,mDevice.getDisplayWidth()/2,mDevice.getDisplayHeight()/2+450,10);
-        Click(newPOIPoint, 6000);
-        Click(new Point(mDevice.getDisplayWidth()/2+20, mDevice.getDisplayHeight()/2));
-        Click("take_pic_imgbtn", 3000);
-        Click("task_pic_back_img");
-        PutinEditor("fm_et_name", "测试ＰＯＩ");
-        Click("tv_assort_type", 3000);
-        Thread.sleep(3000);
-        List<UiObject2> objList = mDevice.wait(Until.findObjects(By.res(packageName, "top_name_txtinfo")), 500);
-
-        if (objList == null)
-        {
-            fail("can not find ctrl: top_name_txtinfo");
-        }
-
-        UiObject2 objectRest = null;
-        for (UiObject2 object : objList)
-        {
-            if(object.getText().equals("中餐馆"))
-            {
-                objectRest = object;
-            }
-        }
-
-        if (objectRest == null)
-        {
-            fail("can not find ctrl: 中餐馆");
-        }
-        objectRest.click();
-        mDevice.drag(1902,1212,1902,520,10);
-        mDevice.findObject(By.text("人行门")).click();
-        Click("save_button");
-        poiNum++;
-
-        Click(newHorFour, 3000);
-        Click(newDoor,3000);//选择大门
-        //Click(new Point(mDevice.getDisplayWidth()/2, mDevice.getDisplayHeight()/2));
-        Click(GetCenter());
-        Click("gate_type_kg",1000);//KG大门
-        Click("checkBox_single_dir_gate");//单方向大门
-        Click("save_button", 1000);
-        tipsNum++;
-
-        AssertIndoorCheck("大门","中","FM-1104-6-7","大门tips车辆类型与POI大门属性不一致","不能忽视");
-    }
-
-    @Test
-    public void test01326_data_check() throws UiObjectNotFoundException, InterruptedException
-    {
-        //测线与隧道tips相交时，需要制作立交
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
-
-        //创建单向测线
-        Click(newLeftFive);
-        Click(newDrawRoardReal);
-        Click("card_high_speed");
-        Click("lane_num_1");
-        Click(new Point(mDevice.getDisplayWidth()/2-400, mDevice.getDisplayHeight()/2+400));
-        Click(new Point(mDevice.getDisplayWidth()/2-200, mDevice.getDisplayHeight()/2+400));
-        Click("save_button");
-        tipsNum++;
-
-        //在此link上创建隧道
-        Click(new Point(1690,1440));
-        Click(new Point(mDevice.getDisplayWidth()/2-400, mDevice.getDisplayHeight()/2+400));
-        Click(new Point(1690,1440));
-        Click(new Point(1655,342));//隧道位置
-        Click(new Point(mDevice.getDisplayWidth()/2-200, mDevice.getDisplayHeight()/2+400));
-        Click("save_button");
-        tipsNum++;
-
-        //绘制测线与含有隧道的link相交
-        Click(newLeftFive);
-        Click(newDrawRoardReal);
-        Click("card_high_speed");
-        Click("lane_num_1");
-        Click(new Point(mDevice.getDisplayWidth()/2-300, mDevice.getDisplayHeight()/2+300));
-        Click(new Point(mDevice.getDisplayWidth()/2-300, mDevice.getDisplayHeight()/2+600));
-        Click("save_button");
-        tipsNum++;
-
-        AssertIndoorCheck("测线","中","FM-2001-5-9","新测线与隧道属性道路相交，需要制作立交","不能忽视");
-    }
 */
+
+    @Test
+    public void test01401_diagram_add() throws UiObjectNotFoundException, InterruptedException
+    {
+        //挂接
+        mDevice.drag(700, 823, 1024, 823, 10);
+        Thread.sleep(1000);
+
+        Click(newdiagram);
+        Click("sketch_hook_1");//挂接1
+        Click(GetCenter());
+        Click("connect_icons_2082");
+        mDevice.drag(1177,798,994,1244,10);//旋转挂接件
+        Click("save_button");
+        tipsNum++;
+
+        GotoMyData("rb_condition_tips");
+        UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
+        assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
+        assertNotNull(Until.findObject(By.desc("挂接")));
+
+        ExitMyData();
+    }
+
+    @Test
+    public void test01402_diagram_add() throws UiObjectNotFoundException, InterruptedException
+    {
+        //挂接
+        mDevice.drag(700, 823, 1024, 823, 10);
+        Thread.sleep(1000);
+
+        Click(newdiagram);
+        Click("sketch_hook_2");//挂接2
+        Click(GetCenter());
+        Click("connect_icons_2113");
+        mDevice.drag(1177,798,994,1244,10);//旋转挂接件
+        Click("save_button");
+        tipsNum++;
+
+        GotoMyData("rb_condition_tips");
+        UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
+        assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
+        assertNotNull(Until.findObject(By.desc("挂接")));
+
+        ExitMyData();
+    }
+
+    @Test
+    public void test01403_diagram_add() throws UiObjectNotFoundException, InterruptedException
+    {
+        //草图
+        mDevice.drag(700, 823, 1024, 823, 10);
+        Thread.sleep(1000);
+
+        Click(newdiagram);
+        Click("straight_line");//直线
+        Click(new Point(477,700));
+        Click(new Point(794,444));
+        Click("save_button");
+        tipsNum++;
+
+        GotoMyData("rb_condition_tips");
+        UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
+        assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
+        assertNotNull(Until.findObject(By.desc("草图")));
+
+        ExitMyData();
+    }
+
+    @Test
+    public void test01404_diagram_add() throws UiObjectNotFoundException, InterruptedException
+    {
+        //草图
+        mDevice.drag(700, 823, 1024, 823, 10);
+        Thread.sleep(1000);
+
+        Click(newdiagram);
+        Click("curve_line");//曲线
+        mDevice.drag(477,698,794,344,10);
+        Click("save_button");
+        tipsNum++;
+
+        GotoMyData("rb_condition_tips");
+        UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
+        assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
+        assertNotNull(Until.findObject(By.desc("草图")));
+
+        ExitMyData();
+    }
+
+    @Test
+    public void test01405_diagram_add() throws UiObjectNotFoundException, InterruptedException
+    {
+        //草图
+        mDevice.drag(700, 823, 1024, 823, 10);
+        Thread.sleep(1000);
+
+        Click(newdiagram);
+        Click("poly_line");//折线
+        Click(GetCenter());
+        Click(new Point(400,500));
+        Click(new Point(400,600));
+        Click("save_button");
+        tipsNum++;
+
+        GotoMyData("rb_condition_tips");
+        UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
+        assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
+        assertNotNull(Until.findObject(By.desc("草图")));
+
+        ExitMyData();
+    }
+
+    @Test
+    public void test01406_diagram_add() throws UiObjectNotFoundException, InterruptedException
+    {
+        //草图
+        mDevice.drag(700, 823, 1024, 823, 10);
+        Thread.sleep(1000);
+
+        Click(newdiagram);
+        Click("rect_line");//矩形
+        mDevice.drag(400,500,500,400,10);
+        Click("save_button");
+        tipsNum++;
+
+        GotoMyData("rb_condition_tips");
+        UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
+        assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
+        assertNotNull(Until.findObject(By.desc("草图")));
+
+        ExitMyData();
+    }
+
+    @Test
+    public void test01407_diagram_add() throws UiObjectNotFoundException, InterruptedException
+    {
+        //草图
+        mDevice.drag(700, 823, 1024, 823, 10);
+        Thread.sleep(1000);
+
+        Click(newdiagram);
+        Click("ellipse_line");//圆型
+        mDevice.drag(700,800,800,700,10);
+        Click("save_button");
+        tipsNum++;
+
+        GotoMyData("rb_condition_tips");
+        UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
+        assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
+        assertNotNull(Until.findObject(By.desc("草图")));
+
+        ExitMyData();
+    }
+
+    @Test
+    public void test01408_diagram_add() throws UiObjectNotFoundException, InterruptedException
+    {
+        //草图
+        mDevice.drag(700, 823, 1024, 823, 10);
+        Thread.sleep(1000);
+
+        Click(newdiagram);
+        Click("circular_point");//圆点
+        Click(new Point(650,700));
+        Click("save_button");
+        tipsNum++;
+
+        GotoMyData("rb_condition_tips");
+        UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
+        assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
+        assertNotNull(Until.findObject(By.desc("草图")));
+
+        ExitMyData();
+    }
+
+    @Test
+    public void test01409_diagram_add() throws UiObjectNotFoundException, InterruptedException
+    {
+        //草图
+        mDevice.drag(700, 823, 1024, 823, 10);
+        Thread.sleep(1000);
+
+        Click(newdiagram);
+        Click("greenland_line");//草地
+        Click(new Point(800,700));
+        Click(new Point(800,900));
+        Click(new Point(900,1000));
+        Click("save_button");
+        tipsNum++;
+
+        GotoMyData("rb_condition_tips");
+        UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
+        assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
+        assertNotNull(Until.findObject(By.desc("草图")));
+
+        ExitMyData();
+    }
+
+    @Test
+    public void test01410_diagram_add() throws UiObjectNotFoundException, InterruptedException
+    {
+        //草图
+        mDevice.drag(700, 823, 1024, 823, 10);
+        Thread.sleep(1000);
+
+        Click(newdiagram);
+        Click("water_line");//水系
+        Click(new Point(840,1200));
+        Click(new Point(900,1200));
+        Click(new Point(900,1000));
+        Click("save_button");
+        tipsNum++;
+
+        GotoMyData("rb_condition_tips");
+        UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
+        assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
+        assertNotNull(Until.findObject(By.desc("草图")));
+
+        ExitMyData();
+    }
+
+    @Test
+    public void test01411_diagram_add() throws UiObjectNotFoundException, InterruptedException
+    {
+        //草图
+        mDevice.drag(700, 823, 1024, 823, 10);
+        Thread.sleep(1000);
+
+        Click(newdiagram);
+        Click("railway_line");//铁路
+        Click(new Point(1000,1100));
+        Click(new Point(900,1100));
+        Click("save_button");
+        tipsNum++;
+
+        GotoMyData("rb_condition_tips");
+        UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
+        assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
+        assertNotNull(Until.findObject(By.desc("草图")));
+
+        ExitMyData();
+    }
+
+    private void scrollClickObject(String targetName) throws UiObjectNotFoundException {
+        UiScrollable listScrollable = new UiScrollable(new UiSelector().scrollable(true));
+        if(listScrollable.exists()) {
+            listScrollable.scrollDescriptionIntoView(targetName);
+            mDevice.findObject(By.text(targetName)).click();
+        } else {
+            mDevice.findObject(By.text(targetName)).click();
+        }
+
+    }
+
+    private void scrollBackwardClickObject(String targetName) throws UiObjectNotFoundException {
+        UiScrollable listScrollable = new UiScrollable(new UiSelector().scrollable(true));
+        if(listScrollable.exists()) {
+            //方法一
+            //UiScrollable listScrollable = new UiScrollable(new UiSelector().scrollable(true));
+            //listScrollable.flingForward(); //向后滚动
+            //listScrollable.setMaxSearchSwipes(10);
+            //listScrollable.scrollTextIntoView(targetName);
+
+            listScrollable.flingToEnd(4);
+
+            listScrollable.flingBackward(); //向后滚动
+            //listScrollable.scrollToEnd(5);
+
+        } else {
+            mDevice.findObject(By.text(targetName)).click();
+        }
+
+    }
     private void SearchRoadFromLink(String  strRoad){
         Click("img_search");
         Click(new Point(1200,420));
@@ -4533,15 +4551,6 @@ public class testFastMapYL extends testFastMapBase
         Click("tv_search_link_btn",10000);
         Click("tv_my_data_snap_list_item_name");
         mDevice.pressBack();
-    }
-
-    private void DoubleClick(Point point){
-        long timeout = Configurator.getInstance().getActionAcknowledgmentTimeout();
-        Configurator.getInstance().setActionAcknowledgmentTimeout(0);
-        for(int i =0;i <2; i++){
-            mDevice.click(point.x,point.y);
-        }
-        Configurator.getInstance().setActionAcknowledgmentTimeout(timeout);
     }
 
     private  void OpenGPS()
@@ -4606,11 +4615,13 @@ public class testFastMapYL extends testFastMapBase
     private static Point newNormalRoad = new Point(351,869);//一般道路方面
     private static Point newHighSpeedDiff = new Point(232,986);//高速分歧
     private static Point newDoor = new Point(597,1018);//高速分歧
-    //  private static Point newGPSPos = new Point(1974,897);//GPS打点
-    /// private static Point new3D = new Point(487,743);//3D
-    // private static Point newDelete = new Point(1082,1438);//删除
+    private static Point newGPSPos = new Point(1974,897);//GPS打点
+    private static Point new3D = new Point(487,743);//3D
+    private static Point newDelete = new Point(1084,1442);//删除
     private static Point newHorFour = new Point(726,1456);//水平方向第四个
     private static Point newLeftFour = new Point(101,1153);//左侧方向第四个
     private static Point newHorFive = new Point(853,1419);//水平第五个
     private static Point newLeftFive = new Point(94,1263);//水平第五个
+    //private static Point newCarRoadChange = new Point(483,1432); //车道变化点
+    private static Point newdiagram = new Point(1985,1029);//草图
 }
