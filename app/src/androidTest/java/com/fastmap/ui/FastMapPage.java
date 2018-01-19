@@ -55,8 +55,7 @@ public class FastMapPage
         Thread.sleep(1000);
     }
 
-    public void SetValue(String findRes, String value) throws NoSuchFieldException, ClassNotFoundException
-    {
+    public void SetValue(String findRes, String value) throws NoSuchFieldException, ClassNotFoundException, InterruptedException {
         Field field = this.getClass().getDeclaredField(findRes);
 
         FindResource annotation = field.getAnnotation(FindResource.class);

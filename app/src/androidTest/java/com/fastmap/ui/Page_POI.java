@@ -27,8 +27,7 @@ public class Page_POI extends FastMapPage
         Inst = new Page_POI();
     }
 
-    public void SetValue(String findRes, String value) throws NoSuchFieldException, ClassNotFoundException
-    {
+    public void SetValue(String findRes, String value) throws NoSuchFieldException, ClassNotFoundException, InterruptedException {
         if (findRes.equals(SELECT_TYPE))
         {
             Click(SELECT_TYPE);
