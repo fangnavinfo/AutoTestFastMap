@@ -14,6 +14,9 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import com.fastmap.ui.FastMapUI;
+import com.fastmap.ui.Page_MainBoard;
+import com.fastmap.ui.Page_POI;
+import com.fastmap.ui.Page_POI_Camera;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -70,29 +73,25 @@ public class testFastMapZF extends testFastMapBase
         Thread.sleep(1000);
 
         //点击新增POI
-        FastMapUI.pressBtnMainBoard(TipsDeepDictionary.POI_ADD_9001);
-        Thread.sleep(500);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
 
-        Click("take_pic_imgbtn",2000); //点击拍照
-        Click("task_pic_back_img"); //点击返回
+        //拍照并返回
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
 
-        PutinEditor("fm_et_name", "测试ＰＯＩ２"); //输入POI名称
+        //输入POI名称
+        Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ２");
 
-        Click("tv_assort_type");//点击选择分类
+        //中餐馆类型
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "中餐馆");
 
-        UiObject object1=new UiObject(new UiSelector().text("中餐馆"));
-        object1.click();
+        //输入19开头电话号码
+        Page_POI.Inst.SetValue(Page_POI.TEL, "19012345678");
 
-        Thread.sleep(3000);
-        Click("edt_contactItem_telNum");
-        Thread.sleep(1000);
-        PutinEditor("edt_contactItem_telNum", "19012345678"); //输入19开头电话号码，这行代码在我这儿运行会直接挂掉，你确认下
-        Thread.sleep(1000);
+        //点击保存
+        Page_POI.Inst.Click(Page_POI.SAVE);
 
-        Click("save_button"); //点击保存
         poiNum++;
-
-        Thread.sleep(3000);
 
         GotoMyData("rb_condition_poi"); //进入我的数据
 

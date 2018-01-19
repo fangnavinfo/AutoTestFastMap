@@ -21,6 +21,9 @@ public class Page_POI extends FastMapPage
     @FindResource(Id="top_name_txtinfo")
     public static String SEARCH_TYPE_RESULT;
 
+    @FindResource(Id="edt_contactItem_telNum")
+    public static String TEL;
+
     public static Page_POI Inst;
     static
     {
