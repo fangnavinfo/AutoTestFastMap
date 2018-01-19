@@ -31,8 +31,7 @@ public class Page_MyData extends FastMapPage
         Inst = new Page_MyData();
     }
 
-    public void CheckVaild(String type, String name) throws NoSuchFieldException, ClassNotFoundException
-    {
+    public void CheckVaild(String type, String name) throws NoSuchFieldException, ClassNotFoundException, InterruptedException {
         Click(SELECT_DATA_TYPE);
         Click(type);
         Click(SELECT_CONFIRM);
