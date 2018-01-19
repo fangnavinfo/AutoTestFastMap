@@ -42,8 +42,7 @@ public class FastMapPage
         Thread.sleep(1000);
     }
 
-    public void Click(String findRes) throws NoSuchFieldException, ClassNotFoundException
-    {
+    public void Click(String findRes) throws NoSuchFieldException, ClassNotFoundException, InterruptedException {
 
         Field field = this.getClass().getDeclaredField(findRes);
 
@@ -53,6 +52,7 @@ public class FastMapPage
             UiObject2 obj = mDevice.wait(Until.findObject(By.res(packageName, annotation.Id())), 500);
             obj.click();
         }
+        Thread.sleep(1000);
     }
 
     public void SetValue(String findRes, String value) throws NoSuchFieldException, ClassNotFoundException
