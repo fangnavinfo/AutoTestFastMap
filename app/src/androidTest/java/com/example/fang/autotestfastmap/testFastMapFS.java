@@ -1,20 +1,13 @@
 package com.example.fang.autotestfastmap;
 
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.os.Environment;
-import android.support.test.InstrumentationRegistry;
 import android.support.test.uiautomator.By;
-import android.support.test.uiautomator.Direction;
-import android.support.test.uiautomator.UiCollection;
-import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.UiObject;
 import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.UiObjectNotFoundException;
 import android.support.test.uiautomator.UiScrollable;
 import android.support.test.uiautomator.UiSelector;
 import android.support.test.uiautomator.Until;
-import android.util.Log;
+import com.fastmap.ui.*;
 
 import junit.framework.Assert;
 
@@ -24,18 +17,9 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
-import org.junit.runner.Description;
-import org.junit.runner.Result;
-import org.junit.runner.notification.Failure;
-import org.junit.runner.notification.RunListener;
 import org.junit.runners.MethodSorters;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.channels.Selector;
-import java.util.ArrayList;
-import java.util.List;
 
 import static junit.framework.Assert.fail;
 import static org.hamcrest.core.IsNull.notNullValue;
@@ -43,6 +27,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
+
+import com.fastmap.ui.FastMapUI;
+import com.fastmap.ui.FastMapUI.*;
 
 /**
  * Created by fang on 17/11/21.
@@ -93,91 +80,65 @@ public class testFastMapFS extends testFastMapBase
     @Test
     public void test00101_poi_add() throws Exception
     {
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
 
-        FastMapUI.pressBtnMainBoard(TipsDeepDictionary.POI_ADD_9001);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
 
-        Click("take_pic_imgbtn");
-        Click("task_pic_back_img");
+        Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "中餐馆");
+        Page_POI.Inst.Click(Page_POI.SAVE);
 
-        PutinEditor("fm_et_name", "测试ＰＯＩ");
-
-        Click("tv_assort_type");
-
-        UiObject object1=new UiObject(new UiSelector().text("中餐馆"));
-        object1.click();
-
-        Click("save_button");
-        poiNum++;
-
-        GotoMyData("rb_condition_poi");
-
-        assertEditorEqual("tv_my_data_count_2", Integer.toString(poiNum));
-        assertNotNull(Until.findObject(By.desc("测试ＰＯＩ")));
-
-        ExitMyData();
-
-        String strUid;
-        //m_Sqlit.CheckTipsIcons(strUid, "");
-        //m_Sqlit.GetTipsDisplayText(rowkey);
+        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+        Page_MainMenu.Inst.Click(Page_MainMenu.MY_DATA);
+        Page_MyData.Inst.CheckVaild(Page_MyData.POI_TYPE, "测试ＰＯＩ");
     }
 
     @Test
     public void test00201_tips_point_TrafficLight_add() throws Exception
     {
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_LIGHT);
+        Page_MainBoard.Inst.Click(GetCenter());
 
-        FastMapUI.pressBtnMainBoard(TipsDeepDictionary.TRAFFIC_LIGHT);
-
-        Click(GetCenter());
-        tipsNum++;
-
-        String strType = "rb_condition_tips";
-        GotoMyData(strType);
-
-        UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
-        assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
-        assertNotNull(Until.findObject(By.desc("红绿灯")));
-
-        ExitMyData();
+        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+        Page_MainMenu.Inst.Click(Page_MainMenu.MY_DATA);
+        Page_MyData.Inst.CheckVaild(Page_MyData.TIPS_TYPE, "红绿灯");
     }
 
     @Test
     public void test00301_tips_line_DrawRoad_add() throws Exception
     {
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);
 
-        FastMapUI.pressBtnMainBoard(TipsDeepDictionary.TYPE_TEST_LINE_10002);
+        Page_MainBoard.Inst.Click(new Point(1000, 1000));
+        Page_MainBoard.Inst.Click(new Point(1000, 500));
+        Page_MainBoard.Inst.Click(new Point(500, 1000));
 
-        Click(new Point(1000, 1000));
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.HIGH_SPEED);
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.LANE_NUM_1);
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.SAVE);
 
-        Click(new Point(1000, 500));
+        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+        Page_MainMenu.Inst.Click(Page_MainMenu.MY_DATA);
+        Page_MyData.Inst.CheckVaild(Page_MyData.TIPS_TYPE, "测线");
 
-        Click(new Point(500, 1000));
-
-        Click("card_high_speed");
-        Click("lane_num_1");
-        Click("save_button");
-        tipsNum++;
-
-        String strType = "rb_condition_tips";
-        GotoMyData(strType);
-
-        UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
-        assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
-
-        UiObject2 obj = mDevice.wait(Until.findObject(By.textContains("测线")),500);
-        assertNotNull(obj);
-
-        obj.click();
-
-        String rowkey = mDevice.wait(Until.findObject(By.res(packageName, "et_title")), 500).getText();
-        rowkey = rowkey.substring("rowkey：".length());
-
-        Click("cancel_button");
-
-        ExitMyData();
+//        String strType = "rb_condition_tips";
+//        GotoMyData(strType);
+//
+//        UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
+//        assertEquals(Integer.toString(tipsNum), txtAddCount.getText());
+//
+//        UiObject2 obj = mDevice.wait(Until.findObject(By.textContains("测线")),500);
+//        assertNotNull(obj);
+//
+//        obj.click();
+//
+//        String rowkey = mDevice.wait(Until.findObject(By.res(packageName, "et_title")), 500).getText();
+//        rowkey = rowkey.substring("rowkey：".length());
+//
+//        Click("cancel_button");
+//
+//        ExitMyData();
 
 //        m_Sqlit.RefreshData();
 //        assertEquals(m_Sqlit.GetTipsDisplayText(rowkey), " 1 车道 | K1");

@@ -1,17 +1,12 @@
 package com.example.fang.autotestfastmap;
 
 import android.support.test.uiautomator.By;
-import android.support.test.uiautomator.UiCollection;
-import android.support.test.uiautomator.UiObject;
 import android.support.test.uiautomator.UiObject2;
-import android.support.test.uiautomator.UiObjectNotFoundException;
 import android.support.test.uiautomator.UiScrollable;
 import android.support.test.uiautomator.UiSelector;
 import android.support.test.uiautomator.Until;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
+
+import com.fastmap.ui.FastMapUI;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -19,11 +14,9 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
-import org.junit.rules.TestName;
 import org.junit.runners.MethodSorters;
 
 import java.io.IOException;
-import java.util.List;
 
 import static junit.framework.Assert.fail;
 import static org.junit.Assert.assertEquals;

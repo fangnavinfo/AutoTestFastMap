@@ -1,14 +1,9 @@
 package com.example.fang.autotestfastmap;
 
-import android.app.Instrumentation;
 import android.content.Context;
 import android.content.Intent;
 import android.support.test.InstrumentationRegistry;
-import android.support.test.annotation.Beta;
-import android.support.test.espresso.core.deps.guava.eventbus.AllowConcurrentEvents;
-import android.support.test.filters.FlakyTest;
 import android.support.test.uiautomator.By;
-import android.support.test.uiautomator.Direction;
 import android.support.test.uiautomator.UiCollection;
 import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.UiObject;
@@ -17,20 +12,16 @@ import android.support.test.uiautomator.UiObjectNotFoundException;
 import android.support.test.uiautomator.UiScrollable;
 import android.support.test.uiautomator.UiSelector;
 import android.support.test.uiautomator.Until;
+import com.fastmap.ui.*;
+
+import com.fastmap.ui.FastMapUI;
 
 import junit.framework.Assert;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
-import org.junit.Ignore;
-import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import static junit.framework.Assert.fail;
@@ -56,28 +47,33 @@ public class testFastMapBase
 
         mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         packageName = getPackageName();
-
-        if(isHmWorking.length > 0 && isHmWorking[0] == true) {
+        if(isHmWorking.length > 0 && isHmWorking[0] == true)
+        {
             userPath = GetUserPathHM();
-        }else {
+        }else
+        {
             userPath = GetUserPath();
         }
 
-        m_Sqlit = new SqliteTools(userPath);
-
-        FastMapUI.initialize(mDevice, packageName);
-
         Init();
-
-        clearCollect();
 
         ReStartApp();
 
-        if(isHmWorking.length > 0 && isHmWorking[0] == true) {
+        clearCollect();
+
+        if(isHmWorking.length > 0 && isHmWorking[0] == true)
+        {
             loginHmProcess();
-        }else {
+        }else
+        {
             loginProcess();
         }
+
+        SqliteTools.initialize(userPath);
+
+        FastMapUI.initialize(mDevice, packageName);
+        FastMapPage.InitDevice(mDevice, packageName);
+
 
     //        waitDownLoadMetal();
     //
@@ -899,6 +895,18 @@ public class testFastMapBase
             return "/sdcard/" + dirName + "/Data/Collect/3655/";
         }
         return "";
+    }
+
+    void CheckMyData(String type, String name) throws NoSuchFieldException, ClassNotFoundException
+    {
+        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+
+        Page_MainMenu.Inst.Click(Page_MainMenu.MY_DATA);
+
+        Page_MyData.Inst.CheckVaild(type, name);
+        Page_MyData.Inst.Click(Page_MyData.BACK);
+
+        Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
     }
 
     protected static UiDevice mDevice;

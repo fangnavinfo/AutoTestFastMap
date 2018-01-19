@@ -1,10 +1,7 @@
 package com.example.fang.autotestfastmap;
 
-import android.support.test.InstrumentationRegistry;
 import android.support.test.uiautomator.By;
-import android.support.test.uiautomator.Direction;
 import android.support.test.uiautomator.UiCollection;
-import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.UiObject;
 import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.UiObjectNotFoundException;
@@ -15,9 +12,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
-import junit.framework.Assert;
+import com.fastmap.ui.FastMapUI;
 
 import org.junit.After;
 import org.junit.AfterClass;

@@ -1,17 +1,26 @@
-package com.example.fang.autotestfastmap;
+package com.fastmap.ui;
 import android.content.res.Resources;
 import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.Until;
 
-import org.junit.runners.model.InitializationError;
+import com.example.fang.autotestfastmap.Point;
+import com.example.fang.autotestfastmap.SqliteTools;
+import com.example.fang.autotestfastmap.TipsDeepDictionary;
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Created by fang on 18/1/9.

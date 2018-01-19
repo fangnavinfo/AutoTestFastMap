@@ -6,6 +6,7 @@ import android.support.test.uiautomator.UiObjectNotFoundException;
 import android.support.test.uiautomator.UiScrollable;
 import android.support.test.uiautomator.UiSelector;
 import android.support.test.uiautomator.Until;
+import com.fastmap.ui.*;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -21,6 +22,7 @@ import java.util.List;
 import static junit.framework.Assert.fail;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import com.fastmap.ui.FastMapUI.*;
 
 /**
  * Created by fang on 17/11/21.
@@ -54,49 +56,25 @@ public class testFastMapYL extends testFastMapBase
 
 
     @Test
-    public void test00202_poi_add() throws InterruptedException
+    public void test00202_poi_add() throws Exception
     {
         //产品全貌开关关，新增POI点
         mDevice.drag(700, 823, 1024, 823, 10);
         Thread.sleep(1000);
         //SetConfInfo();//默认就是关
-        Click(newPOIPoint, 6000);
-        Click("mingcheng_btn");//名称
-        Click("radio_revolution1");//低
-        Click("take_pic_imgbtn", 3000);
-        Click("task_pic_back_img");
-        PutinEditor("fm_et_name", "测试ＰＯＩ");
-        Click("tv_assort_type", 3000);
-        Thread.sleep(3000);
-        List<UiObject2> objList = mDevice.wait(Until.findObjects(By.res(packageName, "top_name_txtinfo")), 500);
 
-        if (objList == null)
-        {
-            fail("can not find ctrl: top_name_txtinfo");
-        }
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
 
-        UiObject2 objectRest = null;
-        for (UiObject2 object : objList)
-        {
-            if(object.getText().equals("中餐馆"))
-            {
-                objectRest = object;
-            }
-        }
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.NAME_TYPE);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.RADIO_LOW);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
 
-        if (objectRest == null)
-        {
-            fail("can not find ctrl: 中餐馆");
-        }
-        objectRest.click();
-        Click("save_button");
-        poiNum++;
+        Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "中餐馆");
+        Page_POI.Inst.Click(Page_POI.SAVE);
 
-        //我的数据
-        GotoMyData("rb_condition_poi");
-        assertEditorEqual("tv_my_data_count_2", Integer.toString(poiNum));
-        assertNotNull(Until.findObject(By.desc("测试ＰＯＩ")));
-        ExitMyData();
+        CheckMyData(Page_MyData.POI_TYPE, "测试ＰＯＩ");
     }
 
 

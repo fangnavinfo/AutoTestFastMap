@@ -19,7 +19,7 @@ import java.util.Map;
  */
 public class SqliteTools {
 
-    public SqliteTools(String strDBPath)
+    public static void initialize(String strDBPath)
     {
         mDBPath = strDBPath+"keyboard.db";
     }
@@ -34,7 +34,7 @@ public class SqliteTools {
 
     public String GetTipsDisplayText(String key) throws Exception
     {
-        SQLiteDatabase db=SQLiteDatabase.openDatabase(dbPath, null, SQLiteDatabase.OPEN_READONLY, null);
+        SQLiteDatabase db=SQLiteDatabase.openDatabase(mDBPath, null, SQLiteDatabase.OPEN_READONLY, null);
 
         try
         {
@@ -91,8 +91,6 @@ public class SqliteTools {
 
 
     }
-
-    static String dbPath = Environment.getExternalStorageDirectory().getPath() + "/FastMap18Summer/Data/Collect/3655/coremap.sqlite";
 
     class DISPLAY_TEXT implements Comparable<DISPLAY_TEXT>
     {
