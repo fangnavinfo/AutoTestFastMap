@@ -17,6 +17,8 @@ import com.fastmap.ui.FastMapUI;
 import com.fastmap.ui.Page_MainBoard;
 import com.fastmap.ui.Page_POI;
 import com.fastmap.ui.Page_POI_Camera;
+import com.fastmap.ui.Page_SurveyLine;
+import com.fastmap.ui.Page_TrafficForbidden;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -474,7 +476,7 @@ public class testFastMapZF extends testFastMapBase
 
     // FM-1301-6-4
     @Test
-    public void test_FM_1301_6_4_1check() throws Exception {
+    public void test_FM_1301_6_4_1_check() throws Exception {
 
         mDevice.drag(700, 650, 1024, 768, 10);
 
@@ -494,13 +496,22 @@ public class testFastMapZF extends testFastMapBase
 
     }
 
+
+
+
     // FM-1301-6-4
     @Test
-    public void test_FM_1301_6_4_2check() throws Exception {
+    public void test_FM_1301_6_4_2_check() throws Exception {
 
         // 测线
-        Point[] arrayPoint = {new Point(1250, 530), new Point(1250, 700)};
-        DrawRoad(arrayPoint);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);
+
+        Page_MainBoard.Inst.Click(new Point(1250, 530));
+        Page_MainBoard.Inst.Click(new Point(1250, 700));
+
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.HIGH_SPEED);
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.LANE_NUM_1);
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.SAVE);
 
         //增加道路方向：单向
         FastMapUI.pressBtnMainBoard(TipsDeepDictionary.ROAD_DIRECTION);
@@ -526,9 +537,223 @@ public class testFastMapZF extends testFastMapBase
 
     }
 
+
+    // FM-1304-6-2
+    @Test
+    public void test_FM_1304_6_2_1_check() throws Exception {
+
+        //找到符合要求的位置
+        Click("iv_zoom_out");
+        Thread.sleep(500);
+        Click("iv_zoom_out");
+        Thread.sleep(500);
+        Click("iv_zoom_out");
+        Thread.sleep(500);
+
+        //同步tips
+        synchronize("rb_tips_update", new Point(1720,1150));
+
+        //找到符合要求的位置
+        Click("iv_zoom_in");
+        Thread.sleep(500);
+        Click("iv_zoom_in");
+        Thread.sleep(500);
+        Click("iv_zoom_in");
+        Thread.sleep(500);
+
+        //禁止穿行1级道路
+        getPosion(0,0,"11111011274124");
+
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PASS_THROUGH);
+        Click(new Point(1120,740),500);
+        Click("save_button", 500);
+
+
+
+        AssertIndoorCheck("禁止穿行", "低", "FM-1304-6-2", "高等级道路上（1级、2级、3级、4级）采集了禁止穿行属性，请确认是否正确。", "忽略");
+    }
+
+    // FM-1304-6-2
+    @Test
+    public void test_FM_1304_6_2_2_check() throws Exception {
+
+        //找到符合要求的位置
+        Click("iv_zoom_out");
+        Thread.sleep(500);
+        Click("iv_zoom_out");
+        Thread.sleep(500);
+        Click("iv_zoom_out");
+        Thread.sleep(500);
+
+        //同步tips
+        synchronize("rb_tips_update", new Point(1720,1150));
+
+        //找到符合要求的位置
+        Click("iv_zoom_in");
+        Thread.sleep(500);
+        Click("iv_zoom_in");
+        Thread.sleep(500);
+        Click("iv_zoom_in");
+        Thread.sleep(500);
+
+        //禁止穿行2级道路
+        getPosion(0,0,"11111011274124");
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PASS_THROUGH);
+        Click(new Point(1215,1155),500);
+        Click("save_button", 500);
+
+        AssertIndoorCheck("禁止穿行", "低", "FM-1304-6-2", "高等级道路上（1级、2级、3级、4级）采集了禁止穿行属性，请确认是否正确。", "忽略");
+    }
+
+    // FM-1304-6-2
+    @Test
+    public void test_FM_1304_6_2_3_check() throws Exception {
+
+        //找到符合要求的位置
+        Click("iv_zoom_out");
+        Thread.sleep(500);
+        Click("iv_zoom_out");
+        Thread.sleep(500);
+        Click("iv_zoom_out");
+        Thread.sleep(500);
+
+        //同步tips
+        synchronize("rb_tips_update", new Point(1720,1150));
+
+        //找到符合要求的位置
+        Click("iv_zoom_in");
+        Thread.sleep(500);
+        Click("iv_zoom_in");
+        Thread.sleep(500);
+        Click("iv_zoom_in");
+        Thread.sleep(500);
+
+
+        //禁止穿行3级道路
+        getPosion(0,0,"11111011274124");
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PASS_THROUGH);
+        Click(new Point(790,590),500);
+        Click("save_button", 500);
+
+
+        AssertIndoorCheck("禁止穿行", "低", "FM-1304-6-2", "高等级道路上（1级、2级、3级、4级）采集了禁止穿行属性，请确认是否正确。", "忽略");
+    }
+
+    // FM-1304-6-2
+    @Test
+    public void test_FM_1304_6_2_4_check() throws Exception {
+
+        //找到符合要求的位置
+        Click("iv_zoom_out");
+        Thread.sleep(500);
+        Click("iv_zoom_out");
+        Thread.sleep(500);
+        Click("iv_zoom_out");
+        Thread.sleep(500);
+
+        //同步tips
+        synchronize("rb_tips_update", new Point(1720,1150));
+
+        //找到符合要求的位置
+        Click("iv_zoom_in");
+        Thread.sleep(500);
+        Click("iv_zoom_in");
+        Thread.sleep(500);
+        Click("iv_zoom_in");
+        Thread.sleep(500);
+
+        //禁止穿行4级道路
+        getPosion(0,0,"11111011274124");
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PASS_THROUGH);
+        Click(new Point(1140,1340),500);
+        Click("save_button", 500);
+
+        AssertIndoorCheck("禁止穿行", "低", "FM-1304-6-2", "高等级道路上（1级、2级、3级、4级）采集了禁止穿行属性，请确认是否正确。", "忽略");
+    }
+
+    @Test
+    public void test_FM_1304_6_2_5_check() throws Exception {
+
+        //同步tips
+        synchronize("rb_tips_update");
+
+        //禁止穿行1级道路（测线且t_sync=1）
+        getPosion(0,0,"1112036063743");
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PASS_THROUGH);
+        Click(new Point(1100,850),500);
+        Click("save_button", 500);
+
+        AssertIndoorCheck("禁止穿行", "低", "FM-1304-6-2", "高等级道路上（1级、2级、3级、4级）采集了禁止穿行属性，请确认是否正确。", "忽略");
+    }
+
+    @Test
+    public void test_FM_1304_6_2_6_check() throws Exception {
+
+        //同步tips
+        synchronize("rb_tips_update");
+
+        //禁止穿行2级道路（测线且t_sync=1）
+        getPosion(0,0,"1112036063743");
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PASS_THROUGH);
+        Click(new Point(1100,970),500);
+        Click("save_button", 500);
+
+        AssertIndoorCheck("禁止穿行", "低", "FM-1304-6-2", "高等级道路上（1级、2级、3级、4级）采集了禁止穿行属性，请确认是否正确。", "忽略");
+    }
+
+    @Test
+    public void test_FM_1304_6_2_7_check() throws Exception {
+
+        mDevice.drag(2030, 50, 10, 1525, 10);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);
+
+        Page_MainBoard.Inst.Click(new Point(1000, 790));
+        Page_MainBoard.Inst.Click(new Point(1300, 790));
+
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.NATIONAL_RD);
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.LANE_NUM_2);
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.SAVE);
+
+        //禁止穿行3级道路（测线且t_sync=0）
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PASS_THROUGH);
+        Click(new Point(1200,800),500);
+        Click("save_button", 500);
+
+        AssertIndoorCheck("禁止穿行", "低", "FM-1304-6-2", "高等级道路上（1级、2级、3级、4级）采集了禁止穿行属性，请确认是否正确。", "忽略");
+    }
+
+    @Test
+    public void test_FM_1304_6_2_8_check() throws Exception {
+
+        mDevice.drag(2030, 50, 10, 1525, 10);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);
+
+        Page_MainBoard.Inst.Click(new Point(1000, 1000));
+        Page_MainBoard.Inst.Click(new Point(1300, 1000));
+
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.NATIONAL_RD);
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.LANE_NUM_2);
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.SAVE);
+
+        //禁止穿行3级道路（测线且t_sync=0）
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PASS_THROUGH);
+        Click(new Point(1200,1020),500);
+        Click("save_button", 500);
+
+        AssertIndoorCheck("禁止穿行", "低", "FM-1304-6-2", "高等级道路上（1级、2级、3级、4级）采集了禁止穿行属性，请确认是否正确。", "忽略");
+    }
+
     // FM-1305-6-1
     @Test
-    public void test_FM_1305_6_1_1check() throws Exception {
+    public void test_FM_1305_6_1_1_check() throws Exception {
         mDevice.drag(700, 650, 1024, 768, 10);
 
         //增加道路方向：单向
@@ -555,10 +780,16 @@ public class testFastMapZF extends testFastMapBase
 
     // FM-1305-6-1
     @Test
-    public void test_FM_1305_6_1_2check() throws Exception {
+    public void test_FM_1305_6_1_2_check() throws Exception {
         // 测线
-        Point[] arrayPoint = {new Point(1250, 530), new Point(1250, 700)};
-        DrawRoad(arrayPoint);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);
+
+        Page_MainBoard.Inst.Click(new Point(1250, 530));
+        Page_MainBoard.Inst.Click(new Point(1250, 700));
+
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.HIGH_SPEED);
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.LANE_NUM_1);
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.SAVE);
 
         //增加道路方向：单向
         FastMapUI.pressBtnMainBoard(TipsDeepDictionary.ROAD_DIRECTION);
@@ -579,6 +810,230 @@ public class testFastMapZF extends testFastMapBase
         Click("save_button", 500);
 
         AssertIndoorCheck("禁止驶入", "中", "FM-1305-6-1", "禁止驶入与单行线重复", "");
+    }
+
+
+    // FM-1305-6-2
+    @Test
+    public void test_FM_1305_6_2_1_check() throws Exception {
+
+        //找到符合要求的位置
+        Click("iv_zoom_out");
+        Thread.sleep(500);
+        Click("iv_zoom_out");
+        Thread.sleep(500);
+        Click("iv_zoom_out");
+        Thread.sleep(500);
+
+        //同步tips
+        synchronize("rb_tips_update", new Point(1720,1150));
+
+        //找到符合要求的位置
+        Click("iv_zoom_in");
+        Thread.sleep(500);
+        Click("iv_zoom_in");
+        Thread.sleep(500);
+        Click("iv_zoom_in");
+        Thread.sleep(500);
+
+        //禁止驶入1级道路
+        getPosion(0,0,"11111011274124");
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_FORBIDDEN);
+        Click(new Point(1120,740),500);
+        Page_TrafficForbidden.Inst.Click(Page_TrafficForbidden.NO_PULL_INTO);
+        Page_TrafficForbidden.Inst.Click(Page_TrafficForbidden.SAVE);
+
+
+        AssertIndoorCheck("禁止驶入", "低", "FM-1305-6-2", "高等级道路上（1级、2级、3级、4级）采集了禁止驶入属性，请确认是否正确。", "忽略");
+    }
+
+    // FM-1304-6-2
+    @Test
+    public void test_FM_1305_6_2_2_check() throws Exception {
+
+        //找到符合要求的位置
+        Click("iv_zoom_out");
+        Thread.sleep(500);
+        Click("iv_zoom_out");
+        Thread.sleep(500);
+        Click("iv_zoom_out");
+        Thread.sleep(500);
+
+        //同步tips
+        synchronize("rb_tips_update", new Point(1720,1150));
+
+        //找到符合要求的位置
+        Click("iv_zoom_in");
+        Thread.sleep(500);
+        Click("iv_zoom_in");
+        Thread.sleep(500);
+        Click("iv_zoom_in");
+        Thread.sleep(500);
+
+        //禁止驶入2级道路
+        getPosion(0,0,"11111011274124");
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_FORBIDDEN);
+        Click(new Point(1215,1155),500);
+        Page_TrafficForbidden.Inst.Click(Page_TrafficForbidden.NO_PULL_INTO);
+        Page_TrafficForbidden.Inst.Click(Page_TrafficForbidden.SAVE);
+
+        AssertIndoorCheck("禁止驶入", "低", "FM-1305-6-2", "高等级道路上（1级、2级、3级、4级）采集了禁止驶入属性，请确认是否正确。", "忽略");
+    }
+
+    // FM-1304-6-2
+    @Test
+    public void test_FM_1305_6_2_3_check() throws Exception {
+
+        //找到符合要求的位置
+        Click("iv_zoom_out");
+        Thread.sleep(500);
+        Click("iv_zoom_out");
+        Thread.sleep(500);
+        Click("iv_zoom_out");
+        Thread.sleep(500);
+
+        //同步tips
+        synchronize("rb_tips_update", new Point(1720,1150));
+
+        //找到符合要求的位置
+        Click("iv_zoom_in");
+        Thread.sleep(500);
+        Click("iv_zoom_in");
+        Thread.sleep(500);
+        Click("iv_zoom_in");
+        Thread.sleep(500);
+
+
+        //禁止驶入3级道路
+        getPosion(0,0,"11111011274124");
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_FORBIDDEN);
+        Click(new Point(790,590),500);
+        Page_TrafficForbidden.Inst.Click(Page_TrafficForbidden.NO_PULL_INTO);
+        Page_TrafficForbidden.Inst.Click(Page_TrafficForbidden.SAVE);
+
+
+        AssertIndoorCheck("禁止驶入", "低", "FM-1305-6-2", "高等级道路上（1级、2级、3级、4级）采集了禁止驶入属性，请确认是否正确。", "忽略");
+    }
+
+    // FM-1304-6-2
+    @Test
+    public void test_FM_1305_6_2_4_check() throws Exception {
+
+        //找到符合要求的位置
+        Click("iv_zoom_out");
+        Thread.sleep(500);
+        Click("iv_zoom_out");
+        Thread.sleep(500);
+        Click("iv_zoom_out");
+        Thread.sleep(500);
+
+        //同步tips
+        synchronize("rb_tips_update", new Point(1720,1150));
+
+        //找到符合要求的位置
+        Click("iv_zoom_in");
+        Thread.sleep(500);
+        Click("iv_zoom_in");
+        Thread.sleep(500);
+        Click("iv_zoom_in");
+        Thread.sleep(500);
+
+        //禁止驶入4级道路
+        getPosion(0,0,"11111011274124");
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_FORBIDDEN);
+        Click(new Point(1140,1340),500);
+        Page_TrafficForbidden.Inst.Click(Page_TrafficForbidden.NO_PULL_INTO);
+        Page_TrafficForbidden.Inst.Click(Page_TrafficForbidden.SAVE);
+
+
+        AssertIndoorCheck("禁止驶入", "低", "FM-1305-6-2", "高等级道路上（1级、2级、3级、4级）采集了禁止驶入属性，请确认是否正确。", "忽略");
+    }
+
+    @Test
+    public void test_FM_1305_6_2_5_check() throws Exception {
+
+        //同步tips
+        synchronize("rb_tips_update");
+
+        //禁止驶入1级道路（测线且t_sync=1）
+        getPosion(0,0,"1112036063743");
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_FORBIDDEN);
+        Click(new Point(1100,850),500);
+        Page_TrafficForbidden.Inst.Click(Page_TrafficForbidden.NO_PULL_INTO);
+        Page_TrafficForbidden.Inst.Click(Page_TrafficForbidden.SAVE);
+
+        AssertIndoorCheck("禁止驶入", "低", "FM-1305-6-2", "高等级道路上（1级、2级、3级、4级）采集了禁止驶入属性，请确认是否正确。", "忽略");
+    }
+
+    @Test
+    public void test_FM_1305_6_2_6_check() throws Exception {
+
+        //同步tips
+        synchronize("rb_tips_update");
+
+        //禁止驶入2级道路（测线且t_sync=1）
+        getPosion(0,0,"1112036063743");
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_FORBIDDEN);
+        Click(new Point(1100,970),500);
+        Page_TrafficForbidden.Inst.Click(Page_TrafficForbidden.NO_PULL_INTO);
+        Page_TrafficForbidden.Inst.Click(Page_TrafficForbidden.SAVE);
+
+
+        AssertIndoorCheck("禁止驶入", "低", "FM-1305-6-2", "高等级道路上（1级、2级、3级、4级）采集了禁止驶入属性，请确认是否正确。", "忽略");
+    }
+
+    @Test
+    public void test_FM_1305_6_2_7_check() throws Exception {
+
+        mDevice.drag(2030, 50, 10, 1525, 10);
+
+        //绘制测线
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);
+
+        Page_MainBoard.Inst.Click(new Point(1000, 790));
+        Page_MainBoard.Inst.Click(new Point(1300, 790));
+
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.NATIONAL_RD);
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.LANE_NUM_2);
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.SAVE);
+
+        //禁止驶入3级道路（测线且t_sync=0）
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_FORBIDDEN);
+        Click(new Point(1200,800),500);
+        Page_TrafficForbidden.Inst.Click(Page_TrafficForbidden.NO_PULL_INTO);
+        Page_TrafficForbidden.Inst.Click(Page_TrafficForbidden.SAVE);
+
+        AssertIndoorCheck("禁止驶入", "低", "FM-1305-6-2", "高等级道路上（1级、2级、3级、4级）采集了禁止驶入属性，请确认是否正确。", "忽略");
+    }
+
+    @Test
+    public void test_FM_1305_6_2_8_check() throws Exception {
+
+        mDevice.drag(2030, 50, 10, 1525, 10);
+
+        //绘制测线
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);
+
+        Page_MainBoard.Inst.Click(new Point(1000, 1000));
+        Page_MainBoard.Inst.Click(new Point(1300, 1000));
+
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.PROVINCIAL_RD);
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.LANE_NUM_2);
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.SAVE);
+
+        //禁止驶入4级道路（测线且t_sync=0）
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_FORBIDDEN);
+        Click(new Point(1100,960),500);
+        Page_TrafficForbidden.Inst.Click(Page_TrafficForbidden.NO_PULL_INTO);
+        Page_TrafficForbidden.Inst.Click(Page_TrafficForbidden.SAVE);
+
+        AssertIndoorCheck("禁止驶入", "低", "FM-1305-6-2", "高等级道路上（1级、2级、3级、4级）采集了禁止驶入属性，请确认是否正确。", "忽略");
     }
 
     public void searchObject(String key, String type) throws InterruptedException {
@@ -663,12 +1118,17 @@ public class testFastMapZF extends testFastMapBase
     }
 
     // 同步情报
-    public void synchronize(String syncType) throws InterruptedException {
+    public void synchronize(String syncType, Point... syncGridPositon) throws InterruptedException {
 
         Click("head_icon", 1000);
         Click("fmcard_tv_grid_manager", 1000); //Grid管理
-        Click(new Point(mDevice.getDisplayWidth()/2,mDevice.getDisplayHeight()/2));
         Click("grid_project_button", 1000);
+        if(syncGridPositon.length > 0) {
+            Click(syncGridPositon[0]);
+        }else {
+            Click(new Point(mDevice.getDisplayWidth()/2,mDevice.getDisplayHeight()/2));
+        }
+
         Click(syncType, 1000); //情报数据
         Click("synchronous_button", 1000); //同步
         Click("btn_fm_confirm", 1000);
