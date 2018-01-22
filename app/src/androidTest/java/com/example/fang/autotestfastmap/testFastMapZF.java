@@ -113,7 +113,7 @@ public class testFastMapZF extends testFastMapBase
             fail("Save POI failed");
         }
 
-        Click("save_button"); //点击保存
+        Page_POI.Inst.Click(Page_POI.SAVE); //点击保存
         ExitMyData(); //退出我的数据
     }
 
