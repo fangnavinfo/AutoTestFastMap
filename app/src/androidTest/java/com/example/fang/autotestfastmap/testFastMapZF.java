@@ -17,6 +17,7 @@ import com.fastmap.ui.FastMapUI;
 import com.fastmap.ui.Page_MainBoard;
 import com.fastmap.ui.Page_POI;
 import com.fastmap.ui.Page_POI_Camera;
+import com.fastmap.ui.Page_StartEndPoint;
 import com.fastmap.ui.Page_SurveyLine;
 import com.fastmap.ui.Page_TrafficForbidden;
 
@@ -319,14 +320,11 @@ public class testFastMapZF extends testFastMapBase
         synchronize("rb_tips_update");
 
         // 放大并找到grid分界
-        Click("iv_zoom_in");
-        Thread.sleep(500);
-        Click("iv_zoom_in");
-        Thread.sleep(500);
-        Click("iv_zoom_in");
-        Thread.sleep(500);
+        Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_IN);
+        Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_IN);
+        Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_IN);
 
-        getPosion(0,0,"11130159503");
+        getPosion("11130159503");
 
         Thread.sleep(500);
         mDevice.drag(1, 790, 2048, 490, 100);
@@ -354,7 +352,7 @@ public class testFastMapZF extends testFastMapBase
         Click("save_button"); //点击保存
         poiNum++;
 
-        getPosion(0,0,"11130159503");
+        getPosion("11130159503");
 
         Thread.sleep(500);
         mDevice.drag(1, 790, 2048, 490, 100);
@@ -543,26 +541,20 @@ public class testFastMapZF extends testFastMapBase
     public void test_FM_1304_6_2_1_check() throws Exception {
 
         //找到符合要求的位置
-        Click("iv_zoom_out");
-        Thread.sleep(500);
-        Click("iv_zoom_out");
-        Thread.sleep(500);
-        Click("iv_zoom_out");
-        Thread.sleep(500);
+        Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_OUT);
+        Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_OUT);
+        Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_OUT);
 
         //同步tips
         synchronize("rb_tips_update", new Point(1720,1150));
 
         //找到符合要求的位置
-        Click("iv_zoom_in");
-        Thread.sleep(500);
-        Click("iv_zoom_in");
-        Thread.sleep(500);
-        Click("iv_zoom_in");
-        Thread.sleep(500);
+        Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_IN);
+        Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_IN);
+        Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_IN);
 
         //禁止穿行1级道路
-        getPosion(0,0,"11111011274124");
+        getPosion("11111011274124");
 
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PASS_THROUGH);
@@ -579,26 +571,20 @@ public class testFastMapZF extends testFastMapBase
     public void test_FM_1304_6_2_2_check() throws Exception {
 
         //找到符合要求的位置
-        Click("iv_zoom_out");
-        Thread.sleep(500);
-        Click("iv_zoom_out");
-        Thread.sleep(500);
-        Click("iv_zoom_out");
-        Thread.sleep(500);
+        Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_OUT);
+        Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_OUT);
+        Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_OUT);
 
         //同步tips
         synchronize("rb_tips_update", new Point(1720,1150));
 
         //找到符合要求的位置
-        Click("iv_zoom_in");
-        Thread.sleep(500);
-        Click("iv_zoom_in");
-        Thread.sleep(500);
-        Click("iv_zoom_in");
-        Thread.sleep(500);
+        Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_IN);
+        Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_IN);
+        Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_IN);
 
         //禁止穿行2级道路
-        getPosion(0,0,"11111011274124");
+        getPosion("11111011274124");
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PASS_THROUGH);
         Click(new Point(1215,1155),500);
@@ -612,27 +598,21 @@ public class testFastMapZF extends testFastMapBase
     public void test_FM_1304_6_2_3_check() throws Exception {
 
         //找到符合要求的位置
-        Click("iv_zoom_out");
-        Thread.sleep(500);
-        Click("iv_zoom_out");
-        Thread.sleep(500);
-        Click("iv_zoom_out");
-        Thread.sleep(500);
+        Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_OUT);
+        Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_OUT);
+        Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_OUT);
 
         //同步tips
         synchronize("rb_tips_update", new Point(1720,1150));
 
         //找到符合要求的位置
-        Click("iv_zoom_in");
-        Thread.sleep(500);
-        Click("iv_zoom_in");
-        Thread.sleep(500);
-        Click("iv_zoom_in");
-        Thread.sleep(500);
+        Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_IN);
+        Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_IN);
+        Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_IN);
 
 
         //禁止穿行3级道路
-        getPosion(0,0,"11111011274124");
+        getPosion("11111011274124");
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PASS_THROUGH);
         Click(new Point(790,590),500);
@@ -647,26 +627,20 @@ public class testFastMapZF extends testFastMapBase
     public void test_FM_1304_6_2_4_check() throws Exception {
 
         //找到符合要求的位置
-        Click("iv_zoom_out");
-        Thread.sleep(500);
-        Click("iv_zoom_out");
-        Thread.sleep(500);
-        Click("iv_zoom_out");
-        Thread.sleep(500);
+        Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_OUT);
+        Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_OUT);
+        Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_OUT);
 
         //同步tips
         synchronize("rb_tips_update", new Point(1720,1150));
 
         //找到符合要求的位置
-        Click("iv_zoom_in");
-        Thread.sleep(500);
-        Click("iv_zoom_in");
-        Thread.sleep(500);
-        Click("iv_zoom_in");
-        Thread.sleep(500);
+        Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_IN);
+        Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_IN);
+        Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_IN);
 
         //禁止穿行4级道路
-        getPosion(0,0,"11111011274124");
+        getPosion("11111011274124");
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PASS_THROUGH);
         Click(new Point(1140,1340),500);
@@ -682,7 +656,7 @@ public class testFastMapZF extends testFastMapBase
         synchronize("rb_tips_update");
 
         //禁止穿行1级道路（测线且t_sync=1）
-        getPosion(0,0,"1112036063743");
+        getPosion("1112036063743");
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PASS_THROUGH);
         Click(new Point(1100,850),500);
@@ -698,7 +672,7 @@ public class testFastMapZF extends testFastMapBase
         synchronize("rb_tips_update");
 
         //禁止穿行2级道路（测线且t_sync=1）
-        getPosion(0,0,"1112036063743");
+        getPosion("1112036063743");
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PASS_THROUGH);
         Click(new Point(1100,970),500);
@@ -818,26 +792,20 @@ public class testFastMapZF extends testFastMapBase
     public void test_FM_1305_6_2_1_check() throws Exception {
 
         //找到符合要求的位置
-        Click("iv_zoom_out");
-        Thread.sleep(500);
-        Click("iv_zoom_out");
-        Thread.sleep(500);
-        Click("iv_zoom_out");
-        Thread.sleep(500);
+        Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_OUT);
+        Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_OUT);
+        Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_OUT);
 
         //同步tips
         synchronize("rb_tips_update", new Point(1720,1150));
 
         //找到符合要求的位置
-        Click("iv_zoom_in");
-        Thread.sleep(500);
-        Click("iv_zoom_in");
-        Thread.sleep(500);
-        Click("iv_zoom_in");
-        Thread.sleep(500);
+        Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_IN);
+        Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_IN);
+        Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_IN);
 
         //禁止驶入1级道路
-        getPosion(0,0,"11111011274124");
+        getPosion("11111011274124");
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_FORBIDDEN);
         Click(new Point(1120,740),500);
@@ -853,26 +821,20 @@ public class testFastMapZF extends testFastMapBase
     public void test_FM_1305_6_2_2_check() throws Exception {
 
         //找到符合要求的位置
-        Click("iv_zoom_out");
-        Thread.sleep(500);
-        Click("iv_zoom_out");
-        Thread.sleep(500);
-        Click("iv_zoom_out");
-        Thread.sleep(500);
+        Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_OUT);
+        Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_OUT);
+        Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_OUT);
 
         //同步tips
         synchronize("rb_tips_update", new Point(1720,1150));
 
         //找到符合要求的位置
-        Click("iv_zoom_in");
-        Thread.sleep(500);
-        Click("iv_zoom_in");
-        Thread.sleep(500);
-        Click("iv_zoom_in");
-        Thread.sleep(500);
+        Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_IN);
+        Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_IN);
+        Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_IN);
 
         //禁止驶入2级道路
-        getPosion(0,0,"11111011274124");
+        getPosion("11111011274124");
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_FORBIDDEN);
         Click(new Point(1215,1155),500);
@@ -887,27 +849,21 @@ public class testFastMapZF extends testFastMapBase
     public void test_FM_1305_6_2_3_check() throws Exception {
 
         //找到符合要求的位置
-        Click("iv_zoom_out");
-        Thread.sleep(500);
-        Click("iv_zoom_out");
-        Thread.sleep(500);
-        Click("iv_zoom_out");
-        Thread.sleep(500);
+        Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_OUT);
+        Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_OUT);
+        Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_OUT);
 
         //同步tips
         synchronize("rb_tips_update", new Point(1720,1150));
 
         //找到符合要求的位置
-        Click("iv_zoom_in");
-        Thread.sleep(500);
-        Click("iv_zoom_in");
-        Thread.sleep(500);
-        Click("iv_zoom_in");
-        Thread.sleep(500);
+        Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_IN);
+        Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_IN);
+        Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_IN);
 
 
         //禁止驶入3级道路
-        getPosion(0,0,"11111011274124");
+        getPosion("11111011274124");
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_FORBIDDEN);
         Click(new Point(790,590),500);
@@ -923,26 +879,20 @@ public class testFastMapZF extends testFastMapBase
     public void test_FM_1305_6_2_4_check() throws Exception {
 
         //找到符合要求的位置
-        Click("iv_zoom_out");
-        Thread.sleep(500);
-        Click("iv_zoom_out");
-        Thread.sleep(500);
-        Click("iv_zoom_out");
-        Thread.sleep(500);
+        Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_OUT);
+        Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_OUT);
+        Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_OUT);
 
         //同步tips
         synchronize("rb_tips_update", new Point(1720,1150));
 
         //找到符合要求的位置
-        Click("iv_zoom_in");
-        Thread.sleep(500);
-        Click("iv_zoom_in");
-        Thread.sleep(500);
-        Click("iv_zoom_in");
-        Thread.sleep(500);
+        Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_IN);
+        Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_IN);
+        Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_IN);
 
         //禁止驶入4级道路
-        getPosion(0,0,"11111011274124");
+        getPosion("11111011274124");
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_FORBIDDEN);
         Click(new Point(1140,1340),500);
@@ -960,7 +910,7 @@ public class testFastMapZF extends testFastMapBase
         synchronize("rb_tips_update");
 
         //禁止驶入1级道路（测线且t_sync=1）
-        getPosion(0,0,"1112036063743");
+        getPosion("1112036063743");
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_FORBIDDEN);
         Click(new Point(1100,850),500);
@@ -977,7 +927,7 @@ public class testFastMapZF extends testFastMapBase
         synchronize("rb_tips_update");
 
         //禁止驶入2级道路（测线且t_sync=1）
-        getPosion(0,0,"1112036063743");
+        getPosion("1112036063743");
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_FORBIDDEN);
         Click(new Point(1100,970),500);
@@ -1036,6 +986,114 @@ public class testFastMapZF extends testFastMapBase
         AssertIndoorCheck("禁止驶入", "低", "FM-1305-6-2", "高等级道路上（1级、2级、3级、4级）采集了禁止驶入属性，请确认是否正确。", "忽略");
     }
 
+    //FM-1503-6-1
+    @Test
+    public void test_FM_1503_6_1_1_check() throws Exception {
+
+        //绘制高架路
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.StartEndPoint);
+        Page_MainBoard.Inst.Click(new Point(580, 498));
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.StartEndPoint);
+        Page_MainBoard.Inst.Click(new Point(820, 498));
+        Page_StartEndPoint.Inst.Click(Page_StartEndPoint.OVERHEAD_ROAD_BT);
+        Page_StartEndPoint.Inst.Click(Page_StartEndPoint.SAVE);
+
+        //绘制跨越桥
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.StartEndPoint);
+        Page_MainBoard.Inst.Click(new Point(700, 498));
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.StartEndPoint);
+        Page_MainBoard.Inst.Click(new Point(1000, 498));
+        Page_StartEndPoint.Inst.Click(Page_StartEndPoint.OVERPASS_BT);
+        Page_StartEndPoint.Inst.Click(Page_StartEndPoint.SAVE);
+
+        AssertIndoorCheck("高架路", "中", "FM-1503-6-1", "高架路与跨越桥（或穿越地道）不能共存","");
+    }
+
+    @Test
+    public void test_FM_1503_6_1_2_check() throws Exception {
+
+        //绘制高架路
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.StartEndPoint);
+        Page_MainBoard.Inst.Click(new Point(580, 498));
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.StartEndPoint);
+        Page_MainBoard.Inst.Click(new Point(820, 498));
+        Page_StartEndPoint.Inst.Click(Page_StartEndPoint.OVERHEAD_ROAD_BT);
+        Page_StartEndPoint.Inst.Click(Page_StartEndPoint.SAVE);
+
+        //绘制穿越地道
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.StartEndPoint);
+        Page_MainBoard.Inst.Click(new Point(700, 498));
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.StartEndPoint);
+        Page_MainBoard.Inst.Click(new Point(1000, 498));
+        Page_StartEndPoint.Inst.Click(Page_StartEndPoint.UNDER_PASS_BT);
+        Page_StartEndPoint.Inst.Click(Page_StartEndPoint.SAVE);
+
+        AssertIndoorCheck("高架路", "中", "FM-1503-6-1", "高架路与跨越桥（或穿越地道）不能共存","");
+    }
+
+    @Test
+    public void test_FM_1503_6_1_3_check() throws Exception {
+
+        //绘制测线
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);
+
+        Page_MainBoard.Inst.Click(new Point(550, 450));
+        Page_MainBoard.Inst.Click(new Point(1050, 450));
+
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.PROVINCIAL_RD);
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.LANE_NUM_2);
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.SAVE);
+
+        //绘制高架路
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.StartEndPoint);
+        Page_MainBoard.Inst.Click(new Point(580, 450));
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.StartEndPoint);
+        Page_MainBoard.Inst.Click(new Point(820, 450));
+        Page_StartEndPoint.Inst.Click(Page_StartEndPoint.OVERHEAD_ROAD_BT);
+        Page_StartEndPoint.Inst.Click(Page_StartEndPoint.SAVE);
+
+        //绘制跨越桥
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.StartEndPoint);
+        Page_MainBoard.Inst.Click(new Point(700, 450));
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.StartEndPoint);
+        Page_MainBoard.Inst.Click(new Point(1000, 450));
+        Page_StartEndPoint.Inst.Click(Page_StartEndPoint.OVERPASS_BT);
+        Page_StartEndPoint.Inst.Click(Page_StartEndPoint.SAVE);
+
+        AssertIndoorCheck("高架路", "中", "FM-1503-6-1", "高架路与跨越桥（或穿越地道）不能共存","");
+    }
+
+    @Test
+    public void test_FM_1503_6_1_4_check() throws Exception {
+        //绘制测线
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);
+
+        Page_MainBoard.Inst.Click(new Point(550, 450));
+        Page_MainBoard.Inst.Click(new Point(1050, 450));
+
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.PROVINCIAL_RD);
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.LANE_NUM_2);
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.SAVE);
+
+        //绘制高架路
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.StartEndPoint);
+        Page_MainBoard.Inst.Click(new Point(580, 450));
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.StartEndPoint);
+        Page_MainBoard.Inst.Click(new Point(820, 450));
+        Page_StartEndPoint.Inst.Click(Page_StartEndPoint.OVERHEAD_ROAD_BT);
+        Page_StartEndPoint.Inst.Click(Page_StartEndPoint.SAVE);
+
+        //绘制穿越地道
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.StartEndPoint);
+        Page_MainBoard.Inst.Click(new Point(700, 450));
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.StartEndPoint);
+        Page_MainBoard.Inst.Click(new Point(1000, 450));
+        Page_StartEndPoint.Inst.Click(Page_StartEndPoint.UNDER_PASS_BT);
+        Page_StartEndPoint.Inst.Click(Page_StartEndPoint.SAVE);
+
+        AssertIndoorCheck("高架路", "中", "FM-1503-6-1", "高架路与跨越桥（或穿越地道）不能共存","");
+    }
+
     public void searchObject(String key, String type) throws InterruptedException {
         //默认搜索tips
         mDevice.findObject(By.res(packageName, "img_search")).click();
@@ -1052,7 +1110,7 @@ public class testFastMapZF extends testFastMapBase
         Thread.sleep(1000);
     }
 
-    public void getPosion(int endX, int endY, String key) throws InterruptedException {
+    public void getPosion(String key) throws InterruptedException {
         searchObject(key,"TIPS");
 
         mDevice.pressBack();
@@ -1063,15 +1121,7 @@ public class testFastMapZF extends testFastMapBase
         }
         Thread.sleep(500);
         mDevice.pressBack();
-        Thread.sleep(1000);
-
-        if(endX == 0 && endY == 0) {
-
-        }else {
-            mDevice.drag(1273, 615, endX, endY, 10);
-        }
-        Thread.sleep(1000);
-
+        Thread.sleep(2000);
     }
 
     // 上报情报
