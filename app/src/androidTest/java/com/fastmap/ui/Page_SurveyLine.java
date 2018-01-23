@@ -23,6 +23,8 @@ public class Page_SurveyLine extends FastMapPage
     @FindResource(Id="lane_num_2")
     public static String LANE_NUM_2;
 
+    @FindResource(Id="delete_button")
+    public static String DELETE;
     @FindResource(Id="save_button")
     public static String SAVE;
 

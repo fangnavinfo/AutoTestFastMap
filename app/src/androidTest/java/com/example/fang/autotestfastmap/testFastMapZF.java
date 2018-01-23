@@ -1094,6 +1094,37 @@ public class testFastMapZF extends testFastMapBase
         AssertIndoorCheck("高架路", "中", "FM-1503-6-1", "高架路与跨越桥（或穿越地道）不能共存","");
     }
 
+    //FM-1521-1-2
+    @Test
+    public void test_FM_1521_1_2_check() throws Exception {
+        //绘制测线
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);
+
+        Page_MainBoard.Inst.Click(new Point(550, 550));
+        Page_MainBoard.Inst.Click(new Point(1050, 550));
+
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.PROVINCIAL_RD);
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.LANE_NUM_2);
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.SAVE);
+
+        //移动式桥
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.StartEndPoint);
+        Page_MainBoard.Inst.Click(new Point(600, 550));
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.StartEndPoint);
+        Page_MainBoard.Inst.Click(new Point(1000, 550));
+        Page_StartEndPoint.Inst.Click(Page_StartEndPoint.TRAVELING_BRIDGE_BT);
+        Page_StartEndPoint.Inst.Click(Page_StartEndPoint.SAVE);
+
+        //删除测线
+        GotoMyData("rb_condition_tips");
+        mDevice.wait(Until.findObject(By.text("测线")), 500).click();
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.DELETE);
+        mDevice.wait(Until.findObject(By.text("仅删除测线")), 500).click();
+        ExitMyData();
+
+        AssertIndoorCheck("移动式桥", "中", "FM-1521-1-2", "Tips没有关联道路或测线或Node","");
+    }
+
     public void searchObject(String key, String type) throws InterruptedException {
         //默认搜索tips
         mDevice.findObject(By.res(packageName, "img_search")).click();
