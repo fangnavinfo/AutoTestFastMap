@@ -14,12 +14,16 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import com.fastmap.ui.FastMapUI;
+import com.fastmap.ui.Page_IndoorTool;
 import com.fastmap.ui.Page_MainBoard;
+import com.fastmap.ui.Page_MainMenu;
 import com.fastmap.ui.Page_POI;
 import com.fastmap.ui.Page_POI_Camera;
+import com.fastmap.ui.Page_SearchResultList;
 import com.fastmap.ui.Page_StartEndPoint;
 import com.fastmap.ui.Page_SurveyLine;
 import com.fastmap.ui.Page_TrafficForbidden;
+import com.fastmap.ui.Page_TrueSence;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -122,7 +126,7 @@ public class testFastMapZF extends testFastMapBase
 
     //采纳情报fid保存
     @Test
-    public void test00103_poi_report_check()  throws InterruptedException, UiObjectNotFoundException {
+    public void test00103_poi_report_check() throws InterruptedException, UiObjectNotFoundException, NoSuchFieldException, ClassNotFoundException {
         // 上报情报
         addReport();
         // 同步情报
@@ -408,6 +412,68 @@ public class testFastMapZF extends testFastMapBase
             Thread.sleep(500);
             assertEquals(txtErrMessage, "同一poi(" + infoFid + ")在库中不存在");
         }
+    }
+
+    // 高速实景图手动录入编号
+    @Test
+    public void test00107_tips_true_sence_check() throws Exception {
+
+        Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_OUT);
+        mDevice.drag(2030, 50, 10, 1525, 10);
+
+        //点击新增实景图POI
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRUE_SCENE);
+        Page_MainBoard.Inst.Click(new Point(700,268));
+
+        //高速出口
+        Page_TrueSence.Inst.Click(Page_TrueSence.HIGHWAY_LOAD_OUT);
+        //输入编号
+        Page_TrueSence.Inst.SetValue(Page_TrueSence.ET_IMG_NUMBER, "abCD1234");
+
+        //拍照5张并返回
+        Page_TrueSence.Inst.Click(Page_TrueSence.CAMERA_BUTTON);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+
+        //点击保存
+        Page_TrueSence.Inst.Click(Page_TrueSence.SAVE);
+
+        //获取rowkey
+        GotoMyData("rb_condition_tips"); //进入我的数据
+        mDevice.wait(Until.findObject(By.text("实景图")), 500).click();
+        String rowkey = Page_TrueSence.Inst.GetValue(Page_TrueSence.ROWKEY).substring(7);
+        Page_TrueSence.Inst.Click(Page_TrueSence.CANCEL);
+        ExitMyData(); //退出我的数据
+
+        //确认数据
+        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+        Page_MainMenu.Inst.Click(Page_MainMenu.INDOOR_TOOL);
+        Page_IndoorTool.Inst.Click(Page_MainMenu.MY_DATA);
+        Click("ll_indoor_data_snap_item");
+        Click("iv_my_data_back");
+        Page_IndoorTool.Inst.Click(Page_MainMenu.BACK);
+        Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
+
+        //同步数据
+        synchronize("rb_tips_update");
+
+        //根据rowkey查找该实景图
+        searchObject(rowkey,"TIPS");
+
+        //获取编号
+        String code = Page_TrueSence.Inst.GetValue(Page_TrueSence.ET_IMG_NUMBER);
+
+        Page_TrueSence.Inst.Click(Page_TrueSence.CANCEL);
+        Page_SearchResultList.Inst.Click(Page_SearchResultList.BACK);
+
+        assertEquals("abCD1234", code);
+
+
     }
 
     // FM-1207-6-2
@@ -1199,7 +1265,7 @@ public class testFastMapZF extends testFastMapBase
     }
 
     // 同步情报
-    public void synchronize(String syncType, Point... syncGridPositon) throws InterruptedException {
+    public void synchronize(String syncType, Point... syncGridPositon) throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
 
         Click("head_icon", 1000);
         Click("fmcard_tv_grid_manager", 1000); //Grid管理
@@ -1249,11 +1315,8 @@ public class testFastMapZF extends testFastMapBase
         if(null != object) {
             object.click();
         }
-        Thread.sleep(500);
-        mDevice.pressBack();
-        Thread.sleep(500);
-        mDevice.pressBack();
-        Thread.sleep(1000);
+        Page_MainBoard.Inst.Click(Page_MainBoard.BACK);
+        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
     }
 
     // 采纳情报

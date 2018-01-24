@@ -66,6 +66,19 @@ public class FastMapPage
         }
     }
 
+    public String GetValue(String findRes) throws NoSuchFieldException, ClassNotFoundException, InterruptedException {
+        Field field = this.getClass().getDeclaredField(findRes);
+
+        FindResource annotation = field.getAnnotation(FindResource.class);
+        if (!annotation.Id().isEmpty())
+        {
+            UiObject2 obj = mDevice.wait(Until.findObject(By.res(packageName, annotation.Id())), 500);
+            return obj.getText();
+        } else {
+            return "";
+        }
+    }
+
     public static void InitDevice(UiDevice device, String name)
     {
         mDevice = device;

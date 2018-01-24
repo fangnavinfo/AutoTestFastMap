@@ -5,6 +5,8 @@ package com.fastmap.ui;
  */
 public class Page_MainBoard extends FastMapPage
 {
+    @FindResource(Id="back")
+    public static String BACK;
     @FindResource(Id="head_icon")
     public static String MAIN_MENU;
     @FindResource(Id="iv_zoom_out")

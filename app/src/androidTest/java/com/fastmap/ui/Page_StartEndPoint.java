@@ -1,8 +1,10 @@
 package com.fastmap.ui;
 
 /**
- * Created by fang on 18/1/19.
+ * Created by zhou on 18/1/24.
+ * 起点终点TIPS
  */
+
 public class Page_StartEndPoint extends FastMapPage
 {
     @FindResource(Id="bridge_bt")
