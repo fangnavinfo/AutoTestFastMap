@@ -48,8 +48,7 @@ public class FastMapPage
         Thread.sleep(1000);
     }
 
-    public void Click(String findRes) throws NoSuchFieldException, ClassNotFoundException
-    {
+    public void Click(String findRes) throws NoSuchFieldException, ClassNotFoundException, InterruptedException {
 
         Field field = this.getClass().getDeclaredField(findRes);
 
@@ -61,12 +60,10 @@ public class FastMapPage
             return;
         }
 
-
-
+        Thread.sleep(1000);
     }
 
-    public void SetValue(String findRes, String value) throws NoSuchFieldException, ClassNotFoundException
-    {
+    public void SetValue(String findRes, String value) throws NoSuchFieldException, ClassNotFoundException, InterruptedException {
         Field field = this.getClass().getDeclaredField(findRes);
 
         FindResource annotation = field.getAnnotation(FindResource.class);
@@ -74,6 +71,19 @@ public class FastMapPage
         {
             UiObject2 obj = mDevice.wait(Until.findObject(By.res(packageName, annotation.Id())), 500);
             obj.setText(value);
+        }
+    }
+
+    public String GetValue(String findRes) throws NoSuchFieldException, ClassNotFoundException, InterruptedException {
+        Field field = this.getClass().getDeclaredField(findRes);
+
+        FindResource annotation = field.getAnnotation(FindResource.class);
+        if (!annotation.Id().isEmpty())
+        {
+            UiObject2 obj = mDevice.wait(Until.findObject(By.res(packageName, annotation.Id())), 500);
+            return obj.getText();
+        } else {
+            return "";
         }
     }
 
@@ -92,22 +102,6 @@ public class FastMapPage
         UiObject Object = objscoll.getChildByText(new UiSelector().className(annotation.clazz()), annotation.Text());
         Object.click();
     }
-
-//    public void GetStringInSameRow(String findRes, List<String> list) throws NoSuchFieldException
-//    {
-//        Field field = this.getClass().getDeclaredField(findRes);
-//
-//        FindResource annotation = field.getAnnotation(FindResource.class);
-//        if (!annotation.Id().isEmpty())
-//        {
-//            UiObject2 obj = mDevice.wait(Until.findObject(By.res(packageName, annotation.Id())), 500);
-//
-//            ArrayList<UiObject2> listResult = new ArrayList<>();
-//            CheckResource(obj, listResult);
-//
-//            listResult.sort();
-//        }
-//    }
 
     public static void InitDevice(UiDevice device, String name)
     {

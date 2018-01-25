@@ -26,6 +26,9 @@ public class Page_MyData extends FastMapPage
     @FindResource(Id="rb_condition_live_information")
     public static String INFO_TYPE;
 
+    @FindResource(Id="rb_condition_live_information")
+    public static String LIVE_INFORMATION_TYPE;
+
     @FindResource(Id="tv_condition_confirm_hd")
     public static String SELECT_CONFIRM;
 
@@ -38,8 +41,7 @@ public class Page_MyData extends FastMapPage
         Inst = new Page_MyData();
     }
 
-    public void CheckVaild(String type, String name) throws NoSuchFieldException, ClassNotFoundException
-    {
+    public void CheckVaild(String type, String name) throws NoSuchFieldException, ClassNotFoundException, InterruptedException {
         Click(SELECT_DATA_TYPE);
         Click(type);
         Click(SELECT_CONFIRM);
@@ -47,7 +49,7 @@ public class Page_MyData extends FastMapPage
         assertNotNull(mDevice.wait(Until.findObject(By.text(name)), 500));
     }
 
-    public void CheckNotExist(String type, String name) throws NoSuchFieldException, ClassNotFoundException
+    public void CheckNotExist(String type, String name) throws NoSuchFieldException, ClassNotFoundException, InterruptedException
     {
         Click(SELECT_DATA_TYPE);
         Click(type);

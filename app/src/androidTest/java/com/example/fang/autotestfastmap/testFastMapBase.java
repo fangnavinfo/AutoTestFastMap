@@ -897,8 +897,7 @@ public class testFastMapBase
         return "";
     }
 
-    void CheckMyData(String type, String name) throws NoSuchFieldException, ClassNotFoundException
-    {
+    void CheckMyData(String type, String name) throws NoSuchFieldException, ClassNotFoundException, InterruptedException {
         Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
 
         Page_MainMenu.Inst.Click(Page_MainMenu.MY_DATA);
