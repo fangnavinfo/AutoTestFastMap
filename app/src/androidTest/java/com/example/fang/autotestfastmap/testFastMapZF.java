@@ -15,11 +15,14 @@ import android.widget.RelativeLayout;
 
 import com.fastmap.ui.FastMapUI;
 import com.fastmap.ui.Page_IndoorTool;
+import com.fastmap.ui.Page_InfoReport;
 import com.fastmap.ui.Page_MainBoard;
 import com.fastmap.ui.Page_MainMenu;
+import com.fastmap.ui.Page_MyData;
 import com.fastmap.ui.Page_POI;
 import com.fastmap.ui.Page_POI_Camera;
 import com.fastmap.ui.Page_SearchResultList;
+import com.fastmap.ui.Page_SelectTime;
 import com.fastmap.ui.Page_StartEndPoint;
 import com.fastmap.ui.Page_SurveyLine;
 import com.fastmap.ui.Page_TrafficForbidden;
@@ -77,7 +80,6 @@ public class testFastMapZF extends testFastMapBase
     @Test
     public void test00102_poi_telnum_check() throws Exception {
         mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
 
         //点击新增POI
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
@@ -100,10 +102,9 @@ public class testFastMapZF extends testFastMapBase
 
         poiNum++;
 
-        GotoMyData("rb_condition_poi"); //进入我的数据
+        GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
 
-        UiObject2 Object = mDevice.wait(Until.findObject(By.text("测试ＰＯＩ２")), 500);
-        Object.click();
+        mDevice.wait(Until.findObject(By.text("测试ＰＯＩ２")), 500).click();
 
         //判断新增数据数量与poiNum是否相等
         UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
@@ -444,7 +445,7 @@ public class testFastMapZF extends testFastMapBase
         Page_TrueSence.Inst.Click(Page_TrueSence.SAVE);
 
         //获取rowkey
-        GotoMyData("rb_condition_tips"); //进入我的数据
+        GotoMyData(Page_MyData.TIPS_TYPE); //进入我的数据
         mDevice.wait(Until.findObject(By.text("实景图")), 500).click();
         String rowkey = Page_TrueSence.Inst.GetValue(Page_TrueSence.ROWKEY).substring(7);
         Page_TrueSence.Inst.Click(Page_TrueSence.CANCEL);
@@ -1182,7 +1183,7 @@ public class testFastMapZF extends testFastMapBase
         Page_StartEndPoint.Inst.Click(Page_StartEndPoint.SAVE);
 
         //删除测线
-        GotoMyData("rb_condition_tips");
+        GotoMyData(Page_MyData.TIPS_TYPE);
         mDevice.wait(Until.findObject(By.text("测线")), 500).click();
         Page_SurveyLine.Inst.Click(Page_SurveyLine.DELETE);
         mDevice.wait(Until.findObject(By.text("仅删除测线")), 500).click();
@@ -1222,45 +1223,32 @@ public class testFastMapZF extends testFastMapBase
     }
 
     // 上报情报
-    public void addReport() throws InterruptedException, UiObjectNotFoundException
-    {
+    public void addReport() throws InterruptedException, UiObjectNotFoundException, NoSuchFieldException, ClassNotFoundException {
 
-        Click("btn_infor_report", 1000);  //点上报
-        Click("info_pop_add_point", 3000); //点击点情报
+        Page_MainBoard.Inst.Click(Page_MainBoard.INFO_REPORT); //点上报
+        Page_MainBoard.Inst.Click(Page_MainBoard.INFO_REPORT_POINT); //点击点情报
 
-        Click(new Point(900,500)); //点击情报位置
+        Page_MainBoard.Inst.Click(new Point(900,500)); //点击情报位置
 
-        PutinEditor("edt_infor_report_name", "测试上报情报6"); //输入情报名称
-        Click("infor_report_type_poi");
-        Click("tv_poiReport_time", 1000); //点击选择时间
-        Click("btn_fm_confirm", 1000);
+        Page_InfoReport.Inst.SetValue(Page_InfoReport.REPORT_NAME, "测试上报情报6"); //输入情报名称
+        Page_InfoReport.Inst.Click(Page_InfoReport.REPORT_TYPE_POI);
+        Page_InfoReport.Inst.Click(Page_InfoReport.CHOOSE_TIME); //点击选择时间
+        Page_SelectTime.Inst.Click(Page_SelectTime.OK);
 
-        Click("camera_button", 6000);
+        Page_InfoReport.Inst.Click(Page_InfoReport.CAMERA_BUTTON);//拍照
 
-        Click("take_pic_imgbtn", 3000); //点击拍照
-        Click("task_pic_back_img",1000); //点击返回
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);//点击拍照
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);//点击返回
 
-        Click("save_button",3000); //点击保存
 
-        Click("head_icon"); //点击主界面左上角头像
-        Click("fmcard_tv_user_data"); //点击我的数据
-        Click("tv_my_data_condition_1"); // 点击Tips数据
-        Click("rb_condition_live_information"); //点击对应的数据类型（Tips数据/POI数据/点门牌数据/常规情报/自采集情报）
-        Click("tv_condition_confirm_hd"); //点击确定
+        Page_InfoReport.Inst.Click(Page_InfoReport.SAVE); //点击保存
 
-        Thread.sleep(1000);
-
-        mDevice.findObject(By.res(packageName, "tv_my_data_snap_list_item_name")).click();
-        Thread.sleep(1000);
-
-        String txtGlobalid =  mDevice.findObject(By.res(packageName, "et_title")).getText().substring(10);
-
-        globalId = txtGlobalid;
-
-        mDevice.pressBack();
-        Click("btn_fm_confirm", 1000);
-        mDevice.pressBack();
-
+        //获取globalID
+        GotoMyData(Page_MyData.LIVE_INFORMATION_TYPE); //进入我的数据,自采集情报
+        mDevice.wait(Until.findObject(By.text("自采集情报(POI)(点)")), 500).click();
+        globalId = Page_InfoReport.Inst.GetValue(Page_InfoReport.GLOBAL_ID).substring(10);
+        Page_InfoReport.Inst.Click(Page_InfoReport.CANCEL);
+        ExitMyData(); //退出我的数据
 
     }
 
@@ -1399,6 +1387,29 @@ public class testFastMapZF extends testFastMapBase
         Thread.sleep(500);
 
         assertEquals(infoFid, strFid);
+    }
+
+    @Override
+    protected void GotoMyData(String strType) {
+        try {
+            Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+            Page_MainMenu.Inst.Click(Page_MainMenu.MY_DATA);
+            Page_MyData.Inst.Click(Page_MyData.SELECT_DATA_TYPE);
+            Page_MyData.Inst.Click(strType);
+            Page_MyData.Inst.Click(Page_MyData.SELECT_CONFIRM);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        eCurrLayer = EnumLayer.Layer_MyData;
+    }
+
+    @Override
+    protected  void ExitMyData()
+    {
+        Click("iv_my_data_back");
+        Click("fmcard_ibtn_back");
+        eCurrLayer = EnumLayer.Layer_Main;
     }
 
     private static String globalId = "";

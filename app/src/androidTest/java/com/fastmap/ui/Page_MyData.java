@@ -19,6 +19,15 @@ public class Page_MyData extends FastMapPage
     @FindResource(Id="rb_condition_tips")
     public static String TIPS_TYPE;
 
+    @FindResource(Id="rb_condition_pas")
+    public static String PAS_TYPE;
+
+    @FindResource(Id="rb_condition_information")
+    public static String INFORMATION_TYPE;
+
+    @FindResource(Id="rb_condition_live_information")
+    public static String LIVE_INFORMATION_TYPE;
+
     @FindResource(Id="tv_condition_confirm_hd")
     public static String SELECT_CONFIRM;
 
