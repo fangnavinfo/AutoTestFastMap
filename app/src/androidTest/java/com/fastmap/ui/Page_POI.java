@@ -32,7 +32,7 @@ public class Page_POI extends FastMapPage
         if (findRes.equals(SELECT_TYPE))
         {
             Click(SELECT_TYPE);
-            SetValue(SEARCH_TYPE, value);
+            super.SetValue(SEARCH_TYPE, value);
             Click(SEARCH_TYPE_RESULT);
             return;
         }

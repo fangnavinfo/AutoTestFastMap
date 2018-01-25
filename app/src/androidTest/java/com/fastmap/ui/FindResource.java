@@ -11,4 +11,5 @@ import java.lang.annotation.Target;
 {
     String Id() default "";
     String Text() default "";
+    String clazz() default "";
 }

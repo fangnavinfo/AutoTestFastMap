@@ -6,7 +6,10 @@ package com.fastmap.ui;
 public class Page_MainMenu extends FastMapPage
 {
     @FindResource(Id="fmcard_tv_user_data")
-    public static String MY_DATA;
+    public static String MY_DATA; //我的数据
+
+    @FindResource(Id="fmcard_tv_sync_photos")
+    public static String INDOOR_TOOLS; //室内整理工具
 
     @FindResource(Id="fmcard_ibtn_back")
     public static String BACK;

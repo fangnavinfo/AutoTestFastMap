@@ -2,11 +2,17 @@ package com.fastmap.ui;
 
 import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.UiDevice;
+import android.support.test.uiautomator.UiObject;
 import android.support.test.uiautomator.UiObject2;
+import android.support.test.uiautomator.UiObjectNotFoundException;
+import android.support.test.uiautomator.UiScrollable;
+import android.support.test.uiautomator.UiSelector;
 import android.support.test.uiautomator.Until;
 
 import com.example.fang.autotestfastmap.Point;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by fang on 18/1/19.
@@ -52,7 +58,11 @@ public class FastMapPage
         {
             UiObject2 obj = mDevice.wait(Until.findObject(By.res(packageName, annotation.Id())), 500);
             obj.click();
+            return;
         }
+
+
+
     }
 
     public void SetValue(String findRes, String value) throws NoSuchFieldException, ClassNotFoundException
@@ -67,12 +77,64 @@ public class FastMapPage
         }
     }
 
+    public void ScrollClick(String findRes) throws NoSuchFieldException, UiObjectNotFoundException
+    {
+        Field field = this.getClass().getDeclaredField("SCROLL");
+
+        FindResource annotation = field.getAnnotation(FindResource.class);
+
+        UiScrollable objscoll = new UiScrollable(new UiSelector().className(annotation.clazz()));
+
+        field = this.getClass().getDeclaredField(findRes);
+        annotation = field.getAnnotation(FindResource.class);
+
+        //UiObject Object = objscoll.getChild(new UiSelector().text(annotation.Text()));
+        UiObject Object = objscoll.getChildByText(new UiSelector().className(annotation.clazz()), annotation.Text());
+        Object.click();
+    }
+
+//    public void GetStringInSameRow(String findRes, List<String> list) throws NoSuchFieldException
+//    {
+//        Field field = this.getClass().getDeclaredField(findRes);
+//
+//        FindResource annotation = field.getAnnotation(FindResource.class);
+//        if (!annotation.Id().isEmpty())
+//        {
+//            UiObject2 obj = mDevice.wait(Until.findObject(By.res(packageName, annotation.Id())), 500);
+//
+//            ArrayList<UiObject2> listResult = new ArrayList<>();
+//            CheckResource(obj, listResult);
+//
+//            listResult.sort();
+//        }
+//    }
+
     public static void InitDevice(UiDevice device, String name)
     {
         mDevice = device;
         packageName = name;
     }
 
+    protected void ClickByText(String value)
+    {
+        UiObject2 obj = mDevice.wait(Until.findObject(By.text(value)), 500);
+        obj.click();
+    }
+
+    protected void CheckResource(UiObject2 object, ArrayList<UiObject2> listResult)
+    {
+        List<UiObject2> lst = object.getChildren();
+        for (UiObject2 obj : lst)
+        {
+            if (obj.getClassName().equals("android.widget.TextView"))
+            {
+                listResult.add(obj);
+            }
+
+            CheckResource(obj, listResult);
+        }
+
+    }
     protected static UiDevice mDevice;
     protected static String  packageName;
 }

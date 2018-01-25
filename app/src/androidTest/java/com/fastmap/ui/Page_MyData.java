@@ -4,6 +4,7 @@ import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.Until;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 /**
  * Created by fang on 18/1/19.
@@ -18,6 +19,12 @@ public class Page_MyData extends FastMapPage
 
     @FindResource(Id="rb_condition_tips")
     public static String TIPS_TYPE;
+
+    @FindResource(Id="rb_condition_pas")
+    public static String PAS_TYPE;
+
+    @FindResource(Id="rb_condition_live_information")
+    public static String INFO_TYPE;
 
     @FindResource(Id="tv_condition_confirm_hd")
     public static String SELECT_CONFIRM;
@@ -38,5 +45,19 @@ public class Page_MyData extends FastMapPage
         Click(SELECT_CONFIRM);
 
         assertNotNull(mDevice.wait(Until.findObject(By.text(name)), 500));
+    }
+
+    public void CheckNotExist(String type, String name) throws NoSuchFieldException, ClassNotFoundException
+    {
+        Click(SELECT_DATA_TYPE);
+        Click(type);
+        Click(SELECT_CONFIRM);
+
+        assertNull(mDevice.wait(Until.findObject(By.text(name)), 500));
+    }
+
+    public void SelectData(String name)
+    {
+        ClickByText(name);
     }
 }
