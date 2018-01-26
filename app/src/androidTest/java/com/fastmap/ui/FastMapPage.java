@@ -55,7 +55,14 @@ public class FastMapPage
         FindResource annotation = field.getAnnotation(FindResource.class);
         if (!annotation.Id().isEmpty())
         {
-            UiObject2 obj = mDevice.wait(Until.findObject(By.res(packageName, annotation.Id())), 500);
+            UiObject2 obj = mDevice.wait(Until.findObject(By.res(packageName, annotation.Id())), 2000);
+            obj.click();
+            return;
+        }
+
+        if (!annotation.Text().isEmpty())
+        {
+            UiObject2 obj = mDevice.wait(Until.findObject(By.text(annotation.Text())), 2000);
             obj.click();
             return;
         }

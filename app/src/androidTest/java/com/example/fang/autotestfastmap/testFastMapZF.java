@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import com.fastmap.ui.FastMapUI;
+import com.fastmap.ui.Page_GridManager;
 import com.fastmap.ui.Page_IndoorTool;
 import com.fastmap.ui.Page_InfoReport;
 import com.fastmap.ui.Page_MainBoard;
@@ -86,6 +87,7 @@ public class testFastMapZF extends testFastMapBase
 
         //拍照并返回
         Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Thread.sleep(1000);
         Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
 
         //输入POI名称
@@ -104,7 +106,7 @@ public class testFastMapZF extends testFastMapBase
 
         GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
 
-        mDevice.wait(Until.findObject(By.text("测试ＰＯＩ２")), 500).click();
+        mDevice.wait(Until.findObject(By.text("测试ＰＯＩ２")), 1000).click();
 
         //判断新增数据数量与poiNum是否相等
         UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
@@ -131,7 +133,7 @@ public class testFastMapZF extends testFastMapBase
         // 上报情报
         addReport();
         // 同步情报
-        synchronize("rb_info_update");
+        synchronize(Page_GridManager.INFO_UPDATE);
         // 采纳情报
         accept();
         // 检查情报fid
@@ -170,7 +172,7 @@ public class testFastMapZF extends testFastMapBase
         Thread.sleep(500);
 
         //同步数据
-        synchronize("rb_tips_update");
+        synchronize(Page_GridManager.TIPS_UPDATE);
 
         //删除红绿灯
         Click("head_icon",500); //点击主界面左上角头像
@@ -212,7 +214,7 @@ public class testFastMapZF extends testFastMapBase
         Thread.sleep(500);
 
         //同步数据
-        synchronize("rb_tips_update");
+        synchronize(Page_GridManager.TIPS_UPDATE);
 
         //确认
         Click("head_icon", 1000);
@@ -290,7 +292,7 @@ public class testFastMapZF extends testFastMapBase
 
         //同步POI数据
         mDevice.drag(600, 768, 0, 768, 10);
-        synchronize("rb_poi_update");
+        synchronize(Page_GridManager.POI_UPDATE);
 
         //检查错误列表
         //检查错误列表
@@ -322,7 +324,7 @@ public class testFastMapZF extends testFastMapBase
     public void test00106_poi_same_error_check() throws Exception {
 
         //同步TIPS数据
-        synchronize("rb_tips_update");
+        synchronize(Page_GridManager.TIPS_UPDATE);
 
         // 放大并找到grid分界
         Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_IN);
@@ -390,7 +392,7 @@ public class testFastMapZF extends testFastMapBase
 
         //同步POI数据
         mDevice.drag(0, 768, 600, 768, 10);
-        synchronize("rb_poi_update");
+        synchronize(Page_GridManager.POI_UPDATE);
 
         //检查错误列表
         Click("head_icon", 1000);
@@ -433,11 +435,13 @@ public class testFastMapZF extends testFastMapBase
 
         //拍照5张并返回
         Page_TrueSence.Inst.Click(Page_TrueSence.CAMERA_BUTTON);
+        Thread.sleep(1000);
         Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
         Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
         Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
         Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
         Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Thread.sleep(1000);
 
         Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
 
@@ -461,7 +465,7 @@ public class testFastMapZF extends testFastMapBase
         Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
 
         //同步数据
-        synchronize("rb_tips_update");
+        synchronize(Page_GridManager.TIPS_UPDATE);
 
         //根据rowkey查找该实景图
         searchObject(rowkey,"TIPS");
@@ -613,7 +617,7 @@ public class testFastMapZF extends testFastMapBase
         Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_OUT);
 
         //同步tips
-        synchronize("rb_tips_update", new Point(1720,1150));
+        synchronize(Page_GridManager.TIPS_UPDATE, new Point(1720,1150));
 
         //找到符合要求的位置
         Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_IN);
@@ -643,7 +647,7 @@ public class testFastMapZF extends testFastMapBase
         Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_OUT);
 
         //同步tips
-        synchronize("rb_tips_update", new Point(1720,1150));
+        synchronize(Page_GridManager.TIPS_UPDATE, new Point(1720,1150));
 
         //找到符合要求的位置
         Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_IN);
@@ -670,7 +674,7 @@ public class testFastMapZF extends testFastMapBase
         Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_OUT);
 
         //同步tips
-        synchronize("rb_tips_update", new Point(1720,1150));
+        synchronize(Page_GridManager.TIPS_UPDATE, new Point(1720,1150));
 
         //找到符合要求的位置
         Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_IN);
@@ -699,7 +703,7 @@ public class testFastMapZF extends testFastMapBase
         Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_OUT);
 
         //同步tips
-        synchronize("rb_tips_update", new Point(1720,1150));
+        synchronize(Page_GridManager.TIPS_UPDATE, new Point(1720,1150));
 
         //找到符合要求的位置
         Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_IN);
@@ -720,7 +724,7 @@ public class testFastMapZF extends testFastMapBase
     public void test_FM_1304_6_2_5_check() throws Exception {
 
         //同步tips
-        synchronize("rb_tips_update");
+        synchronize(Page_GridManager.TIPS_UPDATE);
 
         //禁止穿行1级道路（测线且t_sync=1）
         getPosion("1112036063743");
@@ -736,7 +740,7 @@ public class testFastMapZF extends testFastMapBase
     public void test_FM_1304_6_2_6_check() throws Exception {
 
         //同步tips
-        synchronize("rb_tips_update");
+        synchronize(Page_GridManager.TIPS_UPDATE);
 
         //禁止穿行2级道路（测线且t_sync=1）
         getPosion("1112036063743");
@@ -864,7 +868,7 @@ public class testFastMapZF extends testFastMapBase
         Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_OUT);
 
         //同步tips
-        synchronize("rb_tips_update", new Point(1720,1150));
+        synchronize(Page_GridManager.TIPS_UPDATE, new Point(1720,1150));
 
         //找到符合要求的位置
         Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_IN);
@@ -893,7 +897,7 @@ public class testFastMapZF extends testFastMapBase
         Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_OUT);
 
         //同步tips
-        synchronize("rb_tips_update", new Point(1720,1150));
+        synchronize(Page_GridManager.TIPS_UPDATE, new Point(1720,1150));
 
         //找到符合要求的位置
         Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_IN);
@@ -921,7 +925,7 @@ public class testFastMapZF extends testFastMapBase
         Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_OUT);
 
         //同步tips
-        synchronize("rb_tips_update", new Point(1720,1150));
+        synchronize(Page_GridManager.TIPS_UPDATE, new Point(1720,1150));
 
         //找到符合要求的位置
         Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_IN);
@@ -951,7 +955,7 @@ public class testFastMapZF extends testFastMapBase
         Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_OUT);
 
         //同步tips
-        synchronize("rb_tips_update", new Point(1720,1150));
+        synchronize(Page_GridManager.TIPS_UPDATE, new Point(1720,1150));
 
         //找到符合要求的位置
         Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_IN);
@@ -974,7 +978,7 @@ public class testFastMapZF extends testFastMapBase
     public void test_FM_1305_6_2_5_check() throws Exception {
 
         //同步tips
-        synchronize("rb_tips_update");
+        synchronize(Page_GridManager.TIPS_UPDATE);
 
         //禁止驶入1级道路（测线且t_sync=1）
         getPosion("1112036063743");
@@ -991,7 +995,7 @@ public class testFastMapZF extends testFastMapBase
     public void test_FM_1305_6_2_6_check() throws Exception {
 
         //同步tips
-        synchronize("rb_tips_update");
+        synchronize(Page_GridManager.TIPS_UPDATE);
 
         //禁止驶入2级道路（测线且t_sync=1）
         getPosion("1112036063743");
@@ -1225,9 +1229,10 @@ public class testFastMapZF extends testFastMapBase
     // 上报情报
     public void addReport() throws InterruptedException, UiObjectNotFoundException, NoSuchFieldException, ClassNotFoundException {
 
+        Thread.sleep(1000);
         Page_MainBoard.Inst.Click(Page_MainBoard.INFO_REPORT); //点上报
         Page_MainBoard.Inst.Click(Page_MainBoard.INFO_REPORT_POINT); //点击点情报
-
+        Thread.sleep(1000);
         Page_MainBoard.Inst.Click(new Point(900,500)); //点击情报位置
 
         Page_InfoReport.Inst.SetValue(Page_InfoReport.REPORT_NAME, "测试上报情报6"); //输入情报名称
@@ -1236,8 +1241,9 @@ public class testFastMapZF extends testFastMapBase
         Page_SelectTime.Inst.Click(Page_SelectTime.OK);
 
         Page_InfoReport.Inst.Click(Page_InfoReport.CAMERA_BUTTON);//拍照
-
+        Thread.sleep(1000);
         Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);//点击拍照
+        Thread.sleep(2000);
         Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);//点击返回
 
 
@@ -1245,7 +1251,7 @@ public class testFastMapZF extends testFastMapBase
 
         //获取globalID
         GotoMyData(Page_MyData.LIVE_INFORMATION_TYPE); //进入我的数据,自采集情报
-        mDevice.wait(Until.findObject(By.text("自采集情报(POI)(点)")), 500).click();
+        mDevice.wait(Until.findObject(By.text("自采集情报(POI)(点)")), 1000).click();
         globalId = Page_InfoReport.Inst.GetValue(Page_InfoReport.GLOBAL_ID).substring(10);
         Page_InfoReport.Inst.Click(Page_InfoReport.CANCEL);
         ExitMyData(); //退出我的数据
@@ -1255,40 +1261,39 @@ public class testFastMapZF extends testFastMapBase
     // 同步情报
     public void synchronize(String syncType, Point... syncGridPositon) throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
 
-        Click("head_icon", 1000);
-        Click("fmcard_tv_grid_manager", 1000); //Grid管理
-        Click("grid_project_button", 1000);
+        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+        Page_MainMenu.Inst.Click(Page_MainMenu.GRID_MANAGER); //Grid管理
+        Page_GridManager.Inst.Click(Page_GridManager.PROJECT_BUTTON);
+        Thread.sleep(1000);
         if(syncGridPositon.length > 0) {
-            Click(syncGridPositon[0]);
+            Page_MainBoard.Inst.Click(syncGridPositon[0]);
         }else {
-            Click(new Point(mDevice.getDisplayWidth()/2,mDevice.getDisplayHeight()/2));
+            Page_MainBoard.Inst.Click(new Point(mDevice.getDisplayWidth()/2,mDevice.getDisplayHeight()/2));
         }
-
-        Click(syncType, 1000); //情报数据
-        Click("synchronous_button", 1000); //同步
-        Click("btn_fm_confirm", 1000);
-        Click("btn_fm_confirm", 1000);
+        Thread.sleep(1000);
+        Page_GridManager.Inst.Click(syncType); //情报数据
+        Page_GridManager.Inst.Click(Page_GridManager.SYNCHRONOUS_BUTTON); //同步
+        Page_GridManager.Inst.Click(Page_GridManager.CONFIRM);
+        Page_GridManager.Inst.Click(Page_GridManager.CONFIRM);
         int count = 0;
         while (true)
         {
             try
             {
-                UiCollection videos = new UiCollection(new UiSelector().className("android.widget.FrameLayout"));
-
-                UiObject confirmObj = videos.getChild(new UiSelector().className("android.widget.Button"));
+                UiObject2 confirmObj = mDevice.findObject(By.res(packageName, "grid_sync_btn_positive"));
                 if (confirmObj.isEnabled())
                 {
                     Thread.sleep(5000);
                     break;
                 }
             }
-            catch (android.support.test.uiautomator.UiObjectNotFoundException e)
+            catch (Exception e)
             {
                 continue;
             }
             finally
             {
-                if (count == 1500)
+                if (count == 500)
                 {
                     break;
                 }
@@ -1297,94 +1302,61 @@ public class testFastMapZF extends testFastMapBase
                 count++;
             }
         }
-        Click("grid_sync_btn_positive");
+        Page_GridManager.Inst.Click(Page_GridManager.GRID_SYNC_BTN_POSITIVE);
+
         Thread.sleep(1000);
         UiObject2 object = mDevice.findObject(By.res(packageName, "btn_fm_confirm"));
         if(null != object) {
             object.click();
+            Thread.sleep(1000);
         }
         Page_MainBoard.Inst.Click(Page_MainBoard.BACK);
         Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
     }
 
     // 采纳情报
-    public void accept() throws UiObjectNotFoundException, InterruptedException {
+    public void accept() {
 
-        mDevice.findObject(By.res(packageName, "img_search")).click();
-        Thread.sleep(1000);
+        try {
 
-        mDevice.wait(Until.findObject(By.text("情报")), 500).click();
-        mDevice.findObject(By.res(packageName, "edt_search_info_input")).setText(globalId);
-        Thread.sleep(500);
-        mDevice.findObject(By.res(packageName, "tv_search_info_btn")).click();
-        Thread.sleep(2000);
+            //检索情报
+            Page_MainBoard.Inst.Click(Page_MainBoard.SEARCH);
+            Page_MainBoard.Inst.Click(Page_MainBoard.SEARCH_INFO);
+            Page_MainBoard.Inst.SetValue(Page_MainBoard.SEARCH_INFO_INPUT,globalId);
+            Page_MainBoard.Inst.Click(Page_MainBoard.SEARCH_INFO_BTN);
+            Page_SearchResultList.Inst.Click(Page_SearchResultList.DATA_LIST);
 
-        UiScrollable objscoll = new UiScrollable(new UiSelector().className("android.widget.ListView"));
+            //采纳情报
+            Page_InfoReport.Inst.Click(Page_InfoReport.SAVE); //点击采纳
+            Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC); //点击拍照
+            Thread.sleep(1000);
+            Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK); //点击返回
+            Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "中餐馆");//点击选择分类
 
-        mDevice.findObject(By.res(packageName, "tv_my_data_snap_list_item_name")).click();
+            infoFid =  Page_POI.Inst.GetValue(Page_POI.FID);
 
-
-        //采纳情报
-        Click("save_button",6000); //点击采纳
-        Click("take_pic_imgbtn", 3000); //点击拍照
-        Click("task_pic_back_img",1000); //点击返回
-        Click("tv_assort_type", 3000);//点击选择分类
-
-        UiObject2 txtFid =  mDevice.findObject(By.res(packageName, "tv_poi_fid_hd"));
-
-
-        // 遍历List
-        List<UiObject2> objList = mDevice.wait(Until.findObjects(By.res(packageName, "top_name_txtinfo")), 500);
-
-        if (objList == null)
-        {
-            fail("can not find ctrl: top_name_txtinfo");
+            Page_POI.Inst.Click(Page_POI.SAVE); //点击保存
+            Page_SearchResultList.Inst.Click(Page_SearchResultList.BACK); //点击返回
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-        UiObject2 objectRest = null;
-        for (UiObject2 object : objList)
-        {
-            if(object.getText().equals("中餐馆"))
-            {
-                objectRest = object;
-            }
-        }
-
-        if (objectRest == null)
-        {
-            fail("can not find ctrl: 中餐馆");
-        }
-
-        infoFid = txtFid.getText();
-
-        objectRest.click(); //点击中餐馆
-        Click("save_button"); //点击保存
-        mDevice.pressBack();
-        Thread.sleep(1000);
     }
 
     // 检查情报fid
     public void checkFid() throws UiObjectNotFoundException, InterruptedException {
-        Click("head_icon",500); //点击主界面左上角头像
 
-        Click("fmcard_tv_user_data",500); //点击我的数据
-        Click("tv_my_data_condition_1",500); // 点击Tips数据
-        Click("rb_condition_poi",500); //点击对应的数据类型（Tips数据/POI数据/点门牌数据/常规情报/自采集情报）
-        Click("tv_condition_confirm_hd",500); //点击确定
+        GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
 
-        UiScrollable objscoll = new UiScrollable(new UiSelector().className("android.widget.ListView"));
-        UiObject Object = objscoll.getChildByText(new UiSelector().className("android.widget.TextView"), "测试上报情报６");
-        Object.click();
-        Thread.sleep(2000);
+        mDevice.wait(Until.findObject(By.text("测试上报情报６")), 1000).click();
 
-        UiObject2 txtFid =  mDevice.findObject(By.res(packageName, "tv_poi_fid_hd"));
-        String strFid = txtFid.getText();
-
-        mDevice.pressBack();
-        Thread.sleep(500);
-        Click("btn_fm_confirm", 1000);
-        mDevice.pressBack();
-        Thread.sleep(500);
+        String strFid = "";
+        try {
+            strFid = Page_POI.Inst.GetValue(Page_POI.FID);
+            Page_POI.Inst.Click(Page_POI.CANCEL);
+            ExitMyData();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         assertEquals(infoFid, strFid);
     }
