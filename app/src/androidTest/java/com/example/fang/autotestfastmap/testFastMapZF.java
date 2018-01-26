@@ -106,24 +106,14 @@ public class testFastMapZF extends testFastMapBase
 
         GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
 
-        mDevice.wait(Until.findObject(By.text("测试ＰＯＩ２")), 1000).click();
+        findObjectByText("测试ＰＯＩ２").click();
 
-        //判断新增数据数量与poiNum是否相等
-        UiObject2 txtAddCount  = mDevice.wait(Until.findObject(By.res(packageName, "tv_my_data_count_2")), 500);
-        UiObject2 txtTelephoneNo  = mDevice.wait(Until.findObject(By.res(packageName, "edt_contactItem_telNum")), 500);
+        //获取电话号码
+        String txtTelephoneNo  = Page_POI.Inst.GetValue(Page_POI.TEL);
 
-        if(null != txtAddCount)
-        {
-            assertEquals(Integer.toString(poiNum), txtAddCount.getText());
-            assertEquals("19012345678", txtTelephoneNo.getText());
-            assertNotNull(Until.findObject(By.desc("测试ＰＯＩ2"))); //检查是否有"测试ＰＯＩ"对象
-        }
-        else
-        {
-            fail("Save POI failed");
-        }
+        assertEquals("19012345678", txtTelephoneNo);
 
-        Page_POI.Inst.Click(Page_POI.SAVE); //点击保存
+        Page_POI.Inst.Click(Page_POI.CANCEL);
         ExitMyData(); //退出我的数据
     }
 
@@ -1251,7 +1241,7 @@ public class testFastMapZF extends testFastMapBase
 
         //获取globalID
         GotoMyData(Page_MyData.LIVE_INFORMATION_TYPE); //进入我的数据,自采集情报
-        mDevice.wait(Until.findObject(By.text("自采集情报(POI)(点)")), 1000).click();
+        findObjectByText("自采集情报(POI)(点)").click();
         globalId = Page_InfoReport.Inst.GetValue(Page_InfoReport.GLOBAL_ID).substring(10);
         Page_InfoReport.Inst.Click(Page_InfoReport.CANCEL);
         ExitMyData(); //退出我的数据
@@ -1280,7 +1270,7 @@ public class testFastMapZF extends testFastMapBase
         {
             try
             {
-                UiObject2 confirmObj = mDevice.findObject(By.res(packageName, "grid_sync_btn_positive"));
+                UiObject2 confirmObj = findObjectByResourceId("grid_sync_btn_positive");
                 if (confirmObj.isEnabled())
                 {
                     Thread.sleep(5000);
@@ -1305,7 +1295,7 @@ public class testFastMapZF extends testFastMapBase
         Page_GridManager.Inst.Click(Page_GridManager.GRID_SYNC_BTN_POSITIVE);
 
         Thread.sleep(1000);
-        UiObject2 object = mDevice.findObject(By.res(packageName, "btn_fm_confirm"));
+        UiObject2 object = findObjectByResourceId("btn_fm_confirm");
         if(null != object) {
             object.click();
             Thread.sleep(1000);
@@ -1359,6 +1349,18 @@ public class testFastMapZF extends testFastMapBase
         }
 
         assertEquals(infoFid, strFid);
+    }
+
+    public UiObject2 findObjectByText(String strText) {
+        UiObject2 uiObject2 = null;
+        uiObject2 = mDevice.wait(Until.findObject(By.text(strText)), 3000);
+        return uiObject2;
+    }
+
+    public UiObject2 findObjectByResourceId(String strResourceId) {
+        UiObject2 uiObject2 = null;
+        uiObject2 = mDevice.wait(Until.findObject(By.res(packageName, strResourceId)), 3000);
+        return uiObject2;
     }
 
     @Override
