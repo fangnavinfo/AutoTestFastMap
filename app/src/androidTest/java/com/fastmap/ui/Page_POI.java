@@ -30,6 +30,9 @@ public class Page_POI extends FastMapPage
     @FindResource(Id="edt_contactItem_telNum")
     public static String TEL;
 
+    @FindResource(Id="camera_button")
+    public static String CAMERA;
+
     public static Page_POI Inst;
     static
     {

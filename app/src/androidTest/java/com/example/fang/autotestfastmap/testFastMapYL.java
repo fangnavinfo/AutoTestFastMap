@@ -1,6 +1,7 @@
 package com.example.fang.autotestfastmap;
 
 import android.support.test.uiautomator.By;
+import android.support.test.uiautomator.UiObject;
 import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.UiObjectNotFoundException;
 import android.support.test.uiautomator.UiScrollable;
@@ -22,7 +23,6 @@ import java.util.List;
 import static junit.framework.Assert.fail;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import com.fastmap.ui.FastMapUI.*;
 
 /**
  * Created by fang on 17/11/21.
@@ -79,55 +79,28 @@ public class testFastMapYL extends testFastMapBase
 
 
     @Test
-    public void test00203_poi_add() throws InterruptedException
+    public void test00203_poi_add() throws Exception
     {
         //产品全貌开关关闭,新增POI
         mDevice.drag(700, 823, 1024, 823, 10);
         Thread.sleep(1000);
         //SetConfInfo();//产品全貌开关
-        Click(newPOIPoint, 6000);
-        Click("shuipai_btn");//选择水牌
-        Click("radio_revolution2");//分辨率中拍摄
-        Click("take_pic_imgbtn", 3000);
-        Click("task_pic_back_img");
-        PutinEditor("fm_et_name", "测试ＰＯＩ");
-        Click("tv_assort_type", 3000);
-        Thread.sleep(3000);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.SHUIPAI_TYPE);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.RADIO_MID);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+        Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "中餐馆");
+        Page_POI.Inst.Click(Page_POI.SAVE);
 
-        List<UiObject2> objList = mDevice.wait(Until.findObjects(By.res(packageName, "top_name_txtinfo")), 500);
-
-        if (objList == null)
-        {
-            fail("can not find ctrl: top_name_txtinfo");
-        }
-
-        UiObject2 objectRest = null;
-        for (UiObject2 object : objList)
-        {
-            if(object.getText().equals("中餐馆"))
-            {
-                objectRest = object;
-            }
-        }
-
-        if (objectRest == null)
-        {
-            fail("can not find ctrl: 中餐馆");
-        }
-
-        objectRest.click();
-
-        Click("camera_button");//看是否保存了上次置的属性(水牌，中)
-        Click("task_pic_back_img");
-        Thread.sleep(1000);
-        Click("save_button");
+        Page_POI.Inst.Click(Page_POI.CAMERA);//看是否保存了上次置的属性(水牌，中)
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+        Page_POI.Inst.Click(Page_POI.SAVE);
         poiNum++;
 
         //我的数据
-        GotoMyData("rb_condition_poi");
-        assertEditorEqual("tv_my_data_count_2", Integer.toString(poiNum));
-        assertNotNull(Until.findObject(By.desc("测试ＰＯＩ")));
-        ExitMyData();
+        CheckMyData(Page_MyData.POI_TYPE, "测试ＰＯＩ");
     }
 
     @Test
@@ -262,6 +235,7 @@ public class testFastMapYL extends testFastMapBase
         SetConfInfo();//关闭产品全貌开关
     }
     /*
+    //test
             @Test
             public void test00208_poi_add() throws UiObjectNotFoundException, InterruptedException
             {
@@ -290,7 +264,7 @@ public class testFastMapYL extends testFastMapBase
                 assertNotNull(Until.findObject(By.desc("紧急停车带")));
                 ExitMyData();
             }
-    */
+*/
     @Test
     public void test00209_poi_add() throws UiObjectNotFoundException, InterruptedException
     {
@@ -944,6 +918,7 @@ public class testFastMapYL extends testFastMapBase
 
         AssertIndoorCheck("大门","中","FM-1104-6-5","门的方向应与道路通行方向一致","不能忽视");
     }
+
     @Test
     public void test01048_data_check() throws UiObjectNotFoundException, InterruptedException
     {
@@ -986,6 +961,7 @@ public class testFastMapYL extends testFastMapBase
 
         AssertIndoorCheck("大门","中","FM-1104-6-6","10级路上不能有车行门","不能忽视");
     }
+
     @Test
     public void test01050_data_check() throws UiObjectNotFoundException, InterruptedException
     {
@@ -1147,8 +1123,80 @@ public class testFastMapYL extends testFastMapBase
         AssertIndoorCheck("测线","中","FM-2001-5-9","新测线与隧道属性道路相交，需要制作立交","不能忽视");
     }
 
+    @Test
+    public void test01056_data_check() throws Exception
+    {
+        //Rdlink具有内部道路属性时，如果新增区域内Tips（增属性）包含此条link，则报LOG。
+        mDevice.drag(700, 823, 1024, 823, 10);
+        Thread.sleep(1000);
+
+        SearchRoadFromLink("686517");
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ROUNDABOUT_1600);
+        Click(GetCenter());
+        Page_RoundAbout.Inst.Click(Page_RoundAbout.REGION_ROAD);
+        Page_RoundAbout.Inst.Click(Page_RoundAbout.ADD);
+        Page_RoundAbout.Inst.Click(Page_RoundAbout.SAVE);
+        tipsNum++;
+
+        AssertIndoorCheck("区域内道路","低","FM-1604-1-3","新增区域内道路（pid：***，多个pid时，用逗号分割）上，已经具有区域内道路属性。不能重复增加属性。","可以忽略");
+    }
+
+    @Test
+    public void test01057_data_check() throws Exception
+    {
+        //如果Rdlink上已经新增了区域内属性，则以区域内属性Tips为准（同一link关联在两个增属性的区域内道路tips上）。
+        mDevice.drag(700, 823, 1024, 823, 10);
+        Thread.sleep(1000);
+
+        SearchRoadFromLink("686517");
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ROUNDABOUT_1600);
+        Click(GetCenter());
+        Page_RoundAbout.Inst.Click(Page_RoundAbout.REGION_ROAD);
+        Page_RoundAbout.Inst.Click(Page_RoundAbout.ADD);
+        Page_RoundAbout.Inst.Click(Page_RoundAbout.SAVE);
+        tipsNum++;
+
+        AssertIndoorCheck("区域内道路","低","FM-1604-1-3","新增区域内道路（pid：***，多个pid时，用逗号分割）上，已经具有区域内道路属性。不能重复增加属性。","可以忽略");
+    }
+
+    @Test
+    public void test01058_data_check() throws Exception
+    {
+        //Rdlink不具有内部道路属性时，如果新增区域内Tips（删属性）包含此条link，则报LOG。
+
+        mDevice.drag(700, 823, 1024, 823, 10);
+        Thread.sleep(1000);
+
+        SearchRoadFromLink("568899");
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ROUNDABOUT_1600);
+        Click(GetCenter());
+        Page_RoundAbout.Inst.Click(Page_RoundAbout.REGION_ROAD);
+        Page_RoundAbout.Inst.Click(Page_RoundAbout.DELETE);
+        Page_RoundAbout.Inst.Click(Page_RoundAbout.SAVE);
+        tipsNum++;
+
+        AssertIndoorCheck("区域内道路","低","FM-1604-1-4","新增区域内道路（pid：***，多个pid时，用逗号分割）上，已经具有区域内道路属性。不能重复增加属性。","可以忽略");
+    }
+
+    @Test
+    public void test01059_data_check() throws Exception
+    {
+        // 2、如果Rdlink上已经新增了区域内属性，则以区域内属性Tips为准（同一link关联在两个删属性的区域内道路tips上）。
+        //备注：如果超过2个区域内道路tips，则不检查
+        mDevice.drag(700, 823, 1024, 823, 10);
+        Thread.sleep(1000);
 
 
+        SearchRoadFromLink("568899");
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ROUNDABOUT_1600);
+        Click(GetCenter());
+        Page_RoundAbout.Inst.Click(Page_RoundAbout.REGION_ROAD);
+        Page_RoundAbout.Inst.Click(Page_RoundAbout.DELETE);
+        Page_RoundAbout.Inst.Click(Page_RoundAbout.SAVE);
+        tipsNum++;
+        AssertIndoorCheck("区域内道路","低","FM-1604-1-4","新增区域内道路（pid：***，多个pid时，用逗号分割）上，已经具有区域内道路属性。不能重复增加属性。","可以忽略");
+
+        }
 
     @Test
     public void test01101_tips_CarInfo_add() throws InterruptedException
@@ -1176,9 +1224,9 @@ public class testFastMapYL extends testFastMapBase
         ExitMyData();
     }
     /*
+    //test
     @Test
-    public void test01102_tips_CarInfo_add() throws InterruptedException
-    {
+    public void test01102_tips_CarInfo_add() throws InterruptedException, UiObjectNotFoundException {
         //问题
         //我的数据，Tips下点击车信，进入编辑模式，删除
         Click(newCarInfo);//车信控件ID
@@ -1192,8 +1240,10 @@ public class testFastMapYL extends testFastMapBase
         Click("head_icon");
         Click("fmcard_tv_user_data");
 
-        UiObject2 test = mDevice.findObject(By.text("车信"));
-        test.click();
+        UiScrollable objscoll = new UiScrollable(new UiSelector().className("android.widget.ListView"));
+        objscoll.setMaxSearchSwipes(9);
+        UiObject object = objscoll.getChildByText(new UiSelector().className("android.widget.TextView"), "车信", true);
+        object.click();
         Click("delete_button");
         Click("btn_fm_confirm");
 
@@ -1248,6 +1298,7 @@ public class testFastMapYL extends testFastMapBase
         ExitMyData();
 
     }
+
     @Test
     public void test01105_tips_CarInfo_add() throws InterruptedException {
         //新增单箭头 t 直斜左、
@@ -1602,7 +1653,7 @@ public class testFastMapYL extends testFastMapBase
         ExitMyData();
     }
 
-    ///////////////待完善////////////
+
 
     @Test
     public void test01119_tips_CarInfo_add() throws InterruptedException {
@@ -3564,7 +3615,8 @@ public class testFastMapYL extends testFastMapBase
 
         ExitMyData();
     }
-    /*
+
+    //test
     @Test
     public void test01222_tips_add_Click() throws InterruptedException {
         //单击手动设置点位信息，新增GPS打点
@@ -3586,7 +3638,7 @@ public class testFastMapYL extends testFastMapBase
 
         ExitMyData();
     }//界面没GPS打点
-*/
+
     @Test
     public void test01223_tips_add_DoubleClick() throws InterruptedException {
         //设置点位信息，新增限速
@@ -3842,7 +3894,9 @@ public class testFastMapYL extends testFastMapBase
 
         ExitMyData();
     }
-    /*
+/*
+    //test
+
                     @Test
                     public void test01232_tips_add_DoubleClick() throws InterruptedException {
                         //设置点位信息，新增SA
@@ -3868,7 +3922,7 @@ public class testFastMapYL extends testFastMapBase
 
                         ExitMyData();
                     }
-
+        //test
                     @Test
                     public void test01233_tips_add_DoubleClick() throws InterruptedException {
                         //设置点位信息，新增PA
@@ -3893,7 +3947,7 @@ public class testFastMapYL extends testFastMapBase
 
                         ExitMyData();
                     }
-    */
+*/
     @Test
     public void test01234_tips_add_DoubleClick() throws InterruptedException {
         //设置点位信息，新增匝道
@@ -4164,7 +4218,7 @@ public class testFastMapYL extends testFastMapBase
 
         ExitMyData();
     }
-/*
+
     @Test
     public void test01244_tips_add_DoubleClick() throws InterruptedException {
         //设置点位信息，新增GPS打点
@@ -4186,11 +4240,11 @@ public class testFastMapYL extends testFastMapBase
         assertNotNull(Until.findObject(By.desc("GPS打点")));
 
         ExitMyData();
-    }*/
- /*
-
+    }
+/*
+    //test
     //////////删除Tips/////////////
-
+/*
             @Test
             public void test01245_tips_delete_Click() throws InterruptedException {
                 //设置点位信息，新增删除标记
@@ -4199,7 +4253,6 @@ public class testFastMapYL extends testFastMapBase
 
                 Click(newDelete,500);//删除标记，单击只删除一个
                 Click(GetCenter());
-
                 tipsNum++;
 
                 String strType = "rb_condition_tips";
@@ -4488,8 +4541,437 @@ public class testFastMapYL extends testFastMapBase
 
         ExitMyData();
     }
+    /*
+//test
+    @Test
+    public void test01601_tips_copy() throws Exception {
+        //复制电子眼
+        mDevice.drag(700, 823, 1024, 823, 10);
+        Thread.sleep(1000);
 
-    private void scrollClickObject(String targetName) throws UiObjectNotFoundException {
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POINT_ELECTRONIC_EYE);
+        Click(GetCenter());
+        Page_Electronic_Eye.Inst.Click(Page_Electronic_Eye.OVERSPEED);//非机动车
+        mDevice.drag(1871,1322,1856,329,10);
+        Page_Electronic_Eye.Inst.Click(Page_Electronic_Eye.NO);
+        Page_Electronic_Eye.Inst.Click(Page_Electronic_Eye.ONE);
+        Page_Electronic_Eye.Inst.Click(Page_Electronic_Eye.TWO);
+        Page_Electronic_Eye.Inst.Click(Page_Electronic_Eye.ZERO);
+        Page_Electronic_Eye.Inst.Click(Page_Electronic_Eye.SAVE);
+        tipsNum++;
+
+        //
+        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+        Page_MainMenu.Inst.Click(Page_MainMenu.MY_DATA);
+        UiScrollable objscoll = new UiScrollable(new UiSelector().className("android.widget.ListView"));
+        objscoll.setMaxSearchSwipes(3);
+
+        UiObject object = objscoll.getChildByText(new UiSelector().className("android.widget.TextView"), "电子眼");
+        object.click();
+        //mDevice.findObject(By.text("电子眼")).click();
+        Page_Electronic_Eye.Inst.Click(Page_Electronic_Eye.CANCEL);
+        Page_MyData.Inst.Click(Page_MyData.BACK);
+        Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_COPY_TIPS);
+        Click(GetCenter());
+        Click(new Point(300,360));
+        tipsNum++;
+
+        CheckMyData(Page_MyData.TIPS_TYPE, "电子眼");
+
+        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+        Page_MainMenu.Inst.Click(Page_MainMenu.MY_DATA);
+        //mDevice.findObject(By.text("电子眼")).click();
+        Click("ll_my_data_snap_list");
+        Page_Electronic_Eye.Inst.Click(Page_Electronic_Eye.DELETE);
+        Click("btn_fm_confirm");
+        Thread.sleep(3000);
+        tipsNum--;
+
+        Click("ll_my_data_snap_list");
+        Page_Electronic_Eye.Inst.Click(Page_Electronic_Eye.DELETE);
+        Click("btn_fm_confirm");
+        Thread.sleep(3000);
+        Page_MyData.Inst.Click(Page_MyData.BACK);
+        Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
+        tipsNum--;
+    }*/
+
+    @Test
+    public void test01602_tips_copy() throws Exception {
+        //复制电子眼
+        mDevice.drag(700, 823, 1024, 823, 10);
+        Thread.sleep(1000);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POINT_ELECTRONIC_EYE);
+        Click(GetCenter());
+        Page_ElecEye.Inst.Click(Page_ElecEye.EYE_NO_VECHICLE);
+        Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
+        tipsNum++;
+
+        //
+        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+        Page_MainMenu.Inst.Click(Page_MainMenu.MY_DATA);
+        UiScrollable objscoll = new UiScrollable(new UiSelector().className("android.widget.ListView"));
+        objscoll.setMaxSearchSwipes(3);
+
+        UiObject object = objscoll.getChildByText(new UiSelector().className("android.widget.TextView"), "电子眼");
+        object.click();
+        Page_ElecEye.Inst.Click(Page_ElecEye.CANCEL);
+        Page_MyData.Inst.Click(Page_MyData.BACK);
+        Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_COPY_TIPS);
+        Click(GetCenter());
+        Click(new Point(300,360));
+        tipsNum++;
+
+        CheckMyData(Page_MyData.TIPS_TYPE, "电子眼");
+    }
+
+    @Test
+    public void test01603_tips_copy() throws Exception {
+        //复制危险信息
+        mDevice.drag(700, 823, 1024, 823, 10);
+        Thread.sleep(1000);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.DANGEROUS_INFO);
+        Click(GetCenter());
+        Page_Dangerous.Inst.Click(Page_Dangerous.ICON_1);
+        Page_Dangerous.Inst.Click(Page_Dangerous.SAVE);
+        tipsNum++;
+
+        //
+       /* Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+        Page_MainMenu.Inst.Click(Page_MainMenu.MY_DATA);
+        UiScrollable objscoll = new UiScrollable(new UiSelector().className("android.widget.ListView"));
+        objscoll.setMaxSearchSwipes(3);
+
+        UiObject object = objscoll.getChildByText(new UiSelector().className("android.widget.TextView"), "危险信息");
+        object.click();
+        Page_ElecEye.Inst.Click(Page_ElecEye.CANCEL);
+        Page_MyData.Inst.Click(Page_MyData.BACK);
+        Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
+*/
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_COPY_TIPS);
+        Click(GetCenter());
+        Click(new Point(300,360));
+        tipsNum++;
+
+        CheckMyData(Page_MyData.TIPS_TYPE, "危险信息");
+    }
+
+    @Test
+    public void test01701_tips_add() throws Exception {
+        //里程桩,里程数自动加1
+        mDevice.drag(700, 823, 1024, 823, 10);
+        Thread.sleep(1000);
+
+        SearchRoadFromLink("607979");
+        Click(new Point(1971,919));//打点
+
+        Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
+        Click(GetCenter());
+        PutinEditor("et_milepost_number","E30");
+        Page_MilePost.Inst.Click(Page_MilePost.ZERO);
+        Page_MilePost.Inst.Click(Page_MilePost.SAVE);
+        tipsNum++;
+
+        SearchRoadFromLink("607979");
+        Click(new Point(1971,919));//打点
+        Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
+        Click(GetCenter());
+        PutinEditor("et_milepost_number","E30");
+        Page_MilePost.Inst.Click(Page_MilePost.ADD);
+        Page_MilePost.Inst.Click(Page_MilePost.SAVE);
+        tipsNum++;
+
+        SearchRoadFromLink("607979");
+        Click(new Point(1971,919));//打点
+        Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
+        Click(GetCenter());
+        PutinEditor("et_milepost_number","E30");
+        Page_MilePost.Inst.Click(Page_MilePost.SAVE);
+        tipsNum++;
+
+        CheckMyData(Page_MyData.TIPS_TYPE, "里程桩");
+    }
+
+    @Test
+    public void test01702_tips_add() throws Exception {
+        //里程桩 关联rdlink 关联测线
+        mDevice.drag(700, 823, 1024, 823, 10);
+        Thread.sleep(1000);
+
+        SearchRoadFromLink("606403");//小黄庄前街
+        Click(new Point(1971,919));//打点
+        Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
+        Click(GetCenter());
+        //mDevice.findObject(By.text("小黄庄前街"));
+        //Click("tv_milepost_road_name_one");
+        PutinEditor("et_milepost_road_name","道路");
+        Page_MilePost.Inst.Click(Page_MilePost.SAVE);
+        tipsNum++;
+
+        Click(newLeftFive);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);//手绘测线
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.PROVINCIAL_RD);
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.LANE_NUM_1);
+        Click(new Point(426,1185));
+        Click(new Point(1000,1185));
+        Click("save_button");
+        Click(new Point(1971,919));//打点
+        Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
+        Click(new Point(600,1185));
+        PutinEditor("et_milepost_number","S479");//此时道路名编号应为空
+        PutinEditor("et_milepost_road_name","手绘道路");//此时道路名称号应为空
+        //Click(new Point(600,1185));
+        Page_MilePost.Inst.Click(Page_MilePost.SAVE);
+        tipsNum++;
+
+        CheckMyData(Page_MyData.TIPS_TYPE, "里程桩");
+    }
+
+    @Test
+    public void test01703_tips_add() throws Exception {
+        //里程桩 关联两条rdlink 原规则
+        mDevice.drag(700, 823, 1024, 823, 10);
+        Thread.sleep(1000);
+
+        SearchRoadFromLink("671765");//小黄庄北街
+        Click(new Point(1971,919));//打点
+        Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
+        Click(GetCenter());
+        PutinEditor("et_milepost_number","");//此时道路名编号应为空
+        PutinEditor("et_milepost_road_name","手绘道路");//此时道路名称号应为空
+        Page_MilePost.Inst.Click(Page_MilePost.SAVE);
+        tipsNum++;
+
+        SearchRoadFromLink("732451");//北五环 S50
+        Click(new Point(1971,919));//打点
+        Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
+        Thread.sleep(2000);
+        Click(new Point(mDevice.getDisplayWidth()/2, mDevice.getDisplayHeight()/2+30));
+        //原规则，此时道路名编号自动赋值S50
+        Page_MilePost.Inst.Click(Page_MilePost.SAVE);//保存
+        tipsNum++;
+
+        CheckMyData(Page_MyData.TIPS_TYPE, "里程桩");
+    }
+
+    @Test
+    public void test01704_tips_add() throws Exception {
+        //里程桩 关联两条rdlink 新规则
+        mDevice.drag(700, 823, 1024, 823, 10);
+        Thread.sleep(1000);
+
+        SearchRoadFromLink("12512162");//北五环 S50
+        Click(new Point(1971,919));//打点
+        Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
+        Thread.sleep(2000);
+        Click(new Point(mDevice.getDisplayWidth()/2, mDevice.getDisplayHeight()/2+30));
+        //原规则，关联rdlink自动赋值rdlink上的编号S50,名称为手绘道路
+        Page_MilePost.Inst.Click(Page_MilePost.SAVE);
+        tipsNum++;
+
+        SearchRoadFromLink("342330");//南五环 S50
+        Click(new Point(1971,919));//打点
+        Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
+        Thread.sleep(2000);
+        //Click(new Point(mDevice.getDisplayWidth()/2, mDevice.getDisplayHeight()/2-30));
+        Click(GetCenter());
+        //新规则，比对道路名编号S50，名称编号都继承
+        Page_MilePost.Inst.Click(Page_MilePost.SAVE);//保存
+        tipsNum++;
+
+        CheckMyData(Page_MyData.TIPS_TYPE, "里程桩");
+    }
+
+    @Test
+    public void test01501_search_data() throws Exception {
+        //经纬度搜索 自动调整比例尺到21级，坐标显示在界面中心  重新登录后坐标点消失
+        mDevice.drag(700, 823, 1024, 823, 10);
+        Thread.sleep(1000);
+
+        Click("img_search");
+        mDevice.findObject(By.text("经纬度")).click();
+        //Thread.sleep(3000);
+        PutinEditor("edt_search_location_longitude","162.99");//经度
+        PutinEditor("edt_search_location_latitude","3.44");//纬度
+        Click("tv_search_location_btn");//搜索
+        Thread.sleep(3000);
+
+        testFastMapBase.setClassUp("collector1","123456");
+
+    }
+
+    @Test
+    public void test01502_search_data() throws Exception {
+        //经纬度搜索  新增多条搜索信息 保留后五次搜索记录 观察历史记录列表数及变化
+        mDevice.drag(700, 823, 1024, 823, 10);
+        Thread.sleep(1000);
+
+        Click("img_search");
+        mDevice.findObject(By.text("经纬度")).click();
+        //Thread.sleep(3000);
+        PutinEditor("edt_search_location_longitude","53.44");//经度
+        PutinEditor("edt_search_location_latitude","22.99");//纬度
+        Click("tv_search_location_btn");//搜索
+        Thread.sleep(3000);
+        //waitObjectEnable("iv_search_result_list_back");
+
+        Click("img_search");
+        mDevice.findObject(By.text("经纬度")).click();
+        //Thread.sleep(3000);
+        PutinEditor("edt_search_location_longitude","-70");//经度
+        PutinEditor("edt_search_location_latitude","84");//纬度
+        Click("tv_search_location_btn");//搜索
+        Thread.sleep(3000);
+        //waitObjectEnable("iv_search_result_list_back");
+
+        Click("img_search");
+        mDevice.findObject(By.text("经纬度")).click();
+        //Thread.sleep(3000);
+        PutinEditor("edt_search_location_longitude","79");//经度
+        PutinEditor("edt_search_location_latitude","79.99");//纬度
+        Click("tv_search_location_btn");//搜索
+        Thread.sleep(3000);
+        //waitObjectEnable("iv_search_result_list_back");
+
+        Click("img_search");
+        mDevice.findObject(By.text("经纬度")).click();
+        //Thread.sleep(3000);
+        PutinEditor("edt_search_location_longitude","-50");//经度
+        PutinEditor("edt_search_location_latitude","70");//纬度
+        Click("tv_search_location_btn");//搜索
+        Thread.sleep(3000);
+        //waitObjectEnable("iv_search_result_list_back");
+
+        Click("img_search");
+        mDevice.findObject(By.text("经纬度")).click();
+        //Thread.sleep(3000);
+        PutinEditor("edt_search_location_longitude","-30");//经度
+        PutinEditor("edt_search_location_latitude","60");//纬度
+        Click("tv_search_location_btn");//搜索
+        Thread.sleep(3000);
+        //waitObjectEnable("iv_search_result_list_back");
+
+    }
+
+    @Test
+    public void test01503_search_data() throws Exception {
+        ////经纬度搜索  点击历史记录第二条 观察历史记录列表变化
+        mDevice.drag(700, 823, 1024, 823, 10);
+        Thread.sleep(1000);
+
+        Click("img_search");
+        mDevice.findObject(By.text("经纬度")).click();
+        //Thread.sleep(3000);
+        UiScrollable noteList = new UiScrollable( new UiSelector().scrollable(true));  //would be null if the scrollable widget's not more than one page
+        UiObject not = null;
+        not = noteList.getChildByText(new UiSelector().className("android.widget.TextView"), "经度:-50.00000  纬度:70.00000", true);
+        not.click();
+        //Click("tv_search_location_btn");//搜索
+        Thread.sleep(3000);
+       // waitObjectEnable("iv_search_result_list_back");
+       // Click(GetCenter());
+    }
+
+    @Test
+    public void test01504_search_data() throws Exception {
+        //经纬度搜索  点击图标坐标点消失 添加poi
+        mDevice.drag(700, 823, 1024, 823, 10);
+        Thread.sleep(1000);
+
+        Click("img_search");
+        mDevice.findObject(By.text("经纬度")).click();
+        //Thread.sleep(3000);
+        PutinEditor("edt_search_location_longitude","122.99");//经度
+        PutinEditor("edt_search_location_latitude","53.44");//纬度
+        Click("tv_search_location_btn");//搜索
+        Thread.sleep(3000);
+        //waitObjectEnable("iv_search_result_list_back");
+        //Click(GetCenter());
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.NAME_TYPE);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.RADIO_LOW);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+
+        Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "中餐馆");
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        CheckMyData(Page_MyData.POI_TYPE, "测试ＰＯＩ");
+
+    }
+
+    @Test
+    public void test01505_search_data() throws Exception {
+        //经纬度搜索  点击图标坐标点消失 添加tips
+        mDevice.drag(700, 823, 1024, 823, 10);
+        Thread.sleep(1000);
+
+        Click("img_search");
+        mDevice.findObject(By.text("经纬度")).click();
+        //Thread.sleep(3000);
+        PutinEditor("edt_search_location_longitude","53.44");//经度
+        PutinEditor("edt_search_location_latitude","72.99");//纬度
+        Click("tv_search_location_btn");//搜索
+        Thread.sleep(3000);
+        //waitObjectEnable("iv_search_result_list_back");
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_LIGHT);
+        Click(GetCenter());
+        Click(GetCenter());
+    }
+
+    @Test
+    public void test01506_search_data() throws Exception {
+        //经纬度搜索  点击图标坐标点消失 添加点门牌
+        mDevice.drag(700, 823, 1024, 823, 10);
+        Thread.sleep(1000);
+
+        Click("img_search");
+        mDevice.findObject(By.text("经纬度")).click();
+        //Thread.sleep(3000)
+        PutinEditor("edt_search_location_longitude","122.99");//经度
+        PutinEditor("edt_search_location_latitude","53.44");//纬度
+        Click("tv_search_location_btn");//搜索
+        Thread.sleep(3000);
+        //waitObjectEnable("iv_search_result_list_back");
+
+        Click(newPosDoor);
+        PutinEditor("fm_et_name_pas","A");
+        PutinEditor("fm_et_address_pas","123");
+        Click("save_button");
+
+    }
+
+        protected void waitObjectEnable(String strObject) throws  InterruptedException{
+            int waitCount =0;
+            UiObject2 btnBack2 =  mDevice.findObject(By.res(packageName, "iv_search_result_list_back"));
+            while (true)
+            {
+                btnBack2 = mDevice.findObject(By.res(packageName, "iv_search_result_list_back"));
+                if (waitCount == 180)
+                {
+                    fail("控件获取超时！");
+                }
+                if(btnBack2 != null && btnBack2.isEnabled())
+                {
+                    break;
+                }
+                waitCount++;
+                Thread.sleep(1000);
+            }
+
+            btnBack2.click();
+        }
+        private void scrollClickObject(String targetName) throws UiObjectNotFoundException {
         UiScrollable listScrollable = new UiScrollable(new UiSelector().scrollable(true));
         if(listScrollable.exists()) {
             listScrollable.scrollDescriptionIntoView(targetName);
@@ -4499,6 +4981,7 @@ public class testFastMapYL extends testFastMapBase
         }
 
     }
+
 
     private void scrollBackwardClickObject(String targetName) throws UiObjectNotFoundException {
         UiScrollable listScrollable = new UiScrollable(new UiSelector().scrollable(true));
@@ -4521,7 +5004,7 @@ public class testFastMapYL extends testFastMapBase
     }
     private void SearchRoadFromLink(String  strRoad){
         Click("img_search");
-        Click(new Point(1200,420));
+        //Click(new Point(1200,420));
         mDevice.findObject(By.text("Link")).click();
         //Thread.sleep(3000);
         PutinEditor("edt_search_link_input",strRoad);
@@ -4593,7 +5076,7 @@ public class testFastMapYL extends testFastMapBase
     private static Point newNormalRoad = new Point(351,869);//一般道路方面
     private static Point newHighSpeedDiff = new Point(232,986);//高速分歧
     private static Point newDoor = new Point(597,1018);//高速分歧
-    private static Point newGPSPos = new Point(1974,897);//GPS打点
+    private static Point newGPSPos = new Point(1318,1448);//GPS打点
     private static Point new3D = new Point(487,743);//3D
     private static Point newDelete = new Point(1084,1442);//删除
     private static Point newHorFour = new Point(726,1456);//水平方向第四个
@@ -4602,4 +5085,6 @@ public class testFastMapYL extends testFastMapBase
     private static Point newLeftFive = new Point(94,1263);//水平第五个
     //private static Point newCarRoadChange = new Point(483,1432); //车道变化点
     private static Point newdiagram = new Point(1985,1029);//草图
+    private static Point newPosDoor= new Point(1972,1281);//点门牌
+
 }

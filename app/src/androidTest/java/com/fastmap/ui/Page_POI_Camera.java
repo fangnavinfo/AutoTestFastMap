@@ -17,6 +17,11 @@ public class Page_POI_Camera extends FastMapPage
     @FindResource(Id="radio_revolution1")
     public static String RADIO_LOW; //低分辨率
 
+    @FindResource(Id="shuipai_btn")
+    public static String SHUIPAI_TYPE;
+
+    @FindResource(Id="radio_revolution1")
+    public static String RADIO_MID;
 
     public static Page_POI_Camera Inst;
     static

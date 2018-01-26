@@ -105,6 +105,9 @@ public class Page_ElecEye extends FastMapPage
     @FindResource(Id="btn_fm_confirm")
     public static String TIME_CONFIRM;
 
+    @FindResource(Id="cancel_button")
+    public static String CANCEL;
+
     @FindResource(Id="save_button")
     public static String SAVE;
 

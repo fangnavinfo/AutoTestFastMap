@@ -15,10 +15,10 @@ public class Page_SurveyLine extends FastMapPage
     public static String NATIONAL_RD;
 
     @FindResource(Id="card_provincial_rd")
-    public static String PROVINCIAL_RD;
+    public static String PROVINCIAL_RD; //省道
 
     @FindResource(Id="lane_num_1")
-    public static String LANE_NUM_1;
+    public static String LANE_NUM_1; //1车道
 
     @FindResource(Id="lane_num_2")
     public static String LANE_NUM_2;
