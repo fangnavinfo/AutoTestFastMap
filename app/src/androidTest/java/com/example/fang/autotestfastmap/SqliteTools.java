@@ -92,6 +92,37 @@ public class SqliteTools {
 
     }
 
+    public int GetRelateChildrenSize(String dbPath, String name) throws Exception
+    {
+        SQLiteDatabase db=SQLiteDatabase.openDatabase(dbPath, null, SQLiteDatabase.OPEN_READONLY, null);
+
+        try
+        {
+            String sql = "select * from edit_pois where name=" + "\"" + name + "\"";
+            Cursor cursor = db.rawQuery(sql, null);
+            if (!cursor.moveToFirst()) {
+                throw new Exception("query result is null, exec sql:" + sql);
+            }
+
+            int relateChildrenIndex = cursor.getColumnIndex("relateChildren");
+            byte[] relateChildren = cursor.getBlob(relateChildrenIndex);
+
+            return relateChildren.length;
+        }
+        catch (Exception e)
+        {
+            throw e;
+        }
+        finally
+        {
+            db.close();
+        }
+
+
+    }
+
+
+
     class DISPLAY_TEXT implements Comparable<DISPLAY_TEXT>
     {
         public DISPLAY_TEXT(String name, int row, int col)

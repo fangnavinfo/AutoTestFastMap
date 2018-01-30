@@ -1,5 +1,7 @@
 package com.example.fang.autotestfastmap;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.UiCollection;
 import android.support.test.uiautomator.UiObject;
@@ -25,6 +27,7 @@ import com.fastmap.ui.Page_LaneInfo;
 import com.fastmap.ui.Page_Light;
 import com.fastmap.ui.Page_MainBoard;
 import com.fastmap.ui.Page_MainMenu;
+import com.fastmap.ui.Page_MultiList;
 import com.fastmap.ui.Page_MyData;
 import com.fastmap.ui.Page_NoPassing;
 import com.fastmap.ui.Page_POI;
@@ -39,6 +42,8 @@ import com.fastmap.ui.Page_SurveyLine;
 import com.fastmap.ui.Page_TrafficForbidden;
 import com.fastmap.ui.Page_TrueSence;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -48,6 +53,7 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import static junit.framework.Assert.fail;
@@ -201,7 +207,7 @@ public class testFastMapZF extends testFastMapBase
 
     // POI 错误列表增加父子关系、同一关系错误类型
     @Test
-    public void test00105_poi_father_error_check() throws Exception {
+    public void test00105_1_poi_father_error_check() throws Exception {
         mDevice.drag(0, 768, 2048, 768, 10);
         Thread.sleep(500);
         mDevice.drag(0, 768, 1900, 768, 10);
@@ -265,6 +271,77 @@ public class testFastMapZF extends testFastMapBase
             Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
             assertEquals(txtErrMessage, "子(" + infoFid + ")不存在");
         }
+
+    }
+
+    @Test
+    public void test00105_2_poi_father_error_check() throws Exception {
+
+        //点击新增大厦POI
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+
+        //拍照并返回
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Thread.sleep(1000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+
+        Page_POI.Inst.SetValue(Page_POI.NAME, "大厦TEST1"); //输入POI名称
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "大厦/写字楼");
+        Page_POI.Inst.Click(Page_POI.SAVE); //点击保存
+        poiNum++;
+
+        //点击新增中餐馆子POI
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+
+        findObjectByText("忽略捕捉新增").click();
+
+        //拍照并返回
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Thread.sleep(1000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+
+        Page_POI.Inst.SetValue(Page_POI.NAME, "中餐馆TEST1"); //输入POI名称
+
+        infoFid = Page_POI.Inst.GetValue(Page_POI.FID);
+
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "中餐馆");
+        Page_POI.Inst.Click(Page_POI.POI_FATHER);//点击父子关系
+
+        findObjectByText("大厦/写字楼").click();
+
+        Thread.sleep(1000);
+
+        Page_POI.Inst.Click(Page_POI.SAVE); //点击保存
+        poiNum++;
+
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Click(new Point(1024,816));
+        Thread.sleep(2000);
+
+        //删除父子关系
+        findObjectByText("中餐馆ＴＥＳＴ１").click();
+        Page_POI.Inst.Click(Page_POI.POI_FATHER);//点击父子关系
+
+        findObjectByText("删除父子关系").click();
+
+        Page_Dialog.Inst.Click(Page_Dialog.OK);
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        //移动父POI
+        Page_MultiList.Inst.Click(Page_MultiList.CHECK_LIST_ITEM);
+        Page_MultiList.Inst.Click(Page_MultiList.MOVE);
+        Page_MultiList.Inst.Click(Page_MultiList.MOVE_POINT_AND_LINE);
+
+        mDevice.drag(1024, 816, 1024, 1160, 10);
+
+        Page_MultiList.Inst.Click(Page_MultiList.MOVE_POINT_AND_LINE);
+        Thread.sleep(3000);
+        Page_MultiList.Inst.Click(Page_MultiList.CANCEL_POI);
+
+        m_Sqlit = new SqliteTools();
+        m_Sqlit.RefreshData();
+        String dbPath = userPath + "coremap.sqlite";
+        assertEquals(m_Sqlit.GetRelateChildrenSize(dbPath,"大厦ＴＥＳＴ１"), 2);
 
     }
 
@@ -1319,6 +1396,8 @@ public class testFastMapZF extends testFastMapBase
         }
         eCurrLayer = EnumLayer.Layer_Main;
     }
+
+
 
     private static String globalId = "";
     private static String infoFid = "fid:00002420180118145219";

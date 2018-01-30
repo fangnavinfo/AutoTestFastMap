@@ -941,8 +941,8 @@ public class testFastMapBase
     protected static Point newTollStation = new Point(584, 1130);
     protected static Point newRegional = new Point(1200, 1140);
 
-    private static String userPath = "";
-    private static SqliteTools m_Sqlit = null;
+    protected static String userPath = "";
+    protected static SqliteTools m_Sqlit = null;
 
     private static String userName = "";
     private static String passWord = "";
