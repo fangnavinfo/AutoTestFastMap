@@ -14,14 +14,24 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import com.fastmap.ui.FastMapUI;
+import com.fastmap.ui.Page_DeleteList;
+import com.fastmap.ui.Page_Dialog;
+import com.fastmap.ui.Page_ErrorList;
 import com.fastmap.ui.Page_GridManager;
+import com.fastmap.ui.Page_IndoorMyData;
 import com.fastmap.ui.Page_IndoorTool;
 import com.fastmap.ui.Page_InfoReport;
+import com.fastmap.ui.Page_LaneInfo;
+import com.fastmap.ui.Page_Light;
 import com.fastmap.ui.Page_MainBoard;
 import com.fastmap.ui.Page_MainMenu;
 import com.fastmap.ui.Page_MyData;
+import com.fastmap.ui.Page_NoPassing;
 import com.fastmap.ui.Page_POI;
 import com.fastmap.ui.Page_POI_Camera;
+import com.fastmap.ui.Page_ParkLink;
+import com.fastmap.ui.Page_Ramp;
+import com.fastmap.ui.Page_RoadDirection;
 import com.fastmap.ui.Page_SearchResultList;
 import com.fastmap.ui.Page_SelectTime;
 import com.fastmap.ui.Page_StartEndPoint;
@@ -136,91 +146,54 @@ public class testFastMapZF extends testFastMapBase
     public void test00104_tips_delete_check() throws Exception {
 
         //添加红绿灯
-        FastMapUI.pressBtnMainBoard(TipsDeepDictionary.TRAFFIC_LIGHT);
-        Thread.sleep(500);
-        Click(new Point(1852,482),500);
-        Click("head_icon",500); //点击主界面左上角头像
-        Click("fmcard_tv_user_data",1000); //点击我的数据
-        UiObject2 listViewObj = mDevice.findObject(By.clazz(ListView.class));
-        UiObject2 child = listViewObj.findObject(By.clazz(RelativeLayout.class));
-        child.click();
-        Thread.sleep(500);
-        infoRowkey = mDevice.findObject(By.res(packageName, "et_title")).getText();
-        mDevice.pressBack();
-        Thread.sleep(500);
-        Click("btn_fm_confirm", 500);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_LIGHT);
+        Page_MainBoard.Inst.Click(new Point(1852,482));
+        GotoMyData(Page_MyData.TIPS_TYPE); //进入我的数据
+        findObjectByText("红绿灯").click();
+        infoRowkey = Page_Light.Inst.GetValue(Page_Light.ROWKEY);
+        Page_Light.Inst.Click(Page_Light.CANCEL);
+        ExitMyData();
 
-        //确认数据
-        Click("fmcard_tv_sync_photos", 1000);
-        Click("tv_my_data", 1000);
-        Click("tv_indoor_my_data_snap_list_item_work_status", 1000);
-        mDevice.pressBack();
-        Thread.sleep(500);
-        mDevice.pressBack();
-        Thread.sleep(500);
-        mDevice.pressBack();
-        Thread.sleep(500);
+        //确认数据（增加）
+        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+        Page_MainMenu.Inst.Click(Page_MainMenu.INDOOR_TOOL);
+        Page_IndoorTool.Inst.Click(Page_IndoorTool.MY_DATA);
+        findObjectByText("红绿灯").click();
+        Page_IndoorMyData.Inst.Click(Page_IndoorMyData.BACK);
+        Page_IndoorTool.Inst.Click(Page_IndoorTool.BACK);
+        Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
 
         //同步数据
         synchronize(Page_GridManager.TIPS_UPDATE);
 
-        //删除红绿灯
-        Click("head_icon",500); //点击主界面左上角头像
-        Click("fmcard_tv_user_data",1000); //点击我的数据
-        listViewObj = mDevice.findObject(By.clazz(ListView.class));
-        child = listViewObj.findObject(By.clazz(RelativeLayout.class));
-        child.click();
-        Thread.sleep(500);
-        mDevice.pressBack();
-        Thread.sleep(500);
-        Click("btn_fm_confirm", 500);
-        mDevice.pressBack();
-        Thread.sleep(500);
-        //删除
-        FastMapUI.pressBtnMainBoard(TipsDeepDictionary.DELETE_ROAD_MARKER);
-        Thread.sleep(500);
-        Click(GetCenter(),1000);
+        //删除前定位红绿灯tips位置
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        findObjectByText("红绿灯").click();
+        Page_Light.Inst.Click(Page_Light.CANCEL);
+        ExitMyData();
+        //增加删除标记
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.DELETE_ROAD_MARKER);
+        Page_MainBoard.Inst.Click(GetCenter());
+        Page_DeleteList.Inst.Click(Page_DeleteList.DELETE);
 
-        listViewObj = mDevice.findObject(By.clazz(ListView.class));
-        child = listViewObj.findObject(By.clazz(LinearLayout.class));
-        UiObject2 child2 = child.findObject(By.clazz(RelativeLayout.class));
-        UiObject2 delete = child2.findObject(By.clazz(Button.class));
-        delete.click();
-
-        mDevice.pressBack();
-        Thread.sleep(500);
-        //Click(deleteButton,500);
-
-        //确认数据
-        Click("head_icon", 1000);
-        Click("fmcard_tv_sync_photos", 1000);
-        Click("tv_my_data", 1000);
-        Click("tv_indoor_my_data_snap_list_item_work_status", 1000);
-        mDevice.pressBack();
-        Thread.sleep(500);
-        mDevice.pressBack();
-        Thread.sleep(500);
-        mDevice.pressBack();
-        Thread.sleep(500);
+        //确认数据（删除）
+        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+        Page_MainMenu.Inst.Click(Page_MainMenu.INDOOR_TOOL);
+        Page_IndoorTool.Inst.Click(Page_IndoorTool.MY_DATA);
+        findObjectByText("红绿灯").click();
+        Page_IndoorMyData.Inst.Click(Page_IndoorMyData.BACK);
+        Page_IndoorTool.Inst.Click(Page_IndoorTool.BACK);
+        Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
 
         //同步数据
         synchronize(Page_GridManager.TIPS_UPDATE);
 
         //确认
-        Click("head_icon", 1000);
-        Click("fmcard_tv_user_data",1000); //点击我的数据
-        listViewObj = mDevice.findObject(By.clazz(ListView.class));
-        child = listViewObj.findObject(By.clazz(RelativeLayout.class));
-        child.click();
-        Thread.sleep(1000);
-        String rowkey = mDevice.findObject(By.res(packageName, "et_title")).getText();
-
-        mDevice.pressBack();
-        Thread.sleep(500);
-        Click("btn_fm_confirm", 500);
-        mDevice.pressBack();
-        Thread.sleep(500);
-
+        GotoMyData(Page_MyData.TIPS_TYPE); //进入我的数据
+        findObjectByText("红绿灯").click();
+        String rowkey = Page_Light.Inst.GetValue(Page_Light.ROWKEY);
+        Page_Light.Inst.Click(Page_Light.CANCEL);
+        ExitMyData();
 
         assertEquals(infoRowkey, rowkey);
 
@@ -234,50 +207,41 @@ public class testFastMapZF extends testFastMapBase
         mDevice.drag(0, 768, 1900, 768, 10);
 
         //点击新增大厦POI
-        FastMapUI.pressBtnMainBoard(TipsDeepDictionary.POI_ADD_9001);
-        Thread.sleep(500);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
 
-        Click("take_pic_imgbtn",2000); //点击拍照
-        Click("task_pic_back_img"); //点击返回
-
-        PutinEditor("fm_et_name", "大厦TEST1"); //输入POI名称
-
-        Click("tv_assort_type",1000);//点击选择分类
-
-        PutinEditor("et_kind_search", "200103");
+        //拍照并返回
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
         Thread.sleep(1000);
-        Click("top_name_txtinfo",2000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
 
-        Click("save_button"); //点击保存
+        Page_POI.Inst.SetValue(Page_POI.NAME, "大厦TEST1"); //输入POI名称
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "大厦/写字楼");
+        Page_POI.Inst.Click(Page_POI.SAVE); //点击保存
         poiNum++;
 
         mDevice.drag(0, 768, 250, 768, 10);
 
 
         //点击新增中餐馆子POI
-        FastMapUI.pressBtnMainBoard(TipsDeepDictionary.POI_ADD_9001);
-        Thread.sleep(500);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
 
-        Click("take_pic_imgbtn",2000); //点击拍照
-        Click("task_pic_back_img"); //点击返回
-
-        PutinEditor("fm_et_name", "中餐馆TEST1"); //输入POI名称
-
-        UiObject2 txtFid =  mDevice.findObject(By.res(packageName, "tv_poi_fid_hd"));
-        infoFid = txtFid.getText();
-
-        Click("tv_assort_type",1000);//点击选择分类
-
-        PutinEditor("et_kind_search", "110101");
+        //拍照并返回
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
         Thread.sleep(1000);
-        Click("top_name_txtinfo",2000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
 
-        Click("tv_poi_father",1000);//点击父子关系
-        UiObject2 Object = mDevice.wait(Until.findObject(By.text("大厦/写字楼")), 1000);
-        Object.click();
+        Page_POI.Inst.SetValue(Page_POI.NAME, "中餐馆TEST1"); //输入POI名称
+
+        infoFid = Page_POI.Inst.GetValue(Page_POI.FID);
+
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "中餐馆");
+        Page_POI.Inst.Click(Page_POI.POI_FATHER);//点击父子关系
+
+        findObjectByText("大厦/写字楼").click();;
+
         Thread.sleep(1000);
 
-        Click("save_button"); //点击保存
+        Page_POI.Inst.Click(Page_POI.SAVE); //点击保存
         poiNum++;
 
         //同步POI数据
@@ -285,25 +249,20 @@ public class testFastMapZF extends testFastMapBase
         synchronize(Page_GridManager.POI_UPDATE);
 
         //检查错误列表
-        //检查错误列表
-        Click("head_icon", 1000);
-        Click("fmcard_tv_error_seem", 1000);
-        Object = mDevice.wait(Until.findObject(By.text("Poi")), 1000);
-        Object.click();
-        Object = mDevice.wait(Until.findObject(By.text("查看详情")), 1000);
-        if(null == Object) {
+        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+        Page_MainMenu.Inst.Click(Page_MainMenu.ERROR_LIST);
+        Page_ErrorList.Inst.Click(Page_ErrorList.POI);
+        UiObject2 uiObject2 = findObjectByText("查看详情");
+        if(null == uiObject2) {
             fail("no POI error list");
         }else {
-            Object.click();
-            Thread.sleep(500);
-            UiObject2 errMessage =  mDevice.findObject(By.res(packageName, "tv_content"));
-            String txtErrMessage = errMessage.getText();
-            Thread.sleep(500);
-            Click("btn_fm_cancel", 1000);
-            mDevice.pressBack();
-            Thread.sleep(500);
-            mDevice.pressBack();
-            Thread.sleep(500);
+            uiObject2.click();
+            Thread.sleep(1000);
+
+            String txtErrMessage = Page_Dialog.Inst.GetValue(Page_Dialog.CONTENT);
+            Page_Dialog.Inst.Click(Page_Dialog.CANCEL);
+            Page_ErrorList.Inst.Click(Page_ErrorList.BACK);
+            Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
             assertEquals(txtErrMessage, "子(" + infoFid + ")不存在");
         }
 
@@ -330,23 +289,19 @@ public class testFastMapZF extends testFastMapBase
         Thread.sleep(500);
 
         //点击政府机关POI
-        FastMapUI.pressBtnMainBoard(TipsDeepDictionary.POI_ADD_9001);
-        Thread.sleep(500);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
 
-        Click("take_pic_imgbtn",2000); //点击拍照
-        Click("task_pic_back_img"); //点击返回
+        //拍照并返回
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Thread.sleep(1000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
 
-        PutinEditor("fm_et_name", "政府机关TEST"); //输入POI名称
+        Page_POI.Inst.SetValue(Page_POI.NAME, "政府机关TEST"); //输入POI名称
 
-        UiObject2 txtFid =  mDevice.findObject(By.res(packageName, "tv_poi_fid_hd"));
-        infoFid = txtFid.getText();
+        infoFid = Page_POI.Inst.GetValue(Page_POI.FID);
 
-        Click("tv_assort_type",1000);//点击选择分类
-
-        PutinEditor("et_kind_search", "190106");
-        Click("top_name_txtinfo",2000);
-
-        Click("save_button"); //点击保存
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "区级政府机关(广州市）");
+        Page_POI.Inst.Click(Page_POI.SAVE); //点击保存
         poiNum++;
 
         getPosion("11130159503");
@@ -359,25 +314,21 @@ public class testFastMapZF extends testFastMapBase
 
 
         //点击新增银行POI
-        FastMapUI.pressBtnMainBoard(TipsDeepDictionary.POI_ADD_9001);
-        Thread.sleep(500);
-        Click("fmdialog_tv_ignore_add",2000);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+        findObjectByText("忽略捕捉新增").click();
 
-        Click("take_pic_imgbtn",2000); //点击拍照
-        Click("task_pic_back_img"); //点击返回
+        //拍照并返回
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Thread.sleep(1000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
 
-        PutinEditor("fm_et_name", "银行TEST"); //输入POI名称
+        Page_POI.Inst.SetValue(Page_POI.NAME, "银行TEST"); //输入POI名称
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "银行"); //点击选择分类
 
-        Click("tv_assort_type",1000);//点击选择分类
+        Page_POI.Inst.Click(Page_POI.POI_SAME);//点击同一关系
+        findObjectByText("区级政府机关(广州市）").click();
 
-        PutinEditor("et_kind_search", "150101");
-        Click("top_name_txtinfo",2000);
-
-        Click("tv_poi_same_one",1000);//点击同一关系
-        UiObject2 Object = mDevice.wait(Until.findObject(By.text("区级政府机关(广州市）")), 1000);
-        Object.click();
-
-        Click("save_button"); //点击保存
+        Page_POI.Inst.Click(Page_POI.SAVE); //点击保存
         poiNum++;
 
         //同步POI数据
@@ -385,24 +336,20 @@ public class testFastMapZF extends testFastMapBase
         synchronize(Page_GridManager.POI_UPDATE);
 
         //检查错误列表
-        Click("head_icon", 1000);
-        Click("fmcard_tv_error_seem", 1000);
-        Object = mDevice.wait(Until.findObject(By.text("Poi")), 1000);
-        Object.click();
-        Object = mDevice.wait(Until.findObject(By.text("查看详情")), 1000);
-        if(null == Object) {
+        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+        Page_MainMenu.Inst.Click(Page_MainMenu.ERROR_LIST);
+        Page_ErrorList.Inst.Click(Page_ErrorList.POI);
+        UiObject2 uiObject2 = findObjectByText("查看详情");
+        if(null == uiObject2) {
             fail("no POI error list");
         }else {
-            Object.click();
-            Thread.sleep(500);
-            UiObject2 errMessage =  mDevice.findObject(By.res(packageName, "tv_content"));
-            String txtErrMessage = errMessage.getText();
-            Thread.sleep(500);
-            Click("btn_fm_cancel", 1000);
-            mDevice.pressBack();
-            Thread.sleep(500);
-            mDevice.pressBack();
-            Thread.sleep(500);
+            uiObject2.click();
+            Thread.sleep(1000);
+
+            String txtErrMessage = Page_Dialog.Inst.GetValue(Page_Dialog.CONTENT);
+            Page_Dialog.Inst.Click(Page_Dialog.CANCEL);
+            Page_ErrorList.Inst.Click(Page_ErrorList.BACK);
+            Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
             assertEquals(txtErrMessage, "同一poi(" + infoFid + ")在库中不存在");
         }
     }
@@ -440,7 +387,7 @@ public class testFastMapZF extends testFastMapBase
 
         //获取rowkey
         GotoMyData(Page_MyData.TIPS_TYPE); //进入我的数据
-        mDevice.wait(Until.findObject(By.text("实景图")), 500).click();
+        findObjectByText("实景图").click();
         String rowkey = Page_TrueSence.Inst.GetValue(Page_TrueSence.ROWKEY).substring(7);
         Page_TrueSence.Inst.Click(Page_TrueSence.CANCEL);
         ExitMyData(); //退出我的数据
@@ -478,34 +425,23 @@ public class testFastMapZF extends testFastMapBase
         mDevice.drag(700, 650, 1024, 768, 10);
 
         //增加POI
-        FastMapUI.pressBtnMainBoard(TipsDeepDictionary.POI_ADD_9001);  //点击新增POI
-        Thread.sleep(500);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);  //点击新增POI
 
-        Click("take_pic_imgbtn",2000); //点击拍照
-        Click("task_pic_back_img"); //点击返回
-
-        PutinEditor("fm_et_name", "测试ＰＯＩ001"); //输入POI名称
-
-        Click("tv_assort_type",1000);//点击选择分类
-
-        mDevice.findObject(By.text("中餐馆")).click();
-
-
+        //拍照并返回
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
         Thread.sleep(1000);
-        Click("edt_contactItem_telNum");
-        Thread.sleep(1000);
-        PutinEditor("edt_contactItem_telNum", "19012345678"); //输入19开头电话号码，这行代码在我这儿运行会直接挂掉，你确认下
-        Thread.sleep(1000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
 
-        Click("save_button",1000);
+        Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ001"); //输入POI名称
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "中餐馆");//点击选择分类
+        Page_POI.Inst.Click(Page_POI.SAVE);
 
         //增加匝道
-        FastMapUI.pressBtnMainBoard(TipsDeepDictionary.RAMP);
-        Thread.sleep(500);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.RAMP);
 
-        Click(new Point(1025, 800));
-        Click("btn_ramp");
-        Click("save_button");
+        Page_MainBoard.Inst.Click(new Point(1025, 800));
+        Page_Ramp.Inst.Click(Page_Ramp.RAMP);
+        Page_Ramp.Inst.Click(Page_Ramp.SAVE);
 
         AssertIndoorCheck("匝道", "低", "FM-1207-6-2", "匝道属性道路连接了POI", "忽略");
     }
@@ -516,19 +452,17 @@ public class testFastMapZF extends testFastMapBase
         mDevice.drag(700, 650, 1024, 768, 10);
 
         //增加道路方向：单向
-        FastMapUI.pressBtnMainBoard(TipsDeepDictionary.ROAD_DIRECTION);
-        Thread.sleep(500);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ROAD_DIRECTION);
+
         //测线中点
-        Click(new Point(1024, 790));
+        Page_MainBoard.Inst.Click(new Point(1024, 790));
         //保存
-        Click("save_button", 500);
+        Page_RoadDirection.Inst.Click(Page_RoadDirection.SAVE);
 
         //增加停车场出入口link
-        FastMapUI.pressBtnMainBoard(TipsDeepDictionary.PARK_ENTRANCE_LINK);
-        Thread.sleep(500);
-
-        Click(new Point(730, 800));
-        Click("save_button");
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PARK_ENTRANCE_LINK);
+        Page_MainBoard.Inst.Click(new Point(730, 800));
+        Page_ParkLink.Inst.Click(Page_ParkLink.SAVE);
 
         AssertIndoorCheck("停车场出入口link", "中", "FM-1208-2-1", "单方向道路未进行停车场出入口LINK连接", "");
     }
@@ -540,16 +474,16 @@ public class testFastMapZF extends testFastMapBase
         mDevice.drag(700, 650, 1024, 768, 10);
 
         //增加车信
-        FastMapUI.pressBtnMainBoard(TipsDeepDictionary.LANE_INFO);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);
         Thread.sleep(500);
-        Click(new Point(1040, 800));
+        Page_MainBoard.Inst.Click(new Point(1040, 800));
         Thread.sleep(500);
 
-        Click("rb_select_one_g_a_f",1000);
-        Click(new Point(1210, 600),1000);
+        Page_LaneInfo.Inst.Click(Page_LaneInfo.ONE_G_A_F);
+        Page_MainBoard.Inst.Click(new Point(1210, 600));
 
         //保存
-        Click("save_button", 1000);
+        Page_LaneInfo.Inst.Click(Page_LaneInfo.SAVE);
 
         AssertIndoorCheck("车信", "低", "FM-1301-6-4", "有附加车信，是否车道变化点采集遗漏", "忽略");
 
@@ -573,24 +507,22 @@ public class testFastMapZF extends testFastMapBase
         Page_SurveyLine.Inst.Click(Page_SurveyLine.SAVE);
 
         //增加道路方向：单向
-        FastMapUI.pressBtnMainBoard(TipsDeepDictionary.ROAD_DIRECTION);
-        Thread.sleep(500);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ROAD_DIRECTION);
+
         //测线中点
-        Click(new Point(1250, 600));
+        Page_MainBoard.Inst.Click(new Point(1250, 600));
         //保存
-        Click("save_button", 500);
+        Page_RoadDirection.Inst.Click(Page_RoadDirection.SAVE);
 
         //增加车信
-        FastMapUI.pressBtnMainBoard(TipsDeepDictionary.LANE_INFO);
-        Thread.sleep(500);
-        Click(new Point(720, 800));
-        Thread.sleep(500);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);
+        Page_MainBoard.Inst.Click(new Point(720, 800));
 
-        Click("rb_select_one_g_a_f",1000);
-        Click(new Point(1210, 600),1000);
+        Page_LaneInfo.Inst.Click(Page_LaneInfo.ONE_G_A_F);
+        Page_MainBoard.Inst.Click(new Point(1210, 600));
 
         //保存
-        Click("save_button", 1000);
+        Page_LaneInfo.Inst.Click(Page_LaneInfo.SAVE);
 
         AssertIndoorCheck("车信", "低", "FM-1301-6-4", "有附加车信，是否车道变化点采集遗漏", "忽略");
 
@@ -619,10 +551,8 @@ public class testFastMapZF extends testFastMapBase
 
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PASS_THROUGH);
-        Click(new Point(1120,740),500);
-        Click("save_button", 500);
-
-
+        Page_MainBoard.Inst.Click(new Point(1120,740));
+        Page_NoPassing.Inst.Click(Page_NoPassing.SAVE);
 
         AssertIndoorCheck("禁止穿行", "低", "FM-1304-6-2", "高等级道路上（1级、2级、3级、4级）采集了禁止穿行属性，请确认是否正确。", "忽略");
     }
@@ -648,8 +578,8 @@ public class testFastMapZF extends testFastMapBase
         getPosion("11111011274124");
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PASS_THROUGH);
-        Click(new Point(1215,1155),500);
-        Click("save_button", 500);
+        Page_MainBoard.Inst.Click(new Point(1215,1155));
+        Page_NoPassing.Inst.Click(Page_NoPassing.SAVE);
 
         AssertIndoorCheck("禁止穿行", "低", "FM-1304-6-2", "高等级道路上（1级、2级、3级、4级）采集了禁止穿行属性，请确认是否正确。", "忽略");
     }
@@ -676,9 +606,8 @@ public class testFastMapZF extends testFastMapBase
         getPosion("11111011274124");
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PASS_THROUGH);
-        Click(new Point(790,590),500);
-        Click("save_button", 500);
-
+        Page_MainBoard.Inst.Click(new Point(790,590));
+        Page_NoPassing.Inst.Click(Page_NoPassing.SAVE);
 
         AssertIndoorCheck("禁止穿行", "低", "FM-1304-6-2", "高等级道路上（1级、2级、3级、4级）采集了禁止穿行属性，请确认是否正确。", "忽略");
     }
@@ -704,8 +633,8 @@ public class testFastMapZF extends testFastMapBase
         getPosion("11111011274124");
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PASS_THROUGH);
-        Click(new Point(1140,1340),500);
-        Click("save_button", 500);
+        Page_MainBoard.Inst.Click(new Point(1140,1340));
+        Page_NoPassing.Inst.Click(Page_NoPassing.SAVE);
 
         AssertIndoorCheck("禁止穿行", "低", "FM-1304-6-2", "高等级道路上（1级、2级、3级、4级）采集了禁止穿行属性，请确认是否正确。", "忽略");
     }
@@ -720,8 +649,8 @@ public class testFastMapZF extends testFastMapBase
         getPosion("1112036063743");
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PASS_THROUGH);
-        Click(new Point(1100,850),500);
-        Click("save_button", 500);
+        Page_MainBoard.Inst.Click(new Point(1100,850));
+        Page_NoPassing.Inst.Click(Page_NoPassing.SAVE);
 
         AssertIndoorCheck("禁止穿行", "低", "FM-1304-6-2", "高等级道路上（1级、2级、3级、4级）采集了禁止穿行属性，请确认是否正确。", "忽略");
     }
@@ -736,8 +665,9 @@ public class testFastMapZF extends testFastMapBase
         getPosion("1112036063743");
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PASS_THROUGH);
-        Click(new Point(1100,970),500);
+        Page_MainBoard.Inst.Click(new Point(1100,970));
         Click("save_button", 500);
+        Page_NoPassing.Inst.Click(Page_NoPassing.SAVE);
 
         AssertIndoorCheck("禁止穿行", "低", "FM-1304-6-2", "高等级道路上（1级、2级、3级、4级）采集了禁止穿行属性，请确认是否正确。", "忽略");
     }
@@ -758,8 +688,8 @@ public class testFastMapZF extends testFastMapBase
 
         //禁止穿行3级道路（测线且t_sync=0）
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PASS_THROUGH);
-        Click(new Point(1200,800),500);
-        Click("save_button", 500);
+        Page_MainBoard.Inst.Click(new Point(1200,800));
+        Page_NoPassing.Inst.Click(Page_NoPassing.SAVE);
 
         AssertIndoorCheck("禁止穿行", "低", "FM-1304-6-2", "高等级道路上（1级、2级、3级、4级）采集了禁止穿行属性，请确认是否正确。", "忽略");
     }
@@ -780,8 +710,8 @@ public class testFastMapZF extends testFastMapBase
 
         //禁止穿行3级道路（测线且t_sync=0）
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PASS_THROUGH);
-        Click(new Point(1200,1020),500);
-        Click("save_button", 500);
+        Page_MainBoard.Inst.Click(new Point(1200,1020));
+        Page_NoPassing.Inst.Click(Page_NoPassing.SAVE);
 
         AssertIndoorCheck("禁止穿行", "低", "FM-1304-6-2", "高等级道路上（1级、2级、3级、4级）采集了禁止穿行属性，请确认是否正确。", "忽略");
     }
@@ -827,22 +757,19 @@ public class testFastMapZF extends testFastMapBase
         Page_SurveyLine.Inst.Click(Page_SurveyLine.SAVE);
 
         //增加道路方向：单向
-        FastMapUI.pressBtnMainBoard(TipsDeepDictionary.ROAD_DIRECTION);
-        Thread.sleep(500);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ROAD_DIRECTION);
         //测线中点
-        Click(new Point(1250, 600));
+        Page_MainBoard.Inst.Click(new Point(1250, 600));
         //保存
-        Click("save_button", 500);
+        Page_RoadDirection.Inst.Click(Page_RoadDirection.SAVE);
 
         //交限
-        FastMapUI.pressBtnMainBoard(TipsDeepDictionary.TRAFFIC_FORBIDDEN);
-        Thread.sleep(500);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_FORBIDDEN);
 
-        Click(new Point(725, 800));
+        Page_MainBoard.Inst.Click(new Point(725, 800));
 
-        Click("traffic_forbidden_no_pull_into",500);
-        //保存
-        Click("save_button", 500);
+        Page_TrafficForbidden.Inst.Click(Page_TrafficForbidden.NO_PULL_INTO);
+        Page_TrafficForbidden.Inst.Click(Page_TrafficForbidden.SAVE);
 
         AssertIndoorCheck("禁止驶入", "中", "FM-1305-6-1", "禁止驶入与单行线重复", "");
     }
@@ -869,7 +796,7 @@ public class testFastMapZF extends testFastMapBase
         getPosion("11111011274124");
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_FORBIDDEN);
-        Click(new Point(1120,740),500);
+        Page_MainBoard.Inst.Click(new Point(1120,740));
         Page_TrafficForbidden.Inst.Click(Page_TrafficForbidden.NO_PULL_INTO);
         Page_TrafficForbidden.Inst.Click(Page_TrafficForbidden.SAVE);
 
@@ -898,7 +825,7 @@ public class testFastMapZF extends testFastMapBase
         getPosion("11111011274124");
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_FORBIDDEN);
-        Click(new Point(1215,1155),500);
+        Page_MainBoard.Inst.Click(new Point(1215,1155));
         Page_TrafficForbidden.Inst.Click(Page_TrafficForbidden.NO_PULL_INTO);
         Page_TrafficForbidden.Inst.Click(Page_TrafficForbidden.SAVE);
 
@@ -927,7 +854,7 @@ public class testFastMapZF extends testFastMapBase
         getPosion("11111011274124");
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_FORBIDDEN);
-        Click(new Point(790,590),500);
+        Page_MainBoard.Inst.Click(new Point(790,590));
         Page_TrafficForbidden.Inst.Click(Page_TrafficForbidden.NO_PULL_INTO);
         Page_TrafficForbidden.Inst.Click(Page_TrafficForbidden.SAVE);
 
@@ -956,7 +883,7 @@ public class testFastMapZF extends testFastMapBase
         getPosion("11111011274124");
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_FORBIDDEN);
-        Click(new Point(1140,1340),500);
+        Page_MainBoard.Inst.Click(new Point(1140,1340));
         Page_TrafficForbidden.Inst.Click(Page_TrafficForbidden.NO_PULL_INTO);
         Page_TrafficForbidden.Inst.Click(Page_TrafficForbidden.SAVE);
 
@@ -974,7 +901,7 @@ public class testFastMapZF extends testFastMapBase
         getPosion("1112036063743");
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_FORBIDDEN);
-        Click(new Point(1100,850),500);
+        Page_MainBoard.Inst.Click(new Point(1100,850));
         Page_TrafficForbidden.Inst.Click(Page_TrafficForbidden.NO_PULL_INTO);
         Page_TrafficForbidden.Inst.Click(Page_TrafficForbidden.SAVE);
 
@@ -991,7 +918,7 @@ public class testFastMapZF extends testFastMapBase
         getPosion("1112036063743");
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_FORBIDDEN);
-        Click(new Point(1100,970),500);
+        Page_MainBoard.Inst.Click(new Point(1100,970));
         Page_TrafficForbidden.Inst.Click(Page_TrafficForbidden.NO_PULL_INTO);
         Page_TrafficForbidden.Inst.Click(Page_TrafficForbidden.SAVE);
 
@@ -1016,7 +943,7 @@ public class testFastMapZF extends testFastMapBase
 
         //禁止驶入3级道路（测线且t_sync=0）
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_FORBIDDEN);
-        Click(new Point(1200,800),500);
+        Page_MainBoard.Inst.Click(new Point(1200,800));
         Page_TrafficForbidden.Inst.Click(Page_TrafficForbidden.NO_PULL_INTO);
         Page_TrafficForbidden.Inst.Click(Page_TrafficForbidden.SAVE);
 
@@ -1040,7 +967,7 @@ public class testFastMapZF extends testFastMapBase
 
         //禁止驶入4级道路（测线且t_sync=0）
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_FORBIDDEN);
-        Click(new Point(1100,960),500);
+        Page_MainBoard.Inst.Click(new Point(1100,960));
         Page_TrafficForbidden.Inst.Click(Page_TrafficForbidden.NO_PULL_INTO);
         Page_TrafficForbidden.Inst.Click(Page_TrafficForbidden.SAVE);
 
@@ -1178,9 +1105,9 @@ public class testFastMapZF extends testFastMapBase
 
         //删除测线
         GotoMyData(Page_MyData.TIPS_TYPE);
-        mDevice.wait(Until.findObject(By.text("测线")), 500).click();
+        findObjectByText("测线").click();
         Page_SurveyLine.Inst.Click(Page_SurveyLine.DELETE);
-        mDevice.wait(Until.findObject(By.text("仅删除测线")), 500).click();
+        findObjectByText("仅删除测线").click();
         ExitMyData();
 
         AssertIndoorCheck("移动式桥", "中", "FM-1521-1-2", "Tips没有关联道路或测线或Node","");
@@ -1188,32 +1115,32 @@ public class testFastMapZF extends testFastMapBase
 
     public void searchObject(String key, String type) throws InterruptedException {
         //默认搜索tips
-        mDevice.findObject(By.res(packageName, "img_search")).click();
-        Thread.sleep(1000);
-
-        mDevice.findObject(By.res(packageName, "edt_search_tips_input")).setText(key);
-        Thread.sleep(1000);
-        mDevice.findObject(By.res(packageName, "tv_search_tips_btn")).click();
-        Thread.sleep(2000);
-
-        UiScrollable objscoll = new UiScrollable(new UiSelector().className("android.widget.ListView"));
-
-        mDevice.findObject(By.res(packageName, "tv_my_data_snap_list_item_name")).click();
-        Thread.sleep(1000);
+        try {
+            Page_MainBoard.Inst.Click(Page_MainBoard.SEARCH);
+            Page_MainBoard.Inst.Click(Page_MainBoard.SEARCH_TIPS);
+            Page_MainBoard.Inst.SetValue(Page_MainBoard.SEARCH_TIPS_INPUT, globalId);
+            Page_MainBoard.Inst.Click(Page_MainBoard.SEARCH_TIPS_BTN);
+            Page_SearchResultList.Inst.Click(Page_SearchResultList.DATA_LIST);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void getPosion(String key) throws InterruptedException {
         searchObject(key,"TIPS");
 
-        mDevice.pressBack();
-        Thread.sleep(1000);
-        UiObject2 object = mDevice.wait(Until.findObject(By.text("舍弃")), 1000);
+        findObjectByText("取消").click();
+
+        UiObject2 object = findObjectByText("舍弃");
         if(null != object) {
             object.click();
         }
-        Thread.sleep(500);
-        mDevice.pressBack();
-        Thread.sleep(2000);
+
+        try {
+            Page_SearchResultList.Inst.Click(Page_SearchResultList.BACK);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     // 上报情报
@@ -1337,7 +1264,7 @@ public class testFastMapZF extends testFastMapBase
 
         GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
 
-        mDevice.wait(Until.findObject(By.text("测试上报情报６")), 1000).click();
+        findObjectByText("测试上报情报６").click();
 
         String strFid = "";
         try {
@@ -1363,6 +1290,12 @@ public class testFastMapZF extends testFastMapBase
         return uiObject2;
     }
 
+    public UiObject2 findObjectByClass(Class className) {
+        UiObject2 uiObject2 = null;
+        uiObject2 = mDevice.wait(Until.findObject(By.clazz(className)), 3000);
+        return uiObject2;
+    }
+
     @Override
     protected void GotoMyData(String strType) {
         try {
@@ -1381,8 +1314,12 @@ public class testFastMapZF extends testFastMapBase
     @Override
     protected  void ExitMyData()
     {
-        Click("iv_my_data_back");
-        Click("fmcard_ibtn_back");
+        try {
+            Page_MyData.Inst.Click(Page_MyData.BACK);
+            Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         eCurrLayer = EnumLayer.Layer_Main;
     }
 

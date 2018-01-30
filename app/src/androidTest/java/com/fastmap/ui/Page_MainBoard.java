@@ -22,7 +22,7 @@ public class Page_MainBoard extends FastMapPage
     @FindResource(Text="Tips")
     public static String SEARCH_TIPS;
     @FindResource(Id="edt_search_tips_input")
-    public static String SEARCH_TIPS_BUTTON;
+    public static String SEARCH_TIPS_INPUT;
     @FindResource(Id="tv_search_tips_btn")
     public static String SEARCH_TIPS_BTN;
     @FindResource(Text="POI")

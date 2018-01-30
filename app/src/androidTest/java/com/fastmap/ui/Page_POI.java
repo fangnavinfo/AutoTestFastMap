@@ -12,6 +12,11 @@ public class Page_POI extends FastMapPage
     @FindResource(Id="tv_assort_type", Text="请选择分类")
     public static String SELECT_TYPE;
 
+    @FindResource(Id="tv_poi_father", Text="父子关系")
+    public static String POI_FATHER;
+    @FindResource(Id="tv_poi_same_one", Text="同一关系")
+    public static String POI_SAME;
+
     @FindResource(Id="delete_button", Text="删除")
     public static String DELETE;
     @FindResource(Id="cancel_button", Text="取消")
