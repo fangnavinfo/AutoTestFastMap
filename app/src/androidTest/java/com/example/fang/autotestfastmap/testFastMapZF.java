@@ -237,7 +237,7 @@ public class testFastMapZF extends testFastMapBase
         Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "中餐馆");
         Page_POI.Inst.Click(Page_POI.POI_FATHER);//点击父子关系
 
-        findObjectByText("大厦/写字楼").click();;
+        findObjectByText("大厦/写字楼").click();
 
         Thread.sleep(1000);
 
@@ -475,12 +475,10 @@ public class testFastMapZF extends testFastMapBase
 
         //增加车信
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);
-        Thread.sleep(500);
         Page_MainBoard.Inst.Click(new Point(1040, 800));
-        Thread.sleep(500);
 
         Page_LaneInfo.Inst.Click(Page_LaneInfo.ONE_G_A_F);
-        Page_MainBoard.Inst.Click(new Point(1210, 600));
+        findObjectByResourceId("tv_add").click();
 
         //保存
         Page_LaneInfo.Inst.Click(Page_LaneInfo.SAVE);
@@ -519,7 +517,7 @@ public class testFastMapZF extends testFastMapBase
         Page_MainBoard.Inst.Click(new Point(720, 800));
 
         Page_LaneInfo.Inst.Click(Page_LaneInfo.ONE_G_A_F);
-        Page_MainBoard.Inst.Click(new Point(1210, 600));
+        findObjectByResourceId("tv_add").click();
 
         //保存
         Page_LaneInfo.Inst.Click(Page_LaneInfo.SAVE);
@@ -666,7 +664,6 @@ public class testFastMapZF extends testFastMapBase
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PASS_THROUGH);
         Page_MainBoard.Inst.Click(new Point(1100,970));
-        Click("save_button", 500);
         Page_NoPassing.Inst.Click(Page_NoPassing.SAVE);
 
         AssertIndoorCheck("禁止穿行", "低", "FM-1304-6-2", "高等级道路上（1级、2级、3级、4级）采集了禁止穿行属性，请确认是否正确。", "忽略");
@@ -1118,7 +1115,7 @@ public class testFastMapZF extends testFastMapBase
         try {
             Page_MainBoard.Inst.Click(Page_MainBoard.SEARCH);
             Page_MainBoard.Inst.Click(Page_MainBoard.SEARCH_TIPS);
-            Page_MainBoard.Inst.SetValue(Page_MainBoard.SEARCH_TIPS_INPUT, globalId);
+            Page_MainBoard.Inst.SetValue(Page_MainBoard.SEARCH_TIPS_INPUT, key);
             Page_MainBoard.Inst.Click(Page_MainBoard.SEARCH_TIPS_BTN);
             Page_SearchResultList.Inst.Click(Page_SearchResultList.DATA_LIST);
         } catch (Exception e) {
