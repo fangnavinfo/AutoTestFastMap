@@ -96,7 +96,7 @@ public class testFastMapZF extends testFastMapBase
     // POI 联系方式去除手机号不能以19开头的限制
     @Test
     public void test00102_poi_telnum_check() throws Exception {
-        mDevice.drag(700, 823, 1024, 823, 10);
+        Drag(700, 823, 1024, 823, 10);
 
         //点击新增POI
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
@@ -208,9 +208,8 @@ public class testFastMapZF extends testFastMapBase
     // POI 错误列表增加父子关系、同一关系错误类型
     @Test
     public void test00105_1_poi_father_error_check() throws Exception {
-        mDevice.drag(0, 768, 2048, 768, 10);
-        Thread.sleep(500);
-        mDevice.drag(0, 768, 1900, 768, 10);
+        Drag(0, 768, 2048, 768, 10);
+        Drag(0, 768, 1900, 768, 10);
 
         //点击新增大厦POI
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
@@ -225,7 +224,7 @@ public class testFastMapZF extends testFastMapBase
         Page_POI.Inst.Click(Page_POI.SAVE); //点击保存
         poiNum++;
 
-        mDevice.drag(0, 768, 250, 768, 10);
+        Drag(0, 768, 250, 768, 10);
 
 
         //点击新增中餐馆子POI
@@ -251,7 +250,7 @@ public class testFastMapZF extends testFastMapBase
         poiNum++;
 
         //同步POI数据
-        mDevice.drag(600, 768, 0, 768, 10);
+        Drag(600, 768, 0, 768, 10);
         synchronize(Page_GridManager.POI_UPDATE);
 
         //检查错误列表
@@ -332,7 +331,7 @@ public class testFastMapZF extends testFastMapBase
         Page_MultiList.Inst.Click(Page_MultiList.MOVE);
         Page_MultiList.Inst.Click(Page_MultiList.MOVE_POINT_AND_LINE);
 
-        mDevice.drag(1024, 816, 1024, 1160, 10);
+        Drag(1024, 816, 1024, 1160, 10);
 
         Page_MultiList.Inst.Click(Page_MultiList.MOVE_POINT_AND_LINE);
         Thread.sleep(3000);
@@ -359,11 +358,9 @@ public class testFastMapZF extends testFastMapBase
 
         getPosion("11130159503");
 
-        Thread.sleep(500);
-        mDevice.drag(1, 790, 2048, 490, 100);
-        Thread.sleep(500);
-        mDevice.drag(1, 790, 1075, 790, 100);
-        Thread.sleep(500);
+
+        Drag(1, 790, 2048, 490, 100);
+        Drag(1, 790, 1075, 790, 100);
 
         //点击政府机关POI
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
@@ -383,11 +380,9 @@ public class testFastMapZF extends testFastMapBase
 
         getPosion("11130159503");
 
-        Thread.sleep(500);
-        mDevice.drag(1, 790, 2048, 490, 100);
-        Thread.sleep(500);
-        mDevice.drag(1, 790, 1140, 790, 100);
-        Thread.sleep(500);
+
+        Drag(1, 790, 2048, 490, 100);
+        Drag(1, 790, 1140, 790, 100);
 
 
         //点击新增银行POI
@@ -409,7 +404,7 @@ public class testFastMapZF extends testFastMapBase
         poiNum++;
 
         //同步POI数据
-        mDevice.drag(0, 768, 600, 768, 10);
+        Drag(0, 768, 600, 768, 10);
         synchronize(Page_GridManager.POI_UPDATE);
 
         //检查错误列表
@@ -436,7 +431,7 @@ public class testFastMapZF extends testFastMapBase
     public void test00107_tips_true_sence_check() throws Exception {
 
         Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_OUT);
-        mDevice.drag(2030, 50, 10, 1525, 10);
+        Drag(2030, 50, 10, 1525, 10);
 
         //点击新增实景图POI
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRUE_SCENE);
@@ -499,7 +494,7 @@ public class testFastMapZF extends testFastMapBase
     @Test
     public void test_FM_1207_6_2_check() throws Exception {
 
-        mDevice.drag(700, 650, 1024, 768, 10);
+        Drag(700, 650, 1024, 768, 10);
 
         //增加POI
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);  //点击新增POI
@@ -526,7 +521,7 @@ public class testFastMapZF extends testFastMapBase
     // FM-1208-2-1
     @Test
     public void test_FM_1208_2_1_check() throws Exception {
-        mDevice.drag(700, 650, 1024, 768, 10);
+        Drag(700, 650, 1024, 768, 10);
 
         //增加道路方向：单向
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ROAD_DIRECTION);
@@ -548,7 +543,7 @@ public class testFastMapZF extends testFastMapBase
     @Test
     public void test_FM_1301_6_4_1_check() throws Exception {
 
-        mDevice.drag(700, 650, 1024, 768, 10);
+        Drag(700, 650, 1024, 768, 10);
 
         //增加车信
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);
@@ -749,7 +744,7 @@ public class testFastMapZF extends testFastMapBase
     @Test
     public void test_FM_1304_6_2_7_check() throws Exception {
 
-        mDevice.drag(2030, 50, 10, 1525, 10);
+        Drag(2030, 50, 10, 1525, 10);
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);
 
@@ -771,7 +766,7 @@ public class testFastMapZF extends testFastMapBase
     @Test
     public void test_FM_1304_6_2_8_check() throws Exception {
 
-        mDevice.drag(2030, 50, 10, 1525, 10);
+        Drag(2030, 50, 10, 1525, 10);
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);
 
@@ -793,7 +788,7 @@ public class testFastMapZF extends testFastMapBase
     // FM-1305-6-1
     @Test
     public void test_FM_1305_6_1_1_check() throws Exception {
-        mDevice.drag(700, 650, 1024, 768, 10);
+        Drag(700, 650, 1024, 768, 10);
 
         //增加道路方向：单向
         FastMapUI.pressBtnMainBoard(TipsDeepDictionary.ROAD_DIRECTION);
@@ -1003,7 +998,7 @@ public class testFastMapZF extends testFastMapBase
     @Test
     public void test_FM_1305_6_2_7_check() throws Exception {
 
-        mDevice.drag(2030, 50, 10, 1525, 10);
+        Drag(2030, 50, 10, 1525, 10);
 
         //绘制测线
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);
@@ -1027,7 +1022,7 @@ public class testFastMapZF extends testFastMapBase
     @Test
     public void test_FM_1305_6_2_8_check() throws Exception {
 
-        mDevice.drag(2030, 50, 10, 1525, 10);
+        Drag(2030, 50, 10, 1525, 10);
 
         //绘制测线
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);
@@ -1215,6 +1210,8 @@ public class testFastMapZF extends testFastMapBase
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        Thread.sleep(1000);
     }
 
     // 上报情报
@@ -1259,7 +1256,7 @@ public class testFastMapZF extends testFastMapBase
         if(syncGridPositon.length > 0) {
             Page_MainBoard.Inst.Click(syncGridPositon[0]);
         }else {
-            Page_MainBoard.Inst.Click(new Point(mDevice.getDisplayWidth()/2,mDevice.getDisplayHeight()/2));
+            Page_MainBoard.Inst.Click(GetCenter());
         }
         Thread.sleep(1000);
         Page_GridManager.Inst.Click(syncType); //情报数据
@@ -1395,6 +1392,16 @@ public class testFastMapZF extends testFastMapBase
             e.printStackTrace();
         }
         eCurrLayer = EnumLayer.Layer_Main;
+    }
+
+    protected void Drag(int startX, int startY, int endX, int endY, int steps) {
+        try {
+            Thread.sleep(500);
+            mDevice.drag(startX, startY, endX, endY, steps);
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
 
