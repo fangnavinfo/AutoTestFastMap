@@ -688,7 +688,7 @@ public class testFastMapYL extends testFastMapBase
         //新增道路名标牌 取消
         //Page_MainBoard.Inst.Drag();
 
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ROAD_NAME_SIGN);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ROAD_NAME_SIGN); int testflag_fs;
         Page_MainBoard.Inst.Click(GetCenter());
         Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);//问题
         Page_Road_Name_Sign.Inst.SetValue(Page_Road_Name_Sign.NAME,"qwe");
@@ -4625,5 +4625,8 @@ public class testFastMapYL extends testFastMapBase
     private static Point newPosDoor= new Point(1972,1281);//点门牌
 
     int testflag;
+    int testflag_fs;
     private static Point test = new Point(0,0);
+
+   
 }
