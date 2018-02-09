@@ -8,6 +8,9 @@ public class Page_InfoPoint extends FastMapPage
     @FindResource(Id="edt_infor_report_name")
     public static String NAME;
 
+    @FindResource(Id="infor_report_type_road")
+    public static String REPORT_TYPE_ROAD;
+
     @FindResource(Id="infor_report_type_poi")
     public static String POI_TYPE;
 
@@ -22,6 +25,9 @@ public class Page_InfoPoint extends FastMapPage
 
     @FindResource(Id="save_button")
     public static String SAVE;
+
+    @FindResource(Id="cancel_button")
+    public static String CANCEL;
 
     public static Page_InfoPoint Inst;
     static

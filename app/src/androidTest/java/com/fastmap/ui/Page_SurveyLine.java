@@ -18,6 +18,15 @@ public class Page_SurveyLine extends FastMapPage
     @FindResource(Id="card_provincial_rd")
     public static String PROVINCIAL_RD; //省道
 
+    @FindResource(Id="card_pedestrian_rd")
+    public static String PEDESTRIAN_RD;  //行人道路
+
+    @FindResource(Id="card_people_crossing")
+    public static String PEOPLE_CROSS_RD; //人渡
+
+    @FindResource(Id="card_ferry")
+    public static String FERRY_RD; //轮渡
+
     @FindResource(Id="lane_num_1")
     public static String LANE_NUM_1; //1车道
 

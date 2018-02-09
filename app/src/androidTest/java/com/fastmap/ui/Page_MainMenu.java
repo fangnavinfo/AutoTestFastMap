@@ -17,6 +17,9 @@ public class Page_MainMenu extends FastMapPage
     @FindResource(Id="fmcard_ibtn_back")
     public static String BACK;
 
+    @FindResource(Id="fmcard_tv_user_settings")
+    public static String SET;
+
     public static Page_MainMenu Inst;
     static
     {

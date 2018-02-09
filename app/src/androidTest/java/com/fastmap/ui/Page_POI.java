@@ -38,6 +38,12 @@ public class Page_POI extends FastMapPage
     @FindResource(Id="camera_button")
     public static String CAMERA;
 
+    @FindResource(clazz="android.widget.CheckBox", Text="人行门")
+    public static String PERSION_GATE;
+
+    @FindResource(clazz="android.widget.ScrollView")
+    public static String SCROLL;
+
     public static Page_POI Inst;
     static
     {

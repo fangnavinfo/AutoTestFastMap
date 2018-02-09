@@ -35,6 +35,9 @@ public class Page_MyData extends FastMapPage
     @FindResource(Id="iv_my_data_back")
     public static String BACK;
 
+    @FindResource(Id="et_title")
+    public static String TITLE;
+
     public static Page_MyData Inst;
     static
     {
@@ -61,5 +64,12 @@ public class Page_MyData extends FastMapPage
     public void SelectData(String name)
     {
         ClickByText(name);
+    }
+
+    public String GetGlobalID() throws InterruptedException, NoSuchFieldException, ClassNotFoundException
+    {
+        String strTemp = GetValue(TITLE);
+        String temp = strTemp.substring(strTemp.length()-32,strTemp.length());
+        return temp;
     }
 }

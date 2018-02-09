@@ -30,6 +30,8 @@ public class Page_InfoFrame extends FastMapPage
     @FindResource(Id="save_button")
     public static String SAVE;
 
+    @FindResource(Id="infor_report_type_road")
+    public static String ROADTYPE;
     public static Page_InfoFrame Inst;
     static
     {

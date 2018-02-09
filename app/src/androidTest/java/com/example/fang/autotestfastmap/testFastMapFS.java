@@ -61,7 +61,7 @@ public class testFastMapFS extends testFastMapBase
     public  void setAfter() throws IOException, InterruptedException
     {
 
-        super.setAfter();
+        //super.setAfter();
     }
 
     @Test

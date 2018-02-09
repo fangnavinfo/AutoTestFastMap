@@ -71,6 +71,11 @@ public class Page_MainBoard extends FastMapPage
     @FindResource(Id="info_pop_add_frame")
     public static String FRAME_INFO;
 
+    @FindResource(Id="card_speed_limit_type_driveway")
+    public static String ROAD_SPEED_LIMIT;
+
+    @FindResource(Id="save_button")
+    public static String SAVE;
     public static Page_MainBoard Inst;
     static
     {

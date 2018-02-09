@@ -8,9 +8,9 @@ package com.fastmap.ui;
 public class Page_StartEndPoint extends FastMapPage
 {
     @FindResource(Id="bridge_bt")
-    public static String BRIDGE_BT;
+    public static String BRIDGE_BT; //桥
     @FindResource(Id="tunnel_bt")
-    public static String TUNNEL_BT;
+    public static String TUNNEL_BT; //隧道
     @FindResource(Id="cross_line_overpass_bt")
     public static String CROSS_LINE_OVERPASS_BT;
     @FindResource(Id="walking_street_bt")

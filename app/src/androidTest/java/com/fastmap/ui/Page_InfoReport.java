@@ -11,6 +11,8 @@ public class Page_InfoReport extends FastMapPage
     public static String CANCEL;
     @FindResource(Id="save_button", Text="保存")
     public static String SAVE;
+    @FindResource(Id="info_pop_add_point", Text="点情报")
+    public static String POINTINFO;
     @FindResource(Id="et_title")
     public static String GLOBAL_ID;
 
@@ -52,6 +54,12 @@ public class Page_InfoReport extends FastMapPage
 
     @FindResource(Id="camera_button")
     public static String CAMERA_BUTTON;
+
+    @FindResource(Id="info_pop_add_line", Text="点情报")
+    public static String LINEINFO;
+
+    @FindResource(Id="info_pop_add_frame", Text="点情报")
+    public static String FRAMEINFO;
 
     public static Page_InfoReport Inst;
     static

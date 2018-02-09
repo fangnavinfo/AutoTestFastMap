@@ -55,14 +55,14 @@ public class FastMapPage
         FindResource annotation = field.getAnnotation(FindResource.class);
         if (!annotation.Id().isEmpty())
         {
-            UiObject2 obj = mDevice.wait(Until.findObject(By.res(packageName, annotation.Id())), 2000);
+            UiObject2 obj = mDevice.wait(Until.findObject(By.res(packageName, annotation.Id())), 10000);
             obj.click();
             return;
         }
 
         if (!annotation.Text().isEmpty())
         {
-            UiObject2 obj = mDevice.wait(Until.findObject(By.text(annotation.Text())), 2000);
+            UiObject2 obj = mDevice.wait(Until.findObject(By.text(annotation.Text())), 10000);
             obj.click();
             return;
         }
@@ -116,7 +116,7 @@ public class FastMapPage
         packageName = name;
     }
 
-    protected void ClickByText(String value)
+    public void ClickByText(String value)
     {
         UiObject2 obj = mDevice.wait(Until.findObject(By.text(value)), 500);
         obj.click();

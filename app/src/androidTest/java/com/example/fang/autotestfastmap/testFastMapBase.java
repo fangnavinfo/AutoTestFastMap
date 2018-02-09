@@ -81,26 +81,26 @@ public class testFastMapBase
 
     }
 
-    protected  void setAfter() throws IOException, InterruptedException {
-        try {
-            switch (eCurrLayer) {
-                case Layer_MyData:
-                    ExitMyData();
-                    break;
-                case Layer_IndoorTools:
-                    ExitIndoorTools();
-                    break;
-                case Layer_GridManager:
-                    //ExitGridManager();
-                    break;
-                default:
-                    break;
-            }
-        } catch (RuntimeException e) {
-            ReStartApp();
-            loginProcess();
-        }
-    }
+//    protected  void setAfter() throws IOException, InterruptedException {
+//        try {
+//            switch (eCurrLayer) {
+//                case Layer_MyData:
+//                    ExitMyData();
+//                    break;
+//                case Layer_IndoorTools:
+//                    ExitIndoorTools();
+//                    break;
+//                case Layer_GridManager:
+//                    //ExitGridManager();
+//                    break;
+//                default:
+//                    break;
+//            }
+//        } catch (RuntimeException e) {
+//            ReStartApp();
+//            loginProcess();
+//        }
+//    }
     protected static String getPackageName() throws Exception
     {
         String rslt = mDevice.executeShellCommand("pm list packages");

@@ -47,9 +47,10 @@ public class testFastMapZF_hm extends testFastMapBase
     }
 
     @After
-    public  void setAfter() throws IOException, InterruptedException {
+    public  void setAfter() //throws IOException, InterruptedException {
+    {
 
-        super.setAfter();
+        //super.setAfter();
     }
 
     // POI 分类品牌表增加港澳标识
