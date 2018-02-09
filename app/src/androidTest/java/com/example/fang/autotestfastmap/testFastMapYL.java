@@ -6,10 +6,35 @@ import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.UiObjectNotFoundException;
 import android.support.test.uiautomator.UiScrollable;
 import android.support.test.uiautomator.UiSelector;
-import android.support.test.uiautomator.Until;
-import android.support.v4.text.TextUtilsCompat;
 
-import com.fastmap.ui.*;
+import com.fastmap.ui.Page_Accept;
+import com.fastmap.ui.Page_CarInfo;
+import com.fastmap.ui.Page_ElecEye;
+import com.fastmap.ui.Page_Gate;
+import com.fastmap.ui.Page_GridManager;
+import com.fastmap.ui.Page_IndoorTool;
+import com.fastmap.ui.Page_Indoor_Data_List;
+import com.fastmap.ui.Page_InfoFrame;
+import com.fastmap.ui.Page_InfoLine;
+import com.fastmap.ui.Page_InfoPoint;
+import com.fastmap.ui.Page_InfoReport;
+import com.fastmap.ui.Page_MainBoard;
+import com.fastmap.ui.Page_MainMenu;
+import com.fastmap.ui.Page_MilePost;
+import com.fastmap.ui.Page_MyData;
+import com.fastmap.ui.Page_POI;
+import com.fastmap.ui.Page_POI_Camera;
+import com.fastmap.ui.Page_Ramp;
+import com.fastmap.ui.Page_Road_Name;
+import com.fastmap.ui.Page_Road_Name_Sign;
+import com.fastmap.ui.Page_RoundAbout;
+import com.fastmap.ui.Page_Search;
+import com.fastmap.ui.Page_SearchResultList;
+import com.fastmap.ui.Page_Set;
+import com.fastmap.ui.Page_Speed_Limit_Lane;
+import com.fastmap.ui.Page_StartEndPoint;
+import com.fastmap.ui.Page_SurveyLine;
+import com.fastmap.ui.Page_Time_Ctl;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -4598,5 +4623,7 @@ public class testFastMapYL extends testFastMapBase
     //private static Point newCarRoadChange = new Point(483,1432); //车道变化点
     private static Point newdiagram = new Point(1985,1029);//草图
     private static Point newPosDoor= new Point(1972,1281);//点门牌
+
+    int testflag;
 
 }
