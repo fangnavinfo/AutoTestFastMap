@@ -4625,5 +4625,5 @@ public class testFastMapYL extends testFastMapBase
     private static Point newPosDoor= new Point(1972,1281);//点门牌
 
     int testflag;
-
+    private static Point test = new Point(0,0);
 }

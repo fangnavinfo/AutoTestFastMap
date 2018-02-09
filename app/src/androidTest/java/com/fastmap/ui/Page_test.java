@@ -4,5 +4,9 @@ package com.fastmap.ui;
  * Created by h on 2018/2/9.
  */
 
-public class Page_test {
+public class Page_test extends FastMapPage{
+    int test;
+    static {
+
+    }
 }
