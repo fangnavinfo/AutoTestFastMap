@@ -38,6 +38,9 @@ public class Page_MyData extends FastMapPage
     @FindResource(Id="et_title")
     public static String TITLE;
 
+    @FindResource(Id="ll_my_data_snap_list")
+    public static String DATALIST; //我的数据列表
+
     public static Page_MyData Inst;
     static
     {

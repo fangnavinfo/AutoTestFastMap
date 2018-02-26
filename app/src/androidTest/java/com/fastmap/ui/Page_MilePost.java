@@ -17,6 +17,11 @@ public class Page_MilePost extends FastMapPage {
     @FindResource(Id="milepost_rb")
     public static String MILEPOST;
 
+    @FindResource(Id="et_milepost_number")
+    public static String NUM;
+
+    @FindResource(Id="et_milepost_road_name")
+    public static String NAME;
     public static Page_MilePost Inst;
     static
     {

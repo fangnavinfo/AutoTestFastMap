@@ -11,6 +11,9 @@ public class Page_TruckForbidden extends FastMapPage
     @FindResource(Id="save_button")
     public static String SAVE;
 
+    @FindResource(Id="camera_button")
+    public static String CAMERA;
+
     public static Page_TruckForbidden Inst;
     static
     {

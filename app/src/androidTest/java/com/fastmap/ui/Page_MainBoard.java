@@ -74,6 +74,9 @@ public class Page_MainBoard extends FastMapPage
     @FindResource(Id="card_speed_limit_type_driveway")
     public static String ROAD_SPEED_LIMIT;
 
+    @FindResource(Id="btn_fm_confirm")
+    public static String CONFIRM;
+
     @FindResource(Id="save_button")
     public static String SAVE;
     public static Page_MainBoard Inst;

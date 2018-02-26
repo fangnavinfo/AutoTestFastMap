@@ -9,6 +9,7 @@ import android.support.test.uiautomator.UiSelector;
 
 import com.fastmap.ui.Page_Accept;
 import com.fastmap.ui.Page_CarInfo;
+import com.fastmap.ui.Page_Dangerous;
 import com.fastmap.ui.Page_ElecEye;
 import com.fastmap.ui.Page_Gate;
 import com.fastmap.ui.Page_GridManager;
@@ -18,10 +19,12 @@ import com.fastmap.ui.Page_InfoFrame;
 import com.fastmap.ui.Page_InfoLine;
 import com.fastmap.ui.Page_InfoPoint;
 import com.fastmap.ui.Page_InfoReport;
+import com.fastmap.ui.Page_LaneChangePoint;
 import com.fastmap.ui.Page_MainBoard;
 import com.fastmap.ui.Page_MainMenu;
 import com.fastmap.ui.Page_MilePost;
 import com.fastmap.ui.Page_MyData;
+import com.fastmap.ui.Page_PAS;
 import com.fastmap.ui.Page_POI;
 import com.fastmap.ui.Page_POI_Camera;
 import com.fastmap.ui.Page_Ramp;
@@ -31,10 +34,12 @@ import com.fastmap.ui.Page_RoundAbout;
 import com.fastmap.ui.Page_Search;
 import com.fastmap.ui.Page_SearchResultList;
 import com.fastmap.ui.Page_Set;
+import com.fastmap.ui.Page_SketchHook;
 import com.fastmap.ui.Page_Speed_Limit_Lane;
 import com.fastmap.ui.Page_StartEndPoint;
 import com.fastmap.ui.Page_SurveyLine;
 import com.fastmap.ui.Page_Time_Ctl;
+import com.fastmap.ui.Page_TruckForbidden;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -46,6 +51,7 @@ import org.junit.runners.MethodSorters;
 
 import java.io.IOException;
 
+import static com.fastmap.ui.Page_CarInfo.T;
 import static junit.framework.Assert.fail;
 
 /**
@@ -1248,7 +1254,7 @@ public class testFastMapYL extends testFastMapBase
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);
         //Click("ll_bg_select_more");//“更多”控件ID //问题
         //Click("rb_select_six_t");//直斜左控件ID
-        Page_CarInfo.Inst.Click(Page_CarInfo.T);
+        Page_CarInfo.Inst.Click(T);
         Page_CarInfo.Inst.Click(Page_CarInfo.SAVE);
         //Click("save_button");
         //tipsNum++;
@@ -1457,7 +1463,7 @@ public class testFastMapYL extends testFastMapBase
         Page_CarInfo.Inst.Click(Page_CarInfo.DRI);
         Page_CarInfo.Inst.Click(Page_CarInfo.R);//斜左
         Page_CarInfo.Inst.Click(Page_CarInfo.S);//斜右控件ID
-        Page_CarInfo.Inst.Click(Page_CarInfo.T);
+        Page_CarInfo.Inst.Click(T);
         Page_CarInfo.Inst.Click(Page_CarInfo.X); //直斜左控件ID
         Page_CarInfo.Inst.Click(Page_CarInfo.U);//直斜右控件ID
         Page_CarInfo.Inst.Click(Page_CarInfo.Z);//左斜左控件ID
@@ -1518,7 +1524,7 @@ public class testFastMapYL extends testFastMapBase
         Page_MainBoard.Inst.Click(GetCenter());
         Page_CarInfo.Inst.Click(Page_CarInfo.A);//单车道任一控件ID
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);//“更多”控件ID
-        Page_CarInfo.Inst.Click(Page_CarInfo.T);;
+        Page_CarInfo.Inst.Click(T);;
 
         Page_CarInfo.Inst.Click(Page_CarInfo.SAVE);
         //tipsNum++;
@@ -1747,7 +1753,7 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);//“更多”控件ID
-        Page_CarInfo.Inst.Click(Page_CarInfo.T);//直斜左控件ID
+        Page_CarInfo.Inst.Click(T);//直斜左控件ID
         Page_CarInfo.Inst.Click(Page_CarInfo.A);//单车道任一控件ID
         Page_CarInfo.Inst.Click(Page_CarInfo.SAVE);
         //tipsNum++;
@@ -1972,7 +1978,7 @@ public class testFastMapYL extends testFastMapBase
         //Click("ll_bg_select_more");//“更多”控件ID
         //Click("rb_select_six_t");//直斜左控件ID
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);
-        Page_CarInfo.Inst.Click(Page_CarInfo.T);
+        Page_CarInfo.Inst.Click(T);
         Page_CarInfo.Inst.Click(Page_CarInfo.DELETE);
         Page_CarInfo.Inst.Click(Page_CarInfo.CANCEL);
 
@@ -2190,7 +2196,7 @@ public class testFastMapYL extends testFastMapBase
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);
         Page_CarInfo.Inst.Click(Page_CarInfo.S);
         Page_CarInfo.Inst.Click(Page_CarInfo.DRI);
-        Page_CarInfo.Inst.Click(Page_CarInfo.T);
+        Page_CarInfo.Inst.Click(T);
         Page_CarInfo.Inst.Click(Page_CarInfo.SAVE);
         //tipsNum++;
 
@@ -2204,7 +2210,7 @@ public class testFastMapYL extends testFastMapBase
         Page_MainBoard.Inst.Click(GetCenter());
 
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);
-        Page_CarInfo.Inst.Click(Page_CarInfo.T);
+        Page_CarInfo.Inst.Click(T);
         Page_CarInfo.Inst.Click(Page_CarInfo.DRI);
         Page_CarInfo.Inst.Click(Page_CarInfo.X);
         Page_CarInfo.Inst.Click(Page_CarInfo.SAVE);
@@ -2416,175 +2422,119 @@ public class testFastMapYL extends testFastMapBase
     }
 
     @Test
-    public void test01201_tips_add_Click() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01201_tips_add_Click() throws Exception {
         //单击手动设置点位信息，新增限速
-        //Page_MainBoard.Inst.Drag();
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
-
-        OpenGPS();
-        Click(newLimitSpeed);//单击击限速Tips
-        Click(GetCenter());
-        Click("speed_limit_type_point");//点击点限速
-        Click("et_speed_limit_number");//最高限速值
-        Click("speed_limit_number_40");//40
-        Click("et_speed_limit_number_min");//最低限速值
-        Click("speed_limit_number_30");//30
-        Click("save_button");
-        tipsNum++;
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);//单击击限速Tips newLimitSpeed
+        Page_MainBoard.Inst.Click(GetCenter());
+        Page_Speed_Limit_Lane.Inst.Click(Page_Speed_Limit_Lane.POINTLIMIT);//点击点限速
+        Page_Speed_Limit_Lane.Inst.Click(Page_Speed_Limit_Lane.POINTLIMIT);//点击点限速
+        Page_Speed_Limit_Lane.Inst.Click(Page_Speed_Limit_Lane.MAXNUM);//最高限速
+        Page_Speed_Limit_Lane.Inst.Click(Page_Speed_Limit_Lane.NUM40);//40
+        Page_Speed_Limit_Lane.Inst.Click(Page_Speed_Limit_Lane.MINNUM);//最低限速值
+        Page_Speed_Limit_Lane.Inst.Click(Page_Speed_Limit_Lane.NUM30);//30
+        Page_Speed_Limit_Lane.Inst.Click(Page_Speed_Limit_Lane.SAVE);
+        //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE,"点限速");
     }
 
     @Test
-    public void test01202_tips_add_Click() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01202_tips_add_Click() throws Exception {
         //单击手动设置点位信息，新增红绿灯
-        //Page_MainBoard.Inst.Drag();
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
 
-        //OpenGPS();
-        Click(newTrafficLight);//单击红绿灯
-        Click(GetCenter());
-
-        tipsNum++;
+        //单击
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_LIGHT);//单击红绿灯
+        Page_MainBoard.Inst.Click(GetCenter());
+        //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE,"红绿灯");
     }
 
     @Test
-    public void test01203_tips_add_Click() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01203_tips_add_Click() throws Exception {
         //单击手动设置点位信息，新增危险信息
-        //Page_MainBoard.Inst.Drag();
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
-
-        //OpenGPS();
-        Click(newHorFour);
-        Click(newDangerInfo);//单击危险信息
-        Click(GetCenter());
-        Click("dangerous_information_icon_a1");//点击警示信息
-        Click("save_button");
-        tipsNum++;
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.DANGEROUS_INFO);//单击危险信息
+        Page_MainBoard.Inst.Click(GetCenter());
+        Page_Dangerous.Inst.Click(Page_Dangerous.ICON_1);//点击警示信息
+        Page_Dangerous.Inst.Click(Page_Dangerous.SAVE);
+        //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE,"危险信息");
     }
 
     @Test
-    public void test01204_tips_add_Click() throws InterruptedException, UiObjectNotFoundException, NoSuchFieldException, ClassNotFoundException {
+    public void test01204_tips_add_Click() throws Exception {
         //单击手动设置点位信息，新增收费站
-        //Page_MainBoard.Inst.Drag();
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
-
-        //OpenGPS();
-        Click(newHorFour);
-        Click(newTollStation);//单击收费站
-        //Click(new Point(374,740));
-        Click(GetCenter());
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TOLLGATE);//单击收费站
+        Page_MainBoard.Inst.Click(GetCenter());
         mDevice.findObject(By.text("领卡")).click();
-        Click("save_button");
-        tipsNum++;
+        Page_MainBoard.Inst.Click(Page_MainBoard.SAVE);
+        //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE,"收费站");
     }
 
     @Test
-    public void test01205_tips_add_Click() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01205_tips_add_Click() throws Exception {
         //单击手动设置点位信息，新增电子眼
-        //Page_MainBoard.Inst.Drag();
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
-
-        //OpenGPS();
-        Click(newHorFour);
-        Click(newEleEye);//单击电子眼
-        Click(GetCenter());
-
-        Click("save_button");
-        tipsNum++;
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POINT_ELECTRONIC_EYE);//单击电子眼
+        Page_MainBoard.Inst.Click(GetCenter());
+        Page_MainBoard.Inst.Click(Page_MainBoard.SAVE);
+        //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE,"电子眼");
     }
 
     @Test
-    public void test01206_tips_add_Click() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01206_tips_add_Click() throws Exception {
         //单击手动设置点位信息，新增卡车限制
-        //Page_MainBoard.Inst.Drag();
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
-
-        //OpenGPS();
-        Click(newHorFour);
-        Click(newTruckLimit);//单击卡车限制
-        Click(GetCenter());
-        Click("camera_button");//拍照ID
-        Click("take_pic_imgbtn", 3000);//拍摄按键ID
-        Click("task_pic_back_img");//返回键ID
-        Click("save_button");
-        tipsNum++;
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRUCK_LIMIT);//单击卡车限制
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Click(GetCenter());
+        Page_TruckForbidden.Inst.Click(Page_TruckForbidden.CAMERA);//拍照ID
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);//拍摄按键ID
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);//返回键ID
+        Page_MainBoard.Inst.Click(Page_MainBoard.SAVE);
+        //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE,"卡车限制");
     }
 
     @Test
-    public void test01207_tips_add_Click() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01207_tips_add_Click() throws Exception {
         //单击手动设置点位信息，新增车道变化点
-        //Page_MainBoard.Inst.Drag();
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
-
-        //OpenGPS();
-        Click(newCarRoadChangePos);//单击车道变化点
-        Click(GetCenter());
-        Click("et_entry_lane_num");//进入车道数
-        Click("lane_number_tow");//2
-        Click("et_back_lane_num");//退出车道数
-        Click("lane_number_one");//1
-        Click("save_button");
-        tipsNum++;
-
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_CHANGE_POINT);//单击车道变化点
+        Page_MainBoard.Inst.Click(GetCenter());
+        Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.ENTRYLANENUM);//进入车道数
+        Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.NUM2);//2
+        Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.BACKLANENUM);//退出车道数
+        Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.NUM1);//1
+        Page_MainBoard.Inst.Click(Page_MainBoard.SAVE);
+        //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE,"车道变化点");
     }
 
     @Test
-    public void test01208_tips_add_Click() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01208_tips_add_Click() throws Exception {
         //单击手动设置点位信息，新增普通路口模式图
-        //Page_MainBoard.Inst.Drag();
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
-
-        //OpenGPS();
-        Click(newLeftFour);//点击方向看板
-        Click(newNormalRoadEnterPic);//单击点击普通路口模式图
-        Click(GetCenter());
-
-        //方法一
-        //UiObject object = new UiObject(new UiSelector().text("73100000"));
-        //object.click();
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NORMAL_CROSSROAD_PICTURE);//单击点击普通路口模式图
+        Page_MainBoard.Inst.Click(GetCenter());
         mDevice.findObject(By.text("73100000")).click();
-        Click("save_button");
-        tipsNum++;
+        Page_MainBoard.Inst.Click(Page_MainBoard.SAVE);
+        //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE,"普通路口模式图");
     }
 
 
     @Test
-    public void test01209_tips_add_Click() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01209_tips_add_Click() throws Exception {
         //单击手动设置点位信息，新增高速入口模式图
-        //Page_MainBoard.Inst.Drag();
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
-
-        //OpenGPS();
-        Click(newLeftFour);//点击方向看板
-        Click(newHighSpeedEnterPic);//单击高速入口模式图
-        Click(GetCenter());
-
-        Click("save_button");
-        tipsNum++;
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.HIGH_SPEED_ENTRY_MODE_PICTURE);//单击高速入口模式图
+        Page_MainBoard.Inst.Click(GetCenter());
+        Page_MainBoard.Inst.Click(Page_MainBoard.SAVE);
+        //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE,"高速入口模式图");
     }
@@ -2644,11 +2594,9 @@ public class testFastMapYL extends testFastMapBase
     public void test01212_tips_add_Click() throws Exception
     {
         //单击手动设置点位信息，新增匝道
-        //Page_MainBoard.Inst.Drag();
-
-
-        //OpenGPS();
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.RAMP);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.RAMP);//有问题
+       // Page_MainBoard.Inst.Click(newHorFive);//匝道
+        //Page_MainBoard.Inst.Click(newRingRoad);//匝道
         Page_MainBoard.Inst.Click(GetCenter());
 
         Page_Ramp.Inst.Click(Page_Ramp.RAMP);
@@ -3288,155 +3236,183 @@ public class testFastMapYL extends testFastMapBase
 
 */
     @Test
-    public void test01401_diagram_add() throws UiObjectNotFoundException, InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01401_diagram_add() throws Exception {
         //挂接
-
-        Click(newdiagram);
-        Click("sketch_hook_1");//挂接1
-        Click(GetCenter());
-        Click("connect_icons_2082");
-        mDevice.drag(1177,798,994,1244,10);//旋转挂接件
-        Click("save_button");
-        tipsNum++;
+        //Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TIPS_18_BACKGROUND);//草图
+        //Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TIPS_18_HOOK);//挂接
+        Page_MainBoard.Inst.Click(newdiagram);//草图
+        Page_SketchHook.Inst.Click(Page_SketchHook.SKETCHHOOK1);//挂接1
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Click(GetCenter());
+        Page_SketchHook.Inst.Click(Page_SketchHook.ICON2082);
+        //mDevice.drag(1177,798,994,1244,10);//旋转挂接件
+        //Thread.sleep(2000);
+        Page_MainBoard.Inst.Click(Page_MainBoard.SAVE);
+        //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE,"挂接");
     }
 
     @Test
-    public void test01402_diagram_add() throws UiObjectNotFoundException, InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01402_diagram_add() throws Exception {
         //挂接
-
-        Click(newdiagram);
-        Click("sketch_hook_2");//挂接2
-        Click(GetCenter());
-        Click("connect_icons_2113");
-        mDevice.drag(1177,798,994,1244,10);//旋转挂接件
-        Click("save_button");
-        tipsNum++;
+        //Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TIPS_18_BACKGROUND);
+        Page_MainBoard.Inst.Click(newdiagram);
+        Page_SketchHook.Inst.Click(Page_SketchHook.SKETCHHOOK2);//挂接2
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Click(GetCenter());
+        Page_SketchHook.Inst.Click(Page_SketchHook.ICON2113);
+        //mDevice.drag(1177,798,994,1244,10);//旋转挂接件
+        //Thread.sleep(2000);
+        Page_MainBoard.Inst.Click(Page_MainBoard.SAVE);
+        //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE,"挂接");
     }
 
     @Test
-    public void test01403_diagram_add() throws UiObjectNotFoundException, InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01403_diagram_add() throws Exception {
         //草图
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TIPS_18_SKETCH);
+        Page_SketchHook.Inst.Click(Page_SketchHook.STAIGHTLINE);//直线
+        Page_MainBoard.Inst.Click(new Point(477,700));
+        Page_MainBoard.Inst.Click(new Point(794,444));
+        Page_MainBoard.Inst.Click(Page_MainBoard.SAVE);
+        //tipsNum++;
 
-        Click(newdiagram);
-        Click("straight_line");//直线
-        Click(new Point(477,700));
-        Click(new Point(794,444));
-        Click("save_button");
+        CheckMyData(Page_MyData.TIPS_TYPE,"草图");
+    }
+
+    @Test
+    public void test01404_diagram_add() throws Exception {
+        //草图
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TIPS_18_SKETCH);
+        Page_SketchHook.Inst.Click(Page_SketchHook.CURVELINE);//曲线
+        //Click(newdiagram);
+        //Click("curve_line");//曲线
+        mDevice.drag(477,698,794,234,10);
+        //mDevice.drag(794,234,194,344,10);
+        Page_MainBoard.Inst.Click( Page_MainBoard.SAVE);
         tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE,"草图");
     }
 
     @Test
-    public void test01404_diagram_add() throws UiObjectNotFoundException, InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01405_diagram_add() throws Exception {
         //草图
-
-        Click(newdiagram);
-        Click("curve_line");//曲线
-        mDevice.drag(477,698,794,344,10);
-        Click("save_button");
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TIPS_18_SKETCH);
+        Page_SketchHook.Inst.Click(Page_SketchHook.POLYLINE);//折线
+        //Click(newdiagram);
+        //Click("poly_line");//折线
+        Page_MainBoard.Inst.Click(GetCenter());
+        Page_MainBoard.Inst.Click(new Point(400,500));
+        Page_MainBoard.Inst.Click(new Point(400,600));
+        Page_MainBoard.Inst.Click(new Point(600,400));
+        Page_MainBoard.Inst.Click(Page_MainBoard.SAVE);
         tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE,"草图");
     }
 
     @Test
-    public void test01405_diagram_add() throws UiObjectNotFoundException, InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01406_diagram_add() throws Exception {
         //草图
-
-        Click(newdiagram);
-        Click("poly_line");//折线
-        Click(GetCenter());
-        Click(new Point(400,500));
-        Click(new Point(400,600));
-        Click("save_button");
-        tipsNum++;
-
-        CheckMyData(Page_MyData.TIPS_TYPE,"草图");
-    }
-
-    @Test
-    public void test01406_diagram_add() throws UiObjectNotFoundException, InterruptedException, NoSuchFieldException, ClassNotFoundException {
-        //草图
-
-        Click(newdiagram);
-        Click("rect_line");//矩形
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TIPS_18_SKETCH);
+        Page_SketchHook.Inst.Click(Page_SketchHook.RECTLINE);//矩形
+        //Click(newdiagram);
+        //Click("rect_line");//矩形
         mDevice.drag(400,500,500,400,10);
-        Click("save_button");
+        Page_MainBoard.Inst.Click(Page_MainBoard.SAVE);
         tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE,"草图");
     }
 
     @Test
-    public void test01407_diagram_add() throws UiObjectNotFoundException, InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01407_diagram_add() throws Exception {
         //草图
-
-        Click(newdiagram);
-        Click("ellipse_line");//圆型
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TIPS_18_SKETCH);
+        Page_SketchHook.Inst.Click(Page_SketchHook.ELLIPSELINE);//圆型
+        //Click(newdiagram);
+        //Click("ellipse_line");//圆型
         mDevice.drag(700,800,800,700,10);
-        Click("save_button");
+        Page_MainBoard.Inst.Click(Page_MainBoard.SAVE);
         tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE,"草图");
     }
 
     @Test
-    public void test01408_diagram_add() throws UiObjectNotFoundException, InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01408_diagram_add() throws Exception {
         //草图
-
-        Click(newdiagram);
-        Click("circular_point");//圆点
-        Click(new Point(650,700));
-        Click("save_button");
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TIPS_18_SKETCH);
+        Page_SketchHook.Inst.Click(Page_SketchHook.CIRCULARPOINT);//圆点
+        //Click(newdiagram);
+        //Click("circular_point");//圆点
+        Page_MainBoard.Inst.Click(new Point(650,700));
+        Page_MainBoard.Inst.Click(Page_MainBoard.SAVE);
         tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE,"草图");
     }
 
     @Test
-    public void test01409_diagram_add() throws UiObjectNotFoundException, InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01409_diagram_add() throws Exception {
         //草图
-
-        Click(newdiagram);
-        Click("greenland_line");//草地
-        Click(new Point(800,700));
-        Click(new Point(800,900));
-        Click(new Point(900,1000));
-        Click("save_button");
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TIPS_18_SKETCH);
+        Page_SketchHook.Inst.Click(Page_SketchHook.GREENLANDLINE);//草地
+        //Click(newdiagram);
+        //Click("greenland_line");//草地
+        Page_MainBoard.Inst.Click(new Point(500,600));
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Click(new Point(900,500));
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Click(new Point(700,900));
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Click(new Point(900,700));
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Click(Page_MainBoard.SAVE);
         tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE,"草图");
     }
 
     @Test
-    public void test01410_diagram_add() throws UiObjectNotFoundException, InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01410_diagram_add() throws Exception {
         //草图
-
-        Click(newdiagram);
-        Click("water_line");//水系
-        Click(new Point(840,1200));
-        Click(new Point(900,1200));
-        Click(new Point(900,1000));
-        Click("save_button");
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TIPS_18_SKETCH);
+        Page_SketchHook.Inst.Click(Page_SketchHook.WATERLINE);//水系
+        //Click(newdiagram);
+        //Click("water_line");//水系
+        Page_MainBoard.Inst.Click(new Point(500,600));
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Click(new Point(900,500));
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Click(new Point(700,900));
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Click(new Point(900,700));
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Click(Page_MainBoard.SAVE);
         tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE,"草图");
     }
 
     @Test
-    public void test01411_diagram_add() throws UiObjectNotFoundException, InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01411_diagram_add() throws Exception {
         //草图
-
-        Click(newdiagram);
-        Click("railway_line");//铁路
-        Click(new Point(1000,1100));
-        Click(new Point(900,1100));
-        Click("save_button");
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TIPS_18_SKETCH);
+        Page_SketchHook.Inst.Click(Page_SketchHook.RAILWAYLINE);//铁路
+        //Click(newdiagram);
+        //Click("railway_line");//铁路
+        Page_MainBoard.Inst.Click(new Point(900,500));
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Click(new Point(700,900));
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Click(new Point(900,700));
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Click(Page_MainBoard.SAVE);
         tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE,"草图");
@@ -3445,13 +3421,17 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test01501_search_data() throws Exception {
         //经纬度搜索 自动调整比例尺到21级，坐标显示在界面中心  重新登录后坐标点消失
-
-        Click("img_search");
+        Page_MainBoard.Inst.Click(Page_MainBoard.SEARCH);
+        //Click("img_search");
+        Thread.sleep(3000);
         mDevice.findObject(By.text("经纬度")).click();
-        //Thread.sleep(3000);
-        PutinEditor("edt_search_location_longitude","162.99");//经度
-        PutinEditor("edt_search_location_latitude","3.44");//纬度
-        Click("tv_search_location_btn");//搜索
+        Thread.sleep(3000);
+        //PutinEditor("edt_search_location_longitude","162.99");//经度
+        //PutinEditor("edt_search_location_latitude","3.44");//纬度
+        Page_Search.Inst.SetValue(Page_Search.LONGITUDE,"162.99");//经度
+        Page_Search.Inst.SetValue(Page_Search.LATITUDE,"3.44");//经度
+        //Click("tv_search_location_btn");//搜索
+        Page_Search.Inst.Click(Page_Search.SEARCH);//搜索
         Thread.sleep(3000);
 
         testFastMapBase.setClassUp("collector1","123456");
@@ -3461,51 +3441,69 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test01502_search_data() throws Exception {
         //经纬度搜索  新增多条搜索信息 保留后五次搜索记录 观察历史记录列表数及变化
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
-
-        Click("img_search");
+        Page_MainBoard.Inst.Click(Page_MainBoard.SEARCH);
+        //Click("img_search");
+        Thread.sleep(3000);
         mDevice.findObject(By.text("经纬度")).click();
-        //Thread.sleep(3000);
-        PutinEditor("edt_search_location_longitude","53.44");//经度
-        PutinEditor("edt_search_location_latitude","22.99");//纬度
-        Click("tv_search_location_btn");//搜索
+        Thread.sleep(3000);
+        Page_Search.Inst.SetValue(Page_Search.LONGITUDE,"53.44");//经度
+        Page_Search.Inst.SetValue(Page_Search.LATITUDE,"22.99");//经度
+        Page_Search.Inst.Click(Page_Search.SEARCH);//搜索
+        //PutinEditor("edt_search_location_longitude","53.44");//经度
+        //PutinEditor("edt_search_location_latitude","22.99");//纬度
+        //Click("tv_search_location_btn");//搜索
+        Thread.sleep(3000);
+
+        Page_MainBoard.Inst.Click(Page_MainBoard.SEARCH);
+        //Click("img_search");
+        Thread.sleep(3000);
+        mDevice.findObject(By.text("经纬度")).click();
+        Thread.sleep(3000);
+        Page_Search.Inst.SetValue(Page_Search.LONGITUDE,"-70");//经度
+        Page_Search.Inst.SetValue(Page_Search.LATITUDE,"84");//经度
+        Page_Search.Inst.Click(Page_Search.SEARCH);//搜索
+        //PutinEditor("edt_search_location_longitude","-70");//经度
+        //PutinEditor("edt_search_location_latitude","84");//纬度
+        //Click("tv_search_location_btn");//搜索
         Thread.sleep(3000);
         //waitObjectEnable("iv_search_result_list_back");
 
-        Click("img_search");
+        Page_MainBoard.Inst.Click(Page_MainBoard.SEARCH);
+        Thread.sleep(3000);
         mDevice.findObject(By.text("经纬度")).click();
-        //Thread.sleep(3000);
-        PutinEditor("edt_search_location_longitude","-70");//经度
-        PutinEditor("edt_search_location_latitude","84");//纬度
-        Click("tv_search_location_btn");//搜索
+        Thread.sleep(3000);
+        Page_Search.Inst.SetValue(Page_Search.LONGITUDE,"79");//经度
+        Page_Search.Inst.SetValue(Page_Search.LATITUDE,"79.99");//经度
+        Page_Search.Inst.Click(Page_Search.SEARCH);//搜索
+        //PutinEditor("edt_search_location_longitude","79");//经度
+        //PutinEditor("edt_search_location_latitude","79.99");//纬度
+        //Click("tv_search_location_btn");//搜索
         Thread.sleep(3000);
         //waitObjectEnable("iv_search_result_list_back");
 
-        Click("img_search");
+        Page_MainBoard.Inst.Click(Page_MainBoard.SEARCH);
+        Thread.sleep(3000);
         mDevice.findObject(By.text("经纬度")).click();
-        //Thread.sleep(3000);
-        PutinEditor("edt_search_location_longitude","79");//经度
-        PutinEditor("edt_search_location_latitude","79.99");//纬度
-        Click("tv_search_location_btn");//搜索
+        Thread.sleep(3000);
+        Page_Search.Inst.SetValue(Page_Search.LONGITUDE,"-50");//经度
+        Page_Search.Inst.SetValue(Page_Search.LATITUDE,"70");//经度
+        Page_Search.Inst.Click(Page_Search.SEARCH);//搜索
+        //PutinEditor("edt_search_location_longitude","-50");//经度
+        //PutinEditor("edt_search_location_latitude","70");//纬度
+        //Click("tv_search_location_btn");//搜索
         Thread.sleep(3000);
         //waitObjectEnable("iv_search_result_list_back");
 
-        Click("img_search");
-        mDevice.findObject(By.text("经纬度")).click();
-        //Thread.sleep(3000);
-        PutinEditor("edt_search_location_longitude","-50");//经度
-        PutinEditor("edt_search_location_latitude","70");//纬度
-        Click("tv_search_location_btn");//搜索
+        Page_MainBoard.Inst.Click(Page_MainBoard.SEARCH);
         Thread.sleep(3000);
-        //waitObjectEnable("iv_search_result_list_back");
-
-        Click("img_search");
         mDevice.findObject(By.text("经纬度")).click();
-        //Thread.sleep(3000);
-        PutinEditor("edt_search_location_longitude","-30");//经度
-        PutinEditor("edt_search_location_latitude","60");//纬度
-        Click("tv_search_location_btn");//搜索
+        Thread.sleep(3000);
+        Page_Search.Inst.SetValue(Page_Search.LONGITUDE,"-30");//经度
+        Page_Search.Inst.SetValue(Page_Search.LATITUDE,"60");//经度
+        Page_Search.Inst.Click(Page_Search.SEARCH);//搜索
+        //PutinEditor("edt_search_location_longitude","-30");//经度
+        //PutinEditor("edt_search_location_latitude","60");//纬度
+        //Click("tv_search_location_btn");//搜索
         Thread.sleep(3000);
         //waitObjectEnable("iv_search_result_list_back");
 
@@ -3514,12 +3512,11 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test01503_search_data() throws Exception {
         ////经纬度搜索  点击历史记录第二条 观察历史记录列表变化
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
-
-        Click("img_search");
+        Page_MainBoard.Inst.Click(Page_MainBoard.SEARCH);
+        Thread.sleep(3000);
         mDevice.findObject(By.text("经纬度")).click();
-        //Thread.sleep(3000);
+        Thread.sleep(3000);
+
         UiScrollable noteList = new UiScrollable( new UiSelector().scrollable(true));  //would be null if the scrollable widget's not more than one page
         UiObject not = null;
         not = noteList.getChildByText(new UiSelector().className("android.widget.TextView"), "经度:-50.00000  纬度:70.00000", true);
@@ -3533,18 +3530,17 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test01504_search_data() throws Exception {
         //经纬度搜索  点击图标坐标点消失 添加poi
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
-
-        Click("img_search");
-        mDevice.findObject(By.text("经纬度")).click();
-        //Thread.sleep(3000);
-        PutinEditor("edt_search_location_longitude","122.99");//经度
-        PutinEditor("edt_search_location_latitude","53.44");//纬度
-        Click("tv_search_location_btn");//搜索
+        Page_MainBoard.Inst.Click(Page_MainBoard.SEARCH);
         Thread.sleep(3000);
-        //waitObjectEnable("iv_search_result_list_back");
-        //Click(GetCenter());
+        mDevice.findObject(By.text("经纬度")).click();
+        Thread.sleep(3000);
+        Page_Search.Inst.SetValue(Page_Search.LONGITUDE,"122.99");//经度
+        Page_Search.Inst.SetValue(Page_Search.LATITUDE,"53.44");//经度
+        Page_Search.Inst.Click(Page_Search.SEARCH);//搜索
+        //PutinEditor("edt_search_location_longitude","122.99");//经度
+        //PutinEditor("edt_search_location_latitude","53.44");//纬度
+        //Click("tv_search_location_btn");//搜索
+        Thread.sleep(3000);
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
 
@@ -3564,42 +3560,47 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test01505_search_data() throws Exception {
         //经纬度搜索  点击图标坐标点消失 添加tips
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
-
-        Click("img_search");
+        Page_MainBoard.Inst.Click(Page_MainBoard.SEARCH);
+        Thread.sleep(3000);
         mDevice.findObject(By.text("经纬度")).click();
-        //Thread.sleep(3000);
-        PutinEditor("edt_search_location_longitude","53.44");//经度
-        PutinEditor("edt_search_location_latitude","72.99");//纬度
-        Click("tv_search_location_btn");//搜索
+        Thread.sleep(3000);
+        Page_Search.Inst.SetValue(Page_Search.LONGITUDE,"53.44");//经度
+        Page_Search.Inst.SetValue(Page_Search.LATITUDE,"72.99");//经度
+        Page_Search.Inst.Click(Page_Search.SEARCH);//搜索
+        //PutinEditor("edt_search_location_longitude","53.44");//经度
+        //PutinEditor("edt_search_location_latitude","72.99");//纬度
+        //Click("tv_search_location_btn");//搜索
         Thread.sleep(3000);
         //waitObjectEnable("iv_search_result_list_back");
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_LIGHT);
-        Click(GetCenter());
-        Click(GetCenter());
+        Page_MainBoard.Inst.Click(GetCenter());
+        Page_MainBoard.Inst.Click(GetCenter());
     }
 
     @Test
     public void test01506_search_data() throws Exception {
         //经纬度搜索  点击图标坐标点消失 添加点门牌
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
-
-        Click("img_search");
+        Page_MainBoard.Inst.Click(Page_MainBoard.SEARCH);
+        Thread.sleep(3000);
         mDevice.findObject(By.text("经纬度")).click();
-        //Thread.sleep(3000)
-        PutinEditor("edt_search_location_longitude","122.99");//经度
-        PutinEditor("edt_search_location_latitude","53.44");//纬度
-        Click("tv_search_location_btn");//搜索
+        Thread.sleep(3000);
+        Page_Search.Inst.SetValue(Page_Search.LONGITUDE,"122.99");//经度
+        Page_Search.Inst.SetValue(Page_Search.LATITUDE,"53.44");//经度
+        Page_Search.Inst.Click(Page_Search.SEARCH);//搜索
+        //PutinEditor("edt_search_location_longitude","122.99");//经度
+        //PutinEditor("edt_search_location_latitude","53.44");//纬度
+        //Click("tv_search_location_btn");//搜索
         Thread.sleep(3000);
         //waitObjectEnable("iv_search_result_list_back");
 
-        Click(newPosDoor);
-        PutinEditor("fm_et_name_pas","A");
-        PutinEditor("fm_et_address_pas","123");
-        Click("save_button");
+        //Page_MainBoard.Inst.Click(newPosDoor);//点门牌
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
+        //PutinEditor("fm_et_name_pas","A");
+        //PutinEditor("fm_et_address_pas","123");
+        Page_PAS.Inst.SetValue(Page_PAS.NAME,"A");
+        Page_PAS.Inst.SetValue(Page_PAS.ADDRESS,"123");
+        Page_MainBoard.Inst.Click(Page_MainBoard.SAVE);
 
     }
 
@@ -3608,11 +3609,8 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test01601_tips_copy() throws Exception {
         //复制电子眼
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
-
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POINT_ELECTRONIC_EYE);
-        Click(GetCenter());
+        Page_MainBoard.Inst.Click(GetCenter());
         Page_ElecEye.Inst.Click(Page_ElecEye.EYE_OVERSPEED);//非机动车
         mDevice.drag(1871,1322,1856,329,10);
 
@@ -3630,30 +3628,34 @@ public class testFastMapYL extends testFastMapBase
 
         UiObject object = objscoll.getChildByText(new UiSelector().className("android.widget.TextView"), "电子眼");
         object.click();
-        //mDevice.findObject(By.text("电子眼")).click();
+
         Page_ElecEye.Inst.Click(Page_ElecEye.CANCEL);
         Page_MyData.Inst.Click(Page_MyData.BACK);
         Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_COPY_TIPS);
-        Click(GetCenter());
-        Click(new Point(300,360));
-        tipsNum++;
+        Page_MainBoard.Inst.Click(GetCenter());
+        Page_MainBoard.Inst.Click(new Point(300,360));
+        //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE, "电子眼");
 
         Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
         Page_MainMenu.Inst.Click(Page_MainMenu.MY_DATA);
         //mDevice.findObject(By.text("电子眼")).click();
-        Click("ll_my_data_snap_list");
+        //Click("ll_my_data_snap_list");
+        Page_MyData.Inst.Click(Page_MyData.DATALIST);
+
         Page_ElecEye.Inst.Click(Page_ElecEye.DELETE);
-        Click("btn_fm_confirm");
+        //Click("btn_fm_confirm");
+        Page_MainBoard.Inst.Click(Page_MainBoard.CONFIRM);
         Thread.sleep(3000);
         tipsNum--;
 
-        Click("ll_my_data_snap_list");
+        Page_MyData.Inst.Click(Page_MyData.DATALIST);
         Page_ElecEye.Inst.Click(Page_ElecEye.DELETE);
-        Click("btn_fm_confirm");
+        //Click("btn_fm_confirm");
+        Page_MainBoard.Inst.Click(Page_MainBoard.CONFIRM);
         Thread.sleep(3000);
         Page_MyData.Inst.Click(Page_MyData.BACK);
         Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
@@ -3663,11 +3665,8 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test01602_tips_copy() throws Exception {
         //复制电子眼
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
-
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POINT_ELECTRONIC_EYE);
-        Click(GetCenter());
+        Page_MainBoard.Inst.Click(GetCenter());
         Page_ElecEye.Inst.Click(Page_ElecEye.EYE_NO_VECHICLE);
         Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
         tipsNum++;
@@ -3685,8 +3684,8 @@ public class testFastMapYL extends testFastMapBase
         Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_COPY_TIPS);
-        Click(GetCenter());
-        Click(new Point(300,360));
+        Page_MainBoard.Inst.Click(GetCenter());
+        Page_MainBoard.Inst.Click(new Point(300,360));
         tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE, "电子眼");
@@ -3729,33 +3728,44 @@ public class testFastMapYL extends testFastMapBase
     public void test01701_tips_add() throws Exception {
 
         SearchRoadFromLink("607979");
-        Click(new Point(1971,919));//打点
-
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.MILEPOST);
+        //Page_MainBoard.Inst.Click(new Point(1971,919));//打点
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);
+        Thread.sleep(2000);
+        //Page_MainBoard.Inst.Trigger(TipsDeepDictionary.MILEPOST);
 
         Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
-        Click(GetCenter());
-        PutinEditor("et_milepost_number","E30");
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Click(GetCenter());
+        //PutinEditor("et_milepost_number","E30");
+        Thread.sleep(2000);
+        Page_MilePost.Inst.SetValue(Page_MilePost.NUM,"E30");
+        //Thread.sleep(2000);
         Page_MilePost.Inst.Click(Page_MilePost.ZERO);
         Page_MilePost.Inst.Click(Page_MilePost.SAVE);
         tipsNum++;
 
         SearchRoadFromLink("607979");
-        Click(new Point(1971,919));//打点
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.MILEPOST);
+        //Page_MainBoard.Inst.Click(new Point(1971,919));//打点
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);
+        Thread.sleep(2000);
+        //Page_MainBoard.Inst.Trigger(TipsDeepDictionary.MILEPOST);
         Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
-        Click(GetCenter());
-        PutinEditor("et_milepost_number","E30");
+        Page_MainBoard.Inst.Click(GetCenter());
+        //PutinEditor("et_milepost_number","E30");
+        Page_MilePost.Inst.SetValue(Page_MilePost.NUM,"E30");
         Page_MilePost.Inst.Click(Page_MilePost.ADD);
         Page_MilePost.Inst.Click(Page_MilePost.SAVE);
         tipsNum++;
 
         SearchRoadFromLink("607979");
-        Click(new Point(1971,919));//打点
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.MILEPOST);
+        //Click(new Point(1971,919));//打点
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);
+        Thread.sleep(2000);
+        //Page_MainBoard.Inst.Trigger(TipsDeepDictionary.MILEPOST);
         Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
-        Click(GetCenter());
-        PutinEditor("et_milepost_number","E30");
+        Page_MainBoard.Inst.Click(GetCenter());
+        //PutinEditor("et_milepost_number","E30");
+        Page_MilePost.Inst.SetValue(Page_MilePost.NUM,"E30");
         Page_MilePost.Inst.Click(Page_MilePost.SAVE);
         tipsNum++;
 
@@ -3765,34 +3775,40 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test01702_tips_add() throws Exception {
         //里程桩 关联rdlink 关联测线
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
-
         SearchRoadFromLink("606403");//小黄庄前街
-        Click(new Point(1971,919));//打点
+        //Page_MainBoard.Inst.Click(new Point(1971,919));//打点
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);
+        Thread.sleep(2000);
+        //Page_MainBoard.Inst.Trigger(TipsDeepDictionary.MILEPOST);
         Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
         Thread.sleep(2000);
-        Click(GetCenter());
+        Page_MainBoard.Inst.Click(GetCenter());
         //mDevice.findObject(By.text("小黄庄前街"));
         //Click("tv_milepost_road_name_one");
-        PutinEditor("et_milepost_road_name","道路");
+        //PutinEditor("et_milepost_road_name","道路");
+        Page_MilePost.Inst.SetValue(Page_MilePost.NAME,"道路");
         Page_MilePost.Inst.Click(Page_MilePost.SAVE);
         Thread.sleep(2000);
         tipsNum++;
 
-        Click(newLeftFive);
+        Page_MainBoard.Inst.Click(newLeftFive);
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);//手绘测线
         Page_SurveyLine.Inst.Click(Page_SurveyLine.PROVINCIAL_RD);
         Page_SurveyLine.Inst.Click(Page_SurveyLine.LANE_NUM_1);
-        Click(new Point(426,1185));
-        Click(new Point(1000,1185));
-        Click("save_button");
-        Click(new Point(1971,919));//打点
+        Page_MainBoard.Inst.Click(new Point(426,1185));
+        Page_MainBoard.Inst.Click(new Point(1000,1185));
+        Page_MainBoard.Inst.Click(Page_MainBoard.SAVE);
+        //Page_MainBoard.Inst.Click(new Point(1971,919));//打点
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);
+        Thread.sleep(2000);
         Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
-        Click(new Point(600,1185));
-        PutinEditor("et_milepost_number","S479");//此时道路名编号应为空
-        PutinEditor("et_milepost_road_name","手绘道路");//此时道路名称号应为空
+        Page_MainBoard.Inst.Click(new Point(600,1185));
+        //PutinEditor("et_milepost_number","S479");//此时道路名编号应为空
+        Page_MilePost.Inst.SetValue(Page_MilePost.NUM,"S479");//此时道路名编号应为空
+        //PutinEditor("et_milepost_road_name","手绘道路");//此时道路名称号应为空
+        Page_MilePost.Inst.SetValue(Page_MilePost.NAME,"手绘道路");
         //Click(new Point(600,1185));
+        Thread.sleep(2000);
         Page_MilePost.Inst.Click(Page_MilePost.SAVE);
         tipsNum++;
 
@@ -3802,25 +3818,27 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test01703_tips_add() throws Exception {
         //里程桩 关联两条rdlink 原规则
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
-
         SearchRoadFromLink("671765");//小黄庄北街
-        Click(new Point(1971,919));//打点
+        //Page_MainBoard.Inst.Click(new Point(1971,919));//打点
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);
+        Thread.sleep(2000);
+        //Page_MainBoard.Inst.Trigger(TipsDeepDictionary.MILEPOST);
         Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
         Thread.sleep(2000);
-        Click(GetCenter());
+        Page_MainBoard.Inst.Click(GetCenter());
         PutinEditor("et_milepost_number","");//此时道路名编号应为空
         PutinEditor("et_milepost_road_name","手绘道路");//此时道路名称号应为空
+        Thread.sleep(2000);
         Page_MilePost.Inst.Click(Page_MilePost.SAVE);
         Thread.sleep(2000);
         tipsNum++;
 
         SearchRoadFromLink("732451");//北五环 S50
-        Click(new Point(1971,919));//打点
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);//打点
+        Thread.sleep(2000);
         Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
         Thread.sleep(2000);
-        Click(new Point(mDevice.getDisplayWidth()/2, mDevice.getDisplayHeight()/2+30));
+        Page_MainBoard.Inst.Click(new Point(mDevice.getDisplayWidth()/2, mDevice.getDisplayHeight()/2+30));
         //原规则，此时道路名编号自动赋值S50
         Page_MilePost.Inst.Click(Page_MilePost.SAVE);//保存
         tipsNum++;
@@ -3831,25 +3849,24 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test01704_tips_add() throws Exception {
         //里程桩 关联两条rdlink 新规则
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
-
         SearchRoadFromLink("12512162");//北五环 S50
-        Click(new Point(1971,919));//打点
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);//打点
+        Thread.sleep(2000);
         Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
         Thread.sleep(2000);
-        Click(new Point(mDevice.getDisplayWidth()/2, mDevice.getDisplayHeight()/2+30));
+        Page_MainBoard.Inst.Click(new Point(mDevice.getDisplayWidth()/2, mDevice.getDisplayHeight()/2+30));
         //原规则，关联rdlink自动赋值rdlink上的编号S50,名称为手绘道路
         Page_MilePost.Inst.Click(Page_MilePost.SAVE);
         Thread.sleep(2000);
         tipsNum++;
 
         SearchRoadFromLink("342330");//南五环 S50
-        Click(new Point(1971,919));//打点
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);//打点
+        Thread.sleep(2000);
         Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
         Thread.sleep(2000);
         //Click(new Point(mDevice.getDisplayWidth()/2, mDevice.getDisplayHeight()/2-30));
-        Click(GetCenter());
+        Page_MainBoard.Inst.Click(GetCenter());
         //新规则，比对道路名编号S50，名称编号都继承
         Page_MilePost.Inst.Click(Page_MilePost.SAVE);//保存
         tipsNum++;
@@ -3861,11 +3878,8 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test01705_gate_add() throws Exception {
         //大门 PG默认值车辆和行人 取消勾选时间清空
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
-
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
-        Click(GetCenter());
+        Page_MainBoard.Inst.Click(GetCenter());
         Thread.sleep(2000);
         Page_Gate.Inst.Click(Page_Gate.PG);
         Page_Gate.Inst.Click(Page_Gate.SAVE);//保存
@@ -3878,11 +3892,8 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test01706_gate_add() throws Exception {
         //大门 KG默认值车辆和行人 取消勾选时间清空
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
-
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
-        Click(GetCenter());
+        Page_MainBoard.Inst.Click(GetCenter());
         Thread.sleep(2000);
         Page_Gate.Inst.Click(Page_Gate.KG);
         Page_Gate.Inst.Click(Page_Gate.SAVE);//保存
@@ -3895,11 +3906,8 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test01707_gate_add() throws Exception {
         //大门 EG默认值车辆和行人 取消勾选时间清空
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
-
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
-        Click(GetCenter());
+        Page_MainBoard.Inst.Click(GetCenter());
         Thread.sleep(2000);
         Page_Gate.Inst.Click(Page_Gate.EG);
         Page_Gate.Inst.Click(Page_Gate.SAVE);//保存
@@ -3912,11 +3920,8 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test01708_gate_add() throws Exception {
         //大门 PG默认值车辆和行人 取消勾选时间清空
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
-
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
-        Click(GetCenter());
+        Page_MainBoard.Inst.Click(GetCenter());
         Thread.sleep(2000);
         Page_Gate.Inst.Click(Page_Gate.PG);
         Page_Gate.Inst.Click(Page_Gate.BICYCLE);
@@ -3930,11 +3935,8 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test01709_gate_add() throws Exception {
         //大门 KG默认值车辆和行人 取消勾选时间清空
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
-
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
-        Click(GetCenter());
+        Page_MainBoard.Inst.Click(GetCenter());
         Thread.sleep(2000);
         Page_Gate.Inst.Click(Page_Gate.KG);
         Page_Gate.Inst.Click(Page_Gate.BICYCLE);
@@ -3948,9 +3950,8 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test01710_gate_add() throws Exception {
         //大门 EG默认值车辆和行人 取消勾选时间清空
-
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
-        Click(GetCenter());
+        Page_MainBoard.Inst.Click(GetCenter());
         Thread.sleep(2000);
         Page_Gate.Inst.Click(Page_Gate.EG);
         Page_Gate.Inst.Click(Page_Gate.BICYCLE);
@@ -3967,7 +3968,7 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(1000);
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
-        Click(GetCenter());
+        Page_MainBoard.Inst.Click(GetCenter());
         Page_Gate.Inst.Click(Page_Gate.PG);
         Page_Gate.Inst.Click(Page_Gate.TRICYCLE);
         Page_Gate.Inst.Click(Page_Gate.SAVE);//保存
@@ -3983,7 +3984,7 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(1000);
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
-        Click(GetCenter());
+        Page_MainBoard.Inst.Click(GetCenter());
         Thread.sleep(2000);
         Page_Gate.Inst.Click(Page_Gate.KG);
         Page_Gate.Inst.Click(Page_Gate.TRICYCLE);
@@ -4001,7 +4002,7 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(1000);
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
-        Click(GetCenter());
+        Page_MainBoard.Inst.Click(GetCenter());
         Thread.sleep(2000);
         Page_Gate.Inst.Click(Page_Gate.EG);
         Page_Gate.Inst.Click(Page_Gate.TRICYCLE);
@@ -4019,7 +4020,7 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(1000);
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
-        Click(GetCenter());
+        Page_MainBoard.Inst.Click(GetCenter());
         Thread.sleep(2000);
         Page_Gate.Inst.Click(Page_Gate.EG);
         Page_Gate.Inst.Click(Page_Gate.PERSON);
@@ -4037,7 +4038,7 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(1000);
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
-        Click(GetCenter());
+        Page_MainBoard.Inst.Click(GetCenter());
         Thread.sleep(2000);
         Page_Gate.Inst.Click(Page_Gate.PG);
         Page_Gate.Inst.Click(Page_Gate.TIMECAR);
@@ -4056,7 +4057,7 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(1000);
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
-        Click(GetCenter());
+        Page_MainBoard.Inst.Click(GetCenter());
         Thread.sleep(2000);
         Page_Gate.Inst.Click(Page_Gate.KG);
         Page_Gate.Inst.Click(Page_Gate.TIMECAR);
@@ -4075,7 +4076,7 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(1000);
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
-        Click(GetCenter());
+        Page_MainBoard.Inst.Click(GetCenter());
         Thread.sleep(2000);
         Page_Gate.Inst.Click(Page_Gate.EG);
         Page_Gate.Inst.Click(Page_Gate.TIMECAR);
@@ -4094,7 +4095,7 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(1000);
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
-        Click(GetCenter());
+        Page_MainBoard.Inst.Click(GetCenter());
         Thread.sleep(2000);
         Page_Gate.Inst.Click(Page_Gate.PG);
         Page_Gate.Inst.Click(Page_Gate.TIMECAR);
@@ -4114,7 +4115,7 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(1000);
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
-        Click(GetCenter());
+        Page_MainBoard.Inst.Click(GetCenter());
         Thread.sleep(2000);
         Page_Gate.Inst.Click(Page_Gate.KG);
         Page_Gate.Inst.Click(Page_Gate.TIMECAR);
@@ -4134,7 +4135,7 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(1000);
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
-        Click(GetCenter());
+        Page_MainBoard.Inst.Click(GetCenter());
         Thread.sleep(2000);
         Page_Gate.Inst.Click(Page_Gate.EG);
         Page_Gate.Inst.Click(Page_Gate.TIMECAR);
@@ -4154,7 +4155,7 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(1000);
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
-        Click(GetCenter());
+        Page_MainBoard.Inst.Click(GetCenter());
         Thread.sleep(2000);
         Page_Gate.Inst.Click(Page_Gate.PG);
         Page_Gate.Inst.Click(Page_Gate.TIMEPERSON);
@@ -4174,7 +4175,7 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(1000);
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
-        Click(GetCenter());
+        Page_MainBoard.Inst.Click(GetCenter());
         Thread.sleep(2000);
         Page_Gate.Inst.Click(Page_Gate.KG);
         Page_Gate.Inst.Click(Page_Gate.TIMEPERSON);
@@ -4214,7 +4215,7 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(1000);
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
-        Click(GetCenter());
+        Page_MainBoard.Inst.Click(GetCenter());
         Thread.sleep(2000);
         Page_Gate.Inst.Click(Page_Gate.PG);
         Page_Gate.Inst.Click(Page_Gate.BICYCLE);
@@ -4234,7 +4235,7 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(1000);
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
-        Click(GetCenter());
+        Page_MainBoard.Inst.Click(GetCenter());
         Thread.sleep(2000);
         Page_Gate.Inst.Click(Page_Gate.KG);
         Page_Gate.Inst.Click(Page_Gate.BICYCLE);
@@ -4254,7 +4255,7 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(1000);
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
-        Click(GetCenter());
+        Page_MainBoard.Inst.Click(GetCenter());
         Thread.sleep(2000);
         Page_Gate.Inst.Click(Page_Gate.EG);
         Page_Gate.Inst.Click(Page_Gate.BICYCLE);
@@ -4274,7 +4275,7 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(1000);
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
-        Click(GetCenter());
+        Page_MainBoard.Inst.Click(GetCenter());
         Thread.sleep(2000);
         Page_Gate.Inst.Click(Page_Gate.PG);
         Page_Gate.Inst.Click(Page_Gate.TRICYCLE);
@@ -4294,7 +4295,7 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(1000);
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
-        Click(GetCenter());
+        Page_MainBoard.Inst.Click(GetCenter());
         Thread.sleep(2000);
         Page_Gate.Inst.Click(Page_Gate.KG);
         Page_Gate.Inst.Click(Page_Gate.TRICYCLE);
@@ -4314,7 +4315,7 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(1000);
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
-        Click(GetCenter());
+        Page_MainBoard.Inst.Click(GetCenter());
         Thread.sleep(2000);
         Page_Gate.Inst.Click(Page_Gate.EG);
         Page_Gate.Inst.Click(Page_Gate.TRICYCLE);
@@ -4332,7 +4333,6 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test01801_tips_add() throws Exception {
         //道路名连线
-
         SearchRoadFromLink("663363");
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ROAD_NAME_SIGN);
         Page_MainBoard.Inst.Click(GetCenter());
@@ -4604,7 +4604,7 @@ public class testFastMapYL extends testFastMapBase
     private static Point newHighSpeedEnterPic = new Point(486,993);//高速入口模式图
     private static Point newSA = new Point(711,1140);//单击SA
     private static Point newPA= new Point(844,1151);//PA
-    private static Point newRingRoad = new Point(963,1140);//匝道
+    private static Point newRingRoad = new Point(836,1136);//匝道
     private static Point newTrafficLimit = new Point(227,1133);//交限
     private static Point newTruckTrafficLimit = new Point(363,882);//卡车交限
     private static Point newDirectShow = new Point(222,736);//方向看板

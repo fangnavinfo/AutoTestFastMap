@@ -27,6 +27,15 @@ public class Page_Search extends FastMapPage
     @FindResource(Id = "tv_search_info_btn")
     public static String INFOSEARCH;
 
+    @FindResource(Id = "edt_search_location_longitude")
+    public static String LONGITUDE;
+
+    @FindResource(Id = "edt_search_location_latitude")
+    public static String LATITUDE;
+
+    @FindResource(Id = "tv_search_location_btn")
+    public static String SEARCH;
+
     @FindResource(Text = "精确匹配")
     public static String EXACT_FIND;
 
