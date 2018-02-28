@@ -49,4 +49,10 @@ public class Page_Speed_Limit_Lane extends FastMapPage {
 
         super.SetValue(findRes, value);
     }
+    public void RoadLimitCtlDrag()
+    {
+        //车道限速中控件的拖拽
+        mDevice.drag(77, 632, 225, 643, 10);
+        mDevice.drag(77, 632, 225, 643, 10);
+    }
 }

@@ -46,4 +46,8 @@ public class Page_SketchHook extends FastMapPage {
     static {
         Inst = new Page_SketchHook();
     }
+    public void DrawLine()
+    {
+        mDevice.drag(477,698,794,234,10);
+    }
 }

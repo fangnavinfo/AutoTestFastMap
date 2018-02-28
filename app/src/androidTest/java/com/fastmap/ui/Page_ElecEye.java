@@ -133,5 +133,6 @@ public class Page_ElecEye extends FastMapPage
     {
         ClickByText(value);
     }
+    public void Scroll() {mDevice.drag(1871,1322,1856,329,10); }
 }
 

@@ -79,6 +79,12 @@ public class Page_MainBoard extends FastMapPage
 
     @FindResource(Id="save_button")
     public static String SAVE;
+    public void Drag()
+    {
+        mDevice.drag(292,1270,292,620,10);
+        mDevice.drag(292,1270,292,620,10);
+    }
+
     public static Page_MainBoard Inst;
     static
     {

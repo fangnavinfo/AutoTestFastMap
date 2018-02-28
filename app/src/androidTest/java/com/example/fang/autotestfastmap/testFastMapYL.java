@@ -51,6 +51,7 @@ import org.junit.runners.MethodSorters;
 
 import java.io.IOException;
 
+import static com.example.fang.autotestfastmap.TipsDeepDictionary.ADD_POINT_1700;
 import static com.fastmap.ui.Page_CarInfo.T;
 import static junit.framework.Assert.fail;
 
@@ -89,9 +90,7 @@ public class testFastMapYL extends testFastMapBase
     public void test00202_poi_add() throws Exception
     {
         //产品全貌开关关，新增POI点查看相机设置
-        //Page_MainBoard.Inst.Drag();
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
-
         Page_POI_Camera.Inst.Click(Page_POI_Camera.NAME_TYPE);//名称
         Page_POI_Camera.Inst.Click(Page_POI_Camera.RADIO_LOW);//分辨率低
         Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);//拍照
@@ -110,7 +109,6 @@ public class testFastMapYL extends testFastMapBase
     public void test00203_poi_add() throws Exception
     {
         //产品全貌开关关闭,新增POI点查看相机设置
-        //Page_MainBoard.Inst.Drag();
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
         Page_POI_Camera.Inst.Click(Page_POI_Camera.SHUIPAI_TYPE);//水牌
         Page_POI_Camera.Inst.Click(Page_POI_Camera.RADIO_MID);//分辨率中
@@ -132,7 +130,6 @@ public class testFastMapYL extends testFastMapBase
     public void test00204_poi_add() throws Exception
     {
         //产品全貌开关关，查看相机设置，因为名称，分辨率中
-        //Page_MainBoard.Inst.Drag();
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
         Thread.sleep(3000);
         Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
@@ -144,7 +141,6 @@ public class testFastMapYL extends testFastMapBase
     public void test00205_poi_add() throws Exception
     {
         //产品全貌开关开，新增POI点查看相机设置
-        //Page_MainBoard.Inst.Drag();
         SetConfInfo();//产品全貌开关开，产品全貌，分辨率高
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
         Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
@@ -165,7 +161,6 @@ public class testFastMapYL extends testFastMapBase
     public void test00206_poi_add() throws Exception
     {
         //产品全貌开关开
-        //Page_MainBoard.Inst.Drag();
         //SetConfInfo();//产品全貌开关开
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
         Page_POI_Camera.Inst.Click(Page_POI_Camera.RADIO_LOW);
@@ -188,7 +183,6 @@ public class testFastMapYL extends testFastMapBase
         Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
         Page_POI.Inst.Click(Page_POI.SAVE);
         //poiNum++;
-
         //查看我的数据
         CheckMyData(Page_MyData.POI_TYPE,"测试ＰＯＩ４");
     }
@@ -197,8 +191,6 @@ public class testFastMapYL extends testFastMapBase
     public void test00207_poi_add() throws Exception
     {
         //产品全貌开关开，点击新增POI查看设置
-        //Page_MainBoard.Inst.Drag();
-
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
         Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);//标签“产品全貌”，分辨率为“高”
         Page_POI.Inst.Click(Page_POI.CANCEL);
@@ -238,8 +230,6 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test00209_poi_add() throws Exception {
         //POI 彩票投注站
-        //Page_MainBoard.Inst.Drag();
-
         //SetConfInfo();//默认就是关
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
         Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
@@ -252,8 +242,8 @@ public class testFastMapYL extends testFastMapBase
     }
 
     @Test
-    public void test00702_info_Point_testPath() throws Exception {
-
+    public void test00702_info_Point_testPath() throws Exception
+    {
         //添加点情报
         Page_MainBoard.Inst.Click(Page_MainBoard.REPORT);
         Page_MainBoard.Inst.Click(Page_MainBoard.INFO_REPORT_POINT);
@@ -262,7 +252,7 @@ public class testFastMapYL extends testFastMapBase
 
         Page_InfoPoint.Inst.Click(Page_InfoPoint.NAME);
         Page_InfoPoint.Inst.SetValue(Page_InfoPoint.NAME,"测试点ＩＮＦＯ");
-        Page_InfoPoint.Inst.Click(Page_InfoPoint.REPORT_TYPE_ROAD);
+        Page_InfoPoint.Inst.Click(Page_InfoPoint.REPORT_TYPE_ROAD);//道路
         Page_InfoPoint.Inst.Click(Page_InfoPoint.TIME);
         Page_InfoPoint.Inst.Click(Page_InfoPoint.TIME_CONFIRM);
         Page_InfoPoint.Inst.Click(Page_InfoPoint.CAMERA);
@@ -307,12 +297,12 @@ public class testFastMapYL extends testFastMapBase
     }
 
     @Test
-    public void test00802_info_Line_testPath() throws Exception {
+    public void test00802_info_Line_testPath() throws Exception
+    {
         //添加线情报
         Page_MainBoard.Inst.Click(Page_MainBoard.REPORT);
         Page_MainBoard.Inst.Click(Page_MainBoard.INFO_REPORT_LINE);
         Thread.sleep(2000);
-        //Page_MainBoard.Inst.Click(GetCenter());
 
         Page_MainBoard.Inst.Click(new Point(1000, 1000));
         Page_MainBoard.Inst.Click(new Point(1000, 500));
@@ -320,7 +310,7 @@ public class testFastMapYL extends testFastMapBase
 
         Page_InfoLine.Inst.Click(Page_InfoLine.DRAW_FINISH);
         Page_InfoLine.Inst.SetValue(Page_InfoLine.NAME,"测试点ＩＮＦＯ");
-        Page_InfoLine.Inst.Click(Page_InfoLine.ROADTYPE);
+        Page_InfoLine.Inst.Click(Page_InfoLine.ROADTYPE);//道路
         Page_InfoLine.Inst.Click(Page_InfoLine.TIME);
         Page_InfoLine.Inst.Click(Page_InfoLine.TIME_CONFIRM);
         Page_InfoLine.Inst.Click(Page_InfoLine.CAMERA);
@@ -364,12 +354,13 @@ public class testFastMapYL extends testFastMapBase
     }
 
     @Test
-    public void test00902_info_Frame_testPath() throws Exception {
+    public void test00902_info_Frame_testPath() throws Exception
+    {
         //添加面情报
         Page_MainBoard.Inst.Click(Page_MainBoard.REPORT);
         Page_MainBoard.Inst.Click(Page_MainBoard.INFO_REPORT_FRAME);
         Thread.sleep(2000);
-        //Page_MainBoard.Inst.Click(GetCenter());
+
         Page_MainBoard.Inst.Click(new Point(1000, 1000));
         Page_MainBoard.Inst.Click(new Point(1000, 500));
         Page_MainBoard.Inst.Click(new Point(500, 1000));
@@ -418,13 +409,10 @@ public class testFastMapYL extends testFastMapBase
         infoRoadNum++;
     }
 
-
     @Test
     public void test01001_tips_roadnamesign_add() throws Exception
     {
         //新增道路名标牌 3个字
-        //Page_MainBoard.Inst.Drag();
-
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ROAD_NAME_SIGN);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
@@ -437,8 +425,8 @@ public class testFastMapYL extends testFastMapBase
     }
 
     @Test
-    public void test01002_info_roadnamesign_add() throws Exception {
-
+    public void test01002_info_roadnamesign_add() throws Exception
+    {
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ROAD_NAME_SIGN);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
@@ -469,8 +457,8 @@ public class testFastMapYL extends testFastMapBase
     }
 
     @Test
-    public void test01003_info_roadnamesign_add() throws Exception {
-
+    public void test01003_info_roadnamesign_add() throws Exception
+    {
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ROAD_NAME_SIGN);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
@@ -484,8 +472,6 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(2000);
         //道路名称标牌
         //滚动条查找
-        //Page_Indoor_Data_List.Inst.scrollClickObject("道路名标牌");
-        //Page_IndoorTool.Inst.Click(Page_Indoor_Data_List.LIST);
         Page_Indoor_Data_List.Inst.ClickObject("道路名标牌");
         Thread.sleep(3000);
         Page_Indoor_Data_List.Inst.ClickObject("道路名标牌");
@@ -507,7 +493,8 @@ public class testFastMapYL extends testFastMapBase
     }
 
     @Test
-    public void test01004_info_roadnamesign_add() throws Exception {
+    public void test01004_info_roadnamesign_add() throws Exception
+    {
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ROAD_NAME_SIGN);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
@@ -527,10 +514,8 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(3000);
         Page_Indoor_Data_List.Inst.ClickObject("道路名标牌");
         //编辑端点标牌
-        Page_Road_Name_Sign.Inst.Click(Page_Road_Name_Sign.RADIOPOS);
-        //Click("card_road_name_sign_radio_yes");//是的checkboxID
+        Page_Road_Name_Sign.Inst.Click(Page_Road_Name_Sign.RADIOPOS);//是的checkboxID
         Page_Road_Name_Sign.Inst.Click(Page_Road_Name_Sign.SAVE);
-        //Click("save_button");//保存按键ID
         Page_Indoor_Data_List.Inst.Click(Page_Indoor_Data_List.BACK);
         Page_IndoorTool.Inst.Click(Page_IndoorTool.BACK);
 
@@ -548,9 +533,7 @@ public class testFastMapYL extends testFastMapBase
     public void test01006_tips_roadnamesign_add() throws Exception
     {
         //新增道路名标牌 6个字
-        //Page_MainBoard.Inst.Drag();
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ROAD_NAME_SIGN);
-
         Page_MainBoard.Inst.Click(GetCenter());
         Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
         Page_Road_Name_Sign.Inst.SetValue(Page_Road_Name_Sign.NAME,"新道路标牌名");
@@ -561,11 +544,10 @@ public class testFastMapYL extends testFastMapBase
     }
 
     @Test
-    public void test01007_info_roadnamesign_add() throws Exception {
+    public void test01007_info_roadnamesign_add() throws Exception
+    {
         //新增道路名标牌 6个字
-        //Page_MainBoard.Inst.Drag();
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ROAD_NAME_SIGN);
-
         Page_MainBoard.Inst.Click(GetCenter());
         Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
         Page_Road_Name_Sign.Inst.SetValue(Page_Road_Name_Sign.NAME,"新道路标牌名");
@@ -576,29 +558,21 @@ public class testFastMapYL extends testFastMapBase
         //我的数据
         Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
         Page_MainMenu.Inst.Click(Page_MainMenu.MY_DATA);
-        //Click("fmcard_tv_user_data");
         //获取道路名标牌点位
         scrollClickObject("道路名标牌");
         Thread.sleep(1000);
-        //Click("cancel_button");
         Page_Road_Name_Sign.Inst.Click(Page_Road_Name_Sign.CANCEL);
         Thread.sleep(2000);
         Page_MyData.Inst.Click(Page_MyData.BACK);
-        //Click("iv_my_data_back");
         Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
-        //Click("fmcard_ibtn_back");
 
-        //Click(newCopy);//复制TipID
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_COPY_TIPS);
-        //Click(new Point(mDevice.getDisplayWidth()/2-20, mDevice.getDisplayHeight()/2-20));
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_COPY_TIPS);//复制TipID
         Page_MainBoard.Inst.Click(new Point(mDevice.getDisplayWidth()/2, mDevice.getDisplayHeight()/2));
         Page_MainBoard.Inst.Click(new Point(1400,900));
         Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
         Page_Road_Name_Sign.Inst.SetValue(Page_Road_Name_Sign.NAME,"新道路标牌名新道路标牌名新道路标牌名新道路标牌名新道路标牌名新道路标牌名新道路标牌名新道路标牌名新道路标牌名");
-        //PutinEditor("card_road_name_sign_name_edit","新道路标牌名新道路标牌名新道路标牌名新道路标牌名新道路标牌名新道路标牌名新道路标牌名新道路标牌名新道路标牌名");
-        //Click("save_button");//保存按键ID
         Page_Road_Name_Sign.Inst.Click(Page_Road_Name_Sign.SAVE);
-        tipsNum++;
+        //tipsNum++;
 
     }
 
@@ -606,14 +580,11 @@ public class testFastMapYL extends testFastMapBase
     public void test01008_tips_roadnamesign_add() throws Exception
     {
         //新增道路名标牌 多个字
-        //Page_MainBoard.Inst.Drag();
-
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ROAD_NAME_SIGN);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK); //问题
         Page_Road_Name_Sign.Inst.SetValue(Page_Road_Name_Sign.NAME,"新道路标牌名新道路标牌名新道路标牌名新道路标牌名新道路标牌名新道路标牌名新道路标牌名新道路标牌名新道路标牌名");
         Page_Road_Name_Sign.Inst.Click(Page_Road_Name_Sign.SAVE);
-
         //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE,"道路名标牌");
@@ -623,18 +594,15 @@ public class testFastMapYL extends testFastMapBase
     public void test01009_tips_roadnamesign_add() throws Exception
     {
         //新增道路名标牌 端点标牌选是
-        //Page_MainBoard.Inst.Drag();
-
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ROAD_NAME_SIGN);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
-        //Click("task_pic_back_img");//问题
+
         Page_Road_Name_Sign.Inst.SetValue(Page_Road_Name_Sign.NAME,"qwe");
         Page_Road_Name_Sign.Inst.Click(Page_Road_Name_Sign.RADIOPOS);
         Page_Road_Name_Sign.Inst.Click(Page_Road_Name_Sign.SAVE);
-        //Click("save_button");//保存按键ID
-
         //tipsNum++;
+
         CheckMyData(Page_MyData.TIPS_TYPE,"道路名标牌");
     }
 
@@ -642,14 +610,10 @@ public class testFastMapYL extends testFastMapBase
     public void test01010_tips_roadnamesign_add() throws Exception
     {
         //新增道路名标牌 新增名称为空 拍照
-        //Page_MainBoard.Inst.Drag();
-
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ROAD_NAME_SIGN);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
-        //Click("task_pic_back_img");//问题
-        Page_Road_Name_Sign.Inst.SetValue(Page_Road_Name_Sign.NAME,"");
-        //PutinEditor("card_road_name_sign_radio_yes","");//标牌名称编辑框ID
+        Page_Road_Name_Sign.Inst.SetValue(Page_Road_Name_Sign.NAME,"");//标牌名称编辑框ID
 
         Page_Road_Name_Sign.Inst.Click(Page_Road_Name_Sign.CAMERA); //拍照ID
         Thread.sleep(1000);
@@ -667,23 +631,19 @@ public class testFastMapYL extends testFastMapBase
     public void test01011_tips_roadnamesign_add() throws Exception
     {
         //新增道路名标牌 新增名称不为空 拍照
-        //mDevice.drag(700, 823, 1024, 823, 10);
-        //Page_MainBoard.Inst.Drag();
-
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ROAD_NAME_SIGN);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);//问题
         Thread.sleep(3000);
         Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);//问题
-        Page_Road_Name_Sign.Inst.SetValue(Page_Road_Name_Sign.NAME,"wer");
-        // PutinEditor("card_road_name_sign_radio_yes","wer");//标牌名称编辑框ID
+        Page_Road_Name_Sign.Inst.SetValue(Page_Road_Name_Sign.NAME,"wer");//标牌名称编辑框ID
 
         Page_Road_Name_Sign.Inst.Click(Page_Road_Name_Sign.CAMERA);//拍照ID
         Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);//拍摄按键ID
         Thread.sleep(3000);
         Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK); //返回键ID
         Page_Road_Name_Sign.Inst.Click(Page_Road_Name_Sign.SAVE);//保存按键ID
-        tipsNum++;
+        //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE,"道路名标牌");
     }
@@ -692,41 +652,33 @@ public class testFastMapYL extends testFastMapBase
     public void test01012_tips_roadnamesign_add() throws Exception
     {
         //新增道路名标牌 取消
-        //Page_MainBoard.Inst.Drag();
-
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ROAD_NAME_SIGN); int testflag_fs;
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ROAD_NAME_SIGN);
         Page_MainBoard.Inst.Click(GetCenter());
-        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);//问题
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
         Page_Road_Name_Sign.Inst.SetValue(Page_Road_Name_Sign.NAME,"qwe");
-        Page_Road_Name_Sign.Inst.Click(Page_Road_Name_Sign.RADIOPOS);
-        //Click("card_road_name_sign_radio_yes");//端点标牌是的ID
-        //Click("cancel_button");
+        Page_Road_Name_Sign.Inst.Click(Page_Road_Name_Sign.RADIOPOS);//端点标牌是的ID
+
         Page_Road_Name_Sign.Inst.Click(Page_Road_Name_Sign.CANCEL);
     }
 
     @Test
     public void test01041_data_check() throws Exception {
         //左侧车道必须大于或等于右侧车道的限速值域（数组从小到大顺序）
-        //Page_MainBoard.Inst.Drag();
-
         //创建限速车道从左到右分别为90,110，110
-        Page_MainBoard.Inst.Click(newLimitSpeed);//问题
+        Page_MainBoard.Inst.Click(newLimitSpeed);
         Thread.sleep(1000);
         Page_MainBoard.Inst.Click(new Point(mDevice.getDisplayWidth()/2-250, mDevice.getDisplayHeight()/2-250));
-        //Click("card_speed_limit_type_driveway",100);//选择车道限速
-        //Page_Limit_Speed.Inst.Click(Page_Limit_Speed.ROAD_LIMIT_SPEED);
-        Page_Speed_Limit_Lane.Inst.Click(Page_Speed_Limit_Lane.ROADLIMIT);
-        mDevice.drag(77, 632, 225, 643, 10);
-        mDevice.drag(77, 632, 225, 643, 10);
-        Page_MainBoard.Inst.Click(new Point(79,552));
+        Page_Speed_Limit_Lane.Inst.Click(Page_Speed_Limit_Lane.ROADLIMIT);//选择车道限速
+        Page_Speed_Limit_Lane.Inst.RoadLimitCtlDrag();//拖拽限速控件
+        Page_MainBoard.Inst.Click(new Point(79,552));//第一个限速车道
         Page_Speed_Limit_Lane.Inst.Click(Page_Speed_Limit_Lane.NUM90);
         Page_Speed_Limit_Lane.Inst.Click(Page_Speed_Limit_Lane.NUM110);
         Page_Speed_Limit_Lane.Inst.Click(Page_Speed_Limit_Lane.NUM110);
-        Page_MainBoard.Inst.Click(new Point(75,475));//点限速必选一个
+        Page_MainBoard.Inst.Click(new Point(75,475));//点限速必选一个 第一个限速标志位
         Thread.sleep(1000);
         Page_Speed_Limit_Lane.Inst.Click(Page_Speed_Limit_Lane.SAVE);
         Thread.sleep(3000);
-        tipsNum++;
+        //tipsNum++;
 
         //室内整理工具检查，车道限速
         AssertIndoorCheck("车道限速","中","FM-1113-2-2","左侧车道限速小于右侧车道限速","");//问题
@@ -735,30 +687,22 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test01042_data_check() throws Exception {
         //大门tips关联在测线K13上
-        //Page_MainBoard.Inst.Drag();
-
         //手绘测线 类型为K13
-        Page_MainBoard.Inst.Click(newLeftFive);//手绘测线//问题
-        //Click(new Point(231,975));
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);
-        //Click("card_ferry",1000);//13 轮渡
-        Page_SurveyLine.Inst.Click(Page_SurveyLine.FERRY_RD);
+        //Page_MainBoard.Inst.Click(newLeftFive);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);//手绘测线
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.FERRY_RD);//13 轮渡
         Page_MainBoard.Inst.Click(new Point(mDevice.getDisplayWidth()/2-30, mDevice.getDisplayHeight()/2-30));
         Page_MainBoard.Inst.Click(new Point(mDevice.getDisplayWidth()/2+80, mDevice.getDisplayHeight()/2+80));
         Page_SurveyLine.Inst.Click(Page_SurveyLine.SAVE);
-        tipsNum++;//测线
+        //tipsNum++;//测线
 
-        Page_MainBoard.Inst.Click(newHorFour);//问题
-        //Click(newDoor);//选择大门
+        //Page_MainBoard.Inst.Click(newHorFour);
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
         Page_MainBoard.Inst.Click(GetCenter());
-        //Click("gate_type_eg");//EG大门
-        Page_Gate.Inst.Click(Page_Gate.EG);
-        Page_Gate.Inst.Click(Page_Gate.SINGLEGATE);
-        //Click("checkBox_single_dir_gate");//单方向大门
+        Page_Gate.Inst.Click(Page_Gate.EG);//EG大门
+        Page_Gate.Inst.Click(Page_Gate.SINGLEGATE);//单方向大门
         Page_Gate.Inst.Click(Page_Gate.SAVE);
-        //Click("save_button");
-        tipsNum++;
+        //tipsNum++;
 
         AssertIndoorCheck("大门","中","FM-1104-6-3","航线上不能采集大门",""); //问题
     }
@@ -766,34 +710,25 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test01043_data_check() throws Exception {
         //大门tips关联在测线11上
-        //Page_MainBoard.Inst.Drag();
-
         //手绘测线 类型为K11
-        Page_MainBoard.Inst.Click(newLeftFive);//手绘测线
-        //Page_MainBoard.Inst.Click(new Point(231,975));
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);
-        Page_SurveyLine.Inst.Click(Page_SurveyLine.FERRY_RD);
-        //Click("card_pedestrian_rd",1000);//11 人渡
+        //Page_MainBoard.Inst.Click(newLeftFive);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);//手绘测线
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.PEOPLE_CROSS_RD);//11 人渡
         Page_MainBoard.Inst.Click(new Point(mDevice.getDisplayWidth()/2-30, mDevice.getDisplayHeight()/2-30));
         Page_MainBoard.Inst.Click(new Point(mDevice.getDisplayWidth()/2+80, mDevice.getDisplayHeight()/2+80));
         Page_SurveyLine.Inst.Click(Page_SurveyLine.SAVE);
-        //Click("save_button");
-        tipsNum++;
+        //tipsNum++;
 
-        Page_MainBoard.Inst.Click(newHorFour);//问题
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
+        //Page_MainBoard.Inst.Click(newHorFour);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);//选择大门
         Thread.sleep(3000);
-        //Click(newDoor,3000);//选择大门
         Page_MainBoard.Inst.Click(GetCenter());
-        Page_Gate.Inst.Click(Page_Gate.EG);
+        Page_Gate.Inst.Click(Page_Gate.EG);//EG大门
         Thread.sleep(1000);
-        //Click("gate_type_eg",1000);//EG大门
-        Page_Gate.Inst.Click(Page_Gate.SINGLEGATE);
-        //Click("checkBox_single_dir_gate");//单方向大门
+        Page_Gate.Inst.Click(Page_Gate.SINGLEGATE);//单方向大门
         Page_Gate.Inst.Click(Page_Gate.SAVE);
         Thread.sleep(1000);
-        //Click("save_button", 1000);
-        tipsNum++;
+        //tipsNum++;
 
         AssertIndoorCheck("大门","中","FM-1104-6-3","航线上不能采集大门","");//问题
     }
@@ -801,38 +736,32 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test01044_data_check() throws Exception {
         //EG门与障碍物不能同时出现
-        //Page_MainBoard.Inst.Drag();
         //单向路 北清路 592305
-        SearchRoadFromLink("592305");
-
-        //大门关联到这个link上
-        Page_MainBoard.Inst.Click(newHorFour);
+        SearchRoadFromLink("592305");//大门关联到这个link上
+        //Page_MainBoard.Inst.Click(newHorFour);
         Thread.sleep(3000);
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);//选择大门
         Thread.sleep(3000);
         Page_MainBoard.Inst.Click(new Point(mDevice.getDisplayWidth()/2, mDevice.getDisplayHeight()/2+50));
-        //Click("gate_type_eg",1000);//EG大门
-        Page_Gate.Inst.Click(Page_Gate.EG);
+        Page_Gate.Inst.Click(Page_Gate.EG);//EG大门
         Thread.sleep(1000);
-        Page_Gate.Inst.Click(Page_Gate.SINGLEGATE);
-        //Click("checkBox_single_dir_gate");//单方向大门
+        Page_Gate.Inst.Click(Page_Gate.SINGLEGATE);//单方向大门
         Page_Gate.Inst.Click(Page_Gate.SAVE);
         Thread.sleep(1000);
-        //Click("save_button", 1000);
-        tipsNum++;
+        //tipsNum++;
 
         //单向路 北清路 592305
-        SearchRoadFromLink("592305");
-
-        //障碍物关联到这个测线上
-        Page_MainBoard.Inst.Click(new Point(1974,897));
+        SearchRoadFromLink("592305");//障碍物关联到这个测线上
+        //Page_MainBoard.Inst.Click(new Point(1974,897));
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);//打点
         Thread.sleep(1000);
+        //Page_MainBoard.Inst.Trigger(TipsDeepDictionary.BARRIER);//障碍物目前有问题
         Page_MainBoard.Inst.Click(new Point(1734,359));
         Thread.sleep(1000);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_SurveyLine.Inst.Click(Page_SurveyLine.SAVE);
-        //Click("save_button");
-        tipsNum++;
+        //tipsNum++;
 
         AssertIndoorCheck("大门","中","FM-1104-6-4","EG门与障碍物不能同时出现","不能忽视");
     }
@@ -840,24 +769,17 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test01045_data_check() throws Exception {
         //门的方向应与道路通行方向一致,双向门在单车道上
-        //Page_MainBoard.Inst.Drag();
-
-        //搜索linkid为592176的单向车道
-        SearchRoadFromLink("592176");
-        //创建双向门
-        Page_MainBoard.Inst.Click(newHorFour);
+        SearchRoadFromLink("592176");//搜索linkid为592176的单向车道
+        //Page_MainBoard.Inst.Click(newHorFour);
         Thread.sleep(3000);
-        //Click(newDoor,3000);//选择大门
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);//选择大门 //创建双向门
         Thread.sleep(3000);
         Page_MainBoard.Inst.Click(GetCenter());
-        Page_Gate.Inst.Click(Page_Gate.PG);
+        Page_Gate.Inst.Click(Page_Gate.PG);//PG大门
         Thread.sleep(1000);
-        //Click("gate_type_pg",1000);//PG大门
         Page_Gate.Inst.Click(Page_Gate.SAVE);
         Thread.sleep(1000);
-        //Click("save_button", 1000);
-        tipsNum++;
+        //tipsNum++;
 
         AssertIndoorCheck("大门","中","FM-1104-6-5","门的方向应与道路通行方向一致","不能忽视");
     }
@@ -865,23 +787,16 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test01046_data_check() throws Exception {
         //门的方向应与道路通行方向一致,单向门在双向车道上
-        //Page_MainBoard.Inst.Drag();
-
         SearchRoadFromLink("41774976");
-
-        Page_MainBoard.Inst.Click(newHorFour);
+        //Page_MainBoard.Inst.Click(newHorFour);
         Thread.sleep(3000);
-        //Click(newDoor,3000);//选择大门
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);//选择大门
         Page_MainBoard.Inst.Click(GetCenter());
         Page_Gate.Inst.Click(Page_Gate.EG);//EG大门
         Thread.sleep(1000);
-        //Click("gate_type_eg",1000);//EG大门
         Page_Gate.Inst.Click(Page_Gate.SINGLEGATE);//单方向大门
-        //Click("checkBox_single_dir_gate");//单方向大门
         Page_Gate.Inst.Click(Page_Gate.SAVE);
-        //Click("save_button", 1000);
-        tipsNum++;
+        //tipsNum++;
 
         AssertIndoorCheck("大门","中","FM-1104-6-5","门的方向应与道路通行方向一致","不能忽视");
     }
@@ -889,29 +804,21 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test01047_data_check() throws Exception {
         //门的方向应与道路通行方向一致,单向门在单向车道上，但是门道方向相反
-        //Page_MainBoard.Inst.Drag();
-
         SearchRoadFromLink("32092464");
-
-        Page_MainBoard.Inst.Click(newHorFour);
+        //Page_MainBoard.Inst.Click(newHorFour);
         Thread.sleep(3000);
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
         Page_MainBoard.Inst.Click(new Point(mDevice.getDisplayWidth()/2, mDevice.getDisplayHeight()/2-60));
-        Page_Gate.Inst.Click(Page_Gate.KG);
+        Page_Gate.Inst.Click(Page_Gate.KG);//KG大门
         Thread.sleep(1000);
-        //Click("gate_type_kg",1000);//KG大门
-        Page_Gate.Inst.Click(Page_Gate.SINGLEGATE);
-        //Click("checkBox_single_dir_gate");//单方向大门
+        Page_Gate.Inst.Click(Page_Gate.SINGLEGATE);//单方向大门
         Page_Gate.Inst.Click(Page_Gate.SAVE);
-        //Click("save_button", 1000);
-        tipsNum++;
+        //tipsNum++;
 
         SearchRoadFromLink("32092464");
         Page_Gate.Inst.Click(new Point(mDevice.getDisplayWidth()/2, mDevice.getDisplayHeight()/2-60));
-        //Click("card_road_direction_swap");
         Page_Gate.Inst.Click(Page_Gate.CHANGEDIR);
         Page_Gate.Inst.Click(Page_Gate.SAVE);
-        //Click("save_button",1000);
 
         AssertIndoorCheck("大门","中","FM-1104-6-5","门的方向应与道路通行方向一致","不能忽视");
     }
@@ -919,11 +826,8 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test01048_data_check() throws Exception {
         //10级路上不能有EG
-        //Page_MainBoard.Inst.Drag();
-
         SearchRoadFromLink("691986");
-
-        Page_MainBoard.Inst.Click(newHorFour);
+        //Page_MainBoard.Inst.Click(newHorFour);
         Thread.sleep(3000);
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
         Thread.sleep(3000);
@@ -931,12 +835,9 @@ public class testFastMapYL extends testFastMapBase
         Page_Gate.Inst.Click(Page_Gate.EG);//EG大门
         Thread.sleep(1000);
         Page_Gate.Inst.Click(Page_Gate.SINGLEGATE);//单方向大门
-        //Click("gate_type_eg",1000);//EG大门
-        //Click("checkBox_single_dir_gate");//单方向大门
         Page_Gate.Inst.Click(Page_Gate.SAVE);
         Thread.sleep(1000);
-        //Click("save_button", 1000);
-        tipsNum++;
+        //tipsNum++;
 
         AssertIndoorCheck("大门","中","FM-1104-6-6","10级路上不能有车行门","不能忽视");
     }
@@ -944,10 +845,8 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test01049_data_check() throws Exception {
         //10级路上不能有PG
-        //Page_MainBoard.Inst.Drag();
-
         SearchRoadFromLink("691994");
-        Page_MainBoard.Inst.Click(newHorFour);
+        //Page_MainBoard.Inst.Click(newHorFour);
         Thread.sleep(3000);
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
         Thread.sleep(3000);
@@ -957,7 +856,7 @@ public class testFastMapYL extends testFastMapBase
         Page_Gate.Inst.Click(Page_Gate.SINGLEGATE);//单方向大门
         Page_Gate.Inst.Click(Page_Gate.SAVE);
         Thread.sleep(1000);
-        tipsNum++;
+        //tipsNum++;
 
         AssertIndoorCheck("大门","中","FM-1104-6-6","10级路上不能有车行门","不能忽视");
     }
@@ -965,11 +864,9 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test01050_data_check() throws Exception {
         //10级路上不能有KG
-        //Page_MainBoard.Inst.Drag();
-
         //绘制K10类型手绘测线
         SearchRoadFromLink("691987");
-        Page_MainBoard.Inst.Click(newHorFour);
+        //Page_MainBoard.Inst.Click(newHorFour);
         Thread.sleep(3000);
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
         Thread.sleep(3000);
@@ -987,13 +884,12 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test01052_data_check() throws Exception {
         //车道信息与车道数不一致，可能车道变化点采集遗漏
-        //Page_MainBoard.Inst.Drag();
-
         //搜索单车道linkID为590729的道路
         SearchRoadFromLink("590729");
         //创建四车道车信
-        Page_MainBoard.Inst.Click(newCarInfo);
-        //Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);
+        //Page_MainBoard.Inst.Click(newCarInfo);
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信
         //Page_MainBoard.Inst.Click(newCarInfo);
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
@@ -1004,7 +900,7 @@ public class testFastMapYL extends testFastMapBase
         Page_CarInfo.Inst.Click(Page_CarInfo.C);
         Page_CarInfo.Inst.Click(Page_CarInfo.SAVE);
         Thread.sleep(1000);
-        tipsNum++;
+        //tipsNum++;
 
         AssertIndoorCheck("车信","中","FM-1301-6-3","车道信息与车道数不一致，可能车道变化点采集遗漏","不能忽视");
     }
@@ -1013,7 +909,6 @@ public class testFastMapYL extends testFastMapBase
     public void test01053_data_check() throws Exception {
         //PG关联的link上有勾选了人行门的POI
         SearchRoadFromLink("691994");
-
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_Gate.Inst.Click(Page_Gate.PG);//PG大门
@@ -1021,7 +916,6 @@ public class testFastMapYL extends testFastMapBase
         Page_Gate.Inst.Click(Page_Gate.SAVE);
 
         SearchRoadFromLink("691994");//  592176
-
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
         Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
         Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
@@ -1030,7 +924,7 @@ public class testFastMapYL extends testFastMapBase
 
         Page_POI.Inst.ScrollClick(Page_POI.PERSION_GATE);
         Page_POI.Inst.Click(Page_POI.SAVE);
-        poiNum++;
+        //poiNum++;
 
         AssertIndoorCheck("大门","中","FM-1104-6-7","","");
     }
@@ -1038,9 +932,7 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test01054_data_check() throws Exception {
         //KG关联的link上有勾选了人行门的POI
-        //Page_MainBoard.Inst.Drag();
         SearchRoadFromLink("691987");
-
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_Gate.Inst.Click(Page_Gate.KG);//KG大门
@@ -1048,17 +940,15 @@ public class testFastMapYL extends testFastMapBase
         Page_Gate.Inst.Click(Page_Gate.SAVE);
 
         SearchRoadFromLink("691987");//  32092464
-
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
         Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
         Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
         Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ９");
         Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "中餐馆");
 
-        //mDevice.drag(1902,1212,1902,520,10);
         Page_POI.Inst.ScrollClick(Page_POI.PERSION_GATE);
         Page_POI.Inst.Click(Page_POI.SAVE);
-        poiNum++;
+        //poiNum++;
 
         AssertIndoorCheck("大门","中","FM-1104-6-7","","不能忽视");
     }
@@ -1066,9 +956,7 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test01055_data_check() throws Exception {
         //测线与隧道tips相交时，需要制作立交
-        //Page_MainBoard.Inst.Drag();
         SearchRoadFromLink("32092464");
-
         //在此link上创建隧道
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.StartEndPoint);
         Page_MainBoard.Inst.Click(GetCenter());
@@ -1085,7 +973,6 @@ public class testFastMapYL extends testFastMapBase
         Click(new Point(mDevice.getDisplayWidth()/2, mDevice.getDisplayHeight()/2-80));
         Click(new Point(mDevice.getDisplayWidth()/2, mDevice.getDisplayHeight()/2+80));
         Page_SurveyLine.Inst.Click(Page_SurveyLine.SAVE);
-        //Click("save_button");
         //tipsNum++;
 
         AssertIndoorCheck("测线","中","FM-2001-5-9","新测线与隧道属性道路相交，需要制作立交","不能忽视");
@@ -1095,15 +982,13 @@ public class testFastMapYL extends testFastMapBase
     public void test01056_data_check() throws Exception
     {
         //Rdlink具有内部道路属性时，如果新增区域内Tips（增属性）包含此条link，则报LOG。
-        //Page_MainBoard.Inst.Drag();
-
         SearchRoadFromLink("686517");
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ROUNDABOUT_1600);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_RoundAbout.Inst.Click(Page_RoundAbout.REGION_ROAD);
         Page_RoundAbout.Inst.Click(Page_RoundAbout.ADD);
         Page_RoundAbout.Inst.Click(Page_RoundAbout.SAVE);
-        tipsNum++;
+        //tipsNum++;
 
         AssertIndoorCheck("区域内道路","低","FM-1604-1-3","新增区域内道路（pid：***，多个pid时，用逗号分割）上，已经具有区域内道路属性。不能重复增加属性。","可以忽略");
     }
@@ -1112,14 +997,13 @@ public class testFastMapYL extends testFastMapBase
     public void test01057_data_check() throws Exception
     {
         //如果Rdlink上已经新增了区域内属性，则以区域内属性Tips为准（同一link关联在两个增属性的区域内道路tips上）。
-        //Page_MainBoard.Inst.Drag();
         SearchRoadFromLink("686517");
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ROUNDABOUT_1600);
         Click(GetCenter());
         Page_RoundAbout.Inst.Click(Page_RoundAbout.REGION_ROAD);
         Page_RoundAbout.Inst.Click(Page_RoundAbout.ADD);
         Page_RoundAbout.Inst.Click(Page_RoundAbout.SAVE);
-        tipsNum++;
+        //tipsNum++;
 
         AssertIndoorCheck("区域内道路","低","FM-1604-1-3","新增区域内道路（pid：***，多个pid时，用逗号分割）上，已经具有区域内道路属性。不能重复增加属性。","可以忽略");
     }
@@ -1128,16 +1012,13 @@ public class testFastMapYL extends testFastMapBase
     public void test01058_data_check() throws Exception
     {
         //Rdlink不具有内部道路属性时，如果新增区域内Tips（删属性）包含此条link，则报LOG。
-
-        //Page_MainBoard.Inst.Drag();
-
         SearchRoadFromLink("568899");
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ROUNDABOUT_1600);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_RoundAbout.Inst.Click(Page_RoundAbout.REGION_ROAD);
         Page_RoundAbout.Inst.Click(Page_RoundAbout.DELETE);
         Page_RoundAbout.Inst.Click(Page_RoundAbout.SAVE);
-        tipsNum++;
+        //tipsNum++;
 
         AssertIndoorCheck("区域内道路","低","FM-1604-1-4","新增区域内道路（pid：***，多个pid时，用逗号分割）上，已经具有区域内道路属性。不能重复增加属性。","可以忽略");
     }
@@ -1145,40 +1026,31 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test01059_data_check() throws Exception
     {
-        // 2、如果Rdlink上已经新增了区域内属性，则以区域内属性Tips为准（同一link关联在两个删属性的区域内道路tips上）。
+        // 如果Rdlink上已经新增了区域内属性，则以区域内属性Tips为准（同一link关联在两个删属性的区域内道路tips上）。
         //备注：如果超过2个区域内道路tips，则不检查
-        //Page_MainBoard.Inst.Drag();
-
-
         SearchRoadFromLink("568899");
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ROUNDABOUT_1600);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_RoundAbout.Inst.Click(Page_RoundAbout.REGION_ROAD);
         Page_RoundAbout.Inst.Click(Page_RoundAbout.DELETE);
         Page_RoundAbout.Inst.Click(Page_RoundAbout.SAVE);
-        tipsNum++;
-        AssertIndoorCheck("区域内道路","低","FM-1604-1-4","新增区域内道路（pid：***，多个pid时，用逗号分割）上，已经具有区域内道路属性。不能重复增加属性。","可以忽略");
+        //tipsNum++;
 
+        AssertIndoorCheck("区域内道路","低","FM-1604-1-4","新增区域内道路（pid：***，多个pid时，用逗号分割）上，已经具有区域内道路属性。不能重复增加属性。","可以忽略");
     }
 
     @Test
-    public void test01101_tips_CarInfo_add() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01101_tips_CarInfo_add() throws Exception {
         //点击更多,收起，显示隐藏全部单箭头选项
-        //Page_MainBoard.Inst.Drag();
-        Page_MainBoard.Inst.Click(newCarInfo);
-        //Click(newCarInfo);//车信控件ID
+        //Page_MainBoard.Inst.Click(newCarInfo);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信
         Page_MainBoard.Inst.Click(GetCenter());
-        //Click(GetCenter());
-        Page_CarInfo.Inst.Click(Page_CarInfo.A);
-        //Click("rb_select_one_a");//单车道任一控件ID //问题
-        Page_CarInfo.Inst.Click(Page_CarInfo.MORE);
-        //Click("ll_bg_select_more");//“更多”控件ID
-        Page_CarInfo.Inst.Click(Page_CarInfo.R);
-        //Click("rb_select_six_r");
 
+        Page_CarInfo.Inst.Click(Page_CarInfo.A);//单车道任一控件ID //问题
+        Page_CarInfo.Inst.Click(Page_CarInfo.MORE);//“更多”控件ID
+        Page_CarInfo.Inst.Click(Page_CarInfo.R);
         Page_CarInfo.Inst.Click(Page_CarInfo.SAVE);
-        //Click("save_button");
-        tipsNum++;
+        //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE, "车信");
     }
@@ -1211,33 +1083,27 @@ public class testFastMapYL extends testFastMapBase
     }
 */
     @Test
-    public void test01103_tips_CarInfo_add() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01103_tips_CarInfo_add() throws Exception {
         //新增单箭头 r 斜左、
-        Page_MainBoard.Inst.Click(newCarInfo);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信
         Thread.sleep(2000);
-        //Click(newCarInfo);//车信控件ID
         Page_MainBoard.Inst.Click(GetCenter());
-        Page_CarInfo.Inst.Click(Page_CarInfo.MORE);
-        //Click("ll_bg_select_more");//“更多”控件ID  问题
-        //Click("rb_select_six_r");
+        Page_CarInfo.Inst.Click(Page_CarInfo.MORE);//“更多”控件ID  问题
         Page_CarInfo.Inst.Click(Page_CarInfo.R);
         Page_CarInfo.Inst.Click(Page_CarInfo.SAVE);
-        //Click("save_button");
         //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE, "车信");
     }
 
     @Test
-    public void test01104_tips_CarInfo_add() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01104_tips_CarInfo_add() throws Exception {
         //新增单箭头 s 斜右、
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);
-        //Click("ll_bg_select_more");//“更多”控件ID //问题
-        //Click("rb_select_six_s");//斜右单车道控件ID
-        Page_CarInfo.Inst.Click(Page_CarInfo.S);
+        Page_CarInfo.Inst.Click(Page_CarInfo.S);//斜右单车道控件ID
         Page_CarInfo.Inst.Click(Page_CarInfo.SAVE);
         //tipsNum++;
 
@@ -1245,63 +1111,55 @@ public class testFastMapYL extends testFastMapBase
     }
 
     @Test
-    public void test01105_tips_CarInfo_add() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01105_tips_CarInfo_add() throws Exception {
         //新增单箭头 t 直斜左、
-        //Page_MainBoard.Inst.Drag();
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);
-        //Click("ll_bg_select_more");//“更多”控件ID //问题
-        //Click("rb_select_six_t");//直斜左控件ID
         Page_CarInfo.Inst.Click(T);
         Page_CarInfo.Inst.Click(Page_CarInfo.SAVE);
-        //Click("save_button");
         //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE,"车信");
     }
 
     @Test
-    public void test01106_tips_CarInfo_add() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01106_tips_CarInfo_add() throws Exception {
         //新增单箭头 x 直斜右
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE); //“更多”控件ID //问题
         Page_CarInfo.Inst.Click(Page_CarInfo.X);
-
         Page_CarInfo.Inst.Click(Page_CarInfo.SAVE);
-        tipsNum++;
+        //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE,"车信");
     }
 
     @Test
-    public void test01107_tips_CarInfo_add() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01107_tips_CarInfo_add() throws Exception {
         //新增单箭头 u 左斜左、
-        //Page_MainBoard.Inst.Drag();
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE); //“更多”控件ID //问题
         Page_CarInfo.Inst.Click(Page_CarInfo.U);
-
         Page_CarInfo.Inst.Click(Page_CarInfo.SAVE);
-        tipsNum++;
+        //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE,"车信");
     }
 
     @Test
-    public void test01108_tips_CarInfo_add() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01108_tips_CarInfo_add() throws Exception {
         //新增单箭头 z 右斜右、
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE); //“更多”控件ID //问题
         Page_CarInfo.Inst.Click(Page_CarInfo.Z);
-
         Page_CarInfo.Inst.Click(Page_CarInfo.SAVE);
         //tipsNum++;
 
@@ -1309,14 +1167,13 @@ public class testFastMapYL extends testFastMapBase
     }
 
     @Test
-    public void test01109_tips_CarInfo_add() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01109_tips_CarInfo_add() throws Exception {
         //新增单箭头 w 调斜左、
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE); //“更多”控件ID //问题
         Page_CarInfo.Inst.Click(Page_CarInfo.W);
-
         Page_CarInfo.Inst.Click(Page_CarInfo.SAVE);
         //tipsNum++;
 
@@ -1324,32 +1181,27 @@ public class testFastMapYL extends testFastMapBase
     }
 
     @Test
-    public void test01110_tips_CarInfo_add() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01110_tips_CarInfo_add() throws Exception {
         //新增单箭头 0 调斜右
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE); //“更多”控件ID //问题
         Page_CarInfo.Inst.Click(Page_CarInfo.ZERO);
-
         Page_CarInfo.Inst.Click(Page_CarInfo.SAVE);
         //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE,"车信");
-
     }
 
     @Test
-    public void test01111_tips_CarInfo_add() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01111_tips_CarInfo_add() throws Exception {
         //新增单箭头 y 左斜右、
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);
-        //Click("ll_bg_select_more");//“更多”控件ID
-        //Click("rb_select_eight_y");
         Page_CarInfo.Inst.Click(Page_CarInfo.Y);
-        //Click("save_button");
         Page_CarInfo.Inst.Click(Page_CarInfo.SAVE);
         //tipsNum++;
 
@@ -1357,65 +1209,55 @@ public class testFastMapYL extends testFastMapBase
     }
 
     @Test
-    public void test01112_tips_CarInfo_add() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01112_tips_CarInfo_add() throws Exception {
         //新增单箭头 v 右斜左、
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
-        //Click("ll_bg_select_more");//“更多”控件ID
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);
-        //Click("rb_select_eight_v");
         Page_CarInfo.Inst.Click(Page_CarInfo.V);
         Page_CarInfo.Inst.Click(Page_CarInfo.SAVE);
-        //Click("save_button");
         //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE,"车信");
     }
 
     @Test
-    public void test01113_tips_CarInfo_add() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01113_tips_CarInfo_add() throws Exception {
         //新增单箭头 2 直左斜左、
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
-        //Click("ll_bg_select_more");//“更多”控件ID
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);
-        //Click("rb_select_eight_2");
         Page_CarInfo.Inst.Click(Page_CarInfo.TWO);
         Page_CarInfo.Inst.Click(Page_CarInfo.SAVE);
-        //Click("save_button");
         //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE,"车信");
     }
 
     @Test
-    public void test01114_tips_CarInfo_add() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01114_tips_CarInfo_add() throws Exception {
         //新增单箭头 5 直右斜右
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
-        //Click("ll_bg_select_more");//“更多”控件ID
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);
-        //Click("rb_select_eight_5");
         Page_CarInfo.Inst.Click(Page_CarInfo.FIVE);
         Page_CarInfo.Inst.Click(Page_CarInfo.SAVE);
-        //Click("save_button");
         //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE,"车信");
     }
 
     @Test
-    public void test01115_tips_CarInfo_add() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01115_tips_CarInfo_add() throws Exception {
         //新增单箭头 3 直左斜右、
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);//“更多”控件ID
         Page_CarInfo.Inst.Click(Page_CarInfo.THREE);
-
         Page_CarInfo.Inst.Click(Page_CarInfo.SAVE);
         //tipsNum++;
 
@@ -1423,14 +1265,13 @@ public class testFastMapYL extends testFastMapBase
     }
 
     @Test
-    public void test01116_tips_CarInfo_add() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01116_tips_CarInfo_add() throws Exception {
         //新增单箭头 4 直右斜左、
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);//“更多”控件ID
         Page_CarInfo.Inst.Click(Page_CarInfo.FOUR);
-
         Page_CarInfo.Inst.Click(Page_CarInfo.SAVE);
         //tipsNum++;
 
@@ -1438,14 +1279,13 @@ public class testFastMapYL extends testFastMapBase
     }
 
     @Test
-    public void test01117_tips_CarInfo_add() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01117_tips_CarInfo_add() throws Exception {
         //新增单箭头 1 斜左斜右
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);//“更多”控件ID
         Page_CarInfo.Inst.Click(Page_CarInfo.ONE);
-
         Page_CarInfo.Inst.Click(Page_CarInfo.SAVE);
         //tipsNum++;
 
@@ -1453,9 +1293,9 @@ public class testFastMapYL extends testFastMapBase
     }
 
     @Test
-    public void test01118_tips_CarInfo_add() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01118_tips_CarInfo_add() throws Exception {
         //增加单车道箭头
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_CarInfo.Inst.Click(Page_CarInfo.A);//单车道任一控件ID
@@ -1476,25 +1316,21 @@ public class testFastMapYL extends testFastMapBase
         Page_CarInfo.Inst.Click(Page_CarInfo.THREE);//直右斜右控件ID
         Page_CarInfo.Inst.Click(Page_CarInfo.FOUR);//直左斜右控件ID
         Page_CarInfo.Inst.Click(Page_CarInfo.ONE);//直右斜左控件ID
-
         Page_CarInfo.Inst.Click(Page_CarInfo.SAVE);
         //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE,"车信");
     }
 
-
-
     @Test
-    public void test01119_tips_CarInfo_add() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01119_tips_CarInfo_add() throws Exception {
         //新增单箭头 s 斜右、
-        Page_MainBoard.Inst.Click(newCarInfo);//单车道任一控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_CarInfo.Inst.Click(Page_CarInfo.A);//单车道任一控件ID
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);//“更多”控件ID
         Page_CarInfo.Inst.Click(Page_CarInfo.R);//斜右单车道控件ID
-
         Page_CarInfo.Inst.Click(Page_CarInfo.SAVE);
         //tipsNum++;
 
@@ -1502,165 +1338,154 @@ public class testFastMapYL extends testFastMapBase
     }
 
     @Test
-    public void test01120_tips_CarInfo_add() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01120_tips_CarInfo_add() throws Exception {
         //新增单箭头 t 直斜左、
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_CarInfo.Inst.Click(Page_CarInfo.A);//单车道任一控件ID
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);//“更多”控件ID
         Page_CarInfo.Inst.Click(Page_CarInfo.S);//直斜左控件ID
-
         Page_CarInfo.Inst.Click(Page_CarInfo.SAVE);
         //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE,"车信");
     }
     @Test
-    public void test01121_tips_CarInfo_add() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01121_tips_CarInfo_add() throws Exception {
         //新增单箭头 x 直斜右
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_CarInfo.Inst.Click(Page_CarInfo.A);//单车道任一控件ID
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);//“更多”控件ID
-        Page_CarInfo.Inst.Click(T);;
-
+        Page_CarInfo.Inst.Click(T);
         Page_CarInfo.Inst.Click(Page_CarInfo.SAVE);
         //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE,"车信");
     }
     @Test
-    public void test01122_tips_CarInfo_add() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01122_tips_CarInfo_add() throws Exception {
         //新增单箭头 u 左斜左、
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_CarInfo.Inst.Click(Page_CarInfo.A);//单车道任一控件ID
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);//“更多”控件ID
         Page_CarInfo.Inst.Click(Page_CarInfo.X);
-
         Page_CarInfo.Inst.Click(Page_CarInfo.SAVE);
         //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE,"车信");
     }
     @Test
-    public void test01123_tips_CarInfo_add() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01123_tips_CarInfo_add() throws Exception {
         //新增单箭头 z 右斜右、
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_CarInfo.Inst.Click(Page_CarInfo.A);//单车道任一控件ID
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);//“更多”控件ID
         Page_CarInfo.Inst.Click(Page_CarInfo.U);
-
         Page_CarInfo.Inst.Click(Page_CarInfo.SAVE);
         //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE,"车信");
     }
     @Test
-    public void test01124_tips_CarInfo_add() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01124_tips_CarInfo_add() throws Exception {
         //新增单箭头 w 调斜左、
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_CarInfo.Inst.Click(Page_CarInfo.A);//单车道任一控件ID
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);//“更多”控件ID
         Page_CarInfo.Inst.Click(Page_CarInfo.Z);
-
         Page_CarInfo.Inst.Click(Page_CarInfo.SAVE);
         //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE,"车信");
     }
     @Test
-    public void test01125_tips_CarInfo_add() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01125_tips_CarInfo_add() throws Exception {
         //新增单箭头 0 调斜右
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_CarInfo.Inst.Click(Page_CarInfo.A);//单车道任一控件ID
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);//“更多”控件ID
         Page_CarInfo.Inst.Click(Page_CarInfo.W);
-
         Page_CarInfo.Inst.Click(Page_CarInfo.SAVE);
         //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE,"车信");
     }
     @Test
-    public void test01126_tips_CarInfo_add() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01126_tips_CarInfo_add() throws Exception {
         //新增单箭头 y 左斜右、
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_CarInfo.Inst.Click(Page_CarInfo.A);//单车道任一控件ID
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);//“更多”控件ID
         Page_CarInfo.Inst.Click(Page_CarInfo.ZERO);
-
         Page_CarInfo.Inst.Click(Page_CarInfo.SAVE);
         //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE,"车信");
     }
     @Test
-    public void test01127_tips_CarInfo_add() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01127_tips_CarInfo_add() throws Exception {
         //新增单箭头 v 右斜左、
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_CarInfo.Inst.Click(Page_CarInfo.A);//单车道任一控件ID
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);//“更多”控件ID
         Page_CarInfo.Inst.Click(Page_CarInfo.Y);
-
         Page_CarInfo.Inst.Click(Page_CarInfo.SAVE);
         //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE,"车信");
     }
     @Test
-    public void test01128_tips_CarInfo_add() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01128_tips_CarInfo_add() throws Exception {
         //新增单箭头 2 直左斜左、
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_CarInfo.Inst.Click(Page_CarInfo.A);//单车道任一控件ID
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);//“更多”控件ID
         Page_CarInfo.Inst.Click(Page_CarInfo.V);
-
         Page_CarInfo.Inst.Click(Page_CarInfo.SAVE);
         //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE,"车信");
     }
     @Test
-    public void test01129_tips_CarInfo_add() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01129_tips_CarInfo_add() throws Exception {
         //新增单箭头 5 直右斜右
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_CarInfo.Inst.Click(Page_CarInfo.A);//单车道任一控件ID
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);//“更多”控件ID
         Page_CarInfo.Inst.Click(Page_CarInfo.TWO);
-
         Page_CarInfo.Inst.Click(Page_CarInfo.SAVE);
         //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE,"车信");
     }
     @Test
-    public void test01130_tips_CarInfo_add() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01130_tips_CarInfo_add() throws Exception {
         //新增单箭头 3 直左斜右、
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_CarInfo.Inst.Click(Page_CarInfo.A);//单车道任一控件ID
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);//“更多”控件ID
         Page_CarInfo.Inst.Click(Page_CarInfo.FIVE);
-
         Page_CarInfo.Inst.Click(Page_CarInfo.SAVE);
         //tipsNum++;
 
@@ -1668,15 +1493,14 @@ public class testFastMapYL extends testFastMapBase
     }
 
     @Test
-    public void test01131_tips_CarInfo_add() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01131_tips_CarInfo_add() throws Exception {
         //新增单箭头 4 直右斜左、
-        Page_MainBoard.Inst.Click(newCarInfo);//单车道任一控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_CarInfo.Inst.Click(Page_CarInfo.A);//单车道任一控件ID
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);//更多
         Page_CarInfo.Inst.Click(Page_CarInfo.THREE);
-
         Page_CarInfo.Inst.Click(Page_CarInfo.SAVE);
         //tipsNum++;
 
@@ -1684,47 +1508,43 @@ public class testFastMapYL extends testFastMapBase
     }
 
     @Test
-    public void test01132_tips_CarInfo_add() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01132_tips_CarInfo_add() throws Exception {
         //新增单箭头 1 斜左斜右
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_CarInfo.Inst.Click(Page_CarInfo.A);//单车道任一控件ID
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);//“更多”控件ID
         Page_CarInfo.Inst.Click(Page_CarInfo.FOUR);
-
         Page_CarInfo.Inst.Click(Page_CarInfo.SAVE);
         //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE,"车信");
     }
     @Test
-    public void test01178_tips_CarInfo_add() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01178_tips_CarInfo_add() throws Exception {
         //新增单箭头 1 斜左斜右
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_CarInfo.Inst.Click(Page_CarInfo.A);//单车道任一控件ID
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);//“更多”控件ID
         Page_CarInfo.Inst.Click(Page_CarInfo.ONE);
-
         Page_CarInfo.Inst.Click(Page_CarInfo.SAVE);
         //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE,"车信");
     }
 
-    //
     @Test
-    public void test01133_tips_CarInfo_add() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01133_tips_CarInfo_add() throws Exception {
         //新增单箭头 1 斜左
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);//“更多”控件ID
         Page_CarInfo.Inst.Click(Page_CarInfo.R);
         Page_CarInfo.Inst.Click(Page_CarInfo.A);//单车道任一控件ID
-
         Page_CarInfo.Inst.Click(Page_CarInfo.SAVE);
         //tipsNum++;
 
@@ -1732,24 +1552,23 @@ public class testFastMapYL extends testFastMapBase
     }
 
     @Test
-    public void test01134_tips_CarInfo_add() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01134_tips_CarInfo_add() throws Exception {
         //新增单箭头 s 斜右、
-        Page_MainBoard.Inst.Click(newCarInfo);//单车道任一控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);//“更多”控件ID
         Page_CarInfo.Inst.Click(Page_CarInfo.S);//斜右单车道控件ID
         Page_CarInfo.Inst.Click(Page_CarInfo.A);//单车道任一控件ID
-
         Page_CarInfo.Inst.Click(Page_CarInfo.SAVE);
         //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE,"车信");
     }
     @Test
-    public void test01135_tips_CarInfo_add() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01135_tips_CarInfo_add() throws Exception {
         //新增单箭头 t 直斜左、
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);//“更多”控件ID
@@ -1761,24 +1580,23 @@ public class testFastMapYL extends testFastMapBase
         CheckMyData(Page_MyData.TIPS_TYPE,"车信");
     }
     @Test
-    public void test01136_tips_CarInfo_add() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01136_tips_CarInfo_add() throws Exception {
         //新增单箭头 x 直斜右
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);//“更多”控件ID
         Page_CarInfo.Inst.Click(Page_CarInfo.X);
         Page_CarInfo.Inst.Click(Page_CarInfo.A);//单车道任一控件ID
-
         Page_CarInfo.Inst.Click(Page_CarInfo.SAVE);
         //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE,"车信");
     }
     @Test
-    public void test01137_tips_CarInfo_add() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01137_tips_CarInfo_add() throws Exception {
         //新增单箭头 u 左斜左、
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);//“更多”控件ID
@@ -1790,9 +1608,9 @@ public class testFastMapYL extends testFastMapBase
         CheckMyData(Page_MyData.TIPS_TYPE,"车信");
     }
     @Test
-    public void test01138_tips_CarInfo_add() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01138_tips_CarInfo_add() throws Exception {
         //新增单箭头 z 右斜右、
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);//“更多”控件ID
@@ -1804,9 +1622,9 @@ public class testFastMapYL extends testFastMapBase
         CheckMyData(Page_MyData.TIPS_TYPE,"车信");
     }
     @Test
-    public void test01139_tips_CarInfo_add() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01139_tips_CarInfo_add() throws Exception {
         //新增单箭头 w 调斜左、
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);//“更多”控件ID
@@ -1818,9 +1636,9 @@ public class testFastMapYL extends testFastMapBase
         CheckMyData(Page_MyData.TIPS_TYPE,"车信");
     }
     @Test
-    public void test01140_tips_CarInfo_add() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01140_tips_CarInfo_add() throws Exception {
         //新增单箭头 0 调斜右
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);//“更多”控件ID
@@ -1832,9 +1650,9 @@ public class testFastMapYL extends testFastMapBase
         CheckMyData(Page_MyData.TIPS_TYPE,"车信");
     }
     @Test
-    public void test01141_tips_CarInfo_add() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01141_tips_CarInfo_add() throws Exception {
         //新增单箭头 y 左斜右、
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);//“更多”控件ID
@@ -1846,9 +1664,9 @@ public class testFastMapYL extends testFastMapBase
         CheckMyData(Page_MyData.TIPS_TYPE,"车信");
     }
     @Test
-    public void test01142_tips_CarInfo_add() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01142_tips_CarInfo_add() throws Exception {
         //新增单箭头 v 右斜左、
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);//“更多”控件ID
@@ -1861,9 +1679,9 @@ public class testFastMapYL extends testFastMapBase
 
     }
     @Test
-    public void test01143_tips_CarInfo_add() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01143_tips_CarInfo_add() throws Exception {
         //新增单箭头 2 直左斜左、
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);//“更多”控件ID
@@ -1876,9 +1694,9 @@ public class testFastMapYL extends testFastMapBase
         CheckMyData(Page_MyData.TIPS_TYPE,"车信");
     }
     @Test
-    public void test01144_tips_CarInfo_add() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01144_tips_CarInfo_add() throws Exception {
         //新增单箭头 5 直右斜右
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);//“更多”控件ID
@@ -1891,9 +1709,9 @@ public class testFastMapYL extends testFastMapBase
         CheckMyData(Page_MyData.TIPS_TYPE,"车信");
     }
     @Test
-    public void test01145_tips_CarInfo_add() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01145_tips_CarInfo_add() throws Exception {
         //新增单箭头 3 直左斜右、
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);//“更多”控件ID
@@ -1907,16 +1725,14 @@ public class testFastMapYL extends testFastMapBase
     }
 
     @Test
-    public void test01146_tips_CarInfo_add() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01146_tips_CarInfo_add() throws Exception {
         //新增单箭头 4 直右斜左、
-        Page_MainBoard.Inst.Click(newCarInfo);//单车道任一控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
-
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);//更多
         Page_CarInfo.Inst.Click(Page_CarInfo.FOUR);
         Page_CarInfo.Inst.Click(Page_CarInfo.A);//单车道任一控件ID
-
         Page_CarInfo.Inst.Click(Page_CarInfo.SAVE);
         //tipsNum++;
 
@@ -1924,15 +1740,14 @@ public class testFastMapYL extends testFastMapBase
     }
 
     @Test
-    public void test01147_tips_CarInfo_add() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01147_tips_CarInfo_add() throws Exception {
         //新增单箭头 1 斜左斜右
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);//“更多”控件ID
         Page_CarInfo.Inst.Click(Page_CarInfo.ONE);
         Page_CarInfo.Inst.Click(Page_CarInfo.A);//单车道任一控件ID
-
         Page_CarInfo.Inst.Click(Page_CarInfo.SAVE);
         //tipsNum++;
 
@@ -1941,9 +1756,9 @@ public class testFastMapYL extends testFastMapBase
 
 
     @Test
-    public void test01148_tips_CarInfo_close() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01148_tips_CarInfo_close() throws Exception {
         //新增单箭头 1 斜左
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);//“更多”控件ID
@@ -1955,13 +1770,11 @@ public class testFastMapYL extends testFastMapBase
     }
 
     @Test
-    public void test01149_tips_CarInfo_close() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01149_tips_CarInfo_close() throws Exception {
         //新增单箭头 s 斜右、
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
-        //Click("ll_bg_select_more");//“更多”控件ID
-        //Click("rb_select_six_s");//斜右单车道控件ID
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);
         Page_CarInfo.Inst.Click(Page_CarInfo.S);
         Page_CarInfo.Inst.Click(Page_CarInfo.DELETE);
@@ -1970,13 +1783,11 @@ public class testFastMapYL extends testFastMapBase
         //CheckMyData(Page_MyData.TIPS_TYPE,"车信");
     }
     @Test
-    public void test01150_tips_CarInfo_close() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01150_tips_CarInfo_close() throws Exception {
         //新增单箭头 t 直斜左、
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
-        //Click("ll_bg_select_more");//“更多”控件ID
-        //Click("rb_select_six_t");//直斜左控件ID
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);
         Page_CarInfo.Inst.Click(T);
         Page_CarInfo.Inst.Click(Page_CarInfo.DELETE);
@@ -1985,13 +1796,11 @@ public class testFastMapYL extends testFastMapBase
         //CheckMyData(Page_MyData.TIPS_TYPE,"车信");
     }
     @Test
-    public void test01151_tips_CarInfo_close() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01151_tips_CarInfo_close() throws Exception {
         //新增单箭头 x 直斜右
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
-        //Click("ll_bg_select_more");//“更多”控件ID
-        //Click("rb_select_six_x");
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);
         Page_CarInfo.Inst.Click(Page_CarInfo.X);
         Page_CarInfo.Inst.Click(Page_CarInfo.DELETE);
@@ -2000,13 +1809,11 @@ public class testFastMapYL extends testFastMapBase
         //CheckMyData(Page_MyData.TIPS_TYPE,"车信");
     }
     @Test
-    public void test01152_tips_CarInfo_close() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01152_tips_CarInfo_close() throws Exception {
         //新增单箭头 u 左斜左、
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
-        //Click("ll_bg_select_more");//“更多”控件ID
-        //Click("rb_select_seven_u");
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);
         Page_CarInfo.Inst.Click(Page_CarInfo.U);
         Page_CarInfo.Inst.Click(Page_CarInfo.DELETE);
@@ -2015,13 +1822,11 @@ public class testFastMapYL extends testFastMapBase
         //CheckMyData(Page_MyData.TIPS_TYPE,"车信");
     }
     @Test
-    public void test01153_tips_CarInfo_close() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01153_tips_CarInfo_close() throws Exception {
         //新增单箭头 z 右斜右、
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
-        //Click("ll_bg_select_more");//“更多”控件ID
-        //Click("rb_select_seven_z");
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);
         Page_CarInfo.Inst.Click(Page_CarInfo.Z);
         Page_CarInfo.Inst.Click(Page_CarInfo.DELETE);
@@ -2030,13 +1835,11 @@ public class testFastMapYL extends testFastMapBase
         //CheckMyData(Page_MyData.TIPS_TYPE,"车信");
     }
     @Test
-    public void test01154_tips_CarInfo_close() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01154_tips_CarInfo_close() throws Exception {
         //新增单箭头 w 调斜左、
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
-        //Click("ll_bg_select_more");//“更多”控件ID
-        //Click("rb_select_seven_w");
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);
         Page_CarInfo.Inst.Click(Page_CarInfo.W);
         Page_CarInfo.Inst.Click(Page_CarInfo.DELETE);
@@ -2045,13 +1848,11 @@ public class testFastMapYL extends testFastMapBase
         //CheckMyData(Page_MyData.TIPS_TYPE,"车信");
     }
     @Test
-    public void test01155_tips_CarInfo_close() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01155_tips_CarInfo_close() throws Exception {
         //新增单箭头 0 调斜右
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
-        //Click("ll_bg_select_more");//“更多”控件ID
-        //Click("rb_select_seven_0");
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);
         Page_CarInfo.Inst.Click(Page_CarInfo.ZERO);
         Page_CarInfo.Inst.Click(Page_CarInfo.DELETE);
@@ -2060,13 +1861,11 @@ public class testFastMapYL extends testFastMapBase
         //CheckMyData(Page_MyData.TIPS_TYPE,"车信");
     }
     @Test
-    public void test01156_tips_CarInfo_close() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01156_tips_CarInfo_close() throws Exception {
         //新增单箭头 y 左斜右、
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
-        //Click("ll_bg_select_more");//“更多”控件ID
-        //Click("rb_select_eight_y");
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);
         Page_CarInfo.Inst.Click(Page_CarInfo.Y);
         Page_CarInfo.Inst.Click(Page_CarInfo.DELETE);
@@ -2075,29 +1874,24 @@ public class testFastMapYL extends testFastMapBase
         //CheckMyData(Page_MyData.TIPS_TYPE,"车信");
     }
     @Test
-    public void test01157_tips_CarInfo_close() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01157_tips_CarInfo_close() throws Exception {
         //新增单箭头 v 右斜左、
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
-        //Click("ll_bg_select_more");//“更多”控件ID
-        //Click("rb_select_eight_v");
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);
         Page_CarInfo.Inst.Click(Page_CarInfo.V);
         Page_CarInfo.Inst.Click(Page_CarInfo.DELETE);
         Page_CarInfo.Inst.Click(Page_CarInfo.CANCEL);
 
         //CheckMyData(Page_MyData.TIPS_TYPE,"车信");
-
     }
     @Test
-    public void test01158_tips_CarInfo_close() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01158_tips_CarInfo_close() throws Exception {
         //新增单箭头 2 直左斜左、
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
-        //Click("ll_bg_select_more");//“更多”控件ID
-        //Click("rb_select_eight_2");
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);
         Page_CarInfo.Inst.Click(Page_CarInfo.TWO);
         Page_CarInfo.Inst.Click(Page_CarInfo.DELETE);
@@ -2106,13 +1900,11 @@ public class testFastMapYL extends testFastMapBase
         //CheckMyData(Page_MyData.TIPS_TYPE,"车信");
     }
     @Test
-    public void test01159_tips_CarInfo_close() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01159_tips_CarInfo_close() throws Exception {
         //新增单箭头 5 直右斜右
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
-        //Click("ll_bg_select_more");//“更多”控件ID
-        //Click("rb_select_eight_5");
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);
         Page_CarInfo.Inst.Click(Page_CarInfo.FIVE);
         Page_CarInfo.Inst.Click(Page_CarInfo.DELETE);
@@ -2121,13 +1913,11 @@ public class testFastMapYL extends testFastMapBase
         //CheckMyData(Page_MyData.TIPS_TYPE,"车信");
     }
     @Test
-    public void test01160_tips_CarInfo_close() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01160_tips_CarInfo_close() throws Exception {
         //新增单箭头 3 直左斜右、
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
-        //Click("ll_bg_select_more");//“更多”控件ID
-        //Click("rb_select_eight_3");
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);
         Page_CarInfo.Inst.Click(Page_CarInfo.THREE);
         Page_CarInfo.Inst.Click(Page_CarInfo.DELETE);
@@ -2137,13 +1927,11 @@ public class testFastMapYL extends testFastMapBase
     }
 
     @Test
-    public void test01161_tips_CarInfo_close() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01161_tips_CarInfo_close() throws Exception {
         //新增单箭头 4 直右斜左、
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
-        //Click("ll_bg_select_more");//更多
-        //Click("rb_select_eight_4");
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);
         Page_CarInfo.Inst.Click(Page_CarInfo.FOUR);
         Page_CarInfo.Inst.Click(Page_CarInfo.DELETE);
@@ -2153,28 +1941,24 @@ public class testFastMapYL extends testFastMapBase
     }
 
     @Test
-    public void test01162_tips_CarInfo_close() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01162_tips_CarInfo_close() throws Exception {
         //新增单箭头 1 斜左斜右
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
-        //Click("ll_bg_select_more");//“更多”控件ID
-        //Click("rb_select_eight_1");
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);
         Page_CarInfo.Inst.Click(Page_CarInfo.ONE);
         Page_CarInfo.Inst.Click(Page_CarInfo.DELETE);
         Page_CarInfo.Inst.Click(Page_CarInfo.CANCEL);
+
         //CheckMyData(Page_MyData.TIPS_TYPE,"车信");
     }
 
-
     //注意每个ID切换成下一个ID 比如63这个用例
-
     @Test
-
-    public void test01163_tips_CarInfo_add() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01163_tips_CarInfo_add() throws Exception {
         //新增单箭头 1 斜左
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);
@@ -2188,9 +1972,9 @@ public class testFastMapYL extends testFastMapBase
     }
 
     @Test
-    public void test01164_tips_CarInfo_add() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01164_tips_CarInfo_add() throws Exception {
         //新增单箭头 s 斜右、
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);
@@ -2203,12 +1987,11 @@ public class testFastMapYL extends testFastMapBase
         CheckMyData(Page_MyData.TIPS_TYPE,"车信");
     }
     @Test
-    public void test01165_tips_CarInfo_add() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01165_tips_CarInfo_add() throws Exception {
         //新增单箭头 t 直斜左、
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
-
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);
         Page_CarInfo.Inst.Click(T);
         Page_CarInfo.Inst.Click(Page_CarInfo.DRI);
@@ -2219,12 +2002,11 @@ public class testFastMapYL extends testFastMapBase
         CheckMyData(Page_MyData.TIPS_TYPE,"车信");
     }
     @Test
-    public void test01166_tips_CarInfo_add() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01166_tips_CarInfo_add() throws Exception {
         //新增单箭头 x 直斜右
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
-
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);
         Page_CarInfo.Inst.Click(Page_CarInfo.X);
         Page_CarInfo.Inst.Click(Page_CarInfo.DRI);
@@ -2235,12 +2017,11 @@ public class testFastMapYL extends testFastMapBase
         CheckMyData(Page_MyData.TIPS_TYPE,"车信");
     }
     @Test
-    public void test01167_tips_CarInfo_add() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01167_tips_CarInfo_add() throws Exception {
         //新增单箭头 u 左斜左、
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
-
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);
         Page_CarInfo.Inst.Click(Page_CarInfo.U);
         Page_CarInfo.Inst.Click(Page_CarInfo.DRI);
@@ -2251,13 +2032,11 @@ public class testFastMapYL extends testFastMapBase
         CheckMyData(Page_MyData.TIPS_TYPE,"车信");
     }
     @Test
-    public void test01168_tips_CarInfo_add() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01168_tips_CarInfo_add() throws Exception {
         //新增单箭头 z 右斜右、
-        //Page_MainBoard.Inst.Drag();
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
-
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);
         Page_CarInfo.Inst.Click(Page_CarInfo.Z);
         Page_CarInfo.Inst.Click(Page_CarInfo.DRI);
@@ -2268,12 +2047,11 @@ public class testFastMapYL extends testFastMapBase
         CheckMyData(Page_MyData.TIPS_TYPE,"车信");
     }
     @Test
-    public void test01169_tips_CarInfo_add() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01169_tips_CarInfo_add() throws Exception {
         //新增单箭头 w 调斜左、
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
-
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);
         Page_CarInfo.Inst.Click(Page_CarInfo.W);
         Page_CarInfo.Inst.Click(Page_CarInfo.DRI);
@@ -2283,13 +2061,13 @@ public class testFastMapYL extends testFastMapBase
 
         CheckMyData(Page_MyData.TIPS_TYPE,"车信");
     }
+
     @Test
-    public void test01170_tips_CarInfo_add() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01170_tips_CarInfo_add() throws Exception {
         //新增单箭头 0 调斜右
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
-
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);
         Page_CarInfo.Inst.Click(Page_CarInfo.ZERO);
         Page_CarInfo.Inst.Click(Page_CarInfo.DRI);
@@ -2301,12 +2079,11 @@ public class testFastMapYL extends testFastMapBase
     }
 
     @Test
-    public void test01171_tips_CarInfo_add() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01171_tips_CarInfo_add() throws Exception {
         //新增单箭头 y 左斜右、
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
-
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);
         Page_CarInfo.Inst.Click(Page_CarInfo.ZERO);
         Page_CarInfo.Inst.Click(Page_CarInfo.DRI);
@@ -2318,12 +2095,11 @@ public class testFastMapYL extends testFastMapBase
     }
 
     @Test
-    public void test01172_tips_CarInfo_add() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01172_tips_CarInfo_add() throws Exception {
         //新增单箭头 v 右斜左、
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
-
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);
         Page_CarInfo.Inst.Click(Page_CarInfo.V);
         Page_CarInfo.Inst.Click(Page_CarInfo.DRI);
@@ -2334,13 +2110,11 @@ public class testFastMapYL extends testFastMapBase
         CheckMyData(Page_MyData.TIPS_TYPE,"车信");
     }
     @Test
-    public void test01173_tips_CarInfo_add() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01173_tips_CarInfo_add() throws Exception {
         //新增单箭头 2 直左斜左、
-        //Page_MainBoard.Inst.Drag();
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
-
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);
         Page_CarInfo.Inst.Click(Page_CarInfo.TWO);
         Page_CarInfo.Inst.Click(Page_CarInfo.DRI);
@@ -2351,12 +2125,11 @@ public class testFastMapYL extends testFastMapBase
         CheckMyData(Page_MyData.TIPS_TYPE,"车信");
     }
     @Test
-    public void test01174_tips_CarInfo_add() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01174_tips_CarInfo_add() throws Exception {
         //新增单箭头 5 直右斜右
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
-
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);
         Page_CarInfo.Inst.Click(Page_CarInfo.FIVE);
         Page_CarInfo.Inst.Click(Page_CarInfo.DRI);
@@ -2367,12 +2140,11 @@ public class testFastMapYL extends testFastMapBase
         CheckMyData(Page_MyData.TIPS_TYPE,"车信");
     }
     @Test
-    public void test01175_tips_CarInfo_add() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01175_tips_CarInfo_add() throws Exception {
         //新增单箭头 3 直左斜右、
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
-
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);
         Page_CarInfo.Inst.Click(Page_CarInfo.THREE);
         Page_CarInfo.Inst.Click(Page_CarInfo.DRI);
@@ -2384,12 +2156,11 @@ public class testFastMapYL extends testFastMapBase
     }
 
     @Test
-    public void test01176_tips_CarInfo_add() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01176_tips_CarInfo_add() throws Exception {
         //新增单箭头 4 直右斜左、
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
-
         Page_CarInfo.Inst.Click(Page_CarInfo.MORE);
         Page_CarInfo.Inst.Click(Page_CarInfo.FOUR);
         Page_CarInfo.Inst.Click(Page_CarInfo.DRI);
@@ -2401,21 +2172,16 @@ public class testFastMapYL extends testFastMapBase
     }
 
     @Test
-    public void test01177_tips_CarInfo_add() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01177_tips_CarInfo_add() throws Exception {
         //新增单箭头 1 斜左斜右
-        Page_MainBoard.Inst.Click(newCarInfo);//车信控件ID
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信控件ID
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
-        Page_CarInfo.Inst.Click(Page_CarInfo.MORE);
-        //Click("ll_bg_select_more");//“更多”控件ID
-        //Click("rb_select_eight_1");
+        Page_CarInfo.Inst.Click(Page_CarInfo.MORE);//“更多”控件ID
         Page_CarInfo.Inst.Click(Page_CarInfo.ONE);
-        //Click("iv_dri");//附加上方控件ID
-        Page_CarInfo.Inst.Click(Page_CarInfo.DRI);
-        //Click("rb_select_six_r");
+        Page_CarInfo.Inst.Click(Page_CarInfo.DRI);//附加上方控件ID
         Page_CarInfo.Inst.Click(Page_CarInfo.R);
         Page_CarInfo.Inst.Click(Page_CarInfo.SAVE);
-        //Click("save_button");//保存控件ID
         //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE,"车信");
@@ -2441,7 +2207,6 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test01202_tips_add_Click() throws Exception {
         //单击手动设置点位信息，新增红绿灯
-
         //单击
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_LIGHT);//单击红绿灯
         Page_MainBoard.Inst.Click(GetCenter());
@@ -2467,7 +2232,7 @@ public class testFastMapYL extends testFastMapBase
         //单击手动设置点位信息，新增收费站
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TOLLGATE);//单击收费站
         Page_MainBoard.Inst.Click(GetCenter());
-        mDevice.findObject(By.text("领卡")).click();
+        Page_MainBoard.Inst.ClickByText("领卡");
         Page_MainBoard.Inst.Click(Page_MainBoard.SAVE);
         //tipsNum++;
 
@@ -2520,7 +2285,7 @@ public class testFastMapYL extends testFastMapBase
         //单击手动设置点位信息，新增普通路口模式图
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NORMAL_CROSSROAD_PICTURE);//单击点击普通路口模式图
         Page_MainBoard.Inst.Click(GetCenter());
-        mDevice.findObject(By.text("73100000")).click();
+        Page_MainBoard.Inst.ClickByText("73100000");
         Page_MainBoard.Inst.Click(Page_MainBoard.SAVE);
         //tipsNum++;
 
@@ -2594,14 +2359,10 @@ public class testFastMapYL extends testFastMapBase
     public void test01212_tips_add_Click() throws Exception
     {
         //单击手动设置点位信息，新增匝道
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.RAMP);//有问题
-       // Page_MainBoard.Inst.Click(newHorFive);//匝道
-        //Page_MainBoard.Inst.Click(newRingRoad);//匝道
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.RAMP);
         Page_MainBoard.Inst.Click(GetCenter());
-
         Page_Ramp.Inst.Click(Page_Ramp.RAMP);
         Page_Ramp.Inst.Click(Page_Ramp.SAVE);
-
 
         CheckMyData(Page_MyData.TIPS_TYPE,"匝道");
     }
@@ -3238,15 +2999,11 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test01401_diagram_add() throws Exception {
         //挂接
-        //Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TIPS_18_BACKGROUND);//草图
-        //Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TIPS_18_HOOK);//挂接
-        Page_MainBoard.Inst.Click(newdiagram);//草图
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TIPS_18_SKETCH);//草图
         Page_SketchHook.Inst.Click(Page_SketchHook.SKETCHHOOK1);//挂接1
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_SketchHook.Inst.Click(Page_SketchHook.ICON2082);
-        //mDevice.drag(1177,798,994,1244,10);//旋转挂接件
-        //Thread.sleep(2000);
         Page_MainBoard.Inst.Click(Page_MainBoard.SAVE);
         //tipsNum++;
 
@@ -3256,14 +3013,11 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test01402_diagram_add() throws Exception {
         //挂接
-        //Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TIPS_18_BACKGROUND);
-        Page_MainBoard.Inst.Click(newdiagram);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TIPS_18_SKETCH);//草图
         Page_SketchHook.Inst.Click(Page_SketchHook.SKETCHHOOK2);//挂接2
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_SketchHook.Inst.Click(Page_SketchHook.ICON2113);
-        //mDevice.drag(1177,798,994,1244,10);//旋转挂接件
-        //Thread.sleep(2000);
         Page_MainBoard.Inst.Click(Page_MainBoard.SAVE);
         //tipsNum++;
 
@@ -3288,12 +3042,9 @@ public class testFastMapYL extends testFastMapBase
         //草图
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TIPS_18_SKETCH);
         Page_SketchHook.Inst.Click(Page_SketchHook.CURVELINE);//曲线
-        //Click(newdiagram);
-        //Click("curve_line");//曲线
-        mDevice.drag(477,698,794,234,10);
-        //mDevice.drag(794,234,194,344,10);
+        Page_SketchHook.Inst.DrawLine();
         Page_MainBoard.Inst.Click( Page_MainBoard.SAVE);
-        tipsNum++;
+        //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE,"草图");
     }
@@ -3303,14 +3054,12 @@ public class testFastMapYL extends testFastMapBase
         //草图
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TIPS_18_SKETCH);
         Page_SketchHook.Inst.Click(Page_SketchHook.POLYLINE);//折线
-        //Click(newdiagram);
-        //Click("poly_line");//折线
         Page_MainBoard.Inst.Click(GetCenter());
         Page_MainBoard.Inst.Click(new Point(400,500));
         Page_MainBoard.Inst.Click(new Point(400,600));
         Page_MainBoard.Inst.Click(new Point(600,400));
         Page_MainBoard.Inst.Click(Page_MainBoard.SAVE);
-        tipsNum++;
+        //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE,"草图");
     }
@@ -3320,11 +3069,9 @@ public class testFastMapYL extends testFastMapBase
         //草图
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TIPS_18_SKETCH);
         Page_SketchHook.Inst.Click(Page_SketchHook.RECTLINE);//矩形
-        //Click(newdiagram);
-        //Click("rect_line");//矩形
-        mDevice.drag(400,500,500,400,10);
+        Page_SketchHook.Inst.DrawLine();
         Page_MainBoard.Inst.Click(Page_MainBoard.SAVE);
-        tipsNum++;
+        //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE,"草图");
     }
@@ -3334,11 +3081,9 @@ public class testFastMapYL extends testFastMapBase
         //草图
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TIPS_18_SKETCH);
         Page_SketchHook.Inst.Click(Page_SketchHook.ELLIPSELINE);//圆型
-        //Click(newdiagram);
-        //Click("ellipse_line");//圆型
-        mDevice.drag(700,800,800,700,10);
+        Page_SketchHook.Inst.DrawLine();
         Page_MainBoard.Inst.Click(Page_MainBoard.SAVE);
-        tipsNum++;
+        //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE,"草图");
     }
@@ -3348,11 +3093,9 @@ public class testFastMapYL extends testFastMapBase
         //草图
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TIPS_18_SKETCH);
         Page_SketchHook.Inst.Click(Page_SketchHook.CIRCULARPOINT);//圆点
-        //Click(newdiagram);
-        //Click("circular_point");//圆点
         Page_MainBoard.Inst.Click(new Point(650,700));
         Page_MainBoard.Inst.Click(Page_MainBoard.SAVE);
-        tipsNum++;
+        //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE,"草图");
     }
@@ -3362,8 +3105,6 @@ public class testFastMapYL extends testFastMapBase
         //草图
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TIPS_18_SKETCH);
         Page_SketchHook.Inst.Click(Page_SketchHook.GREENLANDLINE);//草地
-        //Click(newdiagram);
-        //Click("greenland_line");//草地
         Page_MainBoard.Inst.Click(new Point(500,600));
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(new Point(900,500));
@@ -3373,7 +3114,7 @@ public class testFastMapYL extends testFastMapBase
         Page_MainBoard.Inst.Click(new Point(900,700));
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(Page_MainBoard.SAVE);
-        tipsNum++;
+        //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE,"草图");
     }
@@ -3383,8 +3124,6 @@ public class testFastMapYL extends testFastMapBase
         //草图
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TIPS_18_SKETCH);
         Page_SketchHook.Inst.Click(Page_SketchHook.WATERLINE);//水系
-        //Click(newdiagram);
-        //Click("water_line");//水系
         Page_MainBoard.Inst.Click(new Point(500,600));
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(new Point(900,500));
@@ -3394,7 +3133,7 @@ public class testFastMapYL extends testFastMapBase
         Page_MainBoard.Inst.Click(new Point(900,700));
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(Page_MainBoard.SAVE);
-        tipsNum++;
+        //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE,"草图");
     }
@@ -3404,8 +3143,6 @@ public class testFastMapYL extends testFastMapBase
         //草图
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TIPS_18_SKETCH);
         Page_SketchHook.Inst.Click(Page_SketchHook.RAILWAYLINE);//铁路
-        //Click(newdiagram);
-        //Click("railway_line");//铁路
         Page_MainBoard.Inst.Click(new Point(900,500));
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(new Point(700,900));
@@ -3413,7 +3150,7 @@ public class testFastMapYL extends testFastMapBase
         Page_MainBoard.Inst.Click(new Point(900,700));
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(Page_MainBoard.SAVE);
-        tipsNum++;
+        //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE,"草图");
     }
@@ -3422,15 +3159,11 @@ public class testFastMapYL extends testFastMapBase
     public void test01501_search_data() throws Exception {
         //经纬度搜索 自动调整比例尺到21级，坐标显示在界面中心  重新登录后坐标点消失
         Page_MainBoard.Inst.Click(Page_MainBoard.SEARCH);
-        //Click("img_search");
         Thread.sleep(3000);
-        mDevice.findObject(By.text("经纬度")).click();
+        Page_MainBoard.Inst.ClickByText("经纬度");
         Thread.sleep(3000);
-        //PutinEditor("edt_search_location_longitude","162.99");//经度
-        //PutinEditor("edt_search_location_latitude","3.44");//纬度
         Page_Search.Inst.SetValue(Page_Search.LONGITUDE,"162.99");//经度
         Page_Search.Inst.SetValue(Page_Search.LATITUDE,"3.44");//经度
-        //Click("tv_search_location_btn");//搜索
         Page_Search.Inst.Click(Page_Search.SEARCH);//搜索
         Thread.sleep(3000);
 
@@ -3442,71 +3175,49 @@ public class testFastMapYL extends testFastMapBase
     public void test01502_search_data() throws Exception {
         //经纬度搜索  新增多条搜索信息 保留后五次搜索记录 观察历史记录列表数及变化
         Page_MainBoard.Inst.Click(Page_MainBoard.SEARCH);
-        //Click("img_search");
         Thread.sleep(3000);
-        mDevice.findObject(By.text("经纬度")).click();
+        Page_MainBoard.Inst.ClickByText("经纬度");
         Thread.sleep(3000);
         Page_Search.Inst.SetValue(Page_Search.LONGITUDE,"53.44");//经度
         Page_Search.Inst.SetValue(Page_Search.LATITUDE,"22.99");//经度
         Page_Search.Inst.Click(Page_Search.SEARCH);//搜索
-        //PutinEditor("edt_search_location_longitude","53.44");//经度
-        //PutinEditor("edt_search_location_latitude","22.99");//纬度
-        //Click("tv_search_location_btn");//搜索
         Thread.sleep(3000);
 
         Page_MainBoard.Inst.Click(Page_MainBoard.SEARCH);
-        //Click("img_search");
         Thread.sleep(3000);
-        mDevice.findObject(By.text("经纬度")).click();
+        Page_MainBoard.Inst.ClickByText("经纬度");
         Thread.sleep(3000);
         Page_Search.Inst.SetValue(Page_Search.LONGITUDE,"-70");//经度
         Page_Search.Inst.SetValue(Page_Search.LATITUDE,"84");//经度
         Page_Search.Inst.Click(Page_Search.SEARCH);//搜索
-        //PutinEditor("edt_search_location_longitude","-70");//经度
-        //PutinEditor("edt_search_location_latitude","84");//纬度
-        //Click("tv_search_location_btn");//搜索
         Thread.sleep(3000);
-        //waitObjectEnable("iv_search_result_list_back");
 
         Page_MainBoard.Inst.Click(Page_MainBoard.SEARCH);
         Thread.sleep(3000);
-        mDevice.findObject(By.text("经纬度")).click();
+        Page_MainBoard.Inst.ClickByText("经纬度");
         Thread.sleep(3000);
         Page_Search.Inst.SetValue(Page_Search.LONGITUDE,"79");//经度
         Page_Search.Inst.SetValue(Page_Search.LATITUDE,"79.99");//经度
         Page_Search.Inst.Click(Page_Search.SEARCH);//搜索
-        //PutinEditor("edt_search_location_longitude","79");//经度
-        //PutinEditor("edt_search_location_latitude","79.99");//纬度
-        //Click("tv_search_location_btn");//搜索
         Thread.sleep(3000);
-        //waitObjectEnable("iv_search_result_list_back");
 
         Page_MainBoard.Inst.Click(Page_MainBoard.SEARCH);
         Thread.sleep(3000);
-        mDevice.findObject(By.text("经纬度")).click();
+        Page_MainBoard.Inst.ClickByText("经纬度");
         Thread.sleep(3000);
         Page_Search.Inst.SetValue(Page_Search.LONGITUDE,"-50");//经度
         Page_Search.Inst.SetValue(Page_Search.LATITUDE,"70");//经度
         Page_Search.Inst.Click(Page_Search.SEARCH);//搜索
-        //PutinEditor("edt_search_location_longitude","-50");//经度
-        //PutinEditor("edt_search_location_latitude","70");//纬度
-        //Click("tv_search_location_btn");//搜索
         Thread.sleep(3000);
-        //waitObjectEnable("iv_search_result_list_back");
 
         Page_MainBoard.Inst.Click(Page_MainBoard.SEARCH);
         Thread.sleep(3000);
-        mDevice.findObject(By.text("经纬度")).click();
+        Page_MainBoard.Inst.ClickByText("经纬度");
         Thread.sleep(3000);
         Page_Search.Inst.SetValue(Page_Search.LONGITUDE,"-30");//经度
         Page_Search.Inst.SetValue(Page_Search.LATITUDE,"60");//经度
         Page_Search.Inst.Click(Page_Search.SEARCH);//搜索
-        //PutinEditor("edt_search_location_longitude","-30");//经度
-        //PutinEditor("edt_search_location_latitude","60");//纬度
-        //Click("tv_search_location_btn");//搜索
         Thread.sleep(3000);
-        //waitObjectEnable("iv_search_result_list_back");
-
     }
 
     @Test
@@ -3514,17 +3225,14 @@ public class testFastMapYL extends testFastMapBase
         ////经纬度搜索  点击历史记录第二条 观察历史记录列表变化
         Page_MainBoard.Inst.Click(Page_MainBoard.SEARCH);
         Thread.sleep(3000);
-        mDevice.findObject(By.text("经纬度")).click();
+        Page_MainBoard.Inst.ClickByText("经纬度");
         Thread.sleep(3000);
 
         UiScrollable noteList = new UiScrollable( new UiSelector().scrollable(true));  //would be null if the scrollable widget's not more than one page
         UiObject not = null;
         not = noteList.getChildByText(new UiSelector().className("android.widget.TextView"), "经度:-50.00000  纬度:70.00000", true);
         not.click();
-        //Click("tv_search_location_btn");//搜索
         Thread.sleep(3000);
-        // waitObjectEnable("iv_search_result_list_back");
-        // Click(GetCenter());
     }
 
     @Test
@@ -3532,18 +3240,14 @@ public class testFastMapYL extends testFastMapBase
         //经纬度搜索  点击图标坐标点消失 添加poi
         Page_MainBoard.Inst.Click(Page_MainBoard.SEARCH);
         Thread.sleep(3000);
-        mDevice.findObject(By.text("经纬度")).click();
+        Page_MainBoard.Inst.ClickByText("经纬度");
         Thread.sleep(3000);
         Page_Search.Inst.SetValue(Page_Search.LONGITUDE,"122.99");//经度
         Page_Search.Inst.SetValue(Page_Search.LATITUDE,"53.44");//经度
         Page_Search.Inst.Click(Page_Search.SEARCH);//搜索
-        //PutinEditor("edt_search_location_longitude","122.99");//经度
-        //PutinEditor("edt_search_location_latitude","53.44");//纬度
-        //Click("tv_search_location_btn");//搜索
         Thread.sleep(3000);
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
-
         Page_POI_Camera.Inst.Click(Page_POI_Camera.NAME_TYPE);
         Page_POI_Camera.Inst.Click(Page_POI_Camera.RADIO_LOW);
         Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
@@ -3554,7 +3258,6 @@ public class testFastMapYL extends testFastMapBase
         Page_POI.Inst.Click(Page_POI.SAVE);
 
         CheckMyData(Page_MyData.POI_TYPE, "测试ＰＯＩ");
-
     }
 
     @Test
@@ -3562,16 +3265,12 @@ public class testFastMapYL extends testFastMapBase
         //经纬度搜索  点击图标坐标点消失 添加tips
         Page_MainBoard.Inst.Click(Page_MainBoard.SEARCH);
         Thread.sleep(3000);
-        mDevice.findObject(By.text("经纬度")).click();
+        Page_MainBoard.Inst.ClickByText("经纬度");
         Thread.sleep(3000);
         Page_Search.Inst.SetValue(Page_Search.LONGITUDE,"53.44");//经度
         Page_Search.Inst.SetValue(Page_Search.LATITUDE,"72.99");//经度
         Page_Search.Inst.Click(Page_Search.SEARCH);//搜索
-        //PutinEditor("edt_search_location_longitude","53.44");//经度
-        //PutinEditor("edt_search_location_latitude","72.99");//纬度
-        //Click("tv_search_location_btn");//搜索
         Thread.sleep(3000);
-        //waitObjectEnable("iv_search_result_list_back");
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_LIGHT);
         Page_MainBoard.Inst.Click(GetCenter());
@@ -3583,52 +3282,37 @@ public class testFastMapYL extends testFastMapBase
         //经纬度搜索  点击图标坐标点消失 添加点门牌
         Page_MainBoard.Inst.Click(Page_MainBoard.SEARCH);
         Thread.sleep(3000);
-        mDevice.findObject(By.text("经纬度")).click();
+        Page_MainBoard.Inst.ClickByText("经纬度");
         Thread.sleep(3000);
         Page_Search.Inst.SetValue(Page_Search.LONGITUDE,"122.99");//经度
         Page_Search.Inst.SetValue(Page_Search.LATITUDE,"53.44");//经度
         Page_Search.Inst.Click(Page_Search.SEARCH);//搜索
-        //PutinEditor("edt_search_location_longitude","122.99");//经度
-        //PutinEditor("edt_search_location_latitude","53.44");//纬度
-        //Click("tv_search_location_btn");//搜索
         Thread.sleep(3000);
-        //waitObjectEnable("iv_search_result_list_back");
 
-        //Page_MainBoard.Inst.Click(newPosDoor);//点门牌
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
-        //PutinEditor("fm_et_name_pas","A");
-        //PutinEditor("fm_et_address_pas","123");
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);//点门牌
+
         Page_PAS.Inst.SetValue(Page_PAS.NAME,"A");
         Page_PAS.Inst.SetValue(Page_PAS.ADDRESS,"123");
         Page_MainBoard.Inst.Click(Page_MainBoard.SAVE);
-
     }
 
-
-//test
     @Test
     public void test01601_tips_copy() throws Exception {
         //复制电子眼
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POINT_ELECTRONIC_EYE);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_ElecEye.Inst.Click(Page_ElecEye.EYE_OVERSPEED);//非机动车
-        mDevice.drag(1871,1322,1856,329,10);
+        Page_ElecEye.Inst.Scroll();//拖拽滚动条
 
         Page_ElecEye.Inst.ClickByText("1");
         Page_ElecEye.Inst.ClickByText("2");
         Page_ElecEye.Inst.ClickByText("0");
         Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
-        tipsNum++;
+        //tipsNum++;
 
-        //
         Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
         Page_MainMenu.Inst.Click(Page_MainMenu.MY_DATA);
-        UiScrollable objscoll = new UiScrollable(new UiSelector().className("android.widget.ListView"));
-        objscoll.setMaxSearchSwipes(3);
-
-        UiObject object = objscoll.getChildByText(new UiSelector().className("android.widget.TextView"), "电子眼");
-        object.click();
-
+        Page_MainBoard.Inst.ClickByText("电子眼");
         Page_ElecEye.Inst.Click(Page_ElecEye.CANCEL);
         Page_MyData.Inst.Click(Page_MyData.BACK);
         Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
@@ -3637,29 +3321,23 @@ public class testFastMapYL extends testFastMapBase
         Page_MainBoard.Inst.Click(GetCenter());
         Page_MainBoard.Inst.Click(new Point(300,360));
         //tipsNum++;
-
         CheckMyData(Page_MyData.TIPS_TYPE, "电子眼");
 
         Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
         Page_MainMenu.Inst.Click(Page_MainMenu.MY_DATA);
-        //mDevice.findObject(By.text("电子眼")).click();
-        //Click("ll_my_data_snap_list");
         Page_MyData.Inst.Click(Page_MyData.DATALIST);
-
         Page_ElecEye.Inst.Click(Page_ElecEye.DELETE);
-        //Click("btn_fm_confirm");
         Page_MainBoard.Inst.Click(Page_MainBoard.CONFIRM);
         Thread.sleep(3000);
-        tipsNum--;
+        //tipsNum--;
 
         Page_MyData.Inst.Click(Page_MyData.DATALIST);
         Page_ElecEye.Inst.Click(Page_ElecEye.DELETE);
-        //Click("btn_fm_confirm");
         Page_MainBoard.Inst.Click(Page_MainBoard.CONFIRM);
         Thread.sleep(3000);
         Page_MyData.Inst.Click(Page_MyData.BACK);
         Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
-        tipsNum--;
+        //tipsNum--;
     }
 
     @Test
@@ -3669,16 +3347,11 @@ public class testFastMapYL extends testFastMapBase
         Page_MainBoard.Inst.Click(GetCenter());
         Page_ElecEye.Inst.Click(Page_ElecEye.EYE_NO_VECHICLE);
         Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
-        tipsNum++;
+        //tipsNum++;
 
-        //
         Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
         Page_MainMenu.Inst.Click(Page_MainMenu.MY_DATA);
-        UiScrollable objscoll = new UiScrollable(new UiSelector().className("android.widget.ListView"));
-        objscoll.setMaxSearchSwipes(3);
-
-        UiObject object = objscoll.getChildByText(new UiSelector().className("android.widget.TextView"), "电子眼");
-        object.click();
+        Page_MainBoard.Inst.ClickByText("电子眼");
         Page_ElecEye.Inst.Click(Page_ElecEye.CANCEL);
         Page_MyData.Inst.Click(Page_MyData.BACK);
         Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
@@ -3686,7 +3359,7 @@ public class testFastMapYL extends testFastMapBase
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_COPY_TIPS);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_MainBoard.Inst.Click(new Point(300,360));
-        tipsNum++;
+        //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE, "电子眼");
     }
@@ -3726,48 +3399,36 @@ public class testFastMapYL extends testFastMapBase
 */
     @Test
     public void test01701_tips_add() throws Exception {
-
         SearchRoadFromLink("607979");
-        //Page_MainBoard.Inst.Click(new Point(1971,919));//打点
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);
+        Page_MainBoard.Inst.Trigger(ADD_POINT_1700);//打点
         Thread.sleep(2000);
-        //Page_MainBoard.Inst.Trigger(TipsDeepDictionary.MILEPOST);
-
         Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
-        //PutinEditor("et_milepost_number","E30");
         Thread.sleep(2000);
         Page_MilePost.Inst.SetValue(Page_MilePost.NUM,"E30");
-        //Thread.sleep(2000);
         Page_MilePost.Inst.Click(Page_MilePost.ZERO);
         Page_MilePost.Inst.Click(Page_MilePost.SAVE);
-        tipsNum++;
+        //tipsNum++;
 
         SearchRoadFromLink("607979");
-        //Page_MainBoard.Inst.Click(new Point(1971,919));//打点
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);
+        Page_MainBoard.Inst.Trigger(ADD_POINT_1700);//打点
         Thread.sleep(2000);
-        //Page_MainBoard.Inst.Trigger(TipsDeepDictionary.MILEPOST);
         Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
         Page_MainBoard.Inst.Click(GetCenter());
-        //PutinEditor("et_milepost_number","E30");
         Page_MilePost.Inst.SetValue(Page_MilePost.NUM,"E30");
         Page_MilePost.Inst.Click(Page_MilePost.ADD);
         Page_MilePost.Inst.Click(Page_MilePost.SAVE);
-        tipsNum++;
+        //tipsNum++;
 
         SearchRoadFromLink("607979");
-        //Click(new Point(1971,919));//打点
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);
+        Page_MainBoard.Inst.Trigger(ADD_POINT_1700);//打点
         Thread.sleep(2000);
-        //Page_MainBoard.Inst.Trigger(TipsDeepDictionary.MILEPOST);
         Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
         Page_MainBoard.Inst.Click(GetCenter());
-        //PutinEditor("et_milepost_number","E30");
         Page_MilePost.Inst.SetValue(Page_MilePost.NUM,"E30");
         Page_MilePost.Inst.Click(Page_MilePost.SAVE);
-        tipsNum++;
+        //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE, "里程桩");
     }
@@ -3776,41 +3437,32 @@ public class testFastMapYL extends testFastMapBase
     public void test01702_tips_add() throws Exception {
         //里程桩 关联rdlink 关联测线
         SearchRoadFromLink("606403");//小黄庄前街
-        //Page_MainBoard.Inst.Click(new Point(1971,919));//打点
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);
+        Page_MainBoard.Inst.Trigger(ADD_POINT_1700);//打点
         Thread.sleep(2000);
-        //Page_MainBoard.Inst.Trigger(TipsDeepDictionary.MILEPOST);
         Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
-        //mDevice.findObject(By.text("小黄庄前街"));
-        //Click("tv_milepost_road_name_one");
-        //PutinEditor("et_milepost_road_name","道路");
         Page_MilePost.Inst.SetValue(Page_MilePost.NAME,"道路");
         Page_MilePost.Inst.Click(Page_MilePost.SAVE);
         Thread.sleep(2000);
-        tipsNum++;
+        //tipsNum++;
 
-        Page_MainBoard.Inst.Click(newLeftFive);
+        //Page_MainBoard.Inst.Click(newLeftFive);
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);//手绘测线
         Page_SurveyLine.Inst.Click(Page_SurveyLine.PROVINCIAL_RD);
         Page_SurveyLine.Inst.Click(Page_SurveyLine.LANE_NUM_1);
         Page_MainBoard.Inst.Click(new Point(426,1185));
         Page_MainBoard.Inst.Click(new Point(1000,1185));
         Page_MainBoard.Inst.Click(Page_MainBoard.SAVE);
-        //Page_MainBoard.Inst.Click(new Point(1971,919));//打点
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);
+        Page_MainBoard.Inst.Trigger(ADD_POINT_1700);//打点
         Thread.sleep(2000);
         Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
         Page_MainBoard.Inst.Click(new Point(600,1185));
-        //PutinEditor("et_milepost_number","S479");//此时道路名编号应为空
         Page_MilePost.Inst.SetValue(Page_MilePost.NUM,"S479");//此时道路名编号应为空
-        //PutinEditor("et_milepost_road_name","手绘道路");//此时道路名称号应为空
-        Page_MilePost.Inst.SetValue(Page_MilePost.NAME,"手绘道路");
-        //Click(new Point(600,1185));
+        Page_MilePost.Inst.SetValue(Page_MilePost.NAME,"手绘道路");//此时道路名称号应为空
         Thread.sleep(2000);
         Page_MilePost.Inst.Click(Page_MilePost.SAVE);
-        tipsNum++;
+        //tipsNum++;
 
         //CheckMyData(Page_MyData.TIPS_TYPE, "里程桩");
     }
@@ -3819,10 +3471,8 @@ public class testFastMapYL extends testFastMapBase
     public void test01703_tips_add() throws Exception {
         //里程桩 关联两条rdlink 原规则
         SearchRoadFromLink("671765");//小黄庄北街
-        //Page_MainBoard.Inst.Click(new Point(1971,919));//打点
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);
+        Page_MainBoard.Inst.Trigger(ADD_POINT_1700);//打点
         Thread.sleep(2000);
-        //Page_MainBoard.Inst.Trigger(TipsDeepDictionary.MILEPOST);
         Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(GetCenter());
@@ -3831,17 +3481,17 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(2000);
         Page_MilePost.Inst.Click(Page_MilePost.SAVE);
         Thread.sleep(2000);
-        tipsNum++;
+        //tipsNum++;
 
         SearchRoadFromLink("732451");//北五环 S50
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);//打点
+        Page_MainBoard.Inst.Trigger(ADD_POINT_1700);//打点
         Thread.sleep(2000);
         Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(new Point(mDevice.getDisplayWidth()/2, mDevice.getDisplayHeight()/2+30));
         //原规则，此时道路名编号自动赋值S50
         Page_MilePost.Inst.Click(Page_MilePost.SAVE);//保存
-        tipsNum++;
+        //tipsNum++;
 
         //CheckMyData(Page_MyData.TIPS_TYPE, "里程桩");
     }
@@ -3850,7 +3500,7 @@ public class testFastMapYL extends testFastMapBase
     public void test01704_tips_add() throws Exception {
         //里程桩 关联两条rdlink 新规则
         SearchRoadFromLink("12512162");//北五环 S50
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);//打点
+        Page_MainBoard.Inst.Trigger(ADD_POINT_1700);//打点
         Thread.sleep(2000);
         Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
         Thread.sleep(2000);
@@ -3858,18 +3508,17 @@ public class testFastMapYL extends testFastMapBase
         //原规则，关联rdlink自动赋值rdlink上的编号S50,名称为手绘道路
         Page_MilePost.Inst.Click(Page_MilePost.SAVE);
         Thread.sleep(2000);
-        tipsNum++;
+        //tipsNum++;
 
         SearchRoadFromLink("342330");//南五环 S50
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);//打点
+        Page_MainBoard.Inst.Trigger(ADD_POINT_1700);//打点
         Thread.sleep(2000);
         Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
         Thread.sleep(2000);
-        //Click(new Point(mDevice.getDisplayWidth()/2, mDevice.getDisplayHeight()/2-30));
         Page_MainBoard.Inst.Click(GetCenter());
         //新规则，比对道路名编号S50，名称编号都继承
         Page_MilePost.Inst.Click(Page_MilePost.SAVE);//保存
-        tipsNum++;
+        //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE, "里程桩");
     }
@@ -3884,7 +3533,7 @@ public class testFastMapYL extends testFastMapBase
         Page_Gate.Inst.Click(Page_Gate.PG);
         Page_Gate.Inst.Click(Page_Gate.SAVE);//保存
         Thread.sleep(2000);
-        tipsNum++;
+        //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE, "大门");
     }
@@ -3898,7 +3547,7 @@ public class testFastMapYL extends testFastMapBase
         Page_Gate.Inst.Click(Page_Gate.KG);
         Page_Gate.Inst.Click(Page_Gate.SAVE);//保存
         Thread.sleep(2000);
-        tipsNum++;
+        //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE, "大门");
     }
@@ -3912,7 +3561,7 @@ public class testFastMapYL extends testFastMapBase
         Page_Gate.Inst.Click(Page_Gate.EG);
         Page_Gate.Inst.Click(Page_Gate.SAVE);//保存
         Thread.sleep(2000);
-        tipsNum++;
+        //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE, "大门");
     }
@@ -3927,7 +3576,7 @@ public class testFastMapYL extends testFastMapBase
         Page_Gate.Inst.Click(Page_Gate.BICYCLE);
         Page_Gate.Inst.Click(Page_Gate.SAVE);//保存
         Thread.sleep(2000);
-        tipsNum++;
+        //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE, "大门");
     }
@@ -3942,7 +3591,7 @@ public class testFastMapYL extends testFastMapBase
         Page_Gate.Inst.Click(Page_Gate.BICYCLE);
         Page_Gate.Inst.Click(Page_Gate.SAVE);//保存
         Thread.sleep(2000);
-        tipsNum++;
+        //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE, "大门");
     }
@@ -3964,15 +3613,12 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test01711_gate_add() throws Exception {
         //大门 PG默认值车辆和行人 取消勾选时间清空
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
-
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_Gate.Inst.Click(Page_Gate.PG);
         Page_Gate.Inst.Click(Page_Gate.TRICYCLE);
         Page_Gate.Inst.Click(Page_Gate.SAVE);//保存
-        tipsNum++;
+        //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE, "大门");
     }
@@ -3980,9 +3626,6 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test01712_gate_add() throws Exception {
         //大门 KG默认值车辆和行人 取消勾选时间清空
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
-
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
         Page_MainBoard.Inst.Click(GetCenter());
         Thread.sleep(2000);
@@ -3990,7 +3633,7 @@ public class testFastMapYL extends testFastMapBase
         Page_Gate.Inst.Click(Page_Gate.TRICYCLE);
         Page_Gate.Inst.Click(Page_Gate.SAVE);//保存
         Thread.sleep(2000);
-        tipsNum++;
+        //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE, "大门");
     }
@@ -3998,9 +3641,6 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test01713_gate_add() throws Exception {
         //大门 EG默认值车辆和行人 取消勾选时间清空
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
-
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
         Page_MainBoard.Inst.Click(GetCenter());
         Thread.sleep(2000);
@@ -4008,7 +3648,7 @@ public class testFastMapYL extends testFastMapBase
         Page_Gate.Inst.Click(Page_Gate.TRICYCLE);
         Page_Gate.Inst.Click(Page_Gate.SAVE);//保存
         Thread.sleep(2000);
-        tipsNum++;
+        //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE, "大门");
     }
@@ -4016,9 +3656,6 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test01714_gate_add() throws Exception {
         //大门 EG默认值车辆和行人 取消勾选时间清空
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
-
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
         Page_MainBoard.Inst.Click(GetCenter());
         Thread.sleep(2000);
@@ -4026,7 +3663,7 @@ public class testFastMapYL extends testFastMapBase
         Page_Gate.Inst.Click(Page_Gate.PERSON);
         Page_Gate.Inst.Click(Page_Gate.SAVE);//保存
         Thread.sleep(2000);
-        tipsNum++;
+        //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE, "大门");
     }
@@ -4034,9 +3671,6 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test01715_gate_add() throws Exception {
         //大门 PG默认值车辆和行人 取消勾选时间清空
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
-
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
         Page_MainBoard.Inst.Click(GetCenter());
         Thread.sleep(2000);
@@ -4045,7 +3679,7 @@ public class testFastMapYL extends testFastMapBase
         Page_Time_Ctl.Inst.Click(Page_Time_Ctl.CONFIRM);
         Page_Gate.Inst.Click(Page_Gate.SAVE);//保存
         Thread.sleep(2000);
-        tipsNum++;
+        //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE, "大门");
     }
@@ -4053,9 +3687,6 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test01716_gate_add() throws Exception {
         //大门 KG默认值车辆和行人 取消勾选时间清空
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
-
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
         Page_MainBoard.Inst.Click(GetCenter());
         Thread.sleep(2000);
@@ -4064,7 +3695,7 @@ public class testFastMapYL extends testFastMapBase
         Page_Time_Ctl.Inst.Click(Page_Time_Ctl.CONFIRM);
         Page_Gate.Inst.Click(Page_Gate.SAVE);//保存
         Thread.sleep(2000);
-        tipsNum++;
+        //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE, "大门");
     }
@@ -4072,9 +3703,6 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test01717_gate_add() throws Exception {
         //大门 EG默认值车辆和行人 取消勾选时间清空
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
-
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
         Page_MainBoard.Inst.Click(GetCenter());
         Thread.sleep(2000);
@@ -4083,7 +3711,7 @@ public class testFastMapYL extends testFastMapBase
         Page_Time_Ctl.Inst.Click(Page_Time_Ctl.CONFIRM);
         Page_Gate.Inst.Click(Page_Gate.SAVE);//保存
         Thread.sleep(2000);
-        tipsNum++;
+        //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE, "大门");
     }
@@ -4091,9 +3719,6 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test01718_gate_add() throws Exception {
         //大门 PG默认值车辆和行人 取消勾选时间清空
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
-
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
         Page_MainBoard.Inst.Click(GetCenter());
         Thread.sleep(2000);
@@ -4103,7 +3728,7 @@ public class testFastMapYL extends testFastMapBase
         Page_Gate.Inst.Click(Page_Gate.CAR);
         Page_Gate.Inst.Click(Page_Gate.SAVE);//保存
         Thread.sleep(2000);
-        tipsNum++;
+        //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE, "大门");
     }
@@ -4111,9 +3736,6 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test01719_gate_add() throws Exception {
         //大门 KG默认值车辆和行人 取消勾选时间清空
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
-
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
         Page_MainBoard.Inst.Click(GetCenter());
         Thread.sleep(2000);
@@ -4123,7 +3745,7 @@ public class testFastMapYL extends testFastMapBase
         Page_Gate.Inst.Click(Page_Gate.CAR);
         Page_Gate.Inst.Click(Page_Gate.SAVE);//保存
         Thread.sleep(2000);
-        tipsNum++;
+        //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE, "大门");
     }
@@ -4131,9 +3753,6 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test01720_gate_add() throws Exception {
         //大门 EG默认值车辆和行人 取消勾选时间清空
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
-
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
         Page_MainBoard.Inst.Click(GetCenter());
         Thread.sleep(2000);
@@ -4143,7 +3762,7 @@ public class testFastMapYL extends testFastMapBase
         Page_Gate.Inst.Click(Page_Gate.CAR);
         Page_Gate.Inst.Click(Page_Gate.SAVE);//保存
         Thread.sleep(2000);
-        tipsNum++;
+        //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE, "大门");
     }
@@ -4151,9 +3770,6 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test01721_gate_add() throws Exception {
         //大门 PG默认值车辆和行人 取消勾选时间清空
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
-
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
         Page_MainBoard.Inst.Click(GetCenter());
         Thread.sleep(2000);
@@ -4163,7 +3779,7 @@ public class testFastMapYL extends testFastMapBase
         Page_Gate.Inst.Click(Page_Gate.PERSON);
         Page_Gate.Inst.Click(Page_Gate.SAVE);//保存
         Thread.sleep(2000);
-        tipsNum++;
+        //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE, "大门");
     }
@@ -4171,9 +3787,6 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test01722_gate_add() throws Exception {
         //大门 KG默认值车辆和行人 取消勾选时间清空
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
-
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
         Page_MainBoard.Inst.Click(GetCenter());
         Thread.sleep(2000);
@@ -4183,7 +3796,7 @@ public class testFastMapYL extends testFastMapBase
         Page_Gate.Inst.Click(Page_Gate.PERSON);
         Page_Gate.Inst.Click(Page_Gate.SAVE);//保存
         Thread.sleep(2000);
-        tipsNum++;
+        //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE, "大门");
     }
@@ -4211,9 +3824,6 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test01724_gate_add() throws Exception {
         //大门 PG默认值车辆和行人 勾选自行车切换至KG
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
-
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
         Page_MainBoard.Inst.Click(GetCenter());
         Thread.sleep(2000);
@@ -4223,7 +3833,7 @@ public class testFastMapYL extends testFastMapBase
         Page_Gate.Inst.Click(Page_Gate.PG);
         Page_Gate.Inst.Click(Page_Gate.SAVE);//保存
         Thread.sleep(2000);
-        tipsNum++;
+        //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE, "大门");
     }
@@ -4231,9 +3841,6 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test01725_gate_add() throws Exception {
         //大门 KG默认值车辆和行人 取消勾选时间清空
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
-
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
         Page_MainBoard.Inst.Click(GetCenter());
         Thread.sleep(2000);
@@ -4243,7 +3850,7 @@ public class testFastMapYL extends testFastMapBase
         Page_Gate.Inst.Click(Page_Gate.KG);
         Page_Gate.Inst.Click(Page_Gate.SAVE);//保存
         Thread.sleep(2000);
-        tipsNum++;
+        //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE, "大门");
     }
@@ -4251,9 +3858,6 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test01726_gate_add() throws Exception {
         //大门 EG默认值车辆和行人 取消勾选时间清空
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
-
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
         Page_MainBoard.Inst.Click(GetCenter());
         Thread.sleep(2000);
@@ -4263,7 +3867,7 @@ public class testFastMapYL extends testFastMapBase
         Page_Gate.Inst.Click(Page_Gate.EG);
         Page_Gate.Inst.Click(Page_Gate.SAVE);//保存
         Thread.sleep(2000);
-        tipsNum++;
+        //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE, "大门");
     }
@@ -4271,9 +3875,6 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test01727_gate_add() throws Exception {
         //大门 PG默认值车辆和行人 勾选自行车切换至KG
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
-
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
         Page_MainBoard.Inst.Click(GetCenter());
         Thread.sleep(2000);
@@ -4283,7 +3884,7 @@ public class testFastMapYL extends testFastMapBase
         Page_Gate.Inst.Click(Page_Gate.PG);
         Page_Gate.Inst.Click(Page_Gate.SAVE);//保存
         Thread.sleep(2000);
-        tipsNum++;
+        //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE, "大门");
     }
@@ -4291,9 +3892,6 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test01728_gate_add() throws Exception {
         //大门 KG默认值车辆和行人 取消勾选时间清空
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
-
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
         Page_MainBoard.Inst.Click(GetCenter());
         Thread.sleep(2000);
@@ -4303,7 +3901,7 @@ public class testFastMapYL extends testFastMapBase
         Page_Gate.Inst.Click(Page_Gate.KG);
         Page_Gate.Inst.Click(Page_Gate.SAVE);//保存
         Thread.sleep(2000);
-        tipsNum++;
+        //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE, "大门");
     }
@@ -4311,9 +3909,6 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test01729_gate_add() throws Exception {
         //大门 EG默认值车辆和行人 取消勾选时间清空
-        mDevice.drag(700, 823, 1024, 823, 10);
-        Thread.sleep(1000);
-
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
         Page_MainBoard.Inst.Click(GetCenter());
         Thread.sleep(2000);
@@ -4323,7 +3918,7 @@ public class testFastMapYL extends testFastMapBase
         Page_Gate.Inst.Click(Page_Gate.KG);
         Page_Gate.Inst.Click(Page_Gate.SAVE);//保存
         Thread.sleep(2000);
-        tipsNum++;
+        //tipsNum++;
 
         CheckMyData(Page_MyData.TIPS_TYPE, "大门");
     }
@@ -4339,27 +3934,26 @@ public class testFastMapYL extends testFastMapBase
         Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
         Page_Road_Name_Sign.Inst.SetValue(Page_Road_Name_Sign.NAME,"测试道路");
         Page_Road_Name_Sign.Inst.Click(Page_Road_Name_Sign.SAVE);
-        tipsNum++;
+        //tipsNum++;
         SearchRoadFromLink("686517");
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ROAD_NAME_SIGN);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
         Page_Road_Name_Sign.Inst.SetValue(Page_Road_Name_Sign.NAME,"测试道路");
         Page_Road_Name_Sign.Inst.Click(Page_Road_Name_Sign.SAVE);
-        tipsNum++;
+        //tipsNum++;
         SearchRoadFromLink("591332");
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ROAD_NAME_SIGN);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
         Page_Road_Name_Sign.Inst.SetValue(Page_Road_Name_Sign.NAME,"测试道路");
         Page_Road_Name_Sign.Inst.Click(Page_Road_Name_Sign.SAVE);
-        tipsNum++;
-        //Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+        //tipsNum++;
         Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);//点击道路标牌连线
         //list显示
         //点击连线
         scrollClickObject("道路名连线");
-        mDevice.findObject(By.text("连线")).click();
+        Page_MainBoard.Inst.ClickByText("连线");
         Thread.sleep(5000);
         Page_Road_Name.Inst.Click(Page_Road_Name.CANCEL);
         //tipsNum++;
@@ -4369,30 +3963,26 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test01802_tips_add() throws Exception {
         //道路名连线
-
         SearchRoadFromLink("663363");
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ROAD_NAME_SIGN);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
         Page_Road_Name_Sign.Inst.SetValue(Page_Road_Name_Sign.NAME,"测试道路");
         Page_Road_Name_Sign.Inst.Click(Page_Road_Name_Sign.SAVE);
-        tipsNum++;
+        //tipsNum++;
         //list显示
         //点击连线
         Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
         scrollClickObject("道路名连线");
-        mDevice.findObject(By.text("连线")).click();
+        Page_MainBoard.Inst.ClickByText("连线");
         Thread.sleep(5000);
         Page_Road_Name.Inst.Click(Page_Road_Name.CANCEL);
         //tipsNum++;
-
     }
 
     @Test
     public void test01803_tips_add() throws Exception {
         //道路名连线
-        //Page_MainBoard.Inst.Drag();mDevice.drag(700, 823, 1024, 823, 10);Thread.sleep(2000);
-
         SearchRoadFromLink("49044116");
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ROAD_NAME_SIGN);
         Page_MainBoard.Inst.Click(GetCenter());
@@ -4400,20 +3990,19 @@ public class testFastMapYL extends testFastMapBase
         Page_Road_Name_Sign.Inst.SetValue(Page_Road_Name_Sign.NAME,"和平里东街");
         Page_Road_Name_Sign.Inst.Click(Page_Road_Name_Sign.SAVE);
         Thread.sleep(3000);
-        tipsNum++;
+        //tipsNum++;
 
         Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);//点击道路标牌连线
         //list显示
         //点击连线
         scrollClickObject("道路名连线");
-        mDevice.findObject(By.text("连线")).click();
+        Page_MainBoard.Inst.ClickByText("连线");
         Thread.sleep(5000);
         //点击复制
         Page_Road_Name.Inst.Click(Page_Road_Name.COPYTYPE);//复制形状
-        //Page_Road_Name.Inst.Click(Page_Road_Name.COPY);//
         Page_Road_Name.Inst.Click(Page_Road_Name.MOVE);
         Page_Road_Name.Inst.Click(Page_Road_Name.SAVE);
-        tipsNum++;
+        //tipsNum++;
         Page_Road_Name.Inst.Click(Page_Road_Name.BACK);
         Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
     }
@@ -4427,33 +4016,34 @@ public class testFastMapYL extends testFastMapBase
         Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
         Page_Road_Name_Sign.Inst.SetValue(Page_Road_Name_Sign.NAME,"测试道路");
         Page_Road_Name_Sign.Inst.Click(Page_Road_Name_Sign.SAVE);
-        tipsNum++;
+        //tipsNum++;
+
         SearchRoadFromLink("686517");
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ROAD_NAME_SIGN);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
         Page_Road_Name_Sign.Inst.SetValue(Page_Road_Name_Sign.NAME,"测试道路");
         Page_Road_Name_Sign.Inst.Click(Page_Road_Name_Sign.SAVE);
-        tipsNum++;
+        //tipsNum++;
+
         SearchRoadFromLink("591332");
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ROAD_NAME_SIGN);
         Page_MainBoard.Inst.Click(GetCenter());
         Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
         Page_Road_Name_Sign.Inst.SetValue(Page_Road_Name_Sign.NAME,"测试道路");
         Page_Road_Name_Sign.Inst.Click(Page_Road_Name_Sign.SAVE);
-        tipsNum++;
-        //Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+        //tipsNum++;
+
         Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);//点击道路标牌连线
         //list显示
         //点击连线
         scrollClickObject("道路名连线");
-        mDevice.findObject(By.text("连线")).click();
+        Page_MainBoard.Inst.ClickByText("连线");
         Thread.sleep(5000);
         Page_Road_Name.Inst.Click(Page_Road_Name.COPYTYPE);//复制形状
-        //Page_Road_Name.Inst.Click(Page_Road_Name.COPY);//
         Page_Road_Name.Inst.Click(Page_Road_Name.MOVE);
         Page_Road_Name.Inst.Click(Page_Road_Name.SAVE);
-        tipsNum++;
+        //tipsNum++;
         Page_Road_Name.Inst.Click(Page_Road_Name.BACK);
         Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
     }
@@ -4549,8 +4139,9 @@ public class testFastMapYL extends testFastMapBase
         //产品全貌开关设置
         Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
         //Click("head_icon");
-        mDevice.drag(292,1270,292,620,10);
-        mDevice.drag(292,1270,292,620,10);
+        //mDevice.drag(292,1270,292,620,10);
+        //mDevice.drag(292,1270,292,620,10);
+        Page_MainBoard.Inst.Drag();
         Thread.sleep(300);
         //scrollClickObject("设置"); //滚动条滚动，点击设置
         Page_MainMenu.Inst.Click(Page_MainMenu.SET);
