@@ -1,5 +1,7 @@
 package com.fastmap.ui;
 
+import com.example.fang.autotestfastmap.Point;
+
 /**
  * Created by fang on 18/1/19.
  */
@@ -77,6 +79,12 @@ public class Page_MainBoard extends FastMapPage
     @FindResource(Id="btn_fm_confirm")
     public static String CONFIRM;
 
+    @FindResource(Id="iv_map_gps_status")
+    public static String WIFI;
+
+    @FindResource(Id="location_pop_check_location")
+    public static String LOCATION;
+
     @FindResource(Id="save_button")
     public static String SAVE;
     public void Drag()
@@ -94,5 +102,11 @@ public class Page_MainBoard extends FastMapPage
     public void Trigger(String tips) throws Exception
     {
         FastMapUI.pressBtnMainBoard(tips);
+    }
+    public void DoubleClick(Point pt) throws Exception
+    {
+        mDevice.click(pt.x,pt.y);
+        Thread.sleep(100);
+        mDevice.click(pt.x,pt.y);
     }
 }

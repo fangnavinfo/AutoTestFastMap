@@ -7,6 +7,7 @@ import android.support.test.uiautomator.UiObjectNotFoundException;
 import android.support.test.uiautomator.UiScrollable;
 import android.support.test.uiautomator.UiSelector;
 
+import com.fastmap.ui.Page_3D;
 import com.fastmap.ui.Page_Accept;
 import com.fastmap.ui.Page_CarInfo;
 import com.fastmap.ui.Page_Dangerous;
@@ -39,6 +40,7 @@ import com.fastmap.ui.Page_Speed_Limit_Lane;
 import com.fastmap.ui.Page_StartEndPoint;
 import com.fastmap.ui.Page_SurveyLine;
 import com.fastmap.ui.Page_Time_Ctl;
+import com.fastmap.ui.Page_TrafficForbidden;
 import com.fastmap.ui.Page_TruckForbidden;
 
 import org.junit.After;
@@ -2367,163 +2369,108 @@ public class testFastMapYL extends testFastMapBase
         CheckMyData(Page_MyData.TIPS_TYPE,"匝道");
     }
 
-//    @Test
-//    public void test01213_tips_add_Click() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
-//        //单击手动设置点位信息，新增车信
-//        //Page_MainBoard.Inst.Drag();
-//        mDevice.drag(700, 823, 1064, 823, 10);
-//        Thread.sleep(1000);
-//
-//        //OpenGPS();
-//        Click(newCarInfo);//单击车信
-//        Click(GetCenter());
-//        Click("rb_select_one_d");//
-//
-//        Click("save_button");
-//        tipsNum++;
-//
-//        CheckMyData(Page_MyData.TIPS_TYPE,"车信");
-//    }
-//
-//    @Test
-//    public void test01214_tips_add_Click() throws Exception
-//    {
-//        //单击手动设置点位信息，新增交限
-//        //Page_MainBoard.Inst.Drag();
-//
-//        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_FORBIDDEN);
-//        Click(GetCenter());
-//
-//        Page_TrafficForbidden.Inst.Click(Page_TrafficForbidden.NO_PULL_INTO);
-//        Page_TrafficForbidden.Inst.Click(Page_TruckForbidden.SAVE);
-//
-//        CheckMyData(Page_MyData.TIPS_TYPE,"交限");
-//    }
-//
-//    @Test
-//    public void test01215_tips_add_Click() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
-//        //单击手动设置点位信息，新增卡车交限
-//
-//        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRUCK_TRAFFIC_FORBIDDEN);
-//        Click(GetCenter());
-//
-//        Page_TruckForbidden.Inst.Click(Page_TruckForbidden.FORB_LEFT);
-//        Page_TrafficForbidden.Inst.Click(Page_TruckForbidden.SAVE);
-//
-//        CheckMyData(Page_MyData.TIPS_TYPE,"卡车交限");
-//    }
-//
-//    @Test
-//    public void test01216_tips_add_Click() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
-//        //单击手动设置点位信息，新增方向看板
-//        //Page_MainBoard.Inst.Drag();
-//        mDevice.drag(700, 823, 1024, 823, 10);
-//        Thread.sleep(1000);
-//
-//        //OpenGPS();
-//        Click(newLeftFour);
-//        Click(newDirectShow);//单击方向看板
-//        Click(GetCenter());
-//
-//        Click("save_button");
-//        tipsNum++;
-//
-//        CheckMyData(Page_MyData.TIPS_TYPE,"方向看板");
-//    }
-//
-//    @Test
-//    public void test01217_tips_add_Click() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
-//        //单击手动设置点位信息，新增Real Sign
-//        //Page_MainBoard.Inst.Drag();
-//        mDevice.drag(700, 823, 1024, 823, 10);
-//        Thread.sleep(1000);
-//
-//        //OpenGPS();
-//        Click(newLeftFour);
-//        Click(newRealSign);//单击Real Sign
-//        //Click(new Point(355,745));//双击Real Sign
-//        Click(GetCenter());
-//
-//        Click("save_button");
-//        tipsNum++;
-//
-//        CheckMyData(Page_MyData.TIPS_TYPE,"Real Sign");
-//    }
-//
-//    @Test
-//    public void test01218_tips_add_Click() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
-//        //单击手动设置点位信息，新增3D模式图
-//        //Page_MainBoard.Inst.Drag();
-//        mDevice.drag(700, 823, 1024, 823, 10);
-//        Thread.sleep(1000);
-//
-//        //OpenGPS();
-//        Click(newLeftFour);
-//        Click(new3D);//单击3D模式图
-//        Click(GetCenter());
-//        Click("three_d_mode_0010000");//点击3D模式图
-//
-//        Click("save_button");
-//        tipsNum++;
-//
-//        CheckMyData(Page_MyData.TIPS_TYPE,"3D");
-//    }
-//
-//    @Test
-//    public void test01219_tips_add_Click() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
-//        //单击手动设置点位信息，新增提左提右
-//        //Page_MainBoard.Inst.Drag();
-//        mDevice.drag(700, 823, 1024, 823, 10);
-//        Thread.sleep(1000);
-//
-//        //OpenGPS();
-//        Click(newLeftFour);
-//        Click(newLeftRight);//单击提左提右
-//        //Click(new Point(222,864));//单击提左提右
-//        Click(GetCenter());
-//        mDevice.findObject(By.text("80000800")).click();
-//
-//        tipsNum++;
-//
-//        CheckMyData(Page_MyData.TIPS_TYPE,"提左提右");
-//    }
-//
-//    @Test
-//    public void test01220_tips_add_Click() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
-//        //单击手动设置点位信息，新增一般道路方面
-//        //Page_MainBoard.Inst.Drag();
-//        mDevice.drag(700, 823, 1024, 823, 10);
-//        Thread.sleep(1000);
-//
-//        //OpenGPS();
-//        Click(newLeftFour);
-//        Click(newNormalRoad);//单击一般道路方面
-//        Click(GetCenter());
-//
-//        Click("save_button");
-//        tipsNum++;
-//
-//        CheckMyData(Page_MyData.TIPS_TYPE,"一般道路方面");
-//    }
-//
-//    @Test
-//    public void test01221_tips_add_Click() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
-//        //单击手动设置点位信息，新增高速分歧
-//        //Page_MainBoard.Inst.Drag();
-//        mDevice.drag(700, 823, 1024, 823, 10);
-//        Thread.sleep(1000);
-//
-//        //OpenGPS();
-//        Click(newLeftFour);
-//        Click(newHighSpeedDiff);//单击高速分歧
-//        Click(GetCenter());
-//
-//        Click("save_button");
-//        tipsNum++;
-//
-//        CheckMyData(Page_MyData.TIPS_TYPE,"高速分歧");
-//    }
-//
+    @Test
+    public void test01213_tips_add_Click() throws Exception {
+        //单击手动设置点位信息，新增车信
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);//车信
+        Page_MainBoard.Inst.Click(GetCenter());
+        Page_CarInfo.Inst.Click(Page_CarInfo.D);
+        Page_CarInfo.Inst.Click(Page_CarInfo.SAVE);
+        //tipsNum++;
+
+        CheckMyData(Page_MyData.TIPS_TYPE,"车信");
+    }
+
+    @Test
+    public void test01214_tips_add_Click() throws Exception
+    {
+        //单击手动设置点位信息，新增交限
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_FORBIDDEN);
+        Page_MainBoard.Inst.Click(GetCenter());
+        Page_TrafficForbidden.Inst.Click(Page_TrafficForbidden.NO_PULL_INTO);
+        Page_TrafficForbidden.Inst.Click(Page_TruckForbidden.SAVE);
+
+        CheckMyData(Page_MyData.TIPS_TYPE,"禁止驶入");
+    }
+
+    @Test
+    public void test01215_tips_add_Click() throws Exception {
+        //单击手动设置点位信息，新增卡车交限
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRUCK_TRAFFIC_FORBIDDEN);
+        Page_MainBoard.Inst.Click(GetCenter());
+        Page_TruckForbidden.Inst.Click(Page_TruckForbidden.FORB_LEFT);
+        Page_TrafficForbidden.Inst.Click(Page_TruckForbidden.SAVE);
+
+        CheckMyData(Page_MyData.TIPS_TYPE,"卡车交限");
+    }
+
+    @Test
+    public void test01216_tips_add_Click() throws Exception {
+        //单击手动设置点位信息，新增方向看板
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.DIRECTION_BOARD);//方向看板
+        Page_MainBoard.Inst.Click(GetCenter());
+        Page_MainBoard.Inst.Click(Page_MainBoard.SAVE);
+        //tipsNum++;
+
+        CheckMyData(Page_MyData.TIPS_TYPE,"方向看板");
+    }
+
+    @Test
+    public void test01217_tips_add_Click() throws Exception {
+        //单击手动设置点位信息，新增Real Sign
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.REAL_SIGN);//单击Real Sign
+        Page_MainBoard.Inst.Click(GetCenter());
+        Page_MainBoard.Inst.Click(Page_MainBoard.SAVE);
+        //tipsNum++;
+
+        CheckMyData(Page_MyData.TIPS_TYPE,"Real Sign");
+    }
+
+    @Test
+    public void test01218_tips_add_Click() throws Exception {
+        //单击手动设置点位信息，新增3D模式图
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TIPS_3D);
+        Page_MainBoard.Inst.Click(GetCenter());
+        Page_3D.Inst.Click(Page_3D.ThreeD);//点击3D模式图
+        Page_MainBoard.Inst.Click(Page_MainBoard.SAVE);
+        //tipsNum++;
+
+        CheckMyData(Page_MyData.TIPS_TYPE,"3D");
+    }
+
+    @Test
+    public void test01219_tips_add_Click() throws Exception {
+        //单击手动设置点位信息，新增提左提右
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LEFT_OR_RIGHT);//单击提左提右
+        Page_MainBoard.Inst.Click(GetCenter());
+        Page_MainBoard.Inst.ClickByText("80000800");
+        //tipsNum++;
+
+        CheckMyData(Page_MyData.TIPS_TYPE,"提左提右");
+    }
+
+    @Test
+    public void test01220_tips_add_Click() throws Exception {
+        //单击手动设置点位信息，新增一般道路方面
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GENERAL_ROAD_SIDE);//单击一般道路方面
+        Page_MainBoard.Inst.Click(GetCenter());
+        Page_MainBoard.Inst.Click(Page_MainBoard.SAVE);
+        //tipsNum++;
+
+        CheckMyData(Page_MyData.TIPS_TYPE,"一般道路方面");
+    }
+
+    @Test
+    public void test01221_tips_add_Click() throws Exception {
+        //单击手动设置点位信息，新增高速分歧
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.HIGH_SPEED_DIVIDER);//单击高速分歧
+        Page_MainBoard.Inst.Click(GetCenter());
+        Page_MainBoard.Inst.Click(Page_MainBoard.SAVE);
+        //tipsNum++;
+
+        CheckMyData(Page_MyData.TIPS_TYPE,"高速分歧");
+    }
+
 //    //test
 //    @Test
 //    public void test01222_tips_add_Click() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
@@ -2540,165 +2487,131 @@ public class testFastMapYL extends testFastMapBase
 //
 //        CheckMyData(Page_MyData.TIPS_TYPE,"GPS打点");
 //    }//界面没GPS打点
-//
-//    @Test
-//    public void test01223_tips_add_DoubleClick() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
-//        //设置点位信息，新增限速
-//        OpenGPS();
-//        mDevice.click(newLimitSpeed.x,newLimitSpeed.y);
-//        Thread.sleep(100);
-//        mDevice.click(newLimitSpeed.x,newLimitSpeed.y);
-//        //Click(GetCenter());
-//        Click("speed_limit_type_point");//点击点限速
-//        Click("et_speed_limit_number");//最高限速值
-//        Click("speed_limit_number_40");//40
-//        Click("et_speed_limit_number_min");//最低限速值
-//        Click("speed_limit_number_30");//30
-//        Click("save_button");
-//        tipsNum++;
-//
-//        CheckMyData(Page_MyData.TIPS_TYPE,"点限速");
-//    }
-//
-//    @Test
-//    public void test01224_tips_add_DoubleClick() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
-//        //设置点位信息，新增红绿灯
-//        OpenGPS();
-//        mDevice.click(newTrafficLight.x,newTrafficLight.y);
-//        Thread.sleep(100);
-//        mDevice.click(newTrafficLight.x,newTrafficLight.y);
-//
-//        tipsNum++;
-//
-//        CheckMyData(Page_MyData.TIPS_TYPE,"红绿灯");
-//    }
-//
-//    @Test
-//    public void test01225_tips_add_DoubleClick() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
-//        //设置点位信息，新增危险信息
-//        OpenGPS();
-//        Click(newHorFour);
-//        //DoubleClick(newDangerInfo);//危险信息
-//        mDevice.click(newDangerInfo.x,newDangerInfo.y);
-//        Thread.sleep(100);
-//        mDevice.click(newDangerInfo.x,newDangerInfo.y);
-//        Click("dangerous_information_icon_a1");//点击警示信息
-//        Click("save_button");
-//        tipsNum++;
-//
-//        CheckMyData(Page_MyData.TIPS_TYPE,"危险信息");
-//    }
-//
-//    @Test
-//    public void test01226_tips_add_DoubleClick() throws InterruptedException, UiObjectNotFoundException, NoSuchFieldException, ClassNotFoundException {
-//        //设置点位信息，新增收费站
-//        OpenGPS();
-//        Click(newHorFour);
-//        //DoubleClick(newTollStation);
-//        mDevice.click(newTollStation.x,newTollStation.y);
-//        Thread.sleep(100);
-//        mDevice.click(newTollStation.x,newTollStation.y);
-//
-//        mDevice.findObject(By.text("领卡")).click();
-//        //方法一
-//        //UiObject2 object1=new UiObject2(new UiSelector().text("领卡"));
-//        //object1.click();
-//        //方法二
-//        //UiScrollable objscoll = new UiScrollable(new UiSelector().className("android.widget.ListView"));
-//        //UiObject Object = objscoll.getChildByText(new UiSelector().className("android.widget.TextView"), "测试上报情报６");
-//        //Object.click();
-//
-//        Click("save_button");
-//        tipsNum++;
-//
-//        CheckMyData(Page_MyData.TIPS_TYPE,"收费站");
-//    }
-//
-//    @Test
-//    public void test01227_tips_add_DoubleClick() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
-//        //设置点位信息，新增电子眼
-//        OpenGPS();
-//        Click(newHorFour);
-//        //DoubleClick(newEleEye);//电子眼
-//        mDevice.click(newEleEye.x,newEleEye.y);
-//        Thread.sleep(100);
-//        mDevice.click(newEleEye.x,newEleEye.y);
-//
-//        Click("save_button");
-//        tipsNum++;
-//
-//        CheckMyData(Page_MyData.TIPS_TYPE,"电子眼");
-//    }
-//
-//    @Test
-//    public void test01228_tips_add_DoubleClick() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
-//        //设置点位信息，新增卡车限制
-//        OpenGPS();
-//        Click(newHorFour);
-//        //DoubleClick(newTruckLimit);//卡车限制
-//        mDevice.click(newTruckLimit.x,newTruckLimit.y);
-//        Thread.sleep(100);
-//        mDevice.click(newTruckLimit.x,newTruckLimit.y);
-//
-//        Click("camera_button");//拍照ID
-//        Click("take_pic_imgbtn", 3000);//拍摄按键ID
-//        Click("task_pic_back_img");//返回键ID
-//        Click("save_button");
-//        tipsNum++;
-//
-//        CheckMyData(Page_MyData.TIPS_TYPE,"卡车限制");
-//    }
-//
-//    @Test
-//    public void test01229_tips_add_DoubleClick() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
-//        //设置点位信息，新增车道变化点
-//        //车道变化点
-//        OpenGPS();
-//        mDevice.click(newCarRoadChangePos.x,newCarRoadChangePos.y);
-//        Thread.sleep(100);
-//        mDevice.click(newCarRoadChangePos.x,newCarRoadChangePos.y);
-//
-//        Click("et_entry_lane_num");//进入车道数
-//        Click("lane_number_tow");//2
-//        Click("et_back_lane_num");//退出车道数
-//        Click("lane_number_one");//1
-//        Click("save_button");
-//        tipsNum++;
-//        CheckMyData(Page_MyData.TIPS_TYPE,"车道变化点");
-//    }
-//
-//    @Test
-//    public void test01230_tips_add_DoubleClick() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
-//        //设置点位信息，新增普通路口模式图
-//        OpenGPS();
-//        Click(newLeftFour);//点击方向看板
-//        //DoubleClick(newNormalRoadEnterPic);//点击普通路口模式图
-//        mDevice.click(newNormalRoadEnterPic.x,newNormalRoadEnterPic.y);
-//        Thread.sleep(100);
-//        mDevice.click(newNormalRoadEnterPic.x,newNormalRoadEnterPic.y);
-//
-//        //方法一
-//        //UiObject object = new UiObject(new UiSelector().text("73100000"));
-//        //object.click();
-//        mDevice.findObject(By.text("73100000")).click();
-//        Click("save_button");
-//        tipsNum++;
-//
-//        CheckMyData(Page_MyData.TIPS_TYPE,"普通路口模式图");
-//    }
-//
-//    @Test
-//    public void test01231_tips_add_DoubleClick() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+
+    //所有双击功能目前是通过点击点位实现的
+    @Test
+    public void test01223_tips_add_DoubleClick() throws Exception {
+        //设置点位信息，新增限速
+        OpenGPS();
+        Page_MainBoard.Inst.DoubleClick(newLimitSpeed);
+        Page_Speed_Limit_Lane.Inst.Click(Page_Speed_Limit_Lane.POINTLIMIT);//点击点限速
+        Page_Speed_Limit_Lane.Inst.Click(Page_Speed_Limit_Lane.MAXNUM);//最高限速值
+        Page_Speed_Limit_Lane.Inst.Click(Page_Speed_Limit_Lane.NUM40);//40
+        Page_Speed_Limit_Lane.Inst.Click(Page_Speed_Limit_Lane.MINNUM);//最低限速值
+        Page_Speed_Limit_Lane.Inst.Click(Page_Speed_Limit_Lane.NUM30);//30
+        Page_Speed_Limit_Lane.Inst.Click(Page_Speed_Limit_Lane.SAVE);
+        //tipsNum++;
+
+        CheckMyData(Page_MyData.TIPS_TYPE,"点限速");
+    }
+
+    @Test
+    public void test01224_tips_add_DoubleClick() throws Exception {
+        //设置点位信息，新增红绿灯
+        OpenGPS();
+        Page_MainBoard.Inst.DoubleClick(newTrafficLight);
+        //tipsNum++;
+        Thread.sleep(2000);
+
+        CheckMyData(Page_MyData.TIPS_TYPE,"红绿灯");
+    }
+
+    @Test
+    public void test01225_tips_add_DoubleClick() throws Exception {
+        //设置点位信息，新增危险信息
+        OpenGPS();
+        Page_MainBoard.Inst.Click(newHorFour);
+        Page_MainBoard.Inst.DoubleClick(newDangerInfo);//危险信息
+        Page_Dangerous.Inst.Click(Page_Dangerous.ICON_1);//点击警示信息
+        Page_MainBoard.Inst.Click(Page_MainBoard.SAVE);
+        //tipsNum++;
+
+        CheckMyData(Page_MyData.TIPS_TYPE,"危险信息");
+    }
+
+    @Test
+    public void test01226_tips_add_DoubleClick() throws Exception {
+        //设置点位信息，新增收费站
+        OpenGPS();
+        Page_MainBoard.Inst.Click(newHorFour);
+        Page_MainBoard.Inst.DoubleClick(newTollStation);
+        //mDevice.findObject(By.text("领卡")).click();
+        Page_MainBoard.Inst.ClickByText("领卡");
+        Page_MainBoard.Inst.Click(Page_MainBoard.SAVE);
+        //tipsNum++;
+
+        CheckMyData(Page_MyData.TIPS_TYPE,"收费站");
+    }
+
+    @Test
+    public void test01227_tips_add_DoubleClick() throws Exception {
+        //设置点位信息，新增电子眼
+        OpenGPS();
+        Page_MainBoard.Inst.Click(newHorFour);
+        Page_MainBoard.Inst.DoubleClick(newEleEye);
+        Page_MainBoard.Inst.Click(Page_MainBoard.SAVE);
+        //tipsNum++;
+
+        CheckMyData(Page_MyData.TIPS_TYPE,"电子眼");
+    }
+
+    @Test
+    public void test01228_tips_add_DoubleClick() throws Exception {
+        //设置点位信息，新增卡车限制
+        OpenGPS();
+        Page_MainBoard.Inst.Click(newHorFour);
+        Page_MainBoard.Inst.DoubleClick(newTruckLimit);//卡车限制
+        Page_TruckForbidden.Inst.Click(Page_TruckForbidden.CAMERA);//拍摄按键ID
+        Thread.sleep(3000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Thread.sleep(3000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);//返回键ID
+        Thread.sleep(3000);
+        Page_MainBoard.Inst.Click(Page_MainBoard.SAVE);
+        //tipsNum++;
+
+        CheckMyData(Page_MyData.TIPS_TYPE,"卡车限制");
+    }
+
+    @Test
+    public void test01229_tips_add_DoubleClick() throws Exception {
+        //设置点位信息，新增车道变化点
+        //车道变化点
+        OpenGPS();
+        Page_MainBoard.Inst.DoubleClick(newCarRoadChangePos);
+        Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.ENTRYLANENUM);//进入车道数
+        Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.NUM2);//2
+        Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.BACKLANENUM);//退出车道数
+        Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.NUM1);//1
+        Page_MainBoard.Inst.Click(Page_MainBoard.SAVE);
+        //tipsNum++;
+
+        CheckMyData(Page_MyData.TIPS_TYPE,"车道变化点");
+    }
+
+    @Test
+    public void test01230_tips_add_DoubleClick() throws Exception {
+        //设置点位信息，新增普通路口模式图
+        OpenGPS();
+        Page_MainBoard.Inst.Click(newLeftFour);//点击方向看板
+        Page_MainBoard.Inst.DoubleClick(newNormalRoadEnterPic);//点击普通路口模式图
+        Page_MainBoard.Inst.ClickByText("73100000");
+        Page_MainBoard.Inst.Click(Page_MainBoard.SAVE);
+        //tipsNum++;
+
+        CheckMyData(Page_MyData.TIPS_TYPE,"普通路口模式图");
+    }
+
+//    @Test//有问题 自动化测试时双击无响应
+//    protected void test01231_tips_add_DoubleClick() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
 //        //设置点位信息，新增高速入口模式图
 //        OpenGPS();
-//        Click(newLeftFour);//点击方向看板
-//        //DoubleClick(newHighSpeedEnterPic);//高速入口模式图
-//        mDevice.click(newHighSpeedEnterPic.x,newHighSpeedEnterPic.y);
-//        Thread.sleep(100);
-//        mDevice.click(newHighSpeedEnterPic.x,newHighSpeedEnterPic.y);
-//
-//        Click("save_button");
-//        tipsNum++;
+//        Page_MainBoard.Inst.Click(newLeftFour);//点击方向看板
+//        Page_MainBoard.Inst.Click(newHighSpeedEnterPic);
+//        Thread.sleep(2000);
+//        //Page_MainBoard.Inst.Click(GetCenter());
+//        Page_MainBoard.Inst.Click(Page_MainBoard.SAVE);
+//        //tipsNum++;
 //
 //        CheckMyData(Page_MyData.TIPS_TYPE,"高速入口模式图");
 //    }
@@ -2756,188 +2669,144 @@ public class testFastMapYL extends testFastMapBase
                             ExitMyData();
                         }
     */
-//    @Test
-//    public void test01234_tips_add_DoubleClick() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
-//        //设置点位信息，新增匝道
-//        OpenGPS();
-//        Click(newHorFive);
-//        //DoubleClick(newRingRoad);//匝道
-//        mDevice.click(newRingRoad.x,newRingRoad.y);
-//        Thread.sleep(100);
-//        mDevice.click(newRingRoad.x,newRingRoad.y);
-//
-//        Click("btn_ramp");//点击匝道
-//
-//        Click("save_button");
-//        tipsNum++;
-//
-//        CheckMyData(Page_MyData.TIPS_TYPE,"匝道");
-//    }
-//
-//    @Test
-//    public void test01235_tips_add_DoubleClick() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
-//        //设置点位信息，新增车信
-//        OpenGPS();
-//        mDevice.click(newCarInfo.x,newCarInfo.y);
-//        Thread.sleep(100);
-//        mDevice.click(newCarInfo.x,newCarInfo.y);
-//
-//        Click("rb_select_one_d");//
-//
-//        Click("save_button");
-//        tipsNum++;
-//
-//        CheckMyData(Page_MyData.TIPS_TYPE,"车信");
-//    }
-//
-//    @Test
-//    public void test01236_tips_add_DoubleClick() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
-//        //设置点位信息，新增交限
-//        OpenGPS();
-//        Click(newLeftFive);
-//        //DoubleClick(newTrafficLimit);//交限
-//        mDevice.click(newTrafficLimit.x,newTrafficLimit.y);
-//        Thread.sleep(100);
-//        mDevice.click(newTrafficLimit.x,newTrafficLimit.y);
-//
-//        Click("traffic_forbidden_icon_a1");
-//
-//        Click("save_button");
-//        tipsNum++;
-//
-//        CheckMyData(Page_MyData.TIPS_TYPE,"交限");
-//    }
-//
-//    @Test
-//    public void test01237_tips_add_DoubleClick() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
-//        //设置点位信息，新增卡车交限
-//        OpenGPS();
-//        Click(newLeftFive);
-//        //DoubleClick(newTruckTrafficLimit);//卡车交限
-//        mDevice.click(newTruckTrafficLimit.x,newTruckTrafficLimit.y);
-//        Thread.sleep(100);
-//        mDevice.click(newTruckTrafficLimit.x,newTruckTrafficLimit.y);
-//
-//        Thread.sleep(2000);
-//        Click("traffic_forbidden_icon_c1");
-//
-//        Click("save_button");
-//        tipsNum++;
-//
-//        CheckMyData(Page_MyData.TIPS_TYPE,"卡车交限");
-//    }
-//
-//    @Test
-//    public void test01238_tips_add_DoubleClick() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
-//        //设置点位信息，新增方向看板
-//        OpenGPS();
-//        Click(newLeftFour);
-//        //DoubleClick(newDirectShow);//方向看板
-//        mDevice.click(newDirectShow.x,newDirectShow.y);
-//        Thread.sleep(100);
-//        mDevice.click(newDirectShow.x,newDirectShow.y);
-//
-//        Click("save_button");
-//        tipsNum++;
-//
-//        CheckMyData(Page_MyData.TIPS_TYPE,"方向看板");
-//    }
-//
-//    @Test
-//    public void test01239_tips_add_DoubleClick() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
-//        //设置点位信息，新增Real Sign
-//        OpenGPS();
-//        Click(newLeftFour);
-//        //DoubleClick(newRealSign);//Real Sign
-//        mDevice.click(newRealSign.x,newRealSign.y);
-//        Thread.sleep(100);
-//        mDevice.click(newRealSign.x,newRealSign.y);
-//
-//        Click("save_button");
-//        tipsNum++;
-//
-//        CheckMyData(Page_MyData.TIPS_TYPE,"Real Sign");
-//    }
-//
-//    @Test
-//    public void test01240_tips_add_DoubleClick() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
-//        //设置点位信息，新增3D模式图
-//        OpenGPS();
-//        Click(newLeftFour);
-//        //DoubleClick(new3D);//3D模式图
-//        mDevice.click(new3D.x,new3D.y);
-//        Thread.sleep(100);
-//        mDevice.click(new3D.x,new3D.y);
-//
-//        Click("three_d_mode_0010000");//点击3D模式图
-//
-//        Click("save_button");
-//        tipsNum++;
-//
-//        CheckMyData(Page_MyData.TIPS_TYPE,"3D");
-//    }
-//
-//    @Test
-//    public void test01241_tips_add_DoubleClick() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
-//        //设置点位信息，新增提左提右
-//        OpenGPS();
-//        Click(newLeftFour);
-//        //DoubleClick(newLeftRight);//提左提右
-//        mDevice.click(newLeftRight.x,newLeftRight.y);
-//        Thread.sleep(100);
-//        mDevice.click(newLeftRight.x,newLeftRight.y);
-//
-//        mDevice.findObject(By.text("80000800")).click();
-//
-//        tipsNum++;
-//
-//        CheckMyData(Page_MyData.TIPS_TYPE,"提左提右");
-//    }
-//
-//    @Test
-//    public void test01242_tips_add_DoubleClick() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
-//        //设置点位信息，新增一般道路方面
-//        OpenGPS();
-//        Click(newLeftFour);
-//        //DoubleClick(newNormalRoad);//一般道路方面
-//        mDevice.click(newNormalRoad.x,newNormalRoad.y);
-//        Thread.sleep(100);
-//        mDevice.click(newNormalRoad.x,newNormalRoad.y);
-//
-//        Click("save_button");
-//        tipsNum++;
-//
-//        CheckMyData(Page_MyData.TIPS_TYPE,"一般道路方面");
-//    }
-//
-//    @Test
-//    public void test01243_tips_add_DoubleClick() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
-//        //设置点位信息，新增高速分歧
-//        OpenGPS();
-//        Click(newLeftFour);
-//        //DoubleClick(newHighSpeedDiff);//高速分歧
-//        mDevice.click(newHighSpeedDiff.x,newHighSpeedDiff.y);
-//        Thread.sleep(100);
-//        mDevice.click(newHighSpeedDiff.x,newHighSpeedDiff.y);
-//
-//        Click("save_button");
-//        tipsNum++;
-//
-//        CheckMyData(Page_MyData.TIPS_TYPE,"高速分歧");
-//    }
-//
-//    @Test
-//    public void test01244_tips_add_DoubleClick() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
-//        //设置点位信息，新增GPS打点
-//        //无双击打点的功能  无网络的时候选点  有网的时候点击实现打点功能
-//        OpenGPS();
-//        //GPS打点
-//        Click(newGPSPos);
-//        Thread.sleep(3000);
-//        tipsNum++;
-//
-//        CheckMyData(Page_MyData.TIPS_TYPE,"GPS打点");
-//    }
+    @Test
+    public void test01234_tips_add_DoubleClick() throws Exception {
+        //设置点位信息，新增匝道
+        OpenGPS();
+        Page_MainBoard.Inst.Click(newHorFive);
+        Page_MainBoard.Inst.DoubleClick(newRingRoad);//匝道
+        Page_Ramp.Inst.Click(Page_Ramp.RAMP);
+        Page_Ramp.Inst.Click(Page_Ramp.SAVE);
+        //tipsNum++;
+
+        CheckMyData(Page_MyData.TIPS_TYPE,"匝道");
+    }
+
+    @Test
+    public void test01235_tips_add_DoubleClick() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+        //设置点位信息，新增车信
+        OpenGPS();
+        Page_MainBoard.Inst.Click(newCarInfo);
+        Page_CarInfo.Inst.Click(Page_CarInfo.D);
+        Page_CarInfo.Inst.Click(Page_CarInfo.SAVE);
+        //tipsNum++;
+
+        CheckMyData(Page_MyData.TIPS_TYPE,"车信");
+    }
+
+    @Test
+    public void test01236_tips_add_DoubleClick() throws Exception {
+        //设置点位信息，新增交限
+        OpenGPS();
+        Page_MainBoard.Inst.Click(newLeftThree);
+        Page_MainBoard.Inst.DoubleClick(newTrafficLimit);
+        Page_TrafficForbidden.Inst.Click(Page_TrafficForbidden.ICON_A1);
+        Page_TrafficForbidden.Inst.Click(Page_TruckForbidden.SAVE);
+        //tipsNum++;
+
+        CheckMyData(Page_MyData.TIPS_TYPE,"交限");
+    }
+
+    @Test
+    public void test01237_tips_add_DoubleClick() throws Exception {
+        //设置点位信息，新增卡车交限
+        OpenGPS();
+        Page_MainBoard.Inst.Click(newLeftFive);
+        Page_MainBoard.Inst.DoubleClick(newTruckTrafficLimit);//卡车交限
+        Page_TruckForbidden.Inst.Click(Page_TruckForbidden.ICON_c1);
+        Page_TrafficForbidden.Inst.Click(Page_TruckForbidden.SAVE);
+        Thread.sleep(2000);
+        //tipsNum++;
+
+        CheckMyData(Page_MyData.TIPS_TYPE,"卡车交限");
+    }
+
+    @Test
+    public void test01238_tips_add_DoubleClick() throws Exception {
+        //设置点位信息，新增方向看板
+        OpenGPS();
+        Page_MainBoard.Inst.Click(newLeftFour);
+        Page_MainBoard.Inst.DoubleClick(newDirectShow);
+        Page_MainBoard.Inst.Click(Page_MainBoard.SAVE);
+        //tipsNum++;
+
+        CheckMyData(Page_MyData.TIPS_TYPE,"方向看板");
+    }
+
+    @Test
+    public void test01239_tips_add_DoubleClick() throws Exception {
+        //设置点位信息，新增Real Sign
+        OpenGPS();
+        Page_MainBoard.Inst.Click(newLeftFour);
+        Page_MainBoard.Inst.DoubleClick(newRealSign);
+        Page_MainBoard.Inst.Click(Page_MainBoard.SAVE);
+        //tipsNum++;
+
+        CheckMyData(Page_MyData.TIPS_TYPE,"Real Sign");
+    }
+
+    @Test
+    public void test01240_tips_add_DoubleClick() throws Exception {
+        //设置点位信息，新增3D模式图
+        OpenGPS();
+        Click(newLeftFour);
+        Page_MainBoard.Inst.DoubleClick(new3D);
+        Page_3D.Inst.Click(Page_3D.ThreeD);//点击3D模式图
+        Page_MainBoard.Inst.Click(Page_MainBoard.SAVE);
+        //tipsNum++;
+
+        CheckMyData(Page_MyData.TIPS_TYPE,"3D");
+    }
+
+    @Test
+    public void test01241_tips_add_DoubleClick() throws Exception {
+        //设置点位信息，新增提左提右
+        OpenGPS();
+        Page_MainBoard.Inst.Click(newLeftFour);
+        Page_MainBoard.Inst.DoubleClick(newLeftRight);
+        Page_MainBoard.Inst.ClickByText("80000800");//点击提左提右
+        //tipsNum++;
+
+        CheckMyData(Page_MyData.TIPS_TYPE,"提左提右");
+    }
+
+    @Test
+    public void test01242_tips_add_DoubleClick() throws Exception {
+        //设置点位信息，新增一般道路方面
+        OpenGPS();
+        Page_MainBoard.Inst.Click(newLeftFour);
+        Page_MainBoard.Inst.DoubleClick(newNormalRoad);
+        //Page_MainBoard.Inst.ClickByText("80000800");//一般道路方面
+        Page_MainBoard.Inst.Click(Page_MainBoard.SAVE);
+        //tipsNum++;
+
+        CheckMyData(Page_MyData.TIPS_TYPE,"一般道路方面");
+    }
+
+    @Test
+    public void test01243_tips_add_DoubleClick() throws Exception {
+        //设置点位信息，新增高速分歧
+        OpenGPS();
+        Page_MainBoard.Inst.Click(newLeftFour);
+        Page_MainBoard.Inst.DoubleClick(newHighSpeedDiff);
+        Page_MainBoard.Inst.Click(Page_MainBoard.SAVE);
+        //tipsNum++;
+
+        CheckMyData(Page_MyData.TIPS_TYPE,"高速分歧");
+    }
+
+    @Test
+    public void test01244_tips_add_DoubleClick() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+        //设置点位信息，新增GPS打点
+        //无双击打点的功能  无网络的时候选点  有网的时候点击实现打点功能
+        OpenGPS();
+        //GPS打点
+        Click(newGPSPos);
+        Thread.sleep(3000);
+        //tipsNum++;
+
+        CheckMyData(Page_MyData.TIPS_TYPE,"GPS打点");
+    }
 
     //test
     //////////删除Tips/////////////
@@ -4125,14 +3994,15 @@ public class testFastMapYL extends testFastMapBase
         Page_SearchResultList.Inst.Click(Page_SearchResultList.BACK);
     }
 
-    private  void OpenGPS()
-    {
+    private  void OpenGPS() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
         //打开WIFI
-        Click("iv_map_gps_status");
-        Click("location_pop_check_location");
-        //Thread.sleep(1000);
+        //Click("iv_map_gps_status");
+        Page_MainBoard.Inst.Click(Page_MainBoard.WIFI);
+        //Click("location_pop_check_location");
+        Page_MainBoard.Inst.Click(Page_MainBoard.LOCATION);
+        Thread.sleep(1000);
 
-        Click(GetCenter());
+        Page_MainBoard.Inst.Click(GetCenter());
     }
 
     private  void SetConfInfo() throws InterruptedException, NoSuchFieldException, ClassNotFoundException, UiObjectNotFoundException {
@@ -4196,7 +4066,7 @@ public class testFastMapYL extends testFastMapBase
     private static Point newSA = new Point(711,1140);//单击SA
     private static Point newPA= new Point(844,1151);//PA
     private static Point newRingRoad = new Point(836,1136);//匝道
-    private static Point newTrafficLimit = new Point(227,1133);//交限
+    private static Point newTrafficLimit = new Point(487,1040);//交限
     private static Point newTruckTrafficLimit = new Point(363,882);//卡车交限
     private static Point newDirectShow = new Point(222,736);//方向看板
     private static Point newRealSign = new Point(355,745);//Real Sign
@@ -4211,6 +4081,7 @@ public class testFastMapYL extends testFastMapBase
     private static Point newLeftFour = new Point(101,1153);//左侧方向第四个
     private static Point newHorFive = new Point(853,1419);//水平第五个
     private static Point newLeftFive = new Point(94,1263);//水平第五个
+    private static Point newLeftThree = new Point(85,1036);//左侧第三个
     //private static Point newCarRoadChange = new Point(483,1432); //车道变化点
     private static Point newdiagram = new Point(1985,1029);//草图
     private static Point newPosDoor= new Point(1972,1281);//点门牌
