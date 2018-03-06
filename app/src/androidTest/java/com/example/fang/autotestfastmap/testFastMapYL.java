@@ -91,6 +91,7 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test00202_poi_add() throws Exception
     {
+        int test;
         //产品全貌开关关，新增POI点查看相机设置
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
         Page_POI_Camera.Inst.Click(Page_POI_Camera.NAME_TYPE);//名称
