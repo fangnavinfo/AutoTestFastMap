@@ -12,9 +12,12 @@ import android.support.test.uiautomator.UiObjectNotFoundException;
 import android.support.test.uiautomator.UiScrollable;
 import android.support.test.uiautomator.UiSelector;
 import android.support.test.uiautomator.Until;
-import com.fastmap.ui.*;
 
+import com.fastmap.ui.FastMapPage;
 import com.fastmap.ui.FastMapUI;
+import com.fastmap.ui.Page_MainBoard;
+import com.fastmap.ui.Page_MainMenu;
+import com.fastmap.ui.Page_MyData;
 
 import junit.framework.Assert;
 
@@ -25,11 +28,7 @@ import java.io.IOException;
 import java.util.List;
 
 import static junit.framework.Assert.fail;
-import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThat;
 
 /**
  * Created by fang on 17/11/21.
@@ -139,6 +138,7 @@ public class testFastMapBase
         {
             fail("fast map not start!");
         }
+
     }
 
     // 选择非港澳服务

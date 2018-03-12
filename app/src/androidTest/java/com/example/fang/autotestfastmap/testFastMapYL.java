@@ -6,6 +6,7 @@ import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.UiObjectNotFoundException;
 import android.support.test.uiautomator.UiScrollable;
 import android.support.test.uiautomator.UiSelector;
+import android.util.Log;
 
 import com.fastmap.ui.Page_3D;
 import com.fastmap.ui.Page_Accept;
@@ -55,43 +56,38 @@ import java.io.IOException;
 
 import static com.example.fang.autotestfastmap.TipsDeepDictionary.ADD_POINT_1700;
 import static com.fastmap.ui.Page_CarInfo.T;
+import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.fail;
-
 /**
  * Created by fang on 17/11/21.
  */
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class testFastMapYL extends testFastMapBase
-{
+public class testFastMapYL extends testFastMapBase {
     @BeforeClass
-    public static void setClassUp() throws Exception
-    {
-        //testFastMapBase.setClassUp("collector1","123456");//"collector1","123456"
+    public static void setClassUp() throws Exception {
+        testFastMapBase.setClassUp("collector1", "123456");//"collector1","123456"
     }
 
     @AfterClass
-    public static void setClassDown() throws InterruptedException, IOException
-    {
+    public static void setClassDown() throws InterruptedException, IOException {
     }
 
     @Before
     public void setUp() throws Exception {
-        testFastMapBase.setClassUp("collector1","123456");
+        //testFastMapBase.setClassUp("collector1","123456");
     }
+
 
     @After
-    public  void setAfter() //throws IOException, InterruptedException
+    public void setAfter() //throws IOException, InterruptedException
     {
         //super.setAfter();
+
     }
 
-
-
     @Test
-    public void test00202_poi_add() throws Exception
-    {
-        int test;
+    public void test00202_poi_add() throws Exception {
         //产品全貌开关关，新增POI点查看相机设置
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
         Page_POI_Camera.Inst.Click(Page_POI_Camera.NAME_TYPE);//名称
@@ -105,8 +101,8 @@ public class testFastMapYL extends testFastMapBase
         Page_POI.Inst.Click(Page_POI.SAVE);
 
         CheckMyData(Page_MyData.POI_TYPE, "测试ＰＯＩ１");
-    }
 
+    }
 
     @Test
     public void test00203_poi_add() throws Exception
@@ -135,9 +131,18 @@ public class testFastMapYL extends testFastMapBase
         //产品全貌开关关，查看相机设置，因为名称，分辨率中
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
         Thread.sleep(3000);
+        boolean revolution = Page_POI_Camera.Inst.GetBool(Page_POI_Camera.RADIO_MID);
+        boolean type = Page_POI_Camera.Inst.GetBool(Page_POI_Camera.NAME_TYPE);
         Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
         Thread.sleep(3000);
-         Page_POI.Inst.Click(Page_POI.CANCEL);
+        Page_POI.Inst.Click(Page_POI.CANCEL);
+        if (!(revolution&&type))
+        {
+            Log.d("testFastMapYL","Checkbox isn't correct checkable");
+        }
+        assertEquals(revolution,true);
+        assertEquals(type,true);
+
     }
 
     @Test
@@ -195,9 +200,15 @@ public class testFastMapYL extends testFastMapBase
     {
         //产品全貌开关开，点击新增POI查看设置
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+        boolean revolution = Page_POI_Camera.Inst.GetBool(Page_POI_Camera.RADIO_HIG);
+        boolean type = Page_POI_Camera.Inst.GetBool(Page_POI_Camera.CHANPINQUANMAO_TYPE);//产品全貌
         Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);//标签“产品全貌”，分辨率为“高”
+        Thread.sleep(3000);
         Page_POI.Inst.Click(Page_POI.CANCEL);
         SetConfInfo();//关闭产品全貌开关
+
+        assertEquals(revolution,true);
+        assertEquals(type,true);
     }
     /*
     //问题

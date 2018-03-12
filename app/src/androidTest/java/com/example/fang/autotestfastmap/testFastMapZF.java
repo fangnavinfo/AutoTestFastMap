@@ -1,19 +1,9 @@
 package com.example.fang.autotestfastmap;
 
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.test.uiautomator.By;
-import android.support.test.uiautomator.UiCollection;
-import android.support.test.uiautomator.UiObject;
 import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.UiObjectNotFoundException;
-import android.support.test.uiautomator.UiScrollable;
-import android.support.test.uiautomator.UiSelector;
 import android.support.test.uiautomator.Until;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
 
 import com.fastmap.ui.FastMapUI;
 import com.fastmap.ui.Page_DeleteList;
@@ -42,8 +32,6 @@ import com.fastmap.ui.Page_SurveyLine;
 import com.fastmap.ui.Page_TrafficForbidden;
 import com.fastmap.ui.Page_TrueSence;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -53,15 +41,9 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import static junit.framework.Assert.fail;
-import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThat;
 
 /**
  * Created by fang on 17/11/21.
@@ -109,7 +91,6 @@ public class testFastMapZF extends testFastMapBase
 
         //输入POI名称
         Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ２");
-
         //中餐馆类型
         Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "中餐馆");
 

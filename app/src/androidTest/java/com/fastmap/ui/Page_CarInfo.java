@@ -72,6 +72,9 @@ public class Page_CarInfo extends FastMapPage {
     @FindResource(Id = "cancel_button")
     public static String CANCEL;
 
+    @FindResource(Id="camera_button")
+    public static String CAMERA;
+
     @FindResource(Id = "ll_bg_select_more")
     public static String MORE;
 

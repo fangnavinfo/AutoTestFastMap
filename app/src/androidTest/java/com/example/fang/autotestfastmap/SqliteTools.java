@@ -2,17 +2,12 @@ package com.example.fang.autotestfastmap;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.media.ExifInterface;
-import android.os.Environment;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by fang on 17/12/29.
