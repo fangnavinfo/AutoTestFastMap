@@ -29,6 +29,7 @@ import com.fastmap.ui.Page_MyData;
 import com.fastmap.ui.Page_PAS;
 import com.fastmap.ui.Page_POI;
 import com.fastmap.ui.Page_POI_Camera;
+import com.fastmap.ui.Page_QualityCheck;
 import com.fastmap.ui.Page_Ramp;
 import com.fastmap.ui.Page_Road_Name;
 import com.fastmap.ui.Page_Road_Name_Sign;
@@ -66,7 +67,7 @@ import static junit.framework.Assert.fail;
 public class testFastMapYL extends testFastMapBase {
     @BeforeClass
     public static void setClassUp() throws Exception {
-        testFastMapBase.setClassUp("collector1", "123456");//"collector1","123456"
+        //testFastMapBase.setClassUp("collector1", "123456");//"collector1","123456"
     }
 
     @AfterClass
@@ -75,7 +76,7 @@ public class testFastMapYL extends testFastMapBase {
 
     @Before
     public void setUp() throws Exception {
-        //testFastMapBase.setClassUp("collector1","123456");
+        testFastMapBase.setClassUp("collector1","123456");
     }
 
 
@@ -3941,6 +3942,337 @@ public class testFastMapYL extends testFastMapBase {
         Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
     }
 */
+    @Test
+    public void test01901_quality_check() throws Exception {
+        //新增红路灯Tips
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_LIGHT);
+        Page_MainBoard.Inst.Click(GetCenter());
+        //室内整理工具
+        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+        Page_MainMenu.Inst.Click(Page_MainMenu.INDOOR_TOOL);
+        //我的数据
+        Page_IndoorTool.Inst.Click(Page_IndoorTool.MY_DATA);
+        //点击质检开关
+        Page_MainBoard.Inst.Click(Page_MainBoard.QUALITY_CHECK);
+        //点击数据列表中红绿灯
+        Page_Indoor_Data_List.Inst.ClickObject("红绿灯");//list
+        Thread.sleep(2000);
+        Page_Indoor_Data_List.Inst.ClickObject("红绿灯");//list
+        //点击最小化
+        Page_MainBoard.Inst.Click(Page_MainBoard.MIN);
+        //点击最小化
+        Page_QualityCheck.Inst.Click(Page_QualityCheck.MIN);
+        //保存
+        Page_Indoor_Data_List.Inst.Click(Page_Indoor_Data_List.CANCEL);
+        Page_Indoor_Data_List.Inst.Click(Page_Indoor_Data_List.BACK);
+        Page_IndoorTool.Inst.Click(Page_IndoorTool.BACK);
+        Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
+    }
+
+    @Test
+    public void test01902_quality_check() throws Exception {
+        //新增红路灯Tips
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_LIGHT);
+        Page_MainBoard.Inst.Click(GetCenter());
+        //室内整理工具
+        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+        Page_MainMenu.Inst.Click(Page_MainMenu.INDOOR_TOOL);
+        //我的数据
+        Page_IndoorTool.Inst.Click(Page_IndoorTool.MY_DATA);
+        //点击质检开关
+        Page_MainBoard.Inst.Click(Page_MainBoard.QUALITY_CHECK);
+        //点击数据列表中红绿灯
+        Page_Indoor_Data_List.Inst.ClickObject("红绿灯");//list
+        Thread.sleep(2000);
+        Page_Indoor_Data_List.Inst.ClickObject("红绿灯");//list
+        //保存
+        Page_Indoor_Data_List.Inst.Click(Page_Indoor_Data_List.SAVE);
+        //设置采集 点属性红绿灯 错误
+        Page_QualityCheck.Inst.Click(Page_QualityCheck.INIT_REASON);
+        Page_QualityCheck.Inst.ClickByText("采集");
+        //Page_QualityCheck.Inst.Click(Page_QualityCheck.RCA);
+        //Page_QualityCheck.Inst.Click(Page_QualityCheck.BIG_TYPE);
+        //Page_QualityCheck.Inst.Click(Page_QualityCheck.SMALL_TYPE);
+        Page_QualityCheck.Inst.ClickByText("错误");
+        Page_QualityCheck.Inst.ClickByText("位置采集错误");
+        //判断编辑框是否为红绿灯采集错误
+        String temp = Page_QualityCheck.Inst.GetValue(Page_QualityCheck.EDIT);
+        assertEquals(temp,"红绿灯采集错误");
+        //设置录入 点属性红绿灯 错误
+        Page_QualityCheck.Inst.Click(Page_QualityCheck.INIT_REASON);
+        Page_QualityCheck.Inst.ClickByText("录入");
+        //判断编辑框是否为空
+        temp = Page_QualityCheck.Inst.GetValue(Page_QualityCheck.EDIT);
+        assertEquals(temp,"");
+        Page_QualityCheck.Inst.Click(Page_QualityCheck.EDIT);
+        Page_QualityCheck.Inst.SetValue(Page_QualityCheck.EDIT,"测试质检");
+        Page_QualityCheck.Inst.Click(Page_QualityCheck.SAVE);
+        //返回主界面
+        Page_Indoor_Data_List.Inst.Click(Page_Indoor_Data_List.BACK);
+        Page_IndoorTool.Inst.Click(Page_IndoorTool.BACK);
+        Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
+    }
+
+    @Test
+    public void test01903_quality_check() throws Exception {
+        //新增红路灯Tips
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_LIGHT);
+        Page_MainBoard.Inst.Click(GetCenter());
+        //室内整理工具
+        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+        Page_MainMenu.Inst.Click(Page_MainMenu.INDOOR_TOOL);
+        //我的数据
+        Page_IndoorTool.Inst.Click(Page_IndoorTool.MY_DATA);
+        //点击质检开关
+        Page_MainBoard.Inst.Click(Page_MainBoard.QUALITY_CHECK);
+        //点击数据列表中红绿灯
+        Page_Indoor_Data_List.Inst.ClickObject("红绿灯");//list
+        Thread.sleep(2000);
+        Page_Indoor_Data_List.Inst.ClickObject("红绿灯");//list
+        //保存
+        Page_Indoor_Data_List.Inst.Click(Page_Indoor_Data_List.SAVE);
+        //设置采集 点属性红绿灯 错误
+        Page_QualityCheck.Inst.Click(Page_QualityCheck.INIT_REASON);
+        Page_QualityCheck.Inst.ClickByText("采集");
+        //Page_QualityCheck.Inst.Click(Page_QualityCheck.RCA);
+        //Page_QualityCheck.Inst.Click(Page_QualityCheck.BIG_TYPE);
+        //Page_QualityCheck.Inst.Click(Page_QualityCheck.SMALL_TYPE);
+        Page_QualityCheck.Inst.ClickByText("错误");
+        Page_QualityCheck.Inst.ClickByText("位置采集错误");
+        //判断编辑框是否为红绿灯采集错误
+        String temp = Page_QualityCheck.Inst.GetValue(Page_QualityCheck.EDIT);
+        assertEquals(temp,"红绿灯采集错误");
+        //设置采集 道路名道路名 错误
+        Page_QualityCheck.Inst.Click(Page_QualityCheck.BIG_TYPE);
+        Page_QualityCheck.Inst.ClickByText("道路名");
+        //判断编辑框是否为空
+        temp = Page_QualityCheck.Inst.GetValue(Page_QualityCheck.EDIT);
+        assertEquals(temp,"");
+        Page_QualityCheck.Inst.Click(Page_QualityCheck.EDIT);
+        Page_QualityCheck.Inst.SetValue(Page_QualityCheck.EDIT,"测试质检");
+        Page_QualityCheck.Inst.Click(Page_QualityCheck.SAVE);
+        //返回主界面
+        Page_Indoor_Data_List.Inst.Click(Page_Indoor_Data_List.BACK);
+        Page_IndoorTool.Inst.Click(Page_IndoorTool.BACK);
+        Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
+    }
+
+    @Test
+    public void test01904_quality_check() throws Exception {
+        //新增红路灯Tips
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_LIGHT);
+        Page_MainBoard.Inst.Click(GetCenter());
+        //室内整理工具
+        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+        Page_MainMenu.Inst.Click(Page_MainMenu.INDOOR_TOOL);
+        //我的数据
+        Page_IndoorTool.Inst.Click(Page_IndoorTool.MY_DATA);
+        //点击质检开关
+        Page_MainBoard.Inst.Click(Page_MainBoard.QUALITY_CHECK);
+        //点击数据列表中红绿灯
+        Page_Indoor_Data_List.Inst.ClickObject("红绿灯");//list
+        Thread.sleep(2000);
+        Page_Indoor_Data_List.Inst.ClickObject("红绿灯");//list
+        //保存
+        Page_Indoor_Data_List.Inst.Click(Page_Indoor_Data_List.SAVE);
+        //设置采集 点属性红绿灯 调整错误信息(不受灯控LINK选择错误)
+        Page_QualityCheck.Inst.Click(Page_QualityCheck.INIT_REASON);
+        Page_QualityCheck.Inst.ClickByText("采集");
+        //Page_QualityCheck.Inst.Click(Page_QualityCheck.RCA);
+        //Page_QualityCheck.Inst.Click(Page_QualityCheck.BIG_TYPE);
+        //Page_QualityCheck.Inst.Click(Page_QualityCheck.SMALL_TYPE);
+        Page_QualityCheck.Inst.ClickByText("错误");
+        Page_QualityCheck.Inst.ClickByText("位置采集错误");
+        //判断编辑框是否为红绿灯采集错误
+        String temp = Page_QualityCheck.Inst.GetValue(Page_QualityCheck.EDIT);
+        assertEquals(temp,"红绿灯采集错误");
+        //设置录入 点属性红绿灯 错误
+        Page_QualityCheck.Inst.ClickByText("错误");
+        Page_QualityCheck.Inst.ClickByText("不受灯控LINK选择错误");
+        //判断编辑框是否为空
+        temp = Page_QualityCheck.Inst.GetValue(Page_QualityCheck.EDIT);
+        assertEquals(temp,"");
+        Page_QualityCheck.Inst.Click(Page_QualityCheck.EDIT);
+        Page_QualityCheck.Inst.SetValue(Page_QualityCheck.EDIT,"测试质检");
+        Page_QualityCheck.Inst.Click(Page_QualityCheck.SAVE);
+        //返回主界面
+        Page_Indoor_Data_List.Inst.Click(Page_Indoor_Data_List.BACK);
+        Page_IndoorTool.Inst.Click(Page_IndoorTool.BACK);
+        Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
+    }
+
+    @Test
+    public void test01905_quality_check() throws Exception {
+        //新增车信Tips
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_INFO);
+        Page_MainBoard.Inst.Click(GetCenter());
+        Page_CarInfo.Inst.Click(Page_CarInfo.A);
+        Page_CarInfo.Inst.Click(Page_CarInfo.SAVE);
+        //室内整理工具
+        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+        Page_MainMenu.Inst.Click(Page_MainMenu.INDOOR_TOOL);
+        //我的数据
+        Page_IndoorTool.Inst.Click(Page_IndoorTool.MY_DATA);
+        //点击质检开关
+        Page_MainBoard.Inst.Click(Page_MainBoard.QUALITY_CHECK);
+        //点击数据列表中车信
+        Page_Indoor_Data_List.Inst.ClickObject("车信");//list
+        Thread.sleep(2000);
+        Page_Indoor_Data_List.Inst.ClickObject("车信");//list
+        //保存
+        Page_Indoor_Data_List.Inst.Click(Page_Indoor_Data_List.SAVE);
+        //设置录入 关系属性车信 调整多余信息(附加车道)
+        Page_QualityCheck.Inst.ClickByText("多余");
+        Page_QualityCheck.Inst.ClickByText("附加车道");
+        //判断编辑框是否为车信录入多余
+        String temp = Page_QualityCheck.Inst.GetValue(Page_QualityCheck.EDIT);
+        assertEquals(temp,"车信录入多余");
+        //设置录入 关系属性车信 调整多余信息(退出Link指示)
+        Page_QualityCheck.Inst.ClickByText("多余");
+        Page_QualityCheck.Inst.ClickByText("退出Link指示");
+        //判断编辑框是否为空
+        temp = Page_QualityCheck.Inst.GetValue(Page_QualityCheck.EDIT);
+        assertEquals(temp,"");
+        Page_QualityCheck.Inst.Click(Page_QualityCheck.EDIT);
+        Page_QualityCheck.Inst.SetValue(Page_QualityCheck.EDIT,"测试质检");
+        Page_QualityCheck.Inst.Click(Page_QualityCheck.SAVE);
+        //返回主界面
+        Page_Indoor_Data_List.Inst.Click(Page_Indoor_Data_List.BACK);
+        Page_IndoorTool.Inst.Click(Page_IndoorTool.BACK);
+        Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
+    }
+
+    @Test
+    public void test01906_quality_check() throws Exception {
+        //新增车信Tips
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POINT_ELECTRONIC_EYE);
+        Page_MainBoard.Inst.Click(GetCenter());
+        Page_CarInfo.Inst.Click(Page_CarInfo.SAVE);
+        //室内整理工具
+        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+        Page_MainMenu.Inst.Click(Page_MainMenu.INDOOR_TOOL);
+        //我的数据
+        Page_IndoorTool.Inst.Click(Page_IndoorTool.MY_DATA);
+        //点击质检开关
+        Page_MainBoard.Inst.Click(Page_MainBoard.QUALITY_CHECK);
+        //点击数据列表中电子眼
+        Page_Indoor_Data_List.Inst.ClickObject("电子眼");//list
+        Thread.sleep(2000);
+        Page_Indoor_Data_List.Inst.ClickObject("电子眼");//list
+        //保存
+        Page_Indoor_Data_List.Inst.Click(Page_Indoor_Data_List.SAVE);
+        //设置录入 点属性电子眼 调整遗漏信息(点位采集错误)
+        Page_QualityCheck.Inst.ClickByText("遗漏");
+        Page_QualityCheck.Inst.ClickByText("点位采集遗漏");
+        //判断编辑框是否为电子眼录入遗漏
+        String temp = Page_QualityCheck.Inst.GetValue(Page_QualityCheck.EDIT);
+        assertEquals(temp,"电子眼录入遗漏");
+        //设置录入 点属性电子眼 调整遗漏信息(限速值采集遗漏)
+        Page_QualityCheck.Inst.ClickByText("遗漏");
+        Page_QualityCheck.Inst.ClickByText("限速值采集遗漏");
+        //判断编辑框是否为空
+        temp = Page_QualityCheck.Inst.GetValue(Page_QualityCheck.EDIT);
+        assertEquals(temp,"");
+        Page_QualityCheck.Inst.Click(Page_QualityCheck.EDIT);
+        Page_QualityCheck.Inst.SetValue(Page_QualityCheck.EDIT,"测试质检");
+        Page_QualityCheck.Inst.Click(Page_QualityCheck.SAVE);
+        //返回主界面
+        Page_Indoor_Data_List.Inst.Click(Page_Indoor_Data_List.BACK);
+        Page_IndoorTool.Inst.Click(Page_IndoorTool.BACK);
+        Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
+    }
+
+    @Test
+    public void test01907_quality_check() throws Exception {
+        //新增车道限速Tips
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_LANE);
+        Page_MainBoard.Inst.Click(GetCenter());
+        Page_Speed_Limit_Lane.Inst.Click(Page_Speed_Limit_Lane.MAXNUM);
+        Page_Speed_Limit_Lane.Inst.Click(Page_Speed_Limit_Lane.NUM40);
+        Page_Speed_Limit_Lane.Inst.Click(Page_Speed_Limit_Lane.SAVE);
+        //室内整理工具
+        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+        Page_MainMenu.Inst.Click(Page_MainMenu.INDOOR_TOOL);
+        //我的数据
+        Page_IndoorTool.Inst.Click(Page_IndoorTool.MY_DATA);
+        //点击质检开关
+        Page_MainBoard.Inst.Click(Page_MainBoard.QUALITY_CHECK);
+        //点击数据列表中车道限速
+        Page_Indoor_Data_List.Inst.ClickObject("点限速");//list
+        Thread.sleep(2000);
+        Page_Indoor_Data_List.Inst.ClickObject("点限速");//list
+        //保存
+        Page_Indoor_Data_List.Inst.Click(Page_Indoor_Data_List.SAVE);
+        //设置录入预处理 点属性点限速 错误
+        Page_QualityCheck.Inst.Click(Page_QualityCheck.INIT_REASON);
+        Page_QualityCheck.Inst.ClickByText("采集");
+        //Page_QualityCheck.Inst.Click(Page_QualityCheck.RCA);
+        //Page_QualityCheck.Inst.Click(Page_QualityCheck.BIG_TYPE);
+        //Page_QualityCheck.Inst.Click(Page_QualityCheck.SMALL_TYPE);
+        Page_QualityCheck.Inst.ClickByText("错误");
+        Page_QualityCheck.Inst.ClickByText("标牌选择错误");
+        //判断编辑框是否为点限速录入错误
+        String temp = Page_QualityCheck.Inst.GetValue(Page_QualityCheck.EDIT);
+        assertEquals(temp,"点限速录入错误");
+        //设置录入不正确或多余的录入（内业） 点属性红绿灯 错误
+        Page_QualityCheck.Inst.Click(Page_QualityCheck.RCA);
+        Page_QualityCheck.Inst.ClickByText("不正确或多余的录入（内业）");
+        //判断编辑框是否为空
+        temp = Page_QualityCheck.Inst.GetValue(Page_QualityCheck.EDIT);
+        assertEquals(temp,"");
+        Page_QualityCheck.Inst.Click(Page_QualityCheck.EDIT);
+        Page_QualityCheck.Inst.SetValue(Page_QualityCheck.EDIT,"测试质检");
+        Page_QualityCheck.Inst.Click(Page_QualityCheck.SAVE);
+        //返回主界面
+        Page_Indoor_Data_List.Inst.Click(Page_Indoor_Data_List.BACK);
+        Page_IndoorTool.Inst.Click(Page_IndoorTool.BACK);
+        Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
+    }
+
+    @Test
+    public void test01908_quality_check() throws Exception {
+        //新增车道变化Tips
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_CHANGE_POINT);
+        Page_MainBoard.Inst.Click(GetCenter());
+        Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.ENTRYLANENUM);
+        Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.NUM2);
+        Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.BACKLANENUM);
+        Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.NUM1);
+        Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.SAVE);
+        //室内整理工具
+        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+        Page_MainMenu.Inst.Click(Page_MainMenu.INDOOR_TOOL);
+        //我的数据
+        Page_IndoorTool.Inst.Click(Page_IndoorTool.MY_DATA);
+        //点击质检开关
+        Page_MainBoard.Inst.Click(Page_MainBoard.QUALITY_CHECK);
+        //点击数据列表中车道变化
+        Page_Indoor_Data_List.Inst.ClickObject("车道变化点");//list
+        Thread.sleep(2000);
+        Page_Indoor_Data_List.Inst.ClickObject("车道变化点");//list
+        //保存
+        Page_Indoor_Data_List.Inst.Click(Page_Indoor_Data_List.SAVE);
+        //设置录入 点属性车道变化点 错误
+        Page_QualityCheck.Inst.ClickByText("错误");
+        Page_QualityCheck.Inst.ClickByText("车道变化点采集错误");
+        //判断编辑框是否为车道变化点录入错误
+        String temp = Page_QualityCheck.Inst.GetValue(Page_QualityCheck.EDIT);
+        assertEquals(temp,"车道变化点录入错误");
+        //设置录入 点属性减速带 错误
+        Page_QualityCheck.Inst.Click(Page_QualityCheck.SMALL_TYPE);
+        Page_QualityCheck.Inst.ClickByText("减速带");
+        //判断编辑框是否为空
+        temp = Page_QualityCheck.Inst.GetValue(Page_QualityCheck.EDIT);
+        assertEquals(temp,"");
+        Page_QualityCheck.Inst.Click(Page_QualityCheck.EDIT);
+        Page_QualityCheck.Inst.SetValue(Page_QualityCheck.EDIT,"测试质检");
+        Page_QualityCheck.Inst.Click(Page_QualityCheck.SAVE);
+        //返回主界面
+        Page_Indoor_Data_List.Inst.Click(Page_Indoor_Data_List.BACK);
+        Page_IndoorTool.Inst.Click(Page_IndoorTool.BACK);
+        Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
+    }
+
     protected void waitObjectEnable(String strObject) throws  InterruptedException{
         int waitCount =0;
         UiObject2 btnBack2 =  mDevice.findObject(By.res(packageName, "iv_search_result_list_back"));

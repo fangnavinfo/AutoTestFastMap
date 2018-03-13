@@ -13,8 +13,6 @@ public class Page_IndoorTool extends FastMapPage
     public static String SYNC_PHOTOS;
     @FindResource(Id="tv_my_data")
     public static String MY_DATA;
-
-
     @FindResource(Id="sync_photos_back")
     public static String BACK;
 

@@ -13,6 +13,12 @@ public class Page_Indoor_Data_List extends FastMapPage {
     @FindResource(Id = "ll_my_data_snap_list")
     public static String LIST;
 
+    @FindResource(Id="save_button")
+    public static String SAVE;
+
+    @FindResource(Id="cancel_button")
+    public static String CANCEL;
+
     @FindResource(Id = "iv_my_data_back")
     public static String BACK;
     public static Page_Indoor_Data_List Inst;

@@ -87,6 +87,12 @@ public class Page_MainBoard extends FastMapPage
 
     @FindResource(Id="save_button")
     public static String SAVE;
+
+    @FindResource(Id="btn_indoor_data_check_open")
+    public static String QUALITY_CHECK;//质检
+
+    @FindResource(Id="data_quality_check_button")
+    public static String MIN;//最小化
     public void Drag()
     {
         mDevice.drag(292,1270,292,620,10);

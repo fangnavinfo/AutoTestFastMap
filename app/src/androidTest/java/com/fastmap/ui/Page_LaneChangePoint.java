@@ -17,6 +17,8 @@ public class Page_LaneChangePoint extends FastMapPage{
     @FindResource(Id="lane_number_one")
     public static String NUM1;
 
+    @FindResource(Id="save_button")
+    public static String SAVE;
     public static Page_LaneChangePoint Inst;
     static
     {
