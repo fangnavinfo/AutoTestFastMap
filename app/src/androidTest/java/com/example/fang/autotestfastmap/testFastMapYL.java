@@ -21,6 +21,7 @@ import com.fastmap.ui.Page_InfoFrame;
 import com.fastmap.ui.Page_InfoLine;
 import com.fastmap.ui.Page_InfoPoint;
 import com.fastmap.ui.Page_InfoReport;
+import com.fastmap.ui.Page_Kind;
 import com.fastmap.ui.Page_LaneChangePoint;
 import com.fastmap.ui.Page_MainBoard;
 import com.fastmap.ui.Page_MainMenu;
@@ -87,6 +88,45 @@ public class testFastMapYL extends testFastMapBase {
 
     }
 
+//    @Test
+//    public void test00201__add() throws Exception {
+//        //绘制手绘测线
+//        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);
+//        //Thread.sleep(2000);
+//        Page_TestLine.Inst.Click(Page_TestLine.K1);
+//        //Thread.sleep(2000);
+//        Page_TestLine.Inst.Click(Page_TestLine.NUM2);
+//        //Thread.sleep(2000);
+//        Page_MainBoard.Inst.Click(GetCenter());
+//        //Thread.sleep(2000);
+//
+//        Page_MainBoard.Inst.Click(new Point(1038,453));
+//       // Thread.sleep(2000);
+//        Page_MainBoard.Inst.Click(new Point(814,478));
+//        //Thread.sleep(2000);
+//        Page_MainBoard.Inst.Click(new Point(577,655));
+//        //Thread.sleep(2000);
+//        Page_MainBoard.Inst.Click(new Point(422,610));
+//        //Thread.sleep(2000);
+//
+//        Page_TestLine.Inst.Click(Page_TestLine.SAVE);
+//        Thread.sleep(2000);
+//        //编辑测线  选择测线修形
+//        //Page_MainBoard.Inst.Click(new Point(mDevice.getDisplayWidth()/2-10, mDevice.getDisplayHeight()/2-10));
+//        Page_MainBoard.Inst.Click(new Point(422,610));
+//        mDevice.drag(1800,1154,1800,700,10);
+//        Page_TestLine.Inst.ClickByText("测线修形");
+//        Thread.sleep(2000);
+//        Page_MainBoard.Inst.Click(new Point(1930,872));
+//        Page_MainBoard.Inst.Click(new Point(1930,872));
+//        mDevice.drag(mDevice.getDisplayWidth()/2,mDevice.getDisplayHeight()/2,1024,900,10);
+//
+//        for (int i=0;;i++)
+//        {
+//            mDevice.drag(mDevice.getDisplayWidth()/2,mDevice.getDisplayHeight()/2,1024,900,5);
+//            Thread.sleep(6000);
+//        }
+//    }
     @Test
     public void test00202_poi_add() throws Exception {
         //产品全貌开关关，新增POI点查看相机设置
@@ -2696,11 +2736,12 @@ public class testFastMapYL extends testFastMapBase {
     }
 
     @Test
-    public void test01235_tips_add_DoubleClick() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+    public void test01235_tips_add_DoubleClick() throws Exception {
         //设置点位信息，新增车信
         OpenGPS();
-        Page_MainBoard.Inst.Click(newCarInfo);
-        Page_CarInfo.Inst.Click(Page_CarInfo.D);
+        Page_MainBoard.Inst.DoubleClick(newCarInfo);
+        Thread.sleep(2000);
+        Page_CarInfo.Inst.Click(Page_CarInfo.D);//
         Page_CarInfo.Inst.Click(Page_CarInfo.SAVE);
         //tipsNum++;
 
@@ -2725,6 +2766,7 @@ public class testFastMapYL extends testFastMapBase {
         //设置点位信息，新增卡车交限
         OpenGPS();
         Page_MainBoard.Inst.Click(newLeftFive);
+        Thread.sleep(2000);
         Page_MainBoard.Inst.DoubleClick(newTruckTrafficLimit);//卡车交限
         Page_TruckForbidden.Inst.Click(Page_TruckForbidden.ICON_c1);
         Page_TrafficForbidden.Inst.Click(Page_TruckForbidden.SAVE);
@@ -4000,7 +4042,7 @@ public class testFastMapYL extends testFastMapBase {
         String temp = Page_QualityCheck.Inst.GetValue(Page_QualityCheck.EDIT);
         assertEquals(temp,"红绿灯采集错误");
         //判断是否可编辑
-        Page_QualityCheck.Inst.Click(Page_QualityCheck.EDIT);
+        //Page_QualityCheck.Inst.Click(Page_QualityCheck.EDIT);
         Page_QualityCheck.Inst.SetValue(Page_QualityCheck.EDIT,"测试质检");
         //判断编辑框是否为红绿灯采集错误
          temp = Page_QualityCheck.Inst.GetValue(Page_QualityCheck.EDIT);
@@ -4010,7 +4052,7 @@ public class testFastMapYL extends testFastMapBase {
         Page_QualityCheck.Inst.ClickByText("录入");
         //判断编辑框是否为空
         temp = Page_QualityCheck.Inst.GetValue(Page_QualityCheck.EDIT);
-        assertEquals(temp,"红绿灯录入错误");
+        assertEquals(temp,null);
         Page_QualityCheck.Inst.Click(Page_QualityCheck.SAVE);
         //返回主界面
         Page_Indoor_Data_List.Inst.Click(Page_Indoor_Data_List.BACK);
@@ -4049,13 +4091,17 @@ public class testFastMapYL extends testFastMapBase {
         Page_QualityCheck.Inst.ClickByText("道路名");
         //判断编辑框是否为道路名采集错误
         temp = Page_QualityCheck.Inst.GetValue(Page_QualityCheck.EDIT);
-        assertEquals(temp,"道路名采集错误");
+        assertEquals(temp,null);
         //选择错误类型
         Page_QualityCheck.Inst.ClickByText("错误");
         Page_QualityCheck.Inst.ClickByText("多名称排序问题");
+        //判断编辑框是否为道路名采集错误
+        temp = Page_QualityCheck.Inst.GetValue(Page_QualityCheck.EDIT);
+        assertEquals(temp,"道路名采集错误");
         //查看是否可编辑
-        Page_QualityCheck.Inst.Click(Page_QualityCheck.EDIT);
+        //Page_QualityCheck.Inst.Click(Page_QualityCheck.EDIT);
         Page_QualityCheck.Inst.SetValue(Page_QualityCheck.EDIT,"测试质检");
+        Thread.sleep(2000);
         Page_QualityCheck.Inst.Click(Page_QualityCheck.SAVE);
         //返回主界面
         Page_Indoor_Data_List.Inst.Click(Page_Indoor_Data_List.BACK);
@@ -4092,7 +4138,7 @@ public class testFastMapYL extends testFastMapBase {
         //判断编辑框是否为红绿灯采集错误
         String temp = Page_QualityCheck.Inst.GetValue(Page_QualityCheck.EDIT);
         assertEquals(temp,"红绿灯采集错误");
-        Page_QualityCheck.Inst.Click(Page_QualityCheck.EDIT);
+        //Page_QualityCheck.Inst.Click(Page_QualityCheck.EDIT);
         Page_QualityCheck.Inst.SetValue(Page_QualityCheck.EDIT,"测试质检");
         temp = Page_QualityCheck.Inst.GetValue(Page_QualityCheck.EDIT);
         assertEquals(temp,"测试质检");
@@ -4102,7 +4148,7 @@ public class testFastMapYL extends testFastMapBase {
         //判断编辑框是否为红绿灯采集错误
         temp = Page_QualityCheck.Inst.GetValue(Page_QualityCheck.EDIT);
         assertEquals(temp,"红绿灯采集错误");
-        Page_QualityCheck.Inst.Click(Page_QualityCheck.EDIT);
+        //Page_QualityCheck.Inst.Click(Page_QualityCheck.EDIT);
         Page_QualityCheck.Inst.SetValue(Page_QualityCheck.EDIT,"测试质检");
         Page_QualityCheck.Inst.Click(Page_QualityCheck.SAVE);
         //返回主界面
@@ -4138,7 +4184,7 @@ public class testFastMapYL extends testFastMapBase {
         String temp = Page_QualityCheck.Inst.GetValue(Page_QualityCheck.EDIT);
         assertEquals(temp,"车信录入多余");
         //判断编辑框是否为测试质检
-        Page_QualityCheck.Inst.Click(Page_QualityCheck.EDIT);
+        //Page_QualityCheck.Inst.Click(Page_QualityCheck.EDIT);
         Page_QualityCheck.Inst.SetValue(Page_QualityCheck.EDIT,"测试质检");
         temp = Page_QualityCheck.Inst.GetValue(Page_QualityCheck.EDIT);
         assertEquals(temp,"测试质检");
@@ -4149,7 +4195,7 @@ public class testFastMapYL extends testFastMapBase {
         temp = Page_QualityCheck.Inst.GetValue(Page_QualityCheck.EDIT);
         assertEquals(temp,"车信录入多余");
 
-        Page_QualityCheck.Inst.Click(Page_QualityCheck.EDIT);
+        //Page_QualityCheck.Inst.Click(Page_QualityCheck.EDIT);
         Page_QualityCheck.Inst.SetValue(Page_QualityCheck.EDIT,"测试质检");
         Page_QualityCheck.Inst.Click(Page_QualityCheck.SAVE);
         //返回主界面
@@ -4183,7 +4229,7 @@ public class testFastMapYL extends testFastMapBase {
         //判断编辑框是否为电子眼录入遗漏
         String temp = Page_QualityCheck.Inst.GetValue(Page_QualityCheck.EDIT);
         assertEquals(temp,"电子眼录入遗漏");
-        Page_QualityCheck.Inst.Click(Page_QualityCheck.EDIT);
+        //Page_QualityCheck.Inst.Click(Page_QualityCheck.EDIT);
         Page_QualityCheck.Inst.SetValue(Page_QualityCheck.EDIT,"测试质检");
         temp = Page_QualityCheck.Inst.GetValue(Page_QualityCheck.EDIT);
         assertEquals(temp,"测试质检");
@@ -4193,7 +4239,7 @@ public class testFastMapYL extends testFastMapBase {
         //判断编辑框是否为电子眼录入遗漏
         temp = Page_QualityCheck.Inst.GetValue(Page_QualityCheck.EDIT);
         assertEquals(temp,"电子眼录入遗漏");
-        Page_QualityCheck.Inst.Click(Page_QualityCheck.EDIT);
+        //Page_QualityCheck.Inst.Click(Page_QualityCheck.EDIT);
         Page_QualityCheck.Inst.SetValue(Page_QualityCheck.EDIT,"测试质检");
         Page_QualityCheck.Inst.Click(Page_QualityCheck.SAVE);
         //返回主界面
@@ -4217,6 +4263,7 @@ public class testFastMapYL extends testFastMapBase {
         Page_IndoorTool.Inst.Click(Page_IndoorTool.MY_DATA);
         //点击质检开关
         Page_MainBoard.Inst.Click(Page_MainBoard.QUALITY_CHECK);
+        Thread.sleep(2000);
         //点击数据列表中车道限速
         Page_Indoor_Data_List.Inst.ClickObject("点限速");//list
         Thread.sleep(2000);
@@ -4232,7 +4279,7 @@ public class testFastMapYL extends testFastMapBase {
         //判断编辑框是否为点限速采集错误
         String temp = Page_QualityCheck.Inst.GetValue(Page_QualityCheck.EDIT);
         assertEquals(temp,"点限速采集错误");
-        Page_QualityCheck.Inst.Click(Page_QualityCheck.EDIT);
+        //Page_QualityCheck.Inst.Click(Page_QualityCheck.EDIT);
         Page_QualityCheck.Inst.SetValue(Page_QualityCheck.EDIT,"测试质检");
         temp = Page_QualityCheck.Inst.GetValue(Page_QualityCheck.EDIT);
         assertEquals(temp,"测试质检");
@@ -4241,8 +4288,8 @@ public class testFastMapYL extends testFastMapBase {
         Page_QualityCheck.Inst.ClickByText("作业工艺不适合");
         //判断编辑框是否为空
         temp = Page_QualityCheck.Inst.GetValue(Page_QualityCheck.EDIT);
-        assertEquals(temp,"点限速采集错误");
-        Page_QualityCheck.Inst.Click(Page_QualityCheck.EDIT);
+        assertEquals(temp,null);
+        //Page_QualityCheck.Inst.Click(Page_QualityCheck.EDIT);
         Page_QualityCheck.Inst.SetValue(Page_QualityCheck.EDIT,"测试质检");
         Page_QualityCheck.Inst.Click(Page_QualityCheck.SAVE);
         //返回主界面
@@ -4280,7 +4327,7 @@ public class testFastMapYL extends testFastMapBase {
         //判断编辑框是否为车道变化点录入错误
         String temp = Page_QualityCheck.Inst.GetValue(Page_QualityCheck.EDIT);
         assertEquals(temp,"车道变化点录入错误");
-        Page_QualityCheck.Inst.Click(Page_QualityCheck.EDIT);
+        //Page_QualityCheck.Inst.Click(Page_QualityCheck.EDIT);
         Page_QualityCheck.Inst.SetValue(Page_QualityCheck.EDIT,"测试质检");
         temp = Page_QualityCheck.Inst.GetValue(Page_QualityCheck.EDIT);
         assertEquals(temp,"测试质检");
@@ -4291,9 +4338,124 @@ public class testFastMapYL extends testFastMapBase {
         Page_QualityCheck.Inst.ClickByText("位置采集错误");
         //判断编辑框是否为空
         temp = Page_QualityCheck.Inst.GetValue(Page_QualityCheck.EDIT);
-        assertEquals(temp,"车道变化点录入错误");
-        Page_QualityCheck.Inst.Click(Page_QualityCheck.EDIT);
+        assertEquals(temp,"减速带录入错误");
+        //Page_QualityCheck.Inst.Click(Page_QualityCheck.EDIT);
         Page_QualityCheck.Inst.SetValue(Page_QualityCheck.EDIT,"测试质检");
+        Page_QualityCheck.Inst.Click(Page_QualityCheck.SAVE);
+        //返回主界面
+        Page_Indoor_Data_List.Inst.Click(Page_Indoor_Data_List.BACK);
+        Page_IndoorTool.Inst.Click(Page_IndoorTool.BACK);
+        Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
+    }
+
+    @Test
+    public void test01909_quality_check() throws Exception {
+        //新增红路灯Tips
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_LIGHT);
+        Page_MainBoard.Inst.Click(GetCenter());
+        //室内整理工具
+        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+        Page_MainMenu.Inst.Click(Page_MainMenu.INDOOR_TOOL);
+        //我的数据
+        Page_IndoorTool.Inst.Click(Page_IndoorTool.MY_DATA);
+        //点击质检开关
+        Page_MainBoard.Inst.Click(Page_MainBoard.QUALITY_CHECK);
+        //点击数据列表中红绿灯
+        Page_Indoor_Data_List.Inst.ClickObject("红绿灯");//list
+        Thread.sleep(2000);
+        Page_Indoor_Data_List.Inst.ClickObject("红绿灯");//list
+        //保存
+        Page_Indoor_Data_List.Inst.Click(Page_Indoor_Data_List.SAVE);
+        //设置录入 点属性红绿灯 错误
+        Page_QualityCheck.Inst.ClickByText("错误");
+        Page_QualityCheck.Inst.ClickByText("位置采集错误");
+        //判断编辑框是否为红绿灯采集错误
+        String temp = Page_QualityCheck.Inst.GetValue(Page_QualityCheck.EDIT);
+        assertEquals(temp,"红绿灯录入错误");
+        //设置录入 点属性红绿灯 多余
+        Page_QualityCheck.Inst.ClickByText("多余");
+        Page_QualityCheck.Inst.ClickByText("常规红绿灯采集多余");
+        //判断编辑框是否为红绿灯录入多余
+        temp = Page_QualityCheck.Inst.GetValue(Page_QualityCheck.EDIT);
+        assertEquals(temp,"红绿灯录入多余");
+
+        Page_QualityCheck.Inst.Click(Page_QualityCheck.SAVE);
+        //返回主界面
+        Page_Indoor_Data_List.Inst.Click(Page_Indoor_Data_List.BACK);
+        Page_IndoorTool.Inst.Click(Page_IndoorTool.BACK);
+        Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
+    }
+
+    @Test
+    public void test01910_quality_check() throws Exception {
+        //新增红路灯Tips
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_LIGHT);
+        Page_MainBoard.Inst.Click(GetCenter());
+        //室内整理工具
+        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+        Page_MainMenu.Inst.Click(Page_MainMenu.INDOOR_TOOL);
+        //我的数据
+        Page_IndoorTool.Inst.Click(Page_IndoorTool.MY_DATA);
+        //点击质检开关
+        Page_MainBoard.Inst.Click(Page_MainBoard.QUALITY_CHECK);
+        //点击数据列表中红绿灯
+        Page_Indoor_Data_List.Inst.ClickObject("红绿灯");//list
+        Thread.sleep(2000);
+        Page_Indoor_Data_List.Inst.ClickObject("红绿灯");//list
+        //保存
+        Page_Indoor_Data_List.Inst.Click(Page_Indoor_Data_List.SAVE);
+        //设置录入 点属性红绿灯 多余
+        Page_QualityCheck.Inst.ClickByText("多余");
+        Page_QualityCheck.Inst.ClickByText("常规红绿灯采集多余");
+        //判断编辑框是否为红绿灯采集错误
+        String temp = Page_QualityCheck.Inst.GetValue(Page_QualityCheck.EDIT);
+        assertEquals(temp,"红绿灯录入多余");
+        //设置采集 点属性红绿灯 遗漏
+        Page_QualityCheck.Inst.ClickByText("遗漏");
+        Page_QualityCheck.Inst.ClickByText("不亮的红绿灯采集遗漏");
+        //判断编辑框是否为红绿灯采集多余
+        temp = Page_QualityCheck.Inst.GetValue(Page_QualityCheck.EDIT);
+        assertEquals(temp,"红绿灯录入遗漏");
+
+        Page_QualityCheck.Inst.Click(Page_QualityCheck.SAVE);
+        //返回主界面
+        Page_Indoor_Data_List.Inst.Click(Page_Indoor_Data_List.BACK);
+        Page_IndoorTool.Inst.Click(Page_IndoorTool.BACK);
+        Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
+    }
+
+    @Test
+    public void test01911_quality_check() throws Exception {
+        //新增红路灯Tips
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_LIGHT);
+        Page_MainBoard.Inst.Click(GetCenter());
+        //室内整理工具
+        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+        Page_MainMenu.Inst.Click(Page_MainMenu.INDOOR_TOOL);
+        //我的数据
+        Page_IndoorTool.Inst.Click(Page_IndoorTool.MY_DATA);
+        //点击质检开关
+        Page_MainBoard.Inst.Click(Page_MainBoard.QUALITY_CHECK);
+        Thread.sleep(2000);
+        //点击数据列表中红绿灯
+        Page_Indoor_Data_List.Inst.ClickObject("红绿灯");//list
+        Thread.sleep(3000);
+        Page_Indoor_Data_List.Inst.ClickObject("红绿灯");//list
+        //保存
+        Page_Indoor_Data_List.Inst.Click(Page_Indoor_Data_List.SAVE);
+        //设置录入 点属性红绿灯 错误
+        Page_QualityCheck.Inst.ClickByText("错误");
+        Page_QualityCheck.Inst.ClickByText("位置采集错误");
+        //判断编辑框是否为红绿灯采集错误
+        String temp = Page_QualityCheck.Inst.GetValue(Page_QualityCheck.EDIT);
+        assertEquals(temp,"红绿灯录入错误");
+        //设置采集 点属性红绿灯 遗漏
+        Page_QualityCheck.Inst.ClickByText("遗漏");
+        Page_QualityCheck.Inst.ClickByText("不亮的红绿灯采集遗漏");
+        //判断编辑框是否为红绿灯采集多余
+        temp = Page_QualityCheck.Inst.GetValue(Page_QualityCheck.EDIT);
+        assertEquals(temp,"红绿灯录入遗漏");
+
         Page_QualityCheck.Inst.Click(Page_QualityCheck.SAVE);
         //返回主界面
         Page_Indoor_Data_List.Inst.Click(Page_Indoor_Data_List.BACK);
@@ -4305,6 +4467,15 @@ public class testFastMapYL extends testFastMapBase {
     public void test02001_quality_check() throws Exception {
         //新增内置相机
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.KIND);
+        Page_MainBoard.Inst.Click(GetCenter());
+        Thread.sleep(2000);
+        Page_Kind.Inst.Click(Page_Kind.CAMERA_MYSELT);
+        Thread.sleep(2000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Thread.sleep(3000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+        Thread.sleep(2000);
+        Page_Kind.Inst.Click(Page_Kind.K1);
     }
         protected void waitObjectEnable(String strObject) throws  InterruptedException{
         int waitCount =0;
@@ -4444,7 +4615,7 @@ public class testFastMapYL extends testFastMapBase {
     private static Point newPA= new Point(844,1151);//PA
     private static Point newRingRoad = new Point(836,1136);//匝道
     private static Point newTrafficLimit = new Point(487,1040);//交限
-    private static Point newTruckTrafficLimit = new Point(363,882);//卡车交限
+    private static Point newTruckTrafficLimit = new Point(479,998);//卡车交限
     private static Point newDirectShow = new Point(222,736);//方向看板
     private static Point newRealSign = new Point(355,745);//Real Sign
     private static Point newLeftRight = new Point(222,864);//提左提右
